@@ -35,16 +35,18 @@
       font-weight: bold;
     }
 
-    .toggle {
+    .theme-toggle {
       position: absolute;
       top: 20px;
       right: 20px;
-      background: var(--card);
-      color: var(--text);
+      background: none;
       border: none;
-      padding: 10px 15px;
-      border-radius: 5px;
       cursor: pointer;
+    }
+
+    .theme-toggle img {
+      width: 32px;
+      height: 32px;
     }
 
     h1 { text-align: center; padding: 20px; }
@@ -92,23 +94,31 @@
 </head>
 <body>
 
-<button class="toggle" onclick="toggleMode()">Ubah Tema</button>
+<!-- Tombol ubah tema (pakai gambar) -->
+<button class="theme-toggle" onclick="toggleMode()">
+  <img id="theme-icon" src="moon.png" alt="Toggle Theme">
+</button>
 
 <header>вирга</header>
 
 <h1>APK MOD Pilihan</h1>
 
 <div class="list">
+
+  <!-- Kartu APK 1 -->
   <div class="card">
     <img src="https://via.placeholder.com/100" alt="Game 1">
     <p>Game Seru 1</p>
     <a href="game1.html">Lihat Detail</a>
   </div>
+
+  <!-- Kartu APK 2 -->
   <div class="card">
     <img src="https://via.placeholder.com/100" alt="Mod ML">
     <p>Mod Mobile Legends</p>
     <a href="modml.html">Lihat Detail</a>
   </div>
+
 </div>
 
 <footer>
@@ -117,7 +127,16 @@
 
 <script>
   function toggleMode() {
-    document.body.classList.toggle("light");
+    const body = document.body;
+    const icon = document.getElementById("theme-icon");
+    body.classList.toggle("light");
+
+    // Ganti gambar ikon berdasarkan tema
+    if (body.classList.contains("light")) {
+      icon.src = "sun.png"; // Gambar tema terang
+    } else {
+      icon.src = "moon.png"; // Gambar tema gelap
+    }
   }
 </script>
 
