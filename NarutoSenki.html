@@ -26,8 +26,8 @@
     /* Live2D chat bubble */
     #live2d-dialog {
       position: fixed;
-      right: 40px;
-      bottom: 580px;
+      right: 10px; /* Adjusted position */
+      bottom: 10px; /* Adjusted position */
       max-width: 220px;
       z-index: 9999;
     }
@@ -51,6 +51,32 @@
       border-style: solid;
       border-color: white transparent transparent transparent;
     }
+
+    /* Live2D Canvas */
+    #live2d-canvas {
+      position: fixed;
+      right: 10px; /* Adjusted position */
+      bottom: 80px; /* Adjusted position */
+      width: 150px; /* Adjusted size */
+      height: 250px; /* Adjusted size */
+      z-index: 9998; /* Ensure it's behind the dialog */
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      #live2d-dialog {
+        right: 5px;
+        bottom: 5px;
+        max-width: 150px; /* Smaller dialog for mobile */
+      }
+
+      #live2d-canvas {
+        right: 5px;
+        bottom: 60px;
+        width: 100px; /* Smaller Live2D for mobile */
+        height: 180px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -67,7 +93,6 @@
   </div>
   <footer>© 2025 вирга</footer>
 
-  <!-- Popup -->
   <div class="modal-overlay" id="popup">
     <div class="modal">
       <h2>Pilih Aksi</h2>
@@ -79,18 +104,25 @@
     </div>
   </div>
 
-  <!-- Live2D Chat Dialog -->
   <div id="live2d-dialog">
     <div class="bubble">...</div>
   </div>
 
-  <!-- Live2D Rem -->
+  <div id="live2d-canvas"></div>
+
   <script src="https://cdn.jsdelivr.net/npm/live2d-widget@3.1.4/lib/L2Dwidget.min.js"></script>
   <script>
     L2Dwidget.init({
       model: { jsonPath: "https://cdn.jsdelivr.net/gh/evrstr/live2d-widget-models/live2d_evrstr/rem/model.json" },
-      display: { position: "right", width: 300, height: 550, hOffset: 0, vOffset: -20 },
-      mobile: { show: true, scale: 0.8 },
+      display: { 
+        element: document.getElementById('live2d-canvas'), // Use the container
+        position: "relative", // Changed to relative
+        width: 150, // Adjusted size
+        height: 250, // Adjusted size
+        hOffset: 0, 
+        vOffset: 0 
+      },
+      mobile: { show: true, scale: 0.5 }, // Adjusted scale for mobile
       react: { opacityDefault: 1, opacityOnHover: 0.2 }
     });
   </script>
