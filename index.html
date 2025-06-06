@@ -12,17 +12,34 @@
       color: #111;
     }
 
+    nav {
+      background-color: #ffffff;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 999;
+    }
+
+    nav h1 {
+      margin: 0;
+      font-size: 1.5rem;
+      color: #111;
+    }
+
     header {
       background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1518779578993-ec3579fee39f') no-repeat center center/cover;
       color: white;
-      padding: 4rem 1rem;
+      padding: 6rem 1rem 2rem 1rem;
       text-align: center;
-      position: relative;
     }
 
-    header h1 {
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
+    header h2 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
     }
 
     .typing {
@@ -42,6 +59,13 @@
       width: 32px;
       height: 32px;
       filter: brightness(1.2);
+    }
+
+    .about {
+      background-color: rgba(0, 0, 0, 0.6);
+      color: white;
+      padding: 3rem 1rem;
+      text-align: center;
     }
 
     .container {
@@ -78,8 +102,12 @@
   </style>
 </head>
 <body>
-  <header>
+  <nav>
     <h1>Gundam</h1>
+  </nav>
+
+  <header>
+    <h2>Welcome To My Website</h2>
     <div class="typing" id="typing"></div>
     <div class="social">
       <a href="https://instagram.com/i.lifenot4you" target="_blank">
@@ -96,6 +124,11 @@
       </a>
     </div>
   </header>
+
+  <section class="about">
+    <h2>About Me</h2>
+    <p>Deskripsi singkat tentang dirimu bisa ditulis di sini untuk menjelaskan siapa kamu, keahlian kamu, atau misi situsmu.</p>
+  </section>
 
   <div class="container">
     <div class="card">
