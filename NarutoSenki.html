@@ -23,17 +23,33 @@
     .modal-buttons a:hover { background:black; color:white; }
     .close-btn { margin-top:15px; color:red; font-size:14px; cursor:pointer; }
 
-    /* Widget chat */
-    #chat-widget {
+    /* Live2D chat bubble */
+    #live2d-dialog {
       position: fixed;
-      left: 20px; bottom: 150px;
-      background: rgba(255,255,255,0.9);
-      padding: 10px 15px;
-      border-radius: 20px;
+      right: 40px;
+      bottom: 580px;
+      max-width: 220px;
+      z-index: 9999;
+    }
+
+    #live2d-dialog .bubble {
+      background: white;
+      padding: 10px 14px;
+      border-radius: 18px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.2);
       font-size: 14px;
-      max-width: 200px;
-      display: none;
+      position: relative;
+      font-weight: 500;
+    }
+
+    #live2d-dialog .bubble::after {
+      content: "";
+      position: absolute;
+      bottom: -10px;
+      right: 20px;
+      border-width: 10px 10px 0;
+      border-style: solid;
+      border-color: white transparent transparent transparent;
     }
   </style>
 </head>
@@ -63,16 +79,19 @@
     </div>
   </div>
 
-  <div id="chat-widget">Ada yang bisa saya bantu?</div>
+  <!-- Live2D Chat Dialog -->
+  <div id="live2d-dialog">
+    <div class="bubble">...</div>
+  </div>
 
   <!-- Live2D Rem -->
   <script src="https://cdn.jsdelivr.net/npm/live2d-widget@3.1.4/lib/L2Dwidget.min.js"></script>
   <script>
     L2Dwidget.init({
       model: { jsonPath: "https://cdn.jsdelivr.net/gh/evrstr/live2d-widget-models/live2d_evrstr/rem/model.json" },
-      display: { position: "right", width: 250, height: 500, hOffset: 0, vOffset: -20 },
-      mobile: { show: true, scale: 0.7 },
-      react: { opacityDefault: 0.8, opacityOnHover: 0.2 }
+      display: { position: "right", width: 300, height: 550, hOffset: 0, vOffset: -20 },
+      mobile: { show: true, scale: 0.8 },
+      react: { opacityDefault: 1, opacityOnHover: 0.2 }
     });
   </script>
 
@@ -82,20 +101,24 @@
     function closeModal() { document.getElementById('popup').style.display = 'none'; }
     window.addEventListener('click', e => { if (e.target === document.getElementById('popup')) closeModal(); });
 
-    // Rotating chat widget
-    const messages = [
-      "Ada yang bisa saya bantu?",
-      "Ingin info lebih lanjut?",
-      "Butuh panduan?",
-      "Klik tombol download!"
+    // Chat bubble rotasi tiap 4 detik
+    const dialogMessages = [
+      "Tuan, mau bermain bersamaku?~",
+      "Klik tombol di atas ya~",
+      "Jangan lupa istirahat, oke?",
+      "Aku selalu di sini untukmu~",
+      "Kalau bingung, panggil aku ya~"
     ];
-    let idx = 0;
-    const chatDiv = document.getElementById('chat-widget');
-    chatDiv.style.display = 'block';
-    setInterval(() => {
-      chatDiv.textContent = messages[idx];
-      idx = (idx + 1) % messages.length;
-    }, 1000);
+    let dialogIndex = 0;
+    const bubble = document.querySelector("#live2d-dialog .bubble");
+
+    function updateBubble() {
+      bubble.textContent = dialogMessages[dialogIndex];
+      dialogIndex = (dialogIndex + 1) % dialogMessages.length;
+    }
+
+    updateBubble();
+    setInterval(updateBubble, 4000);
   </script>
 </body>
 </html>
