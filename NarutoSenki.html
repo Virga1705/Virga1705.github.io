@@ -10,71 +10,107 @@
       margin: 0;
       padding: 0;
       background-color: #f8f8f8;
-      text-align: center;
     }
+
+    /* Toolbar */
     header {
-      font-size: 24px;
-      font-weight: bold;
-      padding: 20px;
-    }
-    .container {
-      margin: auto;
-      max-width: 500px;
       background: white;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      padding: 15px;
+      padding: 16px;
+      font-size: 22px;
+      font-weight: bold;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
     }
-    .preview {
+
+    /* Card Container */
+    .container {
+      max-width: 360px;
+      margin: 30px auto;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      overflow: hidden;
+    }
+
+    /* Preview Image */
+    .container a img {
       width: 100%;
-      border-radius: 10px;
+      display: block;
       cursor: pointer;
     }
+
+    /* Title under image */
     .title {
-      margin: 15px 0;
-      font-size: 18px;
+      padding: 12px;
+      font-size: 16px;
       font-weight: bold;
+      text-align: left;
+      border-top: 1px solid #eee;
     }
+
+    /* Buttons */
     .buttons {
       display: flex;
-      justify-content: space-around;
-      margin-top: 15px;
+      justify-content: space-between;
+      padding: 12px;
+      gap: 10px;
     }
+
     .buttons a {
+      flex: 1;
+      text-align: center;
       text-decoration: none;
-      padding: 10px 20px;
+      padding: 10px;
       border: 2px solid black;
       border-radius: 10px;
       font-weight: bold;
       color: black;
       background-color: white;
-      transition: all 0.2s;
+      transition: all 0.2s ease-in-out;
     }
+
     .buttons a:hover {
       background-color: black;
       color: white;
     }
+
+    /* Footer */
     footer {
-      margin-top: 40px;
+      text-align: center;
+      margin-top: 50px;
       padding: 10px;
       color: #555;
+      font-size: 14px;
     }
   </style>
 </head>
 <body>
+
   <header>Naruto Senki</header>
-  
+
   <div class="container">
-    <a href="https://www.youtube.com/watch?v=VIDEO_ID" target="_blank">
-      <img src="preview.jpg" alt="Review Gameplay" class="preview">
+    <a href="https://youtu.be/1NVlvJIrFPY?si=Cv-ta_itqLGUVg2D" target="_blank">
+      <img src="preview.jpg" alt="Review Gameplay">
     </a>
     <div class="title">Review Gameplay</div>
     <div class="buttons">
-      <a href="https://example.com/download.apk" download>Download</a>
+      <a href="https://mediafire.com/download.apk" download>Download</a>
+      <a href="https://www.youtube.com/watch?v=VIDEO_ID" target="_blank">How To Download</a>
+    </div>
+  </div>
+  
+   <div class="container">
+    <a href="https://youtu.be/1NVlvJIrFPY?si=Cv-ta_itqLGUVg2D" target="_blank">
+      <img src="preview.jpg" alt="Review Gameplay">
+    </a>
+    <div class="title">Review Gameplay</div>
+    <div class="buttons">
+      <a href="https://mediafire.com/download.apk" download>Download</a>
       <a href="https://www.youtube.com/watch?v=VIDEO_ID" target="_blank">How To Download</a>
     </div>
   </div>
 
   <footer>© 2025 вирга</footer>
+
 </body>
 </html>
