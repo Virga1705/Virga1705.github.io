@@ -12,7 +12,6 @@
       background-color: #f8f8f8;
     }
 
-    /* Toolbar */
     header {
       background: white;
       padding: 16px;
@@ -22,7 +21,6 @@
       border-bottom: 1px solid #ddd;
     }
 
-    /* Card Style */
     .card {
       margin: 30px auto;
       margin-left: 20px;
@@ -56,20 +54,20 @@
       gap: 10px;
     }
 
-    .buttons a {
+    .buttons button {
       flex: 1;
       text-align: center;
-      text-decoration: none;
       padding: 10px;
       border: 2px solid black;
       border-radius: 10px;
       font-weight: bold;
       color: black;
       background-color: white;
+      cursor: pointer;
       transition: all 0.2s ease-in-out;
     }
 
-    .buttons a:hover {
+    .buttons button:hover {
       background-color: black;
       color: white;
     }
@@ -80,6 +78,63 @@
       padding: 10px;
       color: #555;
       font-size: 14px;
+    }
+
+    /* Popup Modal */
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0,0,0,0.5);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+    }
+
+    .modal {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      width: 80%;
+      max-width: 300px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      text-align: center;
+    }
+
+    .modal h2 {
+      margin-top: 0;
+      font-size: 18px;
+    }
+
+    .modal-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .modal-buttons a {
+      text-decoration: none;
+      padding: 10px;
+      border: 2px solid black;
+      border-radius: 10px;
+      font-weight: bold;
+      color: black;
+      background-color: white;
+      transition: all 0.2s ease-in-out;
+    }
+
+    .modal-buttons a:hover {
+      background-color: black;
+      color: white;
+    }
+
+    .close-btn {
+      margin-top: 15px;
+      color: red;
+      font-size: 14px;
+      cursor: pointer;
     }
   </style>
 </head>
@@ -93,12 +148,42 @@
     </a>
     <div class="title">NS: Waifu War V1</div>
     <div class="buttons">
-      <a href="https://example.com/download.apk" download>Download</a>
-      <a href="https://www.youtube.com/watch?v=VIDEO_ID" target="_blank">How To Download</a>
+      <button onclick="openModal()">Download</button>
+      <button onclick="openModal()">How To Download</button>
     </div>
   </div>
 
   <footer>© 2025 вирга</footer>
+
+  <!-- Modal -->
+  <div class="modal-overlay" id="popup">
+    <div class="modal">
+      <h2>Pilih Aksi</h2>
+      <div class="modal-buttons">
+        <a href="https://example.com/download.apk" download>Download APK Sekarang</a>
+        <a href="https://www.youtube.com/watch?v=1NVlvJIrFPY" target="_blank">Tonton Panduan</a>
+      </div>
+      <div class="close-btn" onclick="closeModal()">Tutup</div>
+    </div>
+  </div>
+
+  <script>
+    function openModal() {
+      document.getElementById('popup').style.display = 'flex';
+    }
+
+    function closeModal() {
+      document.getElementById('popup').style.display = 'none';
+    }
+
+    // Tutup modal kalau klik di luar kotak
+    window.addEventListener('click', function(e) {
+      const modal = document.getElementById('popup');
+      if (e.target === modal) {
+        closeModal();
+      }
+    });
+  </script>
 
 </body>
 </html>
