@@ -5,142 +5,40 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Naruto Senki</title>
   <style>
-    body {
-      font-family: sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #f8f8f8;
-    }
+    body { font-family: sans-serif; margin:0; padding:0; background:#f8f8f8; }
+    header { background:white; padding:16px; font-size:22px; font-weight:bold; text-align:left; border-bottom:1px solid #ddd; }
+    .card { margin:30px auto; margin-left:20px; margin-right:20px; border:1px solid #ccc; border-radius:10px; overflow:hidden; background:white; box-shadow:0 2px 6px rgba(0,0,0,0.1); max-width:360px; }
+    .card a img { width:100%; display:block; cursor:pointer; }
+    .title { padding:12px; font-size:16px; font-weight:bold; text-align:left; border-top:1px solid #eee; }
+    .buttons { display:flex; justify-content:space-between; padding:12px; gap:10px; }
+    .buttons button { flex:1; text-align:center; padding:10px; border:2px solid black; border-radius:10px; font-weight:bold; color:black; background:white; cursor:pointer; transition:all .2s ease-in-out; }
+    .buttons button:hover { background:black; color:white; }
+    footer { text-align:center; margin-top:50px; padding:10px; color:#555; font-size:14px; }
 
-    header {
-      background: white;
-      padding: 16px;
-      font-size: 22px;
-      font-weight: bold;
-      text-align: left;
-      border-bottom: 1px solid #ddd;
-    }
+    .modal-overlay { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); display:none; justify-content:center; align-items:center; z-index:999; }
+    .modal { background:white; border-radius:12px; padding:20px; width:80%; max-width:300px; box-shadow:0 5px 15px rgba(0,0,0,0.2); text-align:center; }
+    .modal h2 { margin-top:0; font-size:18px; }
+    .modal-buttons { display:flex; flex-direction:column; gap:10px; margin-top:15px; }
+    .modal-buttons a { text-decoration:none; padding:10px; border:2px solid black; border-radius:10px; font-weight:bold; color:black; background:white; transition:all .2s ease-in-out; }
+    .modal-buttons a:hover { background:black; color:white; }
+    .close-btn { margin-top:15px; color:red; font-size:14px; cursor:pointer; }
 
-    .card {
-      margin: 30px auto;
-      margin-left: 20px;
-      margin-right: 20px;
-      border: 1px solid #ccc;
-      border-radius: 10px;
-      overflow: hidden;
-      background-color: white;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-      max-width: 360px;
-    }
-
-    .card a img {
-      width: 100%;
-      display: block;
-      cursor: pointer;
-    }
-
-    .title {
-      padding: 12px;
-      font-size: 16px;
-      font-weight: bold;
-      text-align: left;
-      border-top: 1px solid #eee;
-    }
-
-    .buttons {
-      display: flex;
-      justify-content: space-between;
-      padding: 12px;
-      gap: 10px;
-    }
-
-    .buttons button {
-      flex: 1;
-      text-align: center;
-      padding: 10px;
-      border: 2px solid black;
-      border-radius: 10px;
-      font-weight: bold;
-      color: black;
-      background-color: white;
-      cursor: pointer;
-      transition: all 0.2s ease-in-out;
-    }
-
-    .buttons button:hover {
-      background-color: black;
-      color: white;
-    }
-
-    footer {
-      text-align: center;
-      margin-top: 50px;
-      padding: 10px;
-      color: #555;
-      font-size: 14px;
-    }
-
-    .modal-overlay {
+    /* Widget chat */
+    #chat-widget {
       position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background-color: rgba(0,0,0,0.5);
-      display: none;
-      justify-content: center;
-      align-items: center;
-      z-index: 999;
-    }
-
-    .modal {
-      background: white;
-      border-radius: 12px;
-      padding: 20px;
-      width: 80%;
-      max-width: 300px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-      text-align: center;
-    }
-
-    .modal h2 {
-      margin-top: 0;
-      font-size: 18px;
-    }
-
-    .modal-buttons {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-top: 15px;
-    }
-
-    .modal-buttons a {
-      text-decoration: none;
-      padding: 10px;
-      border: 2px solid black;
-      border-radius: 10px;
-      font-weight: bold;
-      color: black;
-      background-color: white;
-      transition: all 0.2s ease-in-out;
-    }
-
-    .modal-buttons a:hover {
-      background-color: black;
-      color: white;
-    }
-
-    .close-btn {
-      margin-top: 15px;
-      color: red;
+      left: 20px; bottom: 150px;
+      background: rgba(255,255,255,0.9);
+      padding: 10px 15px;
+      border-radius: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
       font-size: 14px;
-      cursor: pointer;
+      max-width: 200px;
+      display: none;
     }
   </style>
 </head>
 <body>
-
   <header>Naruto Senki</header>
-
   <div class="card">
     <a href="https://youtu.be/1NVlvJIrFPY?si=Cv-ta_itqLGUVg2D" target="_blank">
       <img src="https://files.catbox.moe/6rvrqu.jpg" alt="Review Gameplay">
@@ -151,7 +49,6 @@
       <button onclick="openModal()">How To Download</button>
     </div>
   </div>
-
   <footer>© 2025 вирга</footer>
 
   <!-- Popup -->
@@ -166,47 +63,39 @@
     </div>
   </div>
 
+  <div id="chat-widget">Ada yang bisa saya bantu?</div>
+
   <!-- Live2D Rem -->
   <script src="https://cdn.jsdelivr.net/npm/live2d-widget@3.1.4/lib/L2Dwidget.min.js"></script>
   <script>
     L2Dwidget.init({
-      model: {
-        jsonPath: "https://cdn.jsdelivr.net/gh/evrstr/live2d-widget-models/live2d_evrstr/rem/model.json"
-      },
-      display: {
-        position: "right",
-        width: 150,
-        height: 300,
-        hOffset: 0,
-        vOffset: -20
-      },
-      mobile: {
-        show: true,
-        scale: 0.5
-      },
-      react: {
-        opacityDefault: 0.7,
-        opacityOnHover: 0.2
-      }
+      model: { jsonPath: "https://cdn.jsdelivr.net/gh/evrstr/live2d-widget-models/live2d_evrstr/rem/model.json" },
+      display: { position: "right", width: 250, height: 500, hOffset: 0, vOffset: -20 },
+      mobile: { show: true, scale: 0.7 },
+      react: { opacityDefault: 0.8, opacityOnHover: 0.2 }
     });
   </script>
 
   <script>
-    function openModal() {
-      document.getElementById('popup').style.display = 'flex';
-    }
+    // Popup modal
+    function openModal() { document.getElementById('popup').style.display = 'flex'; }
+    function closeModal() { document.getElementById('popup').style.display = 'none'; }
+    window.addEventListener('click', e => { if (e.target === document.getElementById('popup')) closeModal(); });
 
-    function closeModal() {
-      document.getElementById('popup').style.display = 'none';
-    }
-
-    window.addEventListener('click', function(e) {
-      const modal = document.getElementById('popup');
-      if (e.target === modal) {
-        closeModal();
-      }
-    });
+    // Rotating chat widget
+    const messages = [
+      "Ada yang bisa saya bantu?",
+      "Ingin info lebih lanjut?",
+      "Butuh panduan?",
+      "Klik tombol download!"
+    ];
+    let idx = 0;
+    const chatDiv = document.getElementById('chat-widget');
+    chatDiv.style.display = 'block';
+    setInterval(() => {
+      chatDiv.textContent = messages[idx];
+      idx = (idx + 1) % messages.length;
+    }, 1000);
   </script>
-
 </body>
 </html>
