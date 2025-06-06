@@ -44,6 +44,30 @@
       padding: 2rem;
     }
 
+    .banner {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    .banner img {
+      width: 100%;
+      max-width: 900px;
+      border-radius: 10px;
+    }
+
+    .channel-info {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      margin: 1.5rem 0;
+    }
+
+    .channel-description {
+      margin-top: 1rem;
+      max-width: 500px;
+    }
+
     .card {
       border: 1px solid white;
       border-radius: 10px;
@@ -86,8 +110,20 @@
     }
 
     .social a img {
-      width: 32px;
-      height: 32px;
+      width: 30px;
+      height: 30px;
+    }
+
+    @media (min-width: 768px) {
+      .channel-info {
+        flex-direction: row;
+        justify-content: center;
+        gap: 2rem;
+      }
+
+      .channel-description {
+        text-align: left;
+      }
     }
   </style>
 </head>
@@ -96,45 +132,54 @@
     <h1>вирга</h1>
     <!-- Tombol Gambar untuk Ubah Tema -->
     <button class="theme-toggle" onclick="toggleTheme()">
-      <img id="theme-icon" src="https://virga1705.github.io/moon.png" width="30" alt="Ubah Tema" />
+      <img id="theme-icon" src="icon-moon.png" width="30" alt="Ubah Tema" />
     </button>
   </header>
 
   <div class="container">
-    <!-- Card 1: Game Seru 1 -->
+    <!-- Banner Channel -->
+    <div class="banner">
+      <img src="https://telegra.ph/file/44218c01d7c1f2f2e79e4.jpg" alt="Banner Virga FS">
+    </div>
+
+    <!-- Info Channel -->
+    <div class="channel-info">
+      <div class="channel-pfp">
+        <img src="https://telegra.ph/file/2a22242b6f69c3c7316a1.jpg" alt="Virga FS Profile" style="width:100px;height:100px;border-radius:50%;">
+      </div>
+      <div class="channel-description">
+        <h2>Virga FS</h2>
+        <p>@VVIRGAFS</p>
+        <p>100 subscribers • 57 videos</p>
+      </div>
+    </div>
+
+    <!-- Card 1 -->
     <div class="card">
-      <a href="https://Virga1705.github.io/NarutoSenki.html">
-        <img src="https://files.catbox.moe/6rvrqu.jpg" alt="404" />
+      <a href="https://example.com/game1.html">
+        <img src="https://telegra.ph/file/eb44201d3ddf03ff729b2.jpg" alt="Game Seru 1" />
       </a>
-      <p>NARUTO SENKI</p>
+      <p>Game Seru 1</p>
     </div>
 
     <!-- Card 2 -->
     <div class="card">
-      <a href="https://Virga1705/pixellab.html">
-        <img src="https://telegra.ph/file/7881614e96ad144768f99.jpg" alt="404" />
+      <a href="https://example.com/mod-ml.html">
+        <img src="https://telegra.ph/file/7881614e96ad144768f99.jpg" alt="Mod Mobile Legends" />
       </a>
-      <p>PIXELLAB MOD THEME</p>
-    </div>
-    
-        <!-- Card 3-->
-    <div class="card">
-      <a href="https://Virga1705.github.io/ggmod.html">
-        <img src="https://files.catbox.moe/" alt="404" />
-      </a>
-      <p>GAME GUARDIAN MOD THEME</p>
+      <p>Mod Mobile Legends</p>
     </div>
 
-    <!-- Media Sosial dengan Icon -->
+    <!-- Media Sosial -->
     <div class="social">
-      <a href="https://instagram.com/i.lifenot4you" target="_blank">
-        <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram">
+      <a href="https://instagram.com/virga1705" target="_blank">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram">
       </a>
       <a href="https://youtube.com/@VVIRGAFS" target="_blank">
-        <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="YouTube">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/9/9f/Youtube%28amin%29.png" alt="YouTube">
       </a>
-      <a href="virga1705@gmail.com">
-        <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Customer Service">
+      <a href="mailto:cs@virga.com">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Mail_%28iOS%29.svg" alt="Customer Service">
       </a>
     </div>
   </div>
@@ -148,9 +193,7 @@
       document.body.classList.toggle("light-mode");
       const icon = document.getElementById("theme-icon");
       const isLight = document.body.classList.contains("light-mode");
-      icon.src = isLight
-        ? "https://virga1705.github.io/sun.png" // ikon matahari dari folder sendiri
-        : "https:virga1705.github.io/moon.png"; // ikon bulan dari folder sendiri
+      icon.src = isLight ? "icon-sun.png" : "icon-moon.png";
     }
   </script>
 </body>
