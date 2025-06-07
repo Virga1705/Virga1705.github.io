@@ -208,38 +208,38 @@
       </div>
     </div>
     <div class="buttons">
-      <button onclick="openModal('download', 'waifu1')">Download</button>
-      <button onclick="openModal('howto', 'waifu1')">Cara Download</button>
+      <button onclick="openModal('download', 'waifu1', 'Download Link1', 'Download Link2')">Download</button>
+      <button onclick="openModal('howto', 'waifu1', '', '')">Cara Download</button>
     </div>
   </div>
 
   <div class="card">
-    <a href="#"><img src="https://files.catbox.moe/xso4zv.jpg" alt="NS Original"></a>
+    <a href="https://youtu.be/mRTvlyhyzuk"><img src="https://files.catbox.moe/deyydz.jpg" alt="NS Original"></a>
     <div class="title">
-      <span>NS: Original</span>
+      <span>Narsen Unprotect 1.17 Full Screen</span>
       <button class="desc-toggle" onclick="toggleDesc(this)">Deskripsi ▼</button>
       <div class="desc-text" style="display:none; margin-top:8px; font-weight:normal; font-size:14px; color:#333;">
-        NS: Original adalah versi dasar dari Naruto Senki tanpa modifikasi. Cocok untuk pemula.
+        Narsen Unprotect 1.17 adalah versi dasar dari Naruto Senki tanpa modifikasi Lain. Cocok untuk project narsen kalian.
       </div>
     </div>
     <div class="buttons">
-      <button onclick="openModal('download', 'original')">Download</button>
-      <button onclick="openModal('howto', 'original')">How To Download</button>
+      <button onclick="openModal('download', 'original', 'Download Link1', 'Download Link2')">Download</button>
+      <button onclick="openModal('howto', 'original', '', '')">How To Download</button>
     </div>
   </div>
 
   <div class="card">
-    <a href="#"><img src="https://files.catbox.moe/xngszq.jpg" alt="NS V2.1"></a>
+    <a href="https://youtu.be/NCH1Ohn5okM"><img src="https://files.catbox.moe/zjidv3.jpg" alt="NS V2.1"></a>
     <div class="title">
-      <span>NS: V2.1</span>
+      <span>NARUTO SENKI 2.1.6</span>
       <button class="desc-toggle" onclick="toggleDesc(this)">Deskripsi ▼</button>
       <div class="desc-text" style="display:none; margin-top:8px; font-weight:normal; font-size:14px; color:#333;">
-        NS: V2.1 adalah update dengan karakter tambahan dan balancing gameplay.
+        Naruto Senki 2.1.6 adalah Narsen yang di Kembangkan Oleh RE Memberikan Update Dengan Mode Baru dan Balancing Gameplay.
       </div>
     </div>
     <div class="buttons">
-      <button onclick="openModal('download', 'v21')">Download</button>
-      <button onclick="openModal('howto', 'v21')">How To Download</button>
+      <button onclick="openModal('download', 'v21', 'Download Link1', 'Download Link2')">Download</button>
+      <button onclick="openModal('howto', 'v21', '', '')">How To Download</button>
     </div>
   </div>
 
@@ -253,8 +253,8 @@
       </div>
     </div>
     <div class="buttons">
-      <button onclick="openModal('download', 'cina')">Download</button>
-      <button onclick="openModal('howto', 'cina')">How To Download</button>
+      <button onclick="openModal('download', 'cina', 'Download Link1', 'Download Link2')">Download</button>
+      <button onclick="openModal('howto', 'cina', '', '')">How To Download</button>
     </div>
   </div>
 
@@ -268,8 +268,8 @@
       </div>
     </div>
     <div class="buttons">
-      <button onclick="openModal('download', 'uchiha')">Download</button>
-      <button onclick="openModal('howto', 'uchiha')">How To Download</button>
+      <button onclick="openModal('download', 'uchiha', 'Download Link1', 'Download Link2')">Download</button>
+      <button onclick="openModal('howto', 'uchiha', '', '')">How To Download</button>
     </div>
   </div>
 
@@ -283,7 +283,7 @@
   </div>
 
   <script>
-    function openModal(mode, gameVersion) {
+    function openModal(mode, gameVersion, buttonText1 = 'Download Apk sekarang', buttonText2 = 'Download APK Lainnya') {
       const popup = document.getElementById('popup');
       const body = document.getElementById('modal-body');
       let content = '';
@@ -291,7 +291,8 @@
       let downloadLink2 = '';
       let youtubeLink1 = '';
       let youtubeLink2 = ''; // Link baru untuk panduan YouTube
-/* Untuk Stel Link */
+
+      /* Untuk Stel Link */
       switch (gameVersion) {
         case 'waifu1':
           downloadLink1 = 'https://tutwuri.id/soal-ulangan-harian-kelas-5-tema-1-sub-tema-3/';
@@ -300,14 +301,14 @@
           youtubeLink2 = 'https://youtube.com/waifu1_tutorial2'; // Contoh link YouTube 2
           break;
         case 'original':
-          downloadLink1 = 'https://example.com/original_download.apk';
+          downloadLink1 = 'https://link2unlock.com/d1e1c';
           downloadLink2 = 'https://example.com/original_another_download.apk';
           youtubeLink1 = 'https://youtu.be/Af1Sj7MDhiM?si=EHKw02WB87uTumQI';
           youtubeLink2 = 'https://youtube.com/original_tutorial2';
           break;
         case 'v21':
           downloadLink1 = 'https://example.com/v21_download.apk';
-          downloadLink2 = 'https://example.com/v21_another_download.apk';
+          downloadLink2 = 'https://github.com/Naruto-Senki/files/releases/download/v2.1.6-fix/NSV2_2.1.6-fix_Android.apk';
           youtubeLink1 = 'https://youtu.be/Af1Sj7MDhiM?si=EHKw02WB87uTumQI';
           youtubeLink2 = 'https://youtube.com/v21_tutorial2';
           break;
@@ -334,8 +335,8 @@
         content = `
           <h2>Download Game</h2>
           <div class="modal-buttons">
-            <a href="${downloadLink1}" download>Download APK Sekarang</a>
-            <a href="${downloadLink2}" download>Download APK Lainnya</a>
+            <a id="download-apk-sekarang-${gameVersion}" href="${downloadLink1}" download>${buttonText1}</a>
+            <a id="download-apk-lainnya-${gameVersion}" href="${downloadLink2}" download>${buttonText2}</a>
             <p style="margin-top:10px; font-size:14px; color:#333;">Jika link tidak bisa dibuka, pastikan kamu sudah Menonaktifkan Adblock atau coba browser lain.</p>
           </div>
         `;
