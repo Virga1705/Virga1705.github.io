@@ -68,36 +68,142 @@
       text-align: center;
     }
 
+    /* CONTAINER untuk layout grid */
     .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
       padding: 2rem;
     }
 
-    .card {
-      border: 1px solid #ccc;
-      border-radius: 10px;
-      overflow: hidden;
-      margin-bottom: 2rem;
-      background-color: white;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    }
-
-    .card img {
-      width: 100%;
-      display: block;
+    /* Gaya Dasar Card */
+    .virga-card {
+      background-color: #ffffff;
+      border-radius: 15px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 15px;
       cursor: pointer;
+      transition: transform 0.2s ease-in-out;
+      width: 300px; /* Lebar konsisten */
+      min-height: 150px; /* Tinggi minimum konsisten */
+      text-decoration: none;
+      box-sizing: border-box; /* Penting untuk konsistensi ukuran */
+
+      display: flex; /* Menggunakan flexbox untuk layout logo dan konten */
+      align-items: flex-start; /* Pusatkan item secara vertikal (logo dan konten) */
     }
 
-    .card p {
-      text-align: center;
-      padding: 0.5rem;
-      font-size: 1.1rem;
+    .virga-card:hover {
+      transform: translateY(-5px);
     }
+
+    .virga-card .card-logo {
+      width: 60px; /* Ukuran logo */
+      height: 60px;
+      flex-shrink: 0; /* Mencegah logo mengecil */
+      object-fit: contain; /* Memastikan gambar logo tidak terdistorsi */
+    }
+
+    .virga-card .card-content-wrapper {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1; /* Memungkinkan konten teks mengambil ruang yang tersisa */
+      margin: 0 15px; /* Jarak antara logo dan konten teks */
+    }
+
+    .virga-card .card-title {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #333;
+      margin: 0 0 5px 0; /* Jarak bawah judul */
+      text-align: left; /* Sesuaikan perataan judul */
+    }
+
+    .virga-card .card-description {
+      font-size: 0.9rem;
+      color: #666;
+      margin: 0;
+      line-height: 1.4;
+      text-align: left; /* Sesuaikan perataan deskripsi */
+    }
+
+    /* --- Gaya untuk Logo di Kiri (Card 1 dan 3) --- */
+    .align-left-logo .card-logo {
+      margin-right: 15px; /* Jarak kanan logo */
+    }
+
+    .align-left-logo .card-content-wrapper {
+      order: 1; /* Konten teks setelah logo */
+    }
+
+    /* --- Gaya untuk Logo di Kanan (Card 2) --- */
+    .align-right-logo {
+      flex-direction: row-reverse; /* Membalik urutan flex items */
+    }
+
+    .align-right-logo .card-logo {
+      margin-left: 15px; /* Jarak kiri logo */
+    }
+
+    .align-right-logo .card-content-wrapper {
+      order: 1; /* Konten teks sebelum logo (karena row-reverse) */
+      margin-right: 15px; /* Sesuaikan margin agar tidak terlalu dekat dengan logo */
+      margin-left: 0;
+    }
+
+
+    /* Gaya untuk "Read More" */
+    .read-more-text {
+      display: inline;
+    }
+
+    .read-more-toggle {
+      color: #007bff; /* Warna biru untuk link "Read More" */
+      cursor: pointer;
+      font-weight: bold;
+      margin-left: 5px; /* Jarak dari teks akhir */
+    }
+
+    .read-more-ellipsis {
+      display: inline;
+    }
+
+    /* Sembunyikan sebagian teks saat tidak diperluas */
+    .card-description.collapsed .more-text {
+      display: none;
+    }
+
+    /* Sembunyikan elipsis saat diperluas */
+    .card-description:not(.collapsed) .read-more-ellipsis {
+      display: none;
+    }
+
 
     footer {
       text-align: center;
       padding: 2rem 1rem;
       background-color: #f0f0f0;
       color: #555;
+    }
+
+    /* Media Queries untuk Responsivitas */
+    @media (max-width: 768px) {
+        .virga-card {
+            width: 100%; /* Lebar penuh pada layar yang lebih kecil */
+            max-width: 400px; /* Batasi lebar maksimum */
+            padding: 10px;
+        }
+        .virga-card .card-logo {
+          width: 50px;
+          height: 50px;
+        }
+        .virga-card .card-title {
+          font-size: 1.1rem;
+        }
+        .virga-card .card-description {
+          font-size: 0.85rem;
+        }
     }
   </style>
 </head>
@@ -131,26 +237,41 @@
   </section>
 
   <div class="container">
-    <div class="card">
-      <a href="https://Virga1705.github.io/NarutoSenki.html">
-        <img src="https://files.catbox.moe/6rvrqu.jpg" alt="404" />
-      </a>
-      <p>NARUTO SENKI</p>
-    </div>
 
-    <div class="card">
-      <a href="https://Virga1705.github.io/pixellab.html">
-        <img src="https://telegra.ph/file/7881614e96ad144768f99.jpg" alt="404" />
-      </a>
-      <p>PIXELLAB MOD THEME</p>
-    </div>
+    <a href="https://Virga1705.github.io/NarutoSenki.html" class="virga-card align-left-logo">
+      <img src="https://files.catbox.moe/ngsl57.jpg" alt="Naruto Senki Logo" class="card-logo">
+      <div class="card-content-wrapper">
+        <p class="card-title">Naruto Senki</p>
+        <p class="card-description collapsed" data-full-text="Modifikasi game Naruto Senki dengan karakter dan fitur baru yang seru. Nikmati pertempuran epik dan skill unik yang belum pernah ada sebelumnya. Tambahan level dan misi baru akan menantang kemampuan bermainmu.">
+          Modifikasi game Naruto Senki dengan karakter dan fitur baru yang seru. <span class="more-text">Nikmati pertempuran epik dan skill unik yang belum pernah ada sebelumnya. Tambahan level dan misi baru akan menantang kemampuan bermainmu.</span>
+          <span class="read-more-ellipsis">...</span>
+          <span class="read-more-toggle">Read More</span>
+        </p>
+      </div>
+    </a>
 
-    <div class="card">
-      <a href="https://Virga1705.github.io/ggmod.html">
-        <img src="https://files.catbox.moe/placeholder.jpg" alt="404" />
-      </a>
-      <p>GAME GUARDIAN MOD THEME</p>
-    </div>
+    <a href="https://Virga1705.github.io/pixelLab.html" class="virga-card align-right-logo">
+      <img src="https://files.catbox.moe/97vkic.png" alt="PixelLab Logo" class="card-logo">
+      <div class="card-content-wrapper">
+        <p class="card-title">PixelLab</p>
+        <p class="card-description collapsed" data-full-text="Aplikasi editing foto dengan berbagai tema dan font premium. Buat desain grafis profesional langsung dari ponsel Anda. Tambahan fitur filter dan efek terbaru.">
+          Aplikasi editing foto dengan berbagai tema dan font premium. <span class="more-text">Buat desain grafis profesional langsung dari ponsel Anda. Tambahan fitur filter dan efek terbaru.</span>
+          <span class="read-more-ellipsis">...</span>
+          <span class="read-more-toggle">Read More</span>
+        </p>
+      </div>
+    </a>
+
+    <a href="https://Virga1705.github.io/gg.html" class="virga-card align-left-logo">
+      <img src="https://files.catbox.moe/xqmdrq.png" alt="Game Guardian Logo" class="card-logo"> <div class="card-content-wrapper">
+        <p class="card-title">GAME GUARDIAN</p>
+        <p class="card-description collapsed" data-full-text="Modifikasi Game Guardian dengan tema kustom dan fitur unik untuk pengalaman bermain game. Dapatkan akses ke fitur-fitur eksklusif dan optimasi performa. Cocok untuk para modder dan gamer sejati.">
+          Modifikasi Game Guardian dengan tema kustom dan fitur unik untuk pengalaman bermain game. <span class="more-text">Dapatkan akses ke fitur-fitur eksklusif dan optimasi performa. Cocok untuk para modder dan gamer sejati.</span>
+          <span class="read-more-ellipsis">...</span>
+          <span class="read-more-toggle">Read More</span>
+        </p>
+      </div>
+    </a>
   </div>
 
   <footer>
@@ -158,6 +279,33 @@
   </footer>
 
   <script>
+    // JavaScript untuk Read More
+    document.addEventListener('DOMContentLoaded', function() {
+      const toggleButtons = document.querySelectorAll('.read-more-toggle');
+
+      toggleButtons.forEach(button => {
+        button.addEventListener('click', function(event) {
+          event.preventDefault(); // Mencegah link card ikut diklik
+          event.stopPropagation(); // Mencegah event click menyebar ke parent (card link)
+
+          const description = this.closest('.card-description');
+          const moreText = description.querySelector('.more-text');
+          const ellipsis = description.querySelector('.read-more-ellipsis');
+
+          if (description.classList.contains('collapsed')) {
+            // Expanded state
+            description.classList.remove('collapsed');
+            this.textContent = 'Read Less';
+          } else {
+            // Collapsed state
+            description.classList.add('collapsed');
+            this.textContent = 'Read More';
+          }
+        });
+      });
+    });
+
+    // JavaScript untuk Typing Effect (yang sudah ada)
     const texts = ["I am Milf Lover", "I am Mechanic", "I am Chill guy", "I am Sigma"];
     let count = 0;
     let index = 0;
@@ -181,7 +329,7 @@
 
   <script src="https://l2dwidget.js.org/lib/L2Dwidget.min.js"></script>
   <script type="text/javascript">
-    // Function to get a random message
+    // Function to get a random message (yang sudah ada)
     function getRandomMessage() {
         const messages = [
             'Hai, ada yang bisa saya bantu?',
@@ -212,7 +360,7 @@
             enable: true,
             script: {
                 'every idle 10s': getRandomMessage(),
-                'hover .star': '', // Anda bisa menambahkan pesan di sini jika ingin
+                'hover .star': '',
                 'tap body': 'Hentai!',
                 'tap face': getRandomMessage()
             }
