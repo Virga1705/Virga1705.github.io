@@ -22,67 +22,6 @@
     .modal-buttons a { text-decoration:none; padding:10px; border:2px solid black; border-radius:10px; font-weight:bold; color:black; background:white; transition:all .2s ease-in-out; }
     .modal-buttons a:hover { background:black; color:white; }
     .close-btn { margin-top:15px; color:red; font-size:14px; cursor:pointer; }
-
-    /* Live2D chat bubble */
-    #live2d-dialog {
-      position: fixed;
-      right: 15px; /* Sesuaikan posisi horizontal */
-      bottom: 240px; /* Posisi di atas karakter (sesuaikan dengan tinggi karakter) */
-      max-width: 220px;
-      z-index: 9999;
-      /* Pastikan teks tidak terlalu dekat dengan tepi bubble */
-      padding-right: 10px;
-    }
-
-    #live2d-dialog .bubble {
-      background: white;
-      padding: 10px 14px;
-      border-radius: 18px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-      font-size: 14px;
-      position: relative;
-      font-weight: 500;
-    }
-
-    #live2d-dialog .bubble::after {
-      content: "";
-      position: absolute;
-      bottom: -10px; /* Panah menunjuk ke bawah */
-      right: 30px; /* Sesuaikan posisi panah agar menunjuk ke karakter */
-      border-width: 10px 10px 0;
-      border-style: solid;
-      border-color: white transparent transparent transparent;
-    }
-
-    /* Live2D Canvas */
-    #live2d-canvas {
-      position: fixed;
-      right: 0px; /* Sesuaikan posisi horizontal */
-      bottom: -30px; /* Posisi di paling bawah, geser sedikit ke atas */
-      width: 250px; /* Ukuran lebih besar agar karakter lebih jelas */
-      height: 350px; /* Ukuran lebih besar agar karakter lebih jelas */
-      z-index: 9998; /* Pastikan di belakang dialog */
-    }
-
-    /* Responsive adjustments */
-    @media (max-width: 768px) {
-      #live2d-dialog {
-        right: 10px;
-        bottom: 180px; /* Sesuaikan untuk mobile */
-        max-width: 180px;
-      }
-
-      #live2d-dialog .bubble::after {
-        right: 20px;
-      }
-
-      #live2d-canvas {
-        right: -20px; /* Sesuaikan untuk mobile, mungkin perlu digeser */
-        bottom: -50px; /* Sesuaikan untuk mobile */
-        width: 200px;
-        height: 300px;
-      }
-    }
   </style>
 </head>
 <body>
@@ -110,53 +49,50 @@
     </div>
   </div>
 
-  <div id="live2d-dialog">
-    <div class="bubble">...</div>
-  </div>
-
-  <div id="live2d-canvas"></div>
-
-  <script src="https://cdn.jsdelivr.net/npm/live2d-widget@3.1.4/lib/L2Dwidget.min.js"></script>
-  <script>
-    L2Dwidget.init({
-      model: { jsonPath: "https://cdn.jsdelivr.net/gh/evrstr/live2d-widget-models/live2d_evrstr/rem/model.json" },
-      display: {
-        element: document.getElementById('live2d-canvas'), // Use the container
-        position: "relative", // Changed to relative
-        width: 250, // Sesuaikan dengan ukuran canvas
-        height: 350, // Sesuaikan dengan ukuran canvas
-        hOffset: 0,
-        vOffset: 0
-      },
-      mobile: { show: true, scale: 0.7 }, // Skala lebih besar untuk mobile agar jelas
-      react: { opacityDefault: 1, opacityOnHover: 0.2 }
-    });
-  </script>
-
   <script>
     // Popup modal
     function openModal() { document.getElementById('popup').style.display = 'flex'; }
     function closeModal() { document.getElementById('popup').style.display = 'none'; }
     window.addEventListener('click', e => { if (e.target === document.getElementById('popup')) closeModal(); });
+  </script>
 
-    // Chat bubble rotasi tiap 4 detik
-    const dialogMessages = [
-      "Tuan, mau bermain bersamaku?~",
-      "Klik tombol di atas ya~",
-      "Jangan lupa istirahat, oke?",
-      "Aku selalu di sini untukmu~",
-      "Kalau bingung, panggil aku ya~"
-    ];
-    let dialogIndex = 0;
-    const bubble = document.querySelector("#live2d-dialog .bubble");
-
-    function updateBubble() {
-      bubble.textContent = dialogMessages[dialogIndex];
-      dialogIndex = (dialogIndex + 1) % dialogMessages.length;
+  <!-- Live2D Kurumi -->
+  <script src="https://l2dwidget.js.org/lib/L2Dwidget.min.js"></script>
+  <script type="text/javascript">
+    function getRandomMessage() {
+      const messages = [
+        'Tekan Tombol Cara Downloadnya Ya Jika Kamu Bingung',
+        'Jangan Lupa Klik Gambarnya Untuk Melihat Gameplay nya~',
+      ];
+      const randomIndex = Math.floor(Math.random() * messages.length);
+      return messages[randomIndex];
     }
 
-    updateBubble();
-    setInterval(updateBubble, 4000);
+    L2Dwidget.init({
+      model: {
+        jsonPath: "https://raw.githubusercontent.com/KanzakiisYU/live2d-model/main/kurumi/model.json"
+      },
+      display: {
+        position: "right",
+        width: 200,
+        height: 550,
+        hOffset: 20,
+        vOffset: -200
+      },
+      mobile: {
+        show: true,
+        scale: 1
+      },
+      dialog: {
+        enable: true,
+        script: {
+          'every idle 10s': getRandomMessage(),
+          'hover .star': '',
+          'tap body': 'Hentai!',
+          'tap face': getRandomMessage()
+        }
+      }
+    });
   </script>
 </body>
 </html>
