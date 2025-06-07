@@ -5,70 +5,303 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Naruto Senki</title>
   <style>
-    body { font-family: sans-serif; margin:0; padding:0; background:#f8f8f8; }
-    header { background:white; padding:16px; font-size:22px; font-weight:bold; text-align:left; border-bottom:1px solid #ddd; }
-    .card { margin:30px auto; margin-left:20px; margin-right:20px; border:1px solid #ccc; border-radius:10px; overflow:hidden; background:white; box-shadow:0 2px 6px rgba(0,0,0,0.1); max-width:360px; }
-    .card a img { width:100%; display:block; cursor:pointer; }
-    .title { padding:12px; font-size:16px; font-weight:bold; text-align:left; border-top:1px solid #eee; }
-    .buttons { display:flex; justify-content:space-between; padding:12px; gap:10px; }
-    .buttons button { flex:1; text-align:center; padding:10px; border:2px solid black; border-radius:10px; font-weight:bold; color:black; background:white; cursor:pointer; transition:all .2s ease-in-out; }
-    .buttons button:hover { background:black; color:white; }
-    footer { text-align:center; margin-top:50px; padding:10px; color:#555; font-size:14px; }
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f8f8f8;
+    }
 
-    .modal-overlay { position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); display:none; justify-content:center; align-items:center; z-index:999; }
-    .modal { background:white; border-radius:12px; padding:20px; width:80%; max-width:300px; box-shadow:0 5px 15px rgba(0,0,0,0.2); text-align:center; }
-    .modal h2 { margin-top:0; font-size:18px; }
-    .modal-buttons { display:flex; flex-direction:column; gap:10px; margin-top:15px; }
-    .modal-buttons a { text-decoration:none; padding:10px; border:2px solid black; border-radius:10px; font-weight:bold; color:black; background:white; transition:all .2s ease-in-out; }
-    .modal-buttons a:hover { background:black; color:white; }
-    .close-btn { margin-top:15px; color:red; font-size:14px; cursor:pointer; }
+    header {
+      background: white;
+      padding: 16px;
+      font-size: 22px;
+      font-weight: bold;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+      position: sticky;
+      top: 0;
+      z-index: 999;
+    }
+
+    .card {
+      margin: 30px auto;
+      margin-left: 20px;
+      margin-right: 20px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      overflow: hidden;
+      background: white;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      max-width: 360px;
+    }
+
+    .card a img {
+      width: 100%;
+      display: block;
+      cursor: pointer;
+    }
+
+    .title {
+      padding: 12px;
+      font-size: 16px;
+      font-weight: bold;
+      text-align: left;
+      border-top: 1px solid #eee;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .desc-toggle {
+      margin-top: 8px;
+      background: none;
+      border: none;
+      color: #007BFF;
+      cursor: pointer;
+      font-size: 14px;
+      padding: 0;
+      text-align: left;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: space-between;
+      padding: 12px;
+      gap: 10px;
+    }
+
+    .buttons button {
+      flex: 1;
+      text-align: center;
+      padding: 10px;
+      border: 2px solid black;
+      border-radius: 10px;
+      font-weight: bold;
+      color: black;
+      background: white;
+      cursor: pointer;
+      transition: all .2s ease-in-out;
+    }
+
+    .buttons button:hover {
+      background: black;
+      color: white;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 50px;
+      padding: 10px;
+      color: #555;
+      font-size: 14px;
+    }
+
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+    }
+
+    .modal {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      width: 80%;
+      max-width: 300px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      text-align: center;
+    }
+
+    .modal-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .modal-buttons a {
+      text-decoration: none;
+      padding: 10px;
+      border: 2px solid black;
+      border-radius: 10px;
+      font-weight: bold;
+      color: black;
+      background: white;
+      transition: all .2s ease-in-out;
+    }
+
+    .modal-buttons a:hover {
+      background: black;
+      color: white;
+    }
+
+    .close-btn {
+      margin-top: 15px;
+      color: red;
+      font-size: 14px;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
+
   <header>Naruto Senki</header>
+
+  <!-- CARD 1 -->
   <div class="card">
     <a href="https://youtu.be/1NVlvJIrFPY?si=Cv-ta_itqLGUVg2D" target="_blank">
       <img src="https://files.catbox.moe/6rvrqu.jpg" alt="Review Gameplay">
     </a>
-    <div class="title">NS: Waifu War V1</div>
+    <div class="title">
+      <span>NS: Waifu War V1</span>
+      <button class="desc-toggle" onclick="toggleDesc(this)">Deskripsi ▼</button>
+      <div class="desc-text" style="display:none; margin-top:8px; font-weight:normal; font-size:14px; color:#333;">
+        Versi yang menampilkan karakter waifu dari Naruto. Cocok bagi fans karakter cewek dan mod anime.
+      </div>
+    </div>
     <div class="buttons">
-      <button onclick="openModal()">Download</button>
-      <button onclick="openModal()">How To Download</button>
+      <button onclick="openModal('download')">Download</button>
+      <button onclick="openModal('howto')">How To Download</button>
     </div>
   </div>
+
+  <!-- CARD 2 -->
+  <div class="card">
+    <a href="#"><img src="https://files.catbox.moe/xso4zv.jpg" alt="NS Original"></a>
+    <div class="title">
+      <span>NS: Original</span>
+      <button class="desc-toggle" onclick="toggleDesc(this)">Deskripsi ▼</button>
+      <div class="desc-text" style="display:none; margin-top:8px; font-weight:normal; font-size:14px; color:#333;">
+        NS: Original adalah versi dasar dari Naruto Senki tanpa modifikasi. Cocok untuk pemula.
+      </div>
+    </div>
+    <div class="buttons">
+      <button onclick="openModal('download')">Download</button>
+      <button onclick="openModal('howto')">How To Download</button>
+    </div>
+  </div>
+
+  <!-- CARD 3 -->
+  <div class="card">
+    <a href="#"><img src="https://files.catbox.moe/xngszq.jpg" alt="NS V2.1"></a>
+    <div class="title">
+      <span>NS: V2.1</span>
+      <button class="desc-toggle" onclick="toggleDesc(this)">Deskripsi ▼</button>
+      <div class="desc-text" style="display:none; margin-top:8px; font-weight:normal; font-size:14px; color:#333;">
+        NS: V2.1 adalah update dengan karakter tambahan dan balancing gameplay.
+      </div>
+    </div>
+    <div class="buttons">
+      <button onclick="openModal('download')">Download</button>
+      <button onclick="openModal('howto')">How To Download</button>
+    </div>
+  </div>
+
+  <!-- CARD 4 -->
+  <div class="card">
+    <a href="#"><img src="https://files.catbox.moe/sq9yzu.jpg" alt="NS Cina"></a>
+    <div class="title">
+      <span>NS: Cina</span>
+      <button class="desc-toggle" onclick="toggleDesc(this)">Deskripsi ▼</button>
+      <div class="desc-text" style="display:none; margin-top:8px; font-weight:normal; font-size:14px; color:#333;">
+        NS versi komunitas Tiongkok, modded dengan gaya khas dan karakter eksklusif.
+      </div>
+    </div>
+    <div class="buttons">
+      <button onclick="openModal('download')">Download</button>
+      <button onclick="openModal('howto')">How To Download</button>
+    </div>
+  </div>
+
+  <!-- CARD 5 -->
+  <div class="card">
+    <a href="#"><img src="https://files.catbox.moe/q4ey38.jpg" alt="NS Uchiha"></a>
+    <div class="title">
+      <span>NS: Uchiha</span>
+      <button class="desc-toggle" onclick="toggleDesc(this)">Deskripsi ▼</button>
+      <div class="desc-text" style="display:none; margin-top:8px; font-weight:normal; font-size:14px; color:#333;">
+        Versi dengan fokus pada klan Uchiha seperti Sasuke dan Itachi. Penuh Sharingan & Susanoo!
+      </div>
+    </div>
+    <div class="buttons">
+      <button onclick="openModal('download')">Download</button>
+      <button onclick="openModal('howto')">How To Download</button>
+    </div>
+  </div>
+
   <footer>© 2025 вирга</footer>
 
+  <!-- MODAL -->
   <div class="modal-overlay" id="popup">
     <div class="modal">
-      <h2>Pilih Aksi</h2>
-      <div class="modal-buttons">
-        <a href="https://example.com/download.apk" download>Download APK Sekarang</a>
-        <a href="https://www.youtube.com/watch?v=1NVlvJIrFPY" target="_blank">Tonton Panduan</a>
-      </div>
+      <div id="modal-body"></div>
       <div class="close-btn" onclick="closeModal()">Tutup</div>
     </div>
   </div>
 
   <script>
-    // Popup modal
-    function openModal() { document.getElementById('popup').style.display = 'flex'; }
-    function closeModal() { document.getElementById('popup').style.display = 'none'; }
-    window.addEventListener('click', e => { if (e.target === document.getElementById('popup')) closeModal(); });
+    function openModal(mode) {
+      const popup = document.getElementById('popup');
+      const body = document.getElementById('modal-body');
+      let content = '';
+
+      if (mode === 'download') {
+        content = `
+          <h2>Download Game</h2>
+          <div class="modal-buttons">
+            <a href="https://example.com/download.apk" download>Download APK Sekarang</a>
+          </div>
+        `;
+      } else if (mode === 'howto') {
+        content = `
+          <h2>Cara Download</h2>
+          <div class="modal-buttons">
+            <a href="https://www.youtube.com/watch?v=1NVlvJIrFPY" target="_blank">Tonton Panduan YouTube</a>
+            <p style="margin-top:10px; font-size:14px; color:#333;">Jika link tidak bisa dibuka, pastikan kamu sudah login YouTube atau coba browser lain.</p>
+          </div>
+        `;
+      }
+
+      body.innerHTML = content;
+      popup.style.display = 'flex';
+    }
+
+    function closeModal() {
+      document.getElementById('popup').style.display = 'none';
+    }
+
+    window.addEventListener('click', e => {
+      if (e.target === document.getElementById('popup')) closeModal();
+    });
+
+    function toggleDesc(btn) {
+      const desc = btn.nextElementSibling;
+      const isVisible = desc.style.display === 'block';
+      desc.style.display = isVisible ? 'none' : 'block';
+      btn.textContent = isVisible ? 'Deskripsi ▼' : 'Tutup ▲';
+    }
   </script>
 
   <!-- Live2D Kurumi -->
   <script src="https://l2dwidget.js.org/lib/L2Dwidget.min.js"></script>
-  <script type="text/javascript">
+  <script>
     function getRandomMessage() {
-  const messages = [
-    'Tekan Tombol Cara Downloadnya Ya Jika Kamu Bingung',
-    'Kalau Ada Masalah Link Yang Eror Silahkan Beri Tahu Tuan Ku Ya. Dan Sabar Menunggu Linknya Di Fix ;)',
-    'Jangan Lupa Belangganan Channel Tuan Ku Ya :3',
-    'Jangan Lupa Klik Gambarnya Untuk Melihat Gameplay nya~',
-  ];
-  const randomIndex = Math.floor(Math.random() * messages.length);
-  return messages[randomIndex];
-}
+      const messages = [
+        'Tekan Tombol Cara Downloadnya Ya Jika Kamu Bingung',
+        'Kalau Ada Masalah Link Yang Eror Silahkan Beri Tahu Tuan Ku Ya. Dan Sabar Menunggu Linknya Di Fix ;)',
+        'Jangan Lupa Belangganan Channel Tuan Ku Ya :3',
+        'Jangan Lupa Klik Gambarnya Untuk Melihat Gameplay nya~',
+      ];
+      const randomIndex = Math.floor(Math.random() * messages.length);
+      return messages[randomIndex];
+    }
 
     L2Dwidget.init({
       model: {
@@ -89,12 +322,12 @@
         enable: true,
         script: {
           'every idle 10s': getRandomMessage(),
-          'hover .star': '',
           'tap body': 'Hentai!',
           'tap face': getRandomMessage()
         }
       }
     });
   </script>
+
 </body>
 </html>
