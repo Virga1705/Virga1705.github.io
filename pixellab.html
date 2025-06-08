@@ -63,6 +63,14 @@
       background: white;
       box-shadow: 0 2px 6px rgba(0,0,0,0.1);
       max-width: 360px;
+      opacity: 0; /* Initially hidden */
+      transform: scale(0.8); /* Start scaled down */
+      transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+    }
+
+    .card.zoom-in {
+      opacity: 1;
+      transform: scale(1);
     }
 
     .card a img {
@@ -272,7 +280,7 @@
       <button onclick="openModal('howto', 'uchiha', '', '')">How To Download</button>
     </div>
   </div>
-  
+
   <div class="card">
     <a href="https://youtu.be/G0fEIVinbrU?si=ZTt-PfiW_Q0Usj6R"><img src="https://files.catbox.moe/x2x7lj.jpg" alt="NS Uchiha"></a>
     <div class="title">
@@ -286,9 +294,9 @@
       <button onclick="openModal('download', 'virga', 'Download', 'Password')">Download</button>
       <button onclick="openModal('howto', 'virga', '', '')">How To Download</button>
     </div>
-  </div>  
-  
-   <div class="card">
+  </div>
+
+  <div class="card">
     <a href="https://youtu.be/G5U1em0TT8U?si=L0bLR6zfKwGU8yVC"><img src="https://files.catbox.moe/8bdhwp.jpg" alt="NS Uchiha"></a>
     <div class="title">
       <span>PIXELLAB THEME WHITE GREEN🍏</span>
@@ -301,8 +309,8 @@
       <button onclick="openModal('download', 'virgaa', 'Download', 'Password')">Download</button>
       <button onclick="openModal('howto', 'virgaa', '', '')">How To Download</button>
     </div>
-  </div>  
-  
+  </div>
+
   <div class="card">
     <a href="https://youtu.be/9ZiVhlT2RNw?si=DbaqcWuaZ5uKD_Cu"><img src="https://files.catbox.moe/y7b59z.jpg" alt="NS Uchiha"></a>
     <div class="title">
@@ -316,8 +324,8 @@
       <button onclick="openModal('download', 'virgaaa', 'Download', 'Password')">Download</button>
       <button onclick="openModal('howto', 'virgaaa', '', '')">How To Download</button>
     </div>
-  </div>  
-  
+  </div>
+
 
   <footer>© 2025 вирга</footer>
 
@@ -375,19 +383,19 @@
           downloadLink2 = 'https://youtu.be/G0fEIVinbrU?si=ZTt-PfiW_Q0Usj6R';
           youtubeLink1 = 'https://youtu.be/Af1Sj7MDhiM?si=EHKw02WB87uTumQI';
           youtubeLink2 = 'https://youtube.com/uchiha_tutorial2';
-          break;  
+          break;
         case 'virgaa':
           downloadLink1 = 'https://sfl.gl/H96U';
           downloadLink2 = 'https://youtu.be/G5U1em0TT8U?si=L0bLR6zfKwGU8yVC';
           youtubeLink1 = 'https://youtu.be/Af1Sj7MDhiM?si=EHKw02WB87uTumQI';
           youtubeLink2 = 'https://youtube.com/uchiha_tutorial2';
-          break;    
+          break;
         case 'virgaaa':
           downloadLink1 = 'https://sfl.gl/Pr7r40';
           downloadLink2 = 'https://youtu.be/9ZiVhlT2RNw?si=DbaqcWuaZ5uKD_Cu';
           youtubeLink1 = 'https://youtu.be/Af1Sj7MDhiM?si=EHKw02WB87uTumQI';
           youtubeLink2 = 'https://youtube.com/uchiha_tutorial2';
-          break;      
+          break;
         default:
           downloadLink1 = 'https://example.com/default_download.apk';
           downloadLink2 = 'https://example.com/default_another_download.apk';
@@ -432,6 +440,28 @@
       desc.style.display = isVisible ? 'none' : 'block';
       btn.textContent = isVisible ? 'Deskripsi ▼' : 'Tutup ▲';
     }
+
+    function checkZoom() {
+      const cards = document.querySelectorAll('.card');
+      cards.forEach(card => {
+        const cardTop = card.offsetTop;
+        const windowBottom = window.scrollY + window.innerHeight;
+        const windowTop = window.scrollY;
+        const cardHeight = card.offsetHeight;
+        // Kartu terlihat jika bagian atas kartu di bawah bagian bawah jendela DAN bagian bawah kartu di atas bagian atas jendela
+        const isVisible = (cardTop < windowBottom) && (cardTop + cardHeight > windowTop);
+
+        if (isVisible) {
+          card.classList.add('zoom-in');
+        } else {
+          card.classList.remove('zoom-in');
+        }
+      });
+    }
+
+    window.addEventListener('scroll', checkZoom);
+    window.addEventListener('resize', checkZoom); // Untuk menangani perubahan ukuran layar
+    window.addEventListener('load', checkZoom); // Trigger saat halaman dimuat
   </script>
 
   <script src="https://l2dwidget.js.org/lib/L2Dwidget.min.js"></script>
