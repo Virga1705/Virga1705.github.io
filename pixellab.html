@@ -10,6 +10,13 @@
       margin: 0;
       padding: 0;
       background: #f8f8f8;
+      /* Mencegah seleksi teks */
+      -webkit-user-select: none; /* Safari */
+      -moz-user-select: none;    /* Firefox */
+      -ms-user-select: none;     /* Internet Explorer/Edge */
+      user-select: none;         /* Standard */
+      /* Mencegah menu konteks (klik kanan) secara global */
+      -webkit-touch-callout: none; /* Untuk iOS, mencegah menu pop-up saat long-press */
     }
 
     header {
@@ -24,6 +31,12 @@
       z-index: 999;
       display: flex; /* Mengatur tampilan flexbox untuk menyelaraskan item secara horizontal */
       align-items: center; /* Menyelaraskan item secara vertikal di tengah */
+      /* Tambahkan properti user-select untuk header juga */
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
     }
 
     /* Gaya untuk tombol kembali (back button) */
@@ -41,6 +54,12 @@
       width: 26px; /* Mengatur lebar tombol menjadi 48px */
       height: 26px; /* Mengatur tinggi tombol menjadi 48px */
       background: white; /* Menambahkan background putih agar ikon tetap terlihat */
+      /* Mencegah seleksi teks dan klik kanan pada back button */
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
     }
 
     .back-button:hover {
@@ -51,6 +70,13 @@
       display: block; /* Memastikan gambar mengambil seluruh ruang tautan */
       width: 26px; /* Mengatur lebar gambar menjadi 48px */
       height: 26px; /* Mengatur tinggi gambar menjadi 48px */
+      /* Mencegah draggable dan klik kanan pada gambar */
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
+      pointer-events: none; /* Mencegah interaksi mouse/touch pada gambar (termasuk download) */
     }
 
     .card {
@@ -66,6 +92,12 @@
       opacity: 0; /* Initially hidden */
       transform: scale(0.8); /* Start scaled down */
       transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+      /* Mencegah seleksi teks dan klik kanan pada card */
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
     }
 
     .card.zoom-in {
@@ -77,6 +109,13 @@
       width: 100%;
       display: block;
       cursor: pointer;
+      /* Mencegah draggable dan klik kanan pada gambar */
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
+      pointer-events: none; /* Mencegah interaksi mouse/touch pada gambar (termasuk download) */
     }
 
     .title {
@@ -126,6 +165,12 @@
       background: white;
       cursor: pointer;
       transition: all .2s ease-in-out;
+      /* Mencegah seleksi teks dan klik kanan pada tombol */
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
     }
 
     .buttons button:hover {
@@ -139,6 +184,12 @@
       padding: 10px;
       color: #555;
       font-size: 14px;
+      /* Mencegah seleksi teks pada footer */
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
     }
 
     .modal-overlay {
@@ -152,6 +203,12 @@
       justify-content: center;
       align-items: center;
       z-index: 999;
+      /* Mencegah seleksi teks dan klik kanan pada modal overlay */
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
     }
 
     .modal {
@@ -162,6 +219,12 @@
       max-width: 300px;
       box-shadow: 0 5px 15px rgba(0,0,0,0.2);
       text-align: center;
+      /* Mencegah seleksi teks dan klik kanan pada modal */
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
     }
 
     .modal-buttons {
@@ -180,6 +243,12 @@
       color: black;
       background: white;
       transition: all .2s ease-in-out;
+      /* Mencegah seleksi teks dan klik kanan pada tombol modal */
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
     }
 
     .modal-buttons a:hover {
@@ -192,10 +261,16 @@
       color: red;
       font-size: 14px;
       cursor: pointer;
+      /* Mencegah seleksi teks dan klik kanan pada tombol tutup */
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
     }
   </style>
 </head>
-<body>
+<body oncontextmenu="return false;">
 
   <header>
     <a href="Virga1705.github.io" class="back-button">
@@ -460,48 +535,4 @@
     }
 
     window.addEventListener('scroll', checkZoom);
-    window.addEventListener('resize', checkZoom); // Untuk menangani perubahan ukuran layar
-    window.addEventListener('load', checkZoom); // Trigger saat halaman dimuat
-  </script>
-
-  <script src="https://l2dwidget.js.org/lib/L2Dwidget.min.js"></script>
-  <script>
-    function getRandomMessage() {
-      const messages = [
-        'Tekan Tombol Cara Downloadnya Ya Jika Kamu Bingung',
-        'Kalau Ada Masalah Link Yang Eror Silahkan Beri Tahu Tuan Ku Ya. Dan Sabar Menunggu Linknya Di Fix ;)',
-        'Jangan Lupa Belangganan Channel Tuan Ku Ya :3',
-        'Jangan Lupa Klik Gambarnya Untuk Melihat Gameplay nya~',
-      ];
-      const randomIndex = Math.floor(Math.random() * messages.length);
-      return messages[randomIndex];
-    }
-
-    L2Dwidget.init({
-      model: {
-        jsonPath: "https://raw.githubusercontent.com/KanzakiisYU/live2d-model/main/kurumi/model.json"
-      },
-      display: {
-        position: "right",
-        width: 200,
-        height: 550,
-        hOffset: 20,
-        vOffset: -200
-      },
-      mobile: {
-        show: true,
-        scale: 1
-      },
-      dialog: {
-        enable: true,
-        script: {
-          'every idle 10s': getRandomMessage(),
-          'tap body': 'Hentai!',
-          'tap face': getRandomMessage()
-        }
-      }
-    });
-  </script>
-
-</body>
-</html>
+    window.addEventListener('resize', checkZoom); // Untuk menangani perubahan ukuran laya
