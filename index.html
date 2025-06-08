@@ -25,11 +25,11 @@
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       padding: 1rem;
       display: flex;
-      justify-content: space-between; /* Mengatur ruang antara h1 dan elemen lainnya */
+      justify-content: space-between;
       align-items: center;
       position: sticky;
       top: 0;
-      z-index: 1000; /* Pastikan nav di atas konten */
+      z-index: 1000;
     }
 
     nav h1 {
@@ -47,7 +47,7 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      z-index: 1001; /* Pastikan ikon di atas sidebar saat terbuka */
+      z-index: 1001;
     }
 
     .hamburger-icon span {
@@ -78,18 +78,18 @@
       z-index: 999;
       top: 0;
       right: 0;
-      background-color: rgba(255, 255, 255, 0.95); /* Sedikit transparan */
+      background-color: rgba(255, 255, 255, 0.95);
       overflow-x: hidden;
-      transition: 0.5s; /* Animasi buka/tutup */
-      padding-top: 60px; /* Jarak dari atas */
+      transition: 0.5s;
+      padding-top: 60px;
       box-shadow: -5px 0 15px rgba(0,0,0,0.2);
-      display: flex; /* Mengatur flex untuk konten sidebar */
-      flex-direction: column; /* Konten vertikal */
-      align-items: center; /* Pusatkan item */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
     .sidebar.open {
-      width: 250px; /* Lebar saat terbuka */
+      width: 250px;
     }
 
     /* Gaya untuk card di dalam sidebar */
@@ -99,7 +99,7 @@
       border-radius: 8px;
       margin: 10px 0;
       padding: 15px;
-      width: 80%; /* Lebar kartu di sidebar */
+      width: 80%;
       text-align: center;
       cursor: pointer;
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
@@ -114,6 +114,44 @@
       transform: translateY(-2px);
     }
 
+    /* Gaya untuk form pencarian di sidebar */
+    .sidebar-search {
+      margin: 20px 0;
+      padding: 0 20px;
+      width: 100%;
+      box-sizing: border-box; /* Pastikan padding tidak menambah lebar */
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .sidebar-search input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1rem;
+      box-sizing: border-box;
+    }
+
+    .sidebar-search button {
+      width: 100%;
+      padding: 10px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+      box-sizing: border-box;
+    }
+
+    .sidebar-search button:hover {
+      background-color: #0056b3;
+    }
+
     .sidebar .closebtn {
       position: absolute;
       top: 15px;
@@ -123,31 +161,6 @@
       cursor: pointer;
       color: #888;
     }
-
-    /* Gaya untuk widget Google Translate di dalam modal */
-    #google_translate_element_in_modal .goog-te-gadget-simple {
-        border: none !important;
-        background-color: transparent !important;
-        width: 100%; /* Agar dropdown mengambil lebar penuh */
-    }
-    #google_translate_element_in_modal .goog-te-combo {
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        padding: 8px 10px;
-        font-size: 1rem;
-        background-color: #f8f8f8;
-        cursor: pointer;
-        width: 100%; /* Agar dropdown mengambil lebar penuh */
-    }
-    /* Sembunyikan elemen bawaan Google Translate lainnya */
-    .goog-tooltip, .goog-tooltip:hover, .goog-text-highlight,
-    .goog-logo-link, body > .skiptranslate, .goog-te-banner-container {
-        display: none !important;
-    }
-    body {
-        top: 0px !important; /* Penting untuk menghilangkan padding atas */
-    }
-
 
     header {
       background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://files.catbox.moe/qjlxeb.jpg') no-repeat center center/cover;
@@ -215,18 +228,17 @@
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       padding: 15px;
       cursor: pointer;
-      transition: transform 0.2s ease-in-out, opacity 0.5s ease-out; /* Tambahkan transisi opacity */
-      width: 300px; /* Lebar konsisten */
-      min-height: 150px; /* Tinggi minimum konsisten */
+      transition: transform 0.2s ease-in-out, opacity 0.5s ease-out;
+      width: 300px;
+      min-height: 150px;
       text-decoration: none;
-      box-sizing: border-box; /* Penting untuk konsistensi ukuran */
+      box-sizing: border-box;
 
-      display: flex; /* Menggunakan flexbox untuk layout logo dan konten */
-      align-items: flex-start; /* Pusatkan item secara vertikal (logo dan konten) */
+      display: flex;
+      align-items: flex-start;
 
-      opacity: 0; /* Awalnya tersembunyi */
-      transform: scale(0.8); /* Awalnya diperkecil */
-      /* Mencegah seleksi teks dan klik kanan pada card */
+      opacity: 0;
+      transform: scale(0.8);
       -webkit-user-select: none;
       -moz-user-select: none;
       -ms-user-select: none;
@@ -234,7 +246,7 @@
       -webkit-touch-callout: none;
     }
 
-    .virga-card.zoom-in { /* Class untuk animasi zoom-in */
+    .virga-card.zoom-in {
       opacity: 1;
       transform: scale(1);
     }
@@ -244,32 +256,31 @@
     }
 
     .virga-card .card-logo {
-      width: 60px; /* Ukuran logo */
+      width: 60px;
       height: 60px;
-      flex-shrink: 0; /* Mencegah logo mengecil */
-      object-fit: contain; /* Memastikan gambar logo tidak terdistorsi */
-      /* Mencegah draggable dan klik kanan pada logo */
+      flex-shrink: 0;
+      object-fit: contain;
       -webkit-user-select: none;
       -moz-user-select: none;
       -ms-user-select: none;
       user-select: none;
       -webkit-touch-callout: none;
-      pointer-events: none; /* Mencegah interaksi mouse/touch pada gambar (termasuk download) */
+      pointer-events: none;
     }
 
     .virga-card .card-content-wrapper {
       display: flex;
       flex-direction: column;
-      flex-grow: 1; /* Memungkinkan konten teks mengambil ruang yang tersisa */
-      margin: 0 15px; /* Jarak antara logo dan konten teks */
+      flex-grow: 1;
+      margin: 0 15px;
     }
 
     .virga-card .card-title {
       font-size: 1.2rem;
       font-weight: bold;
       color: #333;
-      margin: 0 0 5px 0; /* Jarak bawah judul */
-      text-align: left; /* Sesuaikan perataan judul */
+      margin: 0 0 5px 0;
+      text-align: left;
     }
 
     .virga-card .card-description {
@@ -277,30 +288,30 @@
       color: #666;
       margin: 0;
       line-height: 1.4;
-      text-align: left; /* Sesuaikan perataan deskripsi */
+      text-align: left;
     }
 
     /* --- Gaya untuk Logo di Kiri (Card 1 dan 3) --- */
     .align-left-logo .card-logo {
-      margin-right: 15px; /* Jarak kanan logo */
+      margin-right: 15px;
     }
 
     .align-left-logo .card-content-wrapper {
-      order: 1; /* Konten teks setelah logo */
+      order: 1;
     }
 
     /* --- Gaya untuk Logo di Kanan (Card 2) --- */
     .align-right-logo {
-      flex-direction: row-reverse; /* Membalik urutan flex items */
+      flex-direction: row-reverse;
     }
 
     .align-right-logo .card-logo {
-      margin-left: 15px; /* Jarak kiri logo */
+      margin-left: 15px;
     }
 
     .align-right-logo .card-content-wrapper {
-      order: 1; /* Konten teks sebelum logo (karena row-reverse) */
-      margin-right: 15px; /* Sesuaikan margin agar tidak terlalu dekat dengan logo */
+      order: 1;
+      margin-right: 15px;
       margin-left: 0;
     }
 
@@ -310,10 +321,10 @@
     }
 
     .read-more-toggle {
-      color: #007bff; /* Warna biru untuk link "Read More" */
+      color: #007bff;
       cursor: pointer;
       font-weight: bold;
-      margin-left: 5px; /* Jarak dari teks akhir */
+      margin-left: 5px;
     }
 
     .read-more-ellipsis {
@@ -335,7 +346,6 @@
       padding: 2rem 1rem;
       background-color: #f0f0f0;
       color: #555;
-      /* Mencegah seleksi teks pada footer */
       -webkit-user-select: none;
       -moz-user-select: none;
       -ms-user-select: none;
@@ -354,7 +364,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      z-index: 1002; /* Lebih tinggi dari sidebar */
+      z-index: 1002;
       opacity: 0;
       visibility: hidden;
       transition: opacity 0.3s ease, visibility 0.3s ease;
@@ -369,6 +379,8 @@
       background: white;
       border-radius: 12px;
       padding: 30px;
+      padding-top: 50px;
+      position: relative;
       width: 90%;
       max-width: 400px;
       box-shadow: 0 5px 20px rgba(0,0,0,0.3);
@@ -379,6 +391,27 @@
 
     .new-modal-overlay.active .new-modal {
       transform: translateY(0);
+    }
+
+    /* Tombol X untuk tutup modal */
+    .new-modal .close-x-button {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 24px;
+      font-weight: bold;
+      color: red; /* Warna X merah */
+      cursor: pointer;
+      line-height: 1;
+      padding: 5px 10px; /* Area klik lebih besar dan agak persegi panjang */
+      border: 2px solid red; /* Border merah */
+      border-radius: 5px; /* Sedikit melengkung */
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    .new-modal .close-x-button:hover {
+      background-color: red; /* Background merah saat hover */
+      color: white; /* X putih saat hover */
     }
 
     .new-modal h3 {
@@ -406,28 +439,12 @@
       transition: all .2s ease-in-out;
       cursor: pointer;
       width: 100%;
-      box-sizing: border-box; /* Pastikan padding tidak menambah lebar */
+      box-sizing: border-box;
     }
 
     .new-modal-buttons a:hover, .new-modal-buttons button:hover {
       background: #007bff;
       color: white;
-    }
-
-    .new-modal .close-button-bottom {
-      margin-top: 25px;
-      padding: 10px 20px;
-      background-color: #f44336; /* Merah untuk tutup */
-      color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 1rem;
-      transition: background-color 0.2s ease;
-    }
-
-    .new-modal .close-button-bottom:hover {
-      background-color: #d32f2f;
     }
   </style>
 </head>
@@ -443,9 +460,12 @@
 
   <div id="mySidebar" class="sidebar">
     <a href="javascript:void(0)" class="closebtn" onclick="closeSidebar()">×</a>
+    <div class="sidebar-search">
+      <input type="text" id="search-input" placeholder="Cari di sini...">
+      <button onclick="performSearch()">Cari</button>
+    </div>
     <div class="sidebar-card" onclick="openCustomModal('credits')">Credits</div>
     <div class="sidebar-card" onclick="openCustomModal('donasi')">Donasi</div>
-    <div class="sidebar-card" onclick="openCustomModal('translate')">Translate Website</div>
   </div>
 
   <header>
@@ -517,10 +537,10 @@
 
   <div class="new-modal-overlay" id="customModal">
     <div class="new-modal">
+      <span class="close-x-button" onclick="closeCustomModal()">×</span>
       <h3 id="customModalTitle"></h3>
       <div id="customModalBody" class="new-modal-buttons">
         </div>
-      <button class="close-button-bottom" onclick="closeCustomModal()">Tutup</button>
     </div>
   </div>
 
@@ -619,7 +639,7 @@
       }
     });
 
-    // Modal Kustom Baru untuk Sidebar (Perbaikan Translate)
+    // Modal Kustom Baru untuk Sidebar (Translate Dihapus)
     function openCustomModal(type) {
       const modal = document.getElementById('customModal');
       const modalTitle = document.getElementById('customModalTitle');
@@ -634,10 +654,6 @@
             <a href="https://flaticon.com/" target="_blank">Flaticon (Icons)</a>
             <a href="#">Your Name (Developer)</a>
           `;
-          // Pastikan widget Google Translate tidak ada di sini
-          if (document.getElementById('google_translate_element_in_modal')) {
-              document.getElementById('google_translate_element_in_modal').innerHTML = '';
-          }
           break;
         case 'donasi':
           modalTitle.textContent = 'Donasi';
@@ -646,43 +662,10 @@
             <a href="https://paypal.me/your_paypal_link" target="_blank">Donasi via PayPal</a>
             <p style="font-size:0.9em; color:#666; margin-top:15px;">Terima kasih atas dukungan Anda!</p>
           `;
-          // Pastikan widget Google Translate tidak ada di sini
-          if (document.getElementById('google_translate_element_in_modal')) {
-              document.getElementById('google_translate_element_in_modal').innerHTML = '';
-          }
-          break;
-        case 'translate':
-          modalTitle.textContent = 'Translate Website';
-          content = `
-            <p style="font-size:1em; color:#333;">Pilih bahasa untuk terjemahan:</p>
-            <div id="google_translate_element_in_modal" style="margin-top:10px;"></div>
-          `;
-          // Pastikan untuk menghapus elemen Google Translate yang lama jika ada sebelum re-render
-          if (document.getElementById('google_translate_element_in_modal')) {
-              document.getElementById('google_translate_element_in_modal').innerHTML = '';
-          }
-          // Panggil fungsi inisialisasi Google Translate setelah modalBody diisi
-          // Menggunakan setTimeout untuk memastikan DOM sudah diperbarui
-          setTimeout(function() {
-              if (typeof google === 'object' && typeof google.translate === 'object') {
-                  new google.translate.TranslateElement({
-                      pageLanguage: 'id',
-                      autoDisplay: false,
-                      layout: google.translate.TranslateElement.InlineLayout.SIMPLE
-                  }, 'google_translate_element_in_modal');
-              } else {
-                  // Fallback jika skrip Google Translate belum dimuat
-                  console.warn("Google Translate script not loaded yet.");
-                  // Anda bisa menambahkan pesan kepada pengguna di sini
-              }
-          }, 50); // Delay kecil agar elemen ada di DOM
           break;
         default:
           modalTitle.textContent = 'Informasi';
           content = `<p>Konten tidak ditemukan.</p>`;
-          if (document.getElementById('google_translate_element_in_modal')) {
-              document.getElementById('google_translate_element_in_modal').innerHTML = '';
-          }
       }
 
       modalBody.innerHTML = content;
@@ -692,11 +675,36 @@
 
     function closeCustomModal() {
       document.getElementById('customModal').classList.remove('active');
-      // Kosongkan div Google Translate saat modal ditutup untuk membersihkan widget
-      const translateDiv = document.getElementById('google_translate_element_in_modal');
-      if (translateDiv) {
-          translateDiv.innerHTML = '';
+    }
+
+    // Fungsi untuk Fitur Pencarian
+    function performSearch() {
+      const searchTerm = document.getElementById('search-input').value.toLowerCase();
+      const cards = document.querySelectorAll('.container .virga-card');
+      let foundCount = 0;
+
+      cards.forEach(card => {
+        const title = card.querySelector('.card-title').textContent.toLowerCase();
+        const description = card.querySelector('.card-description').textContent.toLowerCase();
+
+        if (title.includes(searchTerm) || description.includes(searchTerm)) {
+          card.style.display = 'flex'; // Tampilkan kartu
+          foundCount++;
+        } else {
+          card.style.display = 'none'; // Sembunyikan kartu
+        }
+      });
+
+      // Opsional: Beri tahu pengguna jika tidak ada hasil
+      if (foundCount === 0 && searchTerm !== "") {
+        alert("Tidak ditemukan hasil untuk '" + searchTerm + "'.");
+      } else if (searchTerm === "") {
+        // Jika input kosong, tampilkan semua kartu lagi
+        cards.forEach(card => {
+          card.style.display = 'flex';
+        });
       }
+      closeSidebar(); // Tutup sidebar setelah pencarian
     }
 
   </script>
@@ -739,16 +747,6 @@
             }
         }
     });
-  </script>
-
-  <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit_global"></script>
-  <script type="text/javascript">
-  // Fungsi inisialisasi dummy global agar cb=googleTranslateElementInit_global tidak error
-  // Widget sebenarnya akan diinisialisasi di dalam modal saat dibutuhkan.
-  function googleTranslateElementInit_global() {
-      // Fungsi ini kosong, karena kita akan menginisialisasi widget di dalam modal.
-      // Ini hanya untuk memenuhi callback yang diminta oleh skrip Google Translate.
-  }
   </script>
 
 </body>
