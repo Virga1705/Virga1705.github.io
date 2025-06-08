@@ -24,7 +24,7 @@
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
       padding: 1rem;
       display: flex;
-      justify-content: space-between;
+      justify-content: space-between; /* Mengatur ruang antara h1 dan elemen lainnya */
       align-items: center;
       position: sticky;
       top: 0;
@@ -35,6 +35,49 @@
       margin: 0;
       font-size: 1.5rem;
       color: #111;
+    }
+
+    /* Gaya untuk ikon Google Translate */
+    #google_translate_element {
+      position: relative; /* Penting untuk penempatan dropdown */
+      cursor: pointer;
+      line-height: 0; /* Menghilangkan spasi ekstra */
+    }
+
+    #google_translate_element img {
+      width: 28px; /* Ukuran ikon */
+      height: 28px;
+      vertical-align: middle; /* Menyelaraskan ikon */
+      cursor: pointer;
+      pointer-events: auto !important; /* Pastikan ikon bisa diklik */
+    }
+
+    /* Sembunyikan dropdown asli Google Translate */
+    .goog-te-combo-col {
+        display: none !important;
+    }
+    .goog-te-banner-container {
+        display: none !important;
+    }
+    .goog-tooltip {
+        display: none !important;
+    }
+    .goog-tooltip:hover {
+        display: none !important;
+    }
+    .goog-text-highlight {
+        background-color: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+    }
+    .goog-logo-link {
+        display: none !important;
+    }
+    body > .skiptranslate {
+        display: none !important;
+    }
+    body {
+        top: 0px !important;
     }
 
     header {
@@ -235,6 +278,9 @@
 <body oncontextmenu="return false;">
   <nav>
     <h1>vɪʀɢᴀ ꜰꜱ</h1>
+    <div id="google_translate_element">
+      <img src="https://www.gstatic.com/images/branding/product/2x/translate_24dp.png" alt="Translate" title="Terjemahkan Halaman Ini">
+    </div>
   </nav>
 
   <header>
@@ -354,13 +400,12 @@
 
     // JavaScript untuk Zoom-in Animation
     function checkZoom() {
-      const cards = document.querySelectorAll('.virga-card'); // Ganti selector menjadi .virga-card
+      const cards = document.querySelectorAll('.virga-card');
       cards.forEach(card => {
         const cardTop = card.offsetTop;
         const windowBottom = window.scrollY + window.innerHeight;
         const windowTop = window.scrollY;
         const cardHeight = card.offsetHeight;
-        // Kartu terlihat jika bagian atas kartu di bawah bagian bawah jendela DAN bagian bawah kartu di atas bagian atas jendela
         const isVisible = (cardTop < windowBottom) && (cardTop + cardHeight > windowTop);
 
         if (isVisible) {
@@ -372,13 +417,12 @@
     }
 
     window.addEventListener('scroll', checkZoom);
-    window.addEventListener('resize', checkZoom); // Untuk menangani perubahan ukuran layar
-    window.addEventListener('load', checkZoom); // Trigger saat halaman dimuat
+    window.addEventListener('resize', checkZoom);
+    window.addEventListener('load', checkZoom);
   </script>
 
   <script src="https://l2dwidget.js.org/lib/L2Dwidget.min.js"></script>
   <script type="text/javascript">
-    // Function to get a random message (yang sudah ada)
     function getRandomMessage() {
         const messages = [
             'Hai, ada yang bisa saya bantu?',
@@ -416,5 +460,17 @@
         }
     });
   </script>
+
+  <script type="text/javascript">
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement({
+      pageLanguage: 'id', // Bahasa asli halaman Anda (Indonesia)
+      layout: google.translate.TranslateElement.InlineLayout.SIMPLE, // Gunakan layout sederhana
+      autoDisplay: false // Jangan tampilkan banner terjemahan otomatis awal
+    }, 'google_translate_element');
+  }
+  </script>
+  <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
 </body>
-</html>
+  </html>
