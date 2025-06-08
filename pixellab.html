@@ -219,6 +219,7 @@
       max-width: 300px;
       box-shadow: 0 5px 15px rgba(0,0,0,0.2);
       text-align: center;
+      position: relative; /* Tambahkan ini untuk posisi tombol close */
       /* Mencegah seleksi teks dan klik kanan pada modal */
       -webkit-user-select: none;
       -moz-user-select: none;
@@ -257,16 +258,31 @@
     }
 
     .close-btn {
-      margin-top: 15px;
-      color: red;
-      font-size: 14px;
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 30px;
+      height: 30px;
+      background: #ff5c5c; /* Warna latar belakang merah */
+      color: white;
+      border-radius: 50%; /* Membuatnya bulat sempurna */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 18px;
+      font-weight: bold;
       cursor: pointer;
+      transition: background 0.2s ease-in-out;
       /* Mencegah seleksi teks dan klik kanan pada tombol tutup */
       -webkit-user-select: none;
       -moz-user-select: none;
       -ms-user-select: none;
       user-select: none;
       -webkit-touch-callout: none;
+    }
+
+    .close-btn:hover {
+      background: #e04444; /* Warna sedikit lebih gelap saat hover */
     }
   </style>
 </head>
@@ -406,8 +422,7 @@
 
   <div class="modal-overlay" id="popup">
     <div class="modal">
-      <div id="modal-body"></div>
-      <div class="close-btn" onclick="closeModal()">Tutup</div>
+      <span class="close-btn" onclick="closeModal()">X</span> <div id="modal-body"></div>
     </div>
   </div>
 
@@ -492,7 +507,7 @@
           <h2>Cara Download</h2>
           <div class="modal-buttons">
             <a href="${youtubeLink1}" target="_blank">Tonton Panduan YouTube1</a>
-            <a href="${youtubeLink2}" target="_blank">Tonton Panduan YouTube2</a>
+            <a href="${youtubeLink1}" target="_blank">Tonton Panduan YouTube2</a>
           </div>
         `;
       }
@@ -505,9 +520,10 @@
       document.getElementById('popup').style.display = 'none';
     }
 
-    window.addEventListener('click', e => {
-      if (e.target === document.getElementById('popup')) closeModal();
-    });
+    // Baris ini telah dikomentari untuk mencegah modal menutup saat mengklik area luar modal
+    // window.addEventListener('click', e => {
+    //   if (e.target === document.getElementById('popup')) closeModal();
+    // });
 
     function toggleDesc(btn) {
       const desc = btn.nextElementSibling;
