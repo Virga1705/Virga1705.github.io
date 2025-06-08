@@ -124,18 +124,13 @@
       color: #888;
     }
 
-    /* Gaya untuk widget Google Translate di dalam sidebar */
-    #google_translate_element_in_sidebar {
-      margin-top: 20px; /* Jarak dari kartu di atasnya */
-      padding: 0 25px; /* Sesuaikan padding agar terlihat bagus */
-      width: calc(100% - 50px); /* Sesuaikan lebar */
-    }
-    #google_translate_element_in_sidebar .goog-te-gadget-simple {
+    /* Gaya untuk widget Google Translate di dalam modal */
+    #google_translate_element_in_modal .goog-te-gadget-simple {
         border: none !important;
         background-color: transparent !important;
         width: 100%; /* Agar dropdown mengambil lebar penuh */
     }
-    #google_translate_element_in_sidebar .goog-te-combo {
+    #google_translate_element_in_modal .goog-te-combo {
         border: 1px solid #ccc;
         border-radius: 5px;
         padding: 8px 10px;
@@ -615,7 +610,16 @@
       document.querySelector(".hamburger-icon").classList.remove("open");
     }
 
-    // Modal Kustom Baru untuk Sidebar
+    // Tutup sidebar saat klik di luar area sidebar (opsional, bisa dihilangkan jika tidak diinginkan)
+    window.addEventListener('click', function(event) {
+      const sidebar = document.getElementById("mySidebar");
+      const hamburgerIcon = document.querySelector(".hamburger-icon");
+      if (sidebar.classList.contains("open") && !sidebar.contains(event.target) && !hamburgerIcon.contains(event.target)) {
+        closeSidebar();
+      }
+    });
+
+    // Modal Kustom Baru untuk Sidebar (Perbaikan Translate)
     function openCustomModal(type) {
       const modal = document.getElementById('customModal');
       const modalTitle = document.getElementById('customModalTitle');
@@ -630,6 +634,10 @@
             <a href="https://flaticon.com/" target="_blank">Flaticon (Icons)</a>
             <a href="#">Your Name (Developer)</a>
           `;
+          // Pastikan widget Google Translate tidak ada di sini
+          if (document.getElementById('google_translate_element_in_modal')) {
+              document.getElementById('google_translate_element_in_modal').innerHTML = '';
+          }
           break;
         case 'donasi':
           modalTitle.textContent = 'Donasi';
@@ -638,6 +646,10 @@
             <a href="https://paypal.me/your_paypal_link" target="_blank">Donasi via PayPal</a>
             <p style="font-size:0.9em; color:#666; margin-top:15px;">Terima kasih atas dukungan Anda!</p>
           `;
+          // Pastikan widget Google Translate tidak ada di sini
+          if (document.getElementById('google_translate_element_in_modal')) {
+              document.getElementById('google_translate_element_in_modal').innerHTML = '';
+          }
           break;
         case 'translate':
           modalTitle.textContent = 'Translate Website';
@@ -645,20 +657,32 @@
             <p style="font-size:1em; color:#333;">Pilih bahasa untuk terjemahan:</p>
             <div id="google_translate_element_in_modal" style="margin-top:10px;"></div>
           `;
-          // Panggil inisialisasi Google Translate hanya jika belum ada di modal ini
-          if (!document.getElementById('google_translate_element_in_modal').innerHTML) {
-              setTimeout(function() {
+          // Pastikan untuk menghapus elemen Google Translate yang lama jika ada sebelum re-render
+          if (document.getElementById('google_translate_element_in_modal')) {
+              document.getElementById('google_translate_element_in_modal').innerHTML = '';
+          }
+          // Panggil fungsi inisialisasi Google Translate setelah modalBody diisi
+          // Menggunakan setTimeout untuk memastikan DOM sudah diperbarui
+          setTimeout(function() {
+              if (typeof google === 'object' && typeof google.translate === 'object') {
                   new google.translate.TranslateElement({
                       pageLanguage: 'id',
                       autoDisplay: false,
                       layout: google.translate.TranslateElement.InlineLayout.SIMPLE
                   }, 'google_translate_element_in_modal');
-              }, 100); // Sedikit delay untuk memastikan div dirender
-          }
+              } else {
+                  // Fallback jika skrip Google Translate belum dimuat
+                  console.warn("Google Translate script not loaded yet.");
+                  // Anda bisa menambahkan pesan kepada pengguna di sini
+              }
+          }, 50); // Delay kecil agar elemen ada di DOM
           break;
         default:
           modalTitle.textContent = 'Informasi';
           content = `<p>Konten tidak ditemukan.</p>`;
+          if (document.getElementById('google_translate_element_in_modal')) {
+              document.getElementById('google_translate_element_in_modal').innerHTML = '';
+          }
       }
 
       modalBody.innerHTML = content;
@@ -668,34 +692,12 @@
 
     function closeCustomModal() {
       document.getElementById('customModal').classList.remove('active');
-    }
-
-    // === Google Translate Widget Setup for Modal ===
-    // Pastikan fungsi googleTranslateElementInit_modal ada hanya sekali
-    window.googleTranslateElementInit_modal_flag = false; // Flag untuk mencegah inisialisasi berulang
-
-    function googleTranslateElementInit_modal() {
-      if (!window.googleTranslateElementInit_modal_flag) { // Hanya jalankan sekali
-        new google.translate.TranslateElement({
-          pageLanguage: 'id',
-          autoDisplay: false,
-          layout: google.translate.TranslateElement.InlineLayout.SIMPLE
-        }, 'google_translate_element_in_modal');
-        window.googleTranslateElementInit_modal_flag = true;
+      // Kosongkan div Google Translate saat modal ditutup untuk membersihkan widget
+      const translateDiv = document.getElementById('google_translate_element_in_modal');
+      if (translateDiv) {
+          translateDiv.innerHTML = '';
       }
     }
-
-    // Skrip Google Translate (untuk modal, hanya jika belum dimuat)
-    if (typeof google !== 'object' || typeof google.translate === 'undefined') {
-        const script = document.createElement('script');
-        script.type = 'text/javascript';
-        script.src = '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit_modal';
-        document.body.appendChild(script);
-    } else {
-        // Jika Google Translate sudah dimuat, panggil fungsi inisialisasi modal secara langsung
-        googleTranslateElementInit_modal();
-    }
-
 
   </script>
 
@@ -738,5 +740,16 @@
         }
     });
   </script>
+
+  <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit_global"></script>
+  <script type="text/javascript">
+  // Fungsi inisialisasi dummy global agar cb=googleTranslateElementInit_global tidak error
+  // Widget sebenarnya akan diinisialisasi di dalam modal saat dibutuhkan.
+  function googleTranslateElementInit_global() {
+      // Fungsi ini kosong, karena kita akan menginisialisasi widget di dalam modal.
+      // Ini hanya untuk memenuhi callback yang diminta oleh skrip Google Translate.
+  }
+  </script>
+
 </body>
 </html>
