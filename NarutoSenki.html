@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale: 1.0"/>
   <title>Naruto Senki</title>
   <style>
     body {
@@ -22,35 +22,34 @@
       position: sticky;
       top: 0;
       z-index: 999;
-      display: flex; /* Mengatur tampilan flexbox untuk menyelaraskan item secara horizontal */
-      align-items: center; /* Menyelaraskan item secara vertikal di tengah */
+      display: flex;
+      align-items: center;
     }
 
-    /* Gaya untuk tombol kembali (back button) */
     .back-button {
-      margin-right: 10px; /* Memberi jarak antara tombol dan judul */
-      padding: 0; /* Menghapus padding agar ikon tidak ada jarak di dalamnya */
-      border: none; /* Menghapus border */
+      margin-right: 10px;
+      padding: 0;
+      border: none;
       border-radius: 10px;
       cursor: pointer;
       transition: all .2s ease-in-out;
-      text-decoration: none; /* Menghilangkan garis bawah pada tautan */
-      display: flex; /* Mengatur tampilan flexbox untuk memusatkan ikon */
-      align-items: center; /* Memusatkan ikon secara vertikal */
-      justify-content: center; /* Memusatkan ikon secara horizontal */
-      width: 26px; /* Mengatur lebar tombol menjadi 48px */
-      height: 26px; /* Mengatur tinggi tombol menjadi 48px */
-      background: white; /* Menambahkan background putih agar ikon tetap terlihat */
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 26px;
+      height: 26px;
+      background: white;
     }
 
     .back-button:hover {
-      background: #e0e0e0; /* Mengubah background saat hover untuk efek visual */
+      background: #e0e0e0;
     }
 
     .back-button img {
-      display: block; /* Memastikan gambar mengambil seluruh ruang tautan */
-      width: 26px; /* Mengatur lebar gambar menjadi 48px */
-      height: 26px; /* Mengatur tinggi gambar menjadi 48px */
+      display: block;
+      width: 26px;
+      height: 26px;
     }
 
     .card {
@@ -63,6 +62,14 @@
       background: white;
       box-shadow: 0 2px 6px rgba(0,0,0,0.1);
       max-width: 360px;
+      opacity: 0; /* Initially hidden */
+      transform: scale(0.8); /* Start scaled down */
+      transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+    }
+
+    .card.zoom-in {
+      opacity: 1;
+      transform: scale(1);
     }
 
     .card a img {
@@ -339,6 +346,28 @@
       desc.style.display = isVisible ? 'none' : 'block';
       btn.textContent = isVisible ? 'Deskripsi ▼' : 'Tutup ▲';
     }
+
+    function checkZoom() {
+      const cards = document.querySelectorAll('.card');
+      cards.forEach(card => {
+        const cardTop = card.offsetTop;
+        const windowBottom = window.scrollY + window.innerHeight;
+        const windowTop = window.scrollY;
+        const cardHeight = card.offsetHeight;
+        // Kartu terlihat jika bagian atas kartu di bawah bagian bawah jendela DAN bagian bawah kartu di atas bagian atas jendela
+        const isVisible = (cardTop < windowBottom) && (cardTop + cardHeight > windowTop);
+
+        if (isVisible) {
+          card.classList.add('zoom-in');
+        } else {
+          card.classList.remove('zoom-in');
+        }
+      });
+    }
+
+    window.addEventListener('scroll', checkZoom);
+    window.addEventListener('resize', checkZoom); // Untuk menangani perubahan ukuran layar
+    window.addEventListener('load', checkZoom); // Trigger saat halaman dimuat
   </script>
 
   <script src="https://l2dwidget.js.org/lib/L2Dwidget.min.js"></script>
