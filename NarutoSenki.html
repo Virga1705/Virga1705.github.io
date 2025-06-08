@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale: 1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Naruto Senki</title>
   <style>
     body {
@@ -10,6 +10,13 @@
       margin: 0;
       padding: 0;
       background: #f8f8f8;
+      /* Mencegah seleksi teks */
+      -webkit-user-select: none; /* Safari */
+      -moz-user-select: none;    /* Firefox */
+      -ms-user-select: none;     /* Internet Explorer/Edge */
+      user-select: none;         /* Standard */
+      /* Mencegah menu konteks (klik kanan) secara global */
+      -webkit-touch-callout: none; /* Untuk iOS, mencegah menu pop-up saat long-press */
     }
 
     header {
@@ -24,6 +31,12 @@
       z-index: 999;
       display: flex;
       align-items: center;
+      /* Tambahkan properti user-select untuk header juga */
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
     }
 
     .back-button {
@@ -40,6 +53,12 @@
       width: 26px;
       height: 26px;
       background: white;
+      /* Mencegah seleksi teks dan klik kanan pada back button */
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
     }
 
     .back-button:hover {
@@ -50,6 +69,8 @@
       display: block;
       width: 26px;
       height: 26px;
+      /* Mencegah draggable dan klik kanan pada gambar */
+      pointer-events: none; /* Mencegah interaksi mouse/touch pada gambar (termasuk download) */
     }
 
     .card {
@@ -62,9 +83,15 @@
       background: white;
       box-shadow: 0 2px 6px rgba(0,0,0,0.1);
       max-width: 360px;
-      opacity: 0; /* Initially hidden */
-      transform: scale(0.8); /* Start scaled down */
+      opacity: 0;
+      transform: scale(0.8);
       transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+      /* Mencegah seleksi teks dan klik kanan pada card */
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
     }
 
     .card.zoom-in {
@@ -76,6 +103,8 @@
       width: 100%;
       display: block;
       cursor: pointer;
+      /* Mencegah draggable dan klik kanan pada gambar */
+      pointer-events: none; /* Mencegah interaksi mouse/touch pada gambar (termasuk download) */
     }
 
     .title {
@@ -125,6 +154,12 @@
       background: white;
       cursor: pointer;
       transition: all .2s ease-in-out;
+      /* Mencegah seleksi teks dan klik kanan pada tombol */
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
     }
 
     .buttons button:hover {
@@ -138,6 +173,12 @@
       padding: 10px;
       color: #555;
       font-size: 14px;
+      /* Mencegah seleksi teks pada footer */
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
     }
 
     .modal-overlay {
@@ -151,6 +192,12 @@
       justify-content: center;
       align-items: center;
       z-index: 999;
+      /* Mencegah seleksi teks dan klik kanan pada modal overlay */
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
     }
 
     .modal {
@@ -161,6 +208,12 @@
       max-width: 300px;
       box-shadow: 0 5px 15px rgba(0,0,0,0.2);
       text-align: center;
+      /* Mencegah seleksi teks dan klik kanan pada modal */
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
     }
 
     .modal-buttons {
@@ -179,6 +232,12 @@
       color: black;
       background: white;
       transition: all .2s ease-in-out;
+      /* Mencegah seleksi teks dan klik kanan pada tombol modal */
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
     }
 
     .modal-buttons a:hover {
@@ -191,21 +250,27 @@
       color: red;
       font-size: 14px;
       cursor: pointer;
+      /* Mencegah seleksi teks dan klik kanan pada tombol tutup */
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
     }
   </style>
 </head>
-<body>
+<body oncontextmenu="return false;">
 
   <header>
     <a href="Virga1705.github.io" class="back-button">
-      <img src="https://files.catbox.moe/g9z1ny.png" alt="Kembali ke Beranda">
+      <img src="https://files.catbox.moe/g9z1ny.png" alt="Kembali ke Beranda" draggable="false">
     </a>
     Naruto Senki
   </header>
 
   <div class="card">
     <a href="https://youtu.be/1NVlvJIrFPY?si=Cv-ta_itqLGUVg2D" target="_blank">
-      <img src="https://files.catbox.moe/ml9alc.jpg" alt="Review Gameplay">
+      <img src="https://files.catbox.moe/ml9alc.jpg" alt="Review Gameplay" draggable="false">
     </a>
     <div class="title">
       <span>NS: Waifu War V1</span>
@@ -221,7 +286,7 @@
   </div>
 
   <div class="card">
-    <a href="https://youtu.be/mRTvlyhyzuk"><img src="https://files.catbox.moe/deyydz.jpg" alt="NS Original"></a>
+    <a href="https://youtu.be/mRTvlyhyzuk"><img src="https://files.catbox.moe/deyydz.jpg" alt="NS Original" draggable="false"></a>
     <div class="title">
       <span>Narsen Unprotect 1.17 Full Screen</span>
       <button class="desc-toggle" onclick="toggleDesc(this)">Deskripsi ▼</button>
@@ -236,7 +301,7 @@
   </div>
 
   <div class="card">
-    <a href="https://youtu.be/NCH1Ohn5okM"><img src="https://files.catbox.moe/zjidv3.jpg" alt="NS V2.1"></a>
+    <a href="https://youtu.be/NCH1Ohn5okM"><img src="https://files.catbox.moe/zjidv3.jpg" alt="NS V2.1" draggable="false"></a>
     <div class="title">
       <span>NARUTO SENKI 2.1.6</span>
       <button class="desc-toggle" onclick="toggleDesc(this)">Deskripsi ▼</button>
@@ -354,7 +419,6 @@
         const windowBottom = window.scrollY + window.innerHeight;
         const windowTop = window.scrollY;
         const cardHeight = card.offsetHeight;
-        // Kartu terlihat jika bagian atas kartu di bawah bagian bawah jendela DAN bagian bawah kartu di atas bagian atas jendela
         const isVisible = (cardTop < windowBottom) && (cardTop + cardHeight > windowTop);
 
         if (isVisible) {
@@ -366,8 +430,8 @@
     }
 
     window.addEventListener('scroll', checkZoom);
-    window.addEventListener('resize', checkZoom); // Untuk menangani perubahan ukuran layar
-    window.addEventListener('load', checkZoom); // Trigger saat halaman dimuat
+    window.addEventListener('resize', checkZoom);
+    window.addEventListener('load', checkZoom);
   </script>
 
   <script src="https://l2dwidget.js.org/lib/L2Dwidget.min.js"></script>
