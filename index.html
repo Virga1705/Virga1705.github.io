@@ -10,6 +10,13 @@
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-color: #f4f4f4;
       color: #111;
+      /* Mencegah seleksi teks */
+      -webkit-user-select: none; /* Safari */
+      -moz-user-select: none;    /* Firefox */
+      -ms-user-select: none;     /* Internet Explorer/Edge */
+      user-select: none;         /* Standard */
+      /* Mencegah menu konteks (klik kanan) secara global */
+      -webkit-touch-callout: none; /* Untuk iOS, mencegah menu pop-up saat long-press */
     }
 
     nav {
@@ -35,6 +42,12 @@
       color: white;
       padding: 6rem 1rem 2rem 1rem;
       text-align: center;
+      /* Tambahkan properti user-select untuk header juga */
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
     }
 
     header h2 {
@@ -66,6 +79,12 @@
       color: white;
       padding: 3rem 1rem;
       text-align: center;
+      /* Tambahkan properti user-select untuk about juga */
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
     }
 
     /* CONTAINER untuk layout grid */
@@ -95,6 +114,12 @@
 
       opacity: 0; /* Awalnya tersembunyi */
       transform: scale(0.8); /* Awalnya diperkecil */
+      /* Mencegah seleksi teks dan klik kanan pada card */
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
     }
 
     .virga-card.zoom-in { /* Class untuk animasi zoom-in */
@@ -111,6 +136,13 @@
       height: 60px;
       flex-shrink: 0; /* Mencegah logo mengecil */
       object-fit: contain; /* Memastikan gambar logo tidak terdistorsi */
+      /* Mencegah draggable dan klik kanan pada logo */
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
+      pointer-events: none; /* Mencegah interaksi mouse/touch pada gambar (termasuk download) */
     }
 
     .virga-card .card-content-wrapper {
@@ -191,29 +223,16 @@
       padding: 2rem 1rem;
       background-color: #f0f0f0;
       color: #555;
-    }
-
-    /* Media Queries untuk Responsivitas */
-    @media (max-width: 768px) {
-        .virga-card {
-            width: 100%; /* Lebar penuh pada layar yang lebih kecil */
-            max-width: 400px; /* Batasi lebar maksimum */
-            padding: 10px;
-        }
-        .virga-card .card-logo {
-          width: 50px;
-          height: 50px;
-        }
-        .virga-card .card-title {
-          font-size: 1.1rem;
-        }
-        .virga-card .card-description {
-          font-size: 0.85rem;
-        }
+      /* Mencegah seleksi teks pada footer */
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
     }
   </style>
 </head>
-<body>
+<body oncontextmenu="return false;">
   <nav>
     <h1>vɪʀɢᴀ ꜰꜱ</h1>
   </nav>
@@ -223,16 +242,16 @@
     <div class="typing" id="typing"></div>
     <div class="social">
       <a href="https://instagram.com/i.lifenot4you" target="_blank">
-        <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram">
+        <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram" draggable="false">
       </a>
       <a href="https://youtube.com/@VVIRGAFS" target="_blank">
-        <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="YouTube">
+        <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="YouTube" draggable="false">
       </a>
       <a href="mailto:virga1705@gmail.com">
-        <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Email">
+        <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" alt="Email" draggable="false">
       </a>
       <a href="https://t.me/vfs1705" target="_blank">
-        <img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png" alt="Telegram">
+        <img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png" alt="Telegram" draggable="false">
       </a>
     </div>
   </header>
@@ -245,7 +264,7 @@
   <div class="container">
 
     <a href="https://Virga1705.github.io/NarutoSenki.html" class="virga-card align-left-logo">
-      <img src="https://files.catbox.moe/ngsl57.jpg" alt="Naruto Senki Logo" class="card-logo">
+      <img src="https://files.catbox.moe/ngsl57.jpg" alt="Naruto Senki Logo" class="card-logo" draggable="false">
       <div class="card-content-wrapper">
         <p class="card-title">Naruto Senki</p>
         <p class="card-description collapsed" data-full-text="Modifikasi game Naruto Senki dengan karakter dan fitur baru yang seru. Nikmati pertempuran epik dan skill unik yang belum pernah ada sebelumnya. Tambahan level dan misi baru akan menantang kemampuan bermainmu.">
@@ -257,7 +276,7 @@
     </a>
 
     <a href="https://Virga1705.github.io/pixellab.html" class="virga-card align-right-logo">
-      <img src="https://files.catbox.moe/97vkic.png" alt="PixelLab Logo" class="card-logo">
+      <img src="https://files.catbox.moe/97vkic.png" alt="PixelLab Logo" class="card-logo" draggable="false">
       <div class="card-content-wrapper">
         <p class="card-title">PixelLab</p>
         <p class="card-description collapsed" data-full-text="Aplikasi editing foto dengan berbagai tema dan font premium. Buat desain grafis profesional langsung dari ponsel Anda. Tambahan fitur filter dan efek terbaru.">
@@ -269,7 +288,7 @@
     </a>
 
     <a href="https://Virga1705.github.io/gg.html" class="virga-card align-left-logo">
-      <img src="https://files.catbox.moe/xqmdrq.png" alt="Game Guardian Logo" class="card-logo">
+      <img src="https://files.catbox.moe/xqmdrq.png" alt="Game Guardian Logo" class="card-logo" draggable="false">
       <div class="card-content-wrapper">
         <p class="card-title">GAME GUARDIAN</p>
         <p class="card-description collapsed" data-full-text="Modifikasi Game Guardian dengan tema kustom dan fitur unik untuk pengalaman bermain game. Dapatkan akses ke fitur-fitur eksklusif dan optimasi performa. Cocok untuk para modder dan gamer sejati.">
