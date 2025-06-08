@@ -92,6 +92,15 @@
       width: 250px;
     }
 
+    /* Copyright di sidebar */
+    .sidebar .copyright-text {
+      font-size: 0.85rem;
+      color: #666;
+      margin: 15px 0; /* Jarak dari atas dan bawah */
+      text-align: center;
+      padding: 0 20px;
+    }
+
     /* Gaya untuk card di dalam sidebar */
     .sidebar-card {
       background-color: #f9f9f9;
@@ -113,6 +122,33 @@
       background-color: #e9e9e9;
       transform: translateY(-2px);
     }
+
+    /* Gaya untuk pengumuman card di sidebar */
+    .sidebar-announcement-card {
+      background-color: #e0f7fa; /* Warna latar belakang yang menonjol */
+      border: 1px solid #b2ebf2;
+      border-radius: 8px;
+      margin: 15px 0; /* Margin lebih besar */
+      padding: 15px;
+      width: 80%;
+      text-align: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      font-size: 0.95rem;
+      color: #007bff; /* Warna teks yang kontras */
+      font-weight: 500;
+      line-height: 1.4;
+      min-height: 80px; /* Tinggi minimum agar tidak berkedip saat teks berganti */
+      display: flex; /* Untuk pemusatan teks vertikal */
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.5s ease-in-out; /* Transisi untuk fade in/out teks */
+      opacity: 0; /* Awalnya tersembunyi */
+    }
+
+    .sidebar-announcement-card.visible {
+        opacity: 1;
+    }
+
 
     /* Gaya untuk form pencarian di sidebar */
     .sidebar-search {
@@ -379,8 +415,8 @@
       background: white;
       border-radius: 12px;
       padding: 30px;
-      padding-top: 50px;
-      position: relative;
+      padding-top: 50px; /* Tambahan padding di atas untuk tombol X */
+      position: relative; /* Untuk posisi tombol X */
       width: 90%;
       max-width: 400px;
       box-shadow: 0 5px 20px rgba(0,0,0,0.3);
@@ -397,16 +433,22 @@
     .new-modal .close-x-button {
       position: absolute;
       top: 10px;
-      right: 15px;
-      font-size: 24px;
+      right: 10px; /* Sedikit lebih ke dalam */
+      font-size: 20px; /* Ukuran lebih kecil untuk bulat */
       font-weight: bold;
       color: red; /* Warna X merah */
       cursor: pointer;
-      line-height: 1;
-      padding: 5px 10px; /* Area klik lebih besar dan agak persegi panjang */
+      line-height: 1; /* Agar tidak ada spasi tambahan */
+      padding: 8px; /* Padding sama untuk semua sisi */
       border: 2px solid red; /* Border merah */
-      border-radius: 5px; /* Sedikit melengkung */
+      border-radius: 50%; /* Membuat tombol bulat sempurna */
       transition: background-color 0.2s ease, color 0.2s ease;
+      display: flex; /* Untuk memusatkan X */
+      align-items: center;
+      justify-content: center;
+      width: 24px; /* Agar ukuran konsisten untuk lingkaran */
+      height: 24px; /* Agar ukuran konsisten untuk lingkaran */
+      box-sizing: border-box; /* Agar padding dan border tidak menambah ukuran elemen */
     }
 
     .new-modal .close-x-button:hover {
@@ -460,6 +502,7 @@
 
   <div id="mySidebar" class="sidebar">
     <a href="javascript:void(0)" class="closebtn" onclick="closeSidebar()">×</a>
+    <p class="copyright-text">© 2025 вирга</p> <div id="announcement-area" class="sidebar-announcement-card"></div>
     <div class="sidebar-search">
       <input type="text" id="search-input" placeholder="Cari di sini...">
       <button onclick="performSearch()">Cari</button>
@@ -531,11 +574,7 @@
     </a>
   </div>
 
-  <footer>
-    © 2025 вирга
-  </footer>
-
-  <div class="new-modal-overlay" id="customModal">
+  <footer></footer> <div class="new-modal-overlay" id="customModal">
     <div class="new-modal">
       <span class="close-x-button" onclick="closeCustomModal()">×</span>
       <h3 id="customModalTitle"></h3>
@@ -545,7 +584,8 @@
   </div>
 
   <script>
-    // JavaScript untuk Read More (Tidak Berubah)
+    // JavaScript untuk Read More (Diambil dari kode fresh Anda)
+    // Fungsi ini dikembalikan ke versi yang Anda kirimkan karena sudah berfungsi di sana.
     document.addEventListener('DOMContentLoaded', function() {
       const toggleButtons = document.querySelectorAll('.read-more-toggle');
 
@@ -554,7 +594,7 @@
           event.preventDefault();
           event.stopPropagation();
 
-          const description = this.closest('.card-description');
+          const description = this.closest('.card-description'); // Ini sudah berfungsi dengan baik di kode fresh Anda
           const moreText = description.querySelector('.more-text');
           const ellipsis = description.querySelector('.read-more-ellipsis');
 
@@ -622,24 +662,29 @@
       } else {
         sidebar.classList.add("open");
         hamburgerIcon.classList.add("open");
+        startAnnouncementRotation(); // Mulai rotasi pengumuman saat sidebar dibuka
       }
     }
 
     function closeSidebar() {
       document.getElementById("mySidebar").classList.remove("open");
       document.querySelector(".hamburger-icon").classList.remove("open");
+      stopAnnouncementRotation(); // Hentikan rotasi pengumuman saat sidebar ditutup
     }
 
     // Tutup sidebar saat klik di luar area sidebar (opsional, bisa dihilangkan jika tidak diinginkan)
     window.addEventListener('click', function(event) {
       const sidebar = document.getElementById("mySidebar");
       const hamburgerIcon = document.querySelector(".hamburger-icon");
-      if (sidebar.classList.contains("open") && !sidebar.contains(event.target) && !hamburgerIcon.contains(event.target)) {
+      const customModal = document.getElementById('customModal'); // Pastikan modal tidak tertutup juga
+
+      // Hanya tutup sidebar jika klik di luar sidebar DAN bukan di hamburger DAN bukan di dalam modal
+      if (sidebar.classList.contains("open") && !sidebar.contains(event.target) && !hamburgerIcon.contains(event.target) && !customModal.contains(event.target)) {
         closeSidebar();
       }
     });
 
-    // Modal Kustom Baru untuk Sidebar (Translate Dihapus)
+    // Modal Kustom untuk Sidebar (Donasi dikembalikan ke sederhana, tanpa Read More di modal)
     function openCustomModal(type) {
       const modal = document.getElementById('customModal');
       const modalTitle = document.getElementById('customModalTitle');
@@ -650,16 +695,17 @@
         case 'credits':
           modalTitle.textContent = 'Credits';
           content = `
-            <a href="https://github.com/KanzakiisYU" target="_blank">KanzakiisYU (Live2D Model)</a>
-            <a href="https://flaticon.com/" target="_blank">Flaticon (Icons)</a>
-            <a href="#">Your Name (Developer)</a>
+            <a href="https://github.com/KanzakiisYU" target="_blank" class="new-modal-buttons">KanzakiisYU (Live2D Model)</a>
+            <a href="https://flaticon.com/" target="_blank" class="new-modal-buttons">Flaticon (Icons)</a>
+            <a href="#" class="new-modal-buttons">Your Name (Developer)</a>
           `;
           break;
         case 'donasi':
           modalTitle.textContent = 'Donasi';
           content = `
-            <a href="https://link.dana.id/your_dana_link" target="_blank">Donasi via Dana</a>
-            <a href="https://paypal.me/your_paypal_link" target="_blank">Donasi via PayPal</a>
+            <p style="font-size:1em; color:#333; margin-bottom:15px;">Dukung kami melalui pilihan di bawah ini:</p>
+            <a href="https://link.dana.id/your_dana_link" target="_blank" class="new-modal-buttons">Donasi via Dana</a>
+            <a href="https://paypal.me/your_paypal_link" target="_blank" class="new-modal-buttons">Donasi via PayPal</a>
             <p style="font-size:0.9em; color:#666; margin-top:15px;">Terima kasih atas dukungan Anda!</p>
           `;
           break;
@@ -677,7 +723,7 @@
       document.getElementById('customModal').classList.remove('active');
     }
 
-    // Fungsi untuk Fitur Pencarian
+    // Fungsi untuk Fitur Pencarian (Tidak Berubah)
     function performSearch() {
       const searchTerm = document.getElementById('search-input').value.toLowerCase();
       const cards = document.querySelectorAll('.container .virga-card');
@@ -706,6 +752,56 @@
       }
       closeSidebar(); // Tutup sidebar setelah pencarian
     }
+
+    // === JavaScript untuk Pengumuman Multibahasa ===
+    const announcements = [
+      { id: 'en', text: "If you want to translate this website into your preferred language, click the three dots in your browser and look for the translate feature. I recommend using Chrome browser." },
+      { id: 'ru', text: "Если вы хотите перевести этот веб-сайт на предпочитаемый вами язык, нажмите на три точки в браузere и найдите функцию перевода. Рекомендую использовать браузер Chrome." },
+      { id: 'zh-CN', text: "如果您想将此网站翻译成您偏好的语言，请点击浏览器中的三个点，然后查找翻译功能。我建议使用 Chrome 浏览器。" },
+      { id: 'ja', text: "このウェブサイトを希望の言語に翻訳したい場合は、ブラウザの三点リーダーをクリックして翻訳機能を探してください。Chromeブラウザの使用をお勧めします。" }
+    ];
+    let currentAnnouncementIndex = 0;
+    let announcementInterval; // Untuk menyimpan ID interval
+
+    function updateAnnouncement() {
+      const announcementCard = document.getElementById('announcement-area');
+      if (!announcementCard) return; // Keluar jika elemen tidak ada
+
+      // Fade out current text
+      announcementCard.classList.remove('visible');
+
+      setTimeout(() => { // Tunggu sampai fade out selesai
+        announcementCard.textContent = announcements[currentAnnouncementIndex].text;
+        announcementCard.classList.add('visible'); // Fade in new text
+        currentAnnouncementIndex = (currentAnnouncementIndex + 1) % announcements.length;
+      }, 500); // Sesuaikan dengan durasi transisi opacity CSS
+
+      // Panggil lagi setelah 10 detik (ditambah durasi transisi)
+      // Ini akan diatur oleh setInterval dari startAnnouncementRotation
+    }
+
+    function startAnnouncementRotation() {
+        // Panggil updateAnnouncement sekali saat sidebar dibuka
+        updateAnnouncement();
+        // Hentikan interval sebelumnya jika ada, untuk mencegah duplikasi
+        if (announcementInterval) clearInterval(announcementInterval);
+        // Mulai interval baru
+        announcementInterval = setInterval(updateAnnouncement, 10000); // 10 detik
+    }
+
+    function stopAnnouncementRotation() {
+        if (announcementInterval) {
+            clearInterval(announcementInterval);
+            announcementInterval = null; // Reset interval ID
+            // Opsional: Kosongkan teks pengumuman saat ditutup
+            const announcementCard = document.getElementById('announcement-area');
+            if (announcementCard) {
+                announcementCard.classList.remove('visible');
+                // announcementCard.textContent = ''; // Opsional: Kosongkan teks
+            }
+        }
+    }
+
 
   </script>
 
