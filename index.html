@@ -8,8 +8,8 @@
     body {
       margin: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f4f4f4;
-      color: #111;
+      background-color: #f4f4f4; /* Light mode default */
+      color: #111; /* Light mode default text */
       /* Mencegah seleksi teks */
       -webkit-user-select: none; /* Safari */
       -moz-user-select: none;    /* Firefox */
@@ -18,7 +18,109 @@
       /* Mencegah menu konteks (klik kanan) secara global */
       -webkit-touch-callout: none; /* Untuk iOS, mencegah menu pop-up saat long-press */
       overflow-x: hidden; /* Mencegah overflow saat sidebar terbuka */
+      transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition for dark mode */
     }
+
+    /* DARK MODE STYLES */
+    body.dark-mode {
+        background-color: #1a1a1a;
+        color: #f0f0f0;
+    }
+    body.dark-mode nav {
+        background-color: #2a2a2a;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+    body.dark-mode nav h1 {
+        color: #f0f0f0;
+    }
+    body.dark-mode .hamburger-icon span {
+        background-color: #f0f0f0;
+    }
+    /* Dark mode untuk tombol Dark Mode itu sendiri (di sidebar) */
+    body.dark-mode #dark-mode-toggle { /* Pastikan ID ini unik untuk sidebar */
+        background-color: #333;
+        border-color: #555;
+    }
+    body.dark-mode #dark-mode-toggle:hover {
+        background-color: #444;
+    }
+    body.dark-mode #dark-mode-toggle img.mode-icon.visible {
+        filter: invert(100%); /* Invert warna ikon untuk dark mode */
+    }
+
+
+    body.dark-mode .sidebar {
+        background-color: rgba(42, 42, 42, 0.95);
+        box-shadow: -5px 0 15px rgba(0,0,0,0.5);
+    }
+    body.dark-mode .sidebar .copyright-text,
+    body.dark-mode .sidebar-card,
+    body.dark-mode .sidebar-search input[type="text"],
+    body.dark-mode .sidebar .closebtn {
+        color: #f0f0f0;
+    }
+    body.dark-mode .sidebar-card {
+        background-color: #333;
+        border-color: #444;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    }
+    body.dark-mode .sidebar-card:hover {
+        background-color: #444;
+    }
+    body.dark-mode .sidebar-search input[type="text"] {
+        background-color: #333;
+        border-color: #555;
+    }
+    body.dark-mode .sidebar-search button {
+        background-color: #007bff; /* Tetap biru atau disesuaikan */
+        color: #f0f0f0;
+    }
+    body.dark-mode .sidebar-search button:hover {
+        background-color: #0056b3;
+    }
+    body.dark-mode .sidebar-announcement-card {
+        background-color: #2a2a2a;
+        border-color: #444;
+        color: #8be9fd; /* A brighter blue for contrast */
+        box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    }
+    body.dark-mode .virga-card {
+        background-color: #2a2a2a;
+        border-color: #444;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    }
+    body.dark-mode .virga-card .card-title {
+        color: #f0f0f0;
+    }
+    body.dark-mode .virga-card .card-description {
+        color: #bbb;
+    }
+    body.dark-mode .read-more-toggle {
+        color: #8be9fd; /* Adjust link color for dark mode */
+    }
+    body.dark-mode footer {
+        background-color: #2a2a2a;
+        color: #f0f0f0;
+    }
+    body.dark-mode .new-modal {
+        background-color: #2a2a2a;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+    }
+    body.dark-mode .new-modal h3 {
+        color: #f0f0f0;
+    }
+    body.dark-mode .new-modal-buttons a,
+    body.dark-mode .new-modal-buttons button {
+        border-color: #8be9fd; /* Adjust button border color */
+        color: #8be9fd; /* Adjust button text color */
+        background-color: #333;
+    }
+    body.dark-mode .new-modal-buttons a:hover,
+    body.dark-mode .new-modal-buttons button:hover {
+        background-color: #8be9fd;
+        color: #2a2a2a;
+    }
+
 
     nav {
       background-color: #ffffff;
@@ -30,12 +132,14 @@
       position: sticky;
       top: 0;
       z-index: 1000;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
     }
 
     nav h1 {
       margin: 0;
       font-size: 1.5rem;
       color: #111;
+      transition: color 0.3s ease;
     }
 
     /* Hamburger Menu Icon */
@@ -48,6 +152,7 @@
       flex-direction: column;
       justify-content: space-between;
       z-index: 1001;
+      margin-left: auto; /* Dorong ke kanan navbar */
     }
 
     .hamburger-icon span {
@@ -92,27 +197,74 @@
       width: 250px;
     }
 
+    /* Wrapper untuk copyright dan Dark Mode Toggle di sidebar */
+    .copyright-and-theme-wrapper {
+        display: flex;
+        justify-content: center; /* Memusatkan konten di dalam wrapper */
+        align-items: center; /* Penyelarasan vertikal */
+        gap: 10px; /* Jarak antara copyright dan tombol */
+        margin: 15px 0; /* Margin dari elemen lain di sidebar */
+        padding: 0 20px; /* Padding sisi agar tidak terlalu mepet */
+        width: 100%; /* Agar wrapper mengambil lebar penuh sidebar */
+        box-sizing: border-box;
+    }
+
     /* Copyright di sidebar */
     .sidebar .copyright-text {
       font-size: 0.85rem;
       color: #666;
-      margin: 15px 0; /* Jarak dari atas dan bawah */
+      margin: 0; /* Reset margin yang mungkin ada dari aturan lain */
       text-align: center;
-      padding: 0 20px;
+      transition: color 0.3s ease;
     }
 
-    /* Gaya untuk card di dalam sidebar */
+    /* Gaya untuk Dark Mode Toggle Card (di Sidebar) */
+    #dark-mode-toggle { /* Ini adalah ID unik untuk tombol DM di sidebar */
+        width: 40px; /* Ukuran kotak */
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        background-color: #f9f9f9; /* Mirip sidebar-card */
+        border: 1px solid #ddd; /* Mirip sidebar-card */
+        border-radius: 8px; /* Sudut melengkung */
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1); /* Sedikit bayangan */
+        transition: background-color 0.2s ease, transform 0.1s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        /* margin-left: auto; - REMOVED, tidak lagi di navbar */
+        /* margin-right: 10px; - REMOVED */
+        flex-shrink: 0; /* Pastikan tidak mengecil */
+    }
+
+    #dark-mode-toggle:hover {
+        background-color: #e9e9e9;
+        transform: translateY(-1px);
+    }
+
+    #dark-mode-toggle img.mode-icon {
+        width: 24px; /* Ukuran ikon di dalam kotak kecil */
+        height: 24px;
+        opacity: 0;
+        position: absolute; /* Untuk menempatkan ikon di tengah */
+        transition: opacity 0.3s ease, filter 0.3s ease; /* Transisi untuk filter invert */
+    }
+    #dark-mode-toggle img.mode-icon.visible {
+        opacity: 1;
+    }
+
+
+    /* Gaya untuk card di dalam sidebar (dilekatkan lagi agar jelas) */
     .sidebar-card {
       background-color: #f9f9f9;
       border: 1px solid #ddd;
-      border-radius: 8px;
+      border-radius: 8px; /* Kotak dengan sudut melengkung */
       margin: 10px 0;
-      padding: 15px;
+      padding: 15px; /* Padding sudah ada di #dark-mode-toggle */
       width: 80%;
       text-align: center;
       cursor: pointer;
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      transition: background-color 0.2s ease, transform 0.1s ease;
+      transition: background-color 0.2s ease, transform 0.1s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
       font-size: 1.1rem;
       font-weight: bold;
       color: #333;
@@ -125,37 +277,36 @@
 
     /* Gaya untuk pengumuman card di sidebar */
     .sidebar-announcement-card {
-      background-color: #e0f7fa; /* Warna latar belakang yang menonjol */
+      background-color: #e0f7fa;
       border: 1px solid #b2ebf2;
       border-radius: 8px;
-      margin: 15px 0; /* Margin lebih besar */
+      margin: 15px 0;
       padding: 15px;
       width: 80%;
       text-align: center;
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
       font-size: 0.95rem;
-      color: #007bff; /* Warna teks yang kontras */
+      color: #007bff;
       font-weight: 500;
       line-height: 1.4;
-      min-height: 80px; /* Tinggi minimum agar tidak berkedip saat teks berganti */
-      display: flex; /* Untuk pemusatan teks vertikal */
+      min-height: 80px;
+      display: flex;
       align-items: center;
       justify-content: center;
-      transition: opacity 0.5s ease-in-out; /* Transisi untuk fade in/out teks */
-      opacity: 0; /* Awalnya tersembunyi */
+      transition: opacity 0.5s ease-in-out, background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+      opacity: 0;
     }
 
     .sidebar-announcement-card.visible {
         opacity: 1;
     }
 
-
     /* Gaya untuk form pencarian di sidebar */
     .sidebar-search {
       margin: 20px 0;
       padding: 0 20px;
       width: 100%;
-      box-sizing: border-box; /* Pastikan padding tidak menambah lebar */
+      box-sizing: border-box;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -169,6 +320,9 @@
       border-radius: 5px;
       font-size: 1rem;
       box-sizing: border-box;
+      background-color: white;
+      color: #333;
+      transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
     }
 
     .sidebar-search button {
@@ -196,6 +350,7 @@
       margin-left: 50px;
       cursor: pointer;
       color: #888;
+      transition: color 0.3s ease;
     }
 
     header {
@@ -264,7 +419,7 @@
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       padding: 15px;
       cursor: pointer;
-      transition: transform 0.2s ease-in-out, opacity 0.5s ease-out;
+      transition: transform 0.2s ease-in-out, opacity 0.5s ease-out, background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
       width: 300px;
       min-height: 150px;
       text-decoration: none;
@@ -317,6 +472,7 @@
       color: #333;
       margin: 0 0 5px 0;
       text-align: left;
+      transition: color 0.3s ease;
     }
 
     .virga-card .card-description {
@@ -325,6 +481,7 @@
       margin: 0;
       line-height: 1.4;
       text-align: left;
+      transition: color 0.3s ease;
     }
 
     /* --- Gaya untuk Logo di Kiri (Card 1 dan 3) --- */
@@ -361,6 +518,7 @@
       cursor: pointer;
       font-weight: bold;
       margin-left: 5px;
+      transition: color 0.3s ease;
     }
 
     .read-more-ellipsis {
@@ -387,6 +545,7 @@
       -ms-user-select: none;
       user-select: none;
       -webkit-touch-callout: none;
+      transition: background-color 0.3s ease, color 0.3s ease;
     }
 
     /* --- Gaya Modal Popup Baru --- */
@@ -422,7 +581,7 @@
       box-shadow: 0 5px 20px rgba(0,0,0,0.3);
       text-align: center;
       transform: translateY(-20px);
-      transition: transform 0.3s ease;
+      transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
     }
 
     .new-modal-overlay.active .new-modal {
@@ -433,27 +592,27 @@
     .new-modal .close-x-button {
       position: absolute;
       top: 10px;
-      right: 10px; /* Sedikit lebih ke dalam */
-      font-size: 20px; /* Ukuran lebih kecil untuk bulat */
+      right: 10px;
+      font-size: 20px;
       font-weight: bold;
-      color: red; /* Warna X merah */
+      color: red;
       cursor: pointer;
-      line-height: 1; /* Agar tidak ada spasi tambahan */
-      padding: 8px; /* Padding sama untuk semua sisi */
-      border: 2px solid red; /* Border merah */
+      line-height: 1;
+      padding: 8px;
+      border: 2px solid red;
       border-radius: 50%; /* Membuat tombol bulat sempurna */
-      transition: background-color 0.2s ease, color 0.2s ease;
-      display: flex; /* Untuk memusatkan X */
+      transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+      display: flex;
       align-items: center;
       justify-content: center;
-      width: 24px; /* Agar ukuran konsisten untuk lingkaran */
-      height: 24px; /* Agar ukuran konsisten untuk lingkaran */
-      box-sizing: border-box; /* Agar padding dan border tidak menambah ukuran elemen */
+      width: 24px;
+      height: 24px;
+      box-sizing: border-box;
     }
 
     .new-modal .close-x-button:hover {
-      background-color: red; /* Background merah saat hover */
-      color: white; /* X putih saat hover */
+      background-color: red;
+      color: white;
     }
 
     .new-modal h3 {
@@ -461,6 +620,7 @@
       font-size: 1.5rem;
       color: #333;
       margin-bottom: 20px;
+      transition: color 0.3s ease;
     }
 
     .new-modal-buttons {
@@ -478,7 +638,7 @@
       font-weight: bold;
       color: #007bff;
       background: white;
-      transition: all .2s ease-in-out;
+      transition: all .2s ease-in-out, background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
       cursor: pointer;
       width: 100%;
       box-sizing: border-box;
@@ -502,13 +662,19 @@
 
   <div id="mySidebar" class="sidebar">
     <a href="javascript:void(0)" class="closebtn" onclick="closeSidebar()">×</a>
-    <p class="copyright-text">© 2025 вирга</p> <div id="announcement-area" class="sidebar-announcement-card"></div>
+    <div class="copyright-and-theme-wrapper"> <div id="dark-mode-toggle" onclick="toggleDarkMode()">
+            <img id="sun-icon" class="mode-icon" src="https://files.catbox.moe/gohenh.png" alt="Sun Icon">
+            <img id="moon-icon" class="mode-icon" src="https://files.catbox.moe/fpjh6r.png" alt="Moon Icon">
+        </div>
+        <p class="copyright-text">© 2025 вирга</p>
+    </div>
+    <div id="announcement-area" class="sidebar-announcement-card"></div>
     <div class="sidebar-search">
       <input type="text" id="search-input" placeholder="Cari di sini...">
       <button onclick="performSearch()">Cari</button>
     </div>
-    <div class="sidebar-card" onclick="openCustomModal('credits')">Credits</div>
     <div class="sidebar-card" onclick="openCustomModal('donasi')">Donasi</div>
+    <div class="sidebar-card" onclick="openCustomModal('credits')">Credits</div>
   </div>
 
   <header>
@@ -585,7 +751,6 @@
 
   <script>
     // JavaScript untuk Read More (Diambil dari kode fresh Anda)
-    // Fungsi ini dikembalikan ke versi yang Anda kirimkan karena sudah berfungsi di sana.
     document.addEventListener('DOMContentLoaded', function() {
       const toggleButtons = document.querySelectorAll('.read-more-toggle');
 
@@ -608,6 +773,7 @@
         });
       });
     });
+
 
     // JavaScript untuk Typing Effect (Tidak Berubah)
     const texts = ["I am Milf Lover", "I am Mechanic", "I am Chill guy", "I am Sigma"];
@@ -663,6 +829,7 @@
         sidebar.classList.add("open");
         hamburgerIcon.classList.add("open");
         startAnnouncementRotation(); // Mulai rotasi pengumuman saat sidebar dibuka
+        updateDarkModeDisplay(); // Perbarui tampilan ikon Dark Mode saat sidebar dibuka
       }
     }
 
@@ -676,7 +843,7 @@
     window.addEventListener('click', function(event) {
       const sidebar = document.getElementById("mySidebar");
       const hamburgerIcon = document.querySelector(".hamburger-icon");
-      const customModal = document.getElementById('customModal'); // Pastikan modal tidak tertutup juga
+      const customModal = document.getElementById('customModal');
 
       // Hanya tutup sidebar jika klik di luar sidebar DAN bukan di hamburger DAN bukan di dalam modal
       if (sidebar.classList.contains("open") && !sidebar.contains(event.target) && !hamburgerIcon.contains(event.target) && !customModal.contains(event.target)) {
@@ -756,8 +923,8 @@
     // === JavaScript untuk Pengumuman Multibahasa ===
     const announcements = [
       { id: 'en', text: "If you want to translate this website into your preferred language, click the three dots in your browser and look for the translate feature. I recommend using Chrome browser." },
-      { id: 'ru', text: "Если вы хотите перевести этот веб-сайт на предпочитаемый вами язык, нажмите на три точки в браузere и найдите функцию перевода. Рекомендую использовать браузер Chrome." },
-      { id: 'zh-CN', text: "如果您想将此网站翻译成您偏好的语言，请点击浏览器中的三个点，然后查找翻译功能。我建议使用 Chrome 浏览器。" },
+      { id: 'ru', text: "Если вы хотите перевести этот веб-сайт на предпочитаемый вами язык, нажмите на три точки в браузere dan cari fitur terjemahan. Rekomendasi: gunakan Chrome browser." },
+      { id: 'zh-CN', text: "如果您想将此网站翻译成您偏好的语言, 请点击浏览器中的三个点, 然后查找翻译功能。我建议使用 Chrome 浏览器。" },
       { id: 'ja', text: "このウェブサイトを希望の言語に翻訳したい場合は、ブラウザの三点リーダーをクリックして翻訳機能を探してください。Chromeブラウザの使用をお勧めします。" }
     ];
     let currentAnnouncementIndex = 0;
@@ -775,9 +942,6 @@
         announcementCard.classList.add('visible'); // Fade in new text
         currentAnnouncementIndex = (currentAnnouncementIndex + 1) % announcements.length;
       }, 500); // Sesuaikan dengan durasi transisi opacity CSS
-
-      // Panggil lagi setelah 10 detik (ditambah durasi transisi)
-      // Ini akan diatur oleh setInterval dari startAnnouncementRotation
     }
 
     function startAnnouncementRotation() {
@@ -802,6 +966,43 @@
         }
     }
 
+    // === JavaScript untuk Dark Mode (Card dengan Ikon Saja di Sidebar) ===
+    // Fungsi utama toggle mode gelap
+    function toggleDarkMode() {
+        document.body.classList.toggle('dark-mode');
+        // Simpan preferensi pengguna di localStorage
+        if (document.body.classList.contains('dark-mode')) {
+            localStorage.setItem('theme', 'dark');
+        } else {
+            localStorage.setItem('theme', 'light');
+        }
+        updateDarkModeDisplay(); // Perbarui tampilan ikon setelah mode berubah
+    }
+
+    // Fungsi untuk memperbarui tampilan ikon Dark Mode (tanpa teks label)
+    function updateDarkModeDisplay() {
+        // Ikon di Sidebar (karena ini satu-satunya sekarang)
+        const sunIconSidebar = document.getElementById('sun-icon'); // ID sun-icon di dalam #dark-mode-toggle
+        const moonIconSidebar = document.getElementById('moon-icon'); // ID moon-icon di dalam #dark-mode-toggle
+
+        const isDarkMode = document.body.classList.contains('dark-mode');
+
+        if (sunIconSidebar && moonIconSidebar) {
+            sunIconSidebar.classList.toggle('visible', !isDarkMode); // Visible if NOT dark mode
+            moonIconSidebar.classList.toggle('visible', isDarkMode);   // Visible if dark mode
+        }
+    }
+
+    // Periksa preferensi dark mode saat halaman dimuat
+    document.addEventListener('DOMContentLoaded', function() {
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            document.body.classList.add('dark-mode');
+        }
+        // Pastikan ikon dark mode diinisialisasi saat halaman dimuat (ketika sidebar belum tentu terbuka)
+        // Ini penting agar ikon DM di sidebar sudah benar ketika sidebar pertama kali dibuka
+        updateDarkModeDisplay(); 
+    });
 
   </script>
 
