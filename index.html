@@ -84,7 +84,7 @@
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       padding: 15px;
       cursor: pointer;
-      transition: transform 0.2s ease-in-out;
+      transition: transform 0.2s ease-in-out, opacity 0.5s ease-out; /* Tambahkan transisi opacity */
       width: 300px; /* Lebar konsisten */
       min-height: 150px; /* Tinggi minimum konsisten */
       text-decoration: none;
@@ -92,6 +92,14 @@
 
       display: flex; /* Menggunakan flexbox untuk layout logo dan konten */
       align-items: flex-start; /* Pusatkan item secara vertikal (logo dan konten) */
+
+      opacity: 0; /* Awalnya tersembunyi */
+      transform: scale(0.8); /* Awalnya diperkecil */
+    }
+
+    .virga-card.zoom-in { /* Class untuk animasi zoom-in */
+      opacity: 1;
+      transform: scale(1);
     }
 
     .virga-card:hover {
@@ -152,7 +160,6 @@
       margin-left: 0;
     }
 
-
     /* Gaya untuk "Read More" */
     .read-more-text {
       display: inline;
@@ -178,7 +185,6 @@
     .card-description:not(.collapsed) .read-more-ellipsis {
       display: none;
     }
-
 
     footer {
       text-align: center;
@@ -263,7 +269,8 @@
     </a>
 
     <a href="https://Virga1705.github.io/gg.html" class="virga-card align-left-logo">
-      <img src="https://files.catbox.moe/xqmdrq.png" alt="Game Guardian Logo" class="card-logo"> <div class="card-content-wrapper">
+      <img src="https://files.catbox.moe/xqmdrq.png" alt="Game Guardian Logo" class="card-logo">
+      <div class="card-content-wrapper">
         <p class="card-title">GAME GUARDIAN</p>
         <p class="card-description collapsed" data-full-text="Modifikasi Game Guardian dengan tema kustom dan fitur unik untuk pengalaman bermain game. Dapatkan akses ke fitur-fitur eksklusif dan optimasi performa. Cocok untuk para modder dan gamer sejati.">
           Modifikasi Game Guardian dengan tema kustom dan fitur unik untuk pengalaman bermain game. <span class="more-text">Dapatkan akses ke fitur-fitur eksklusif dan optimasi performa. Cocok untuk para modder dan gamer sejati.</span>
@@ -325,6 +332,29 @@
         setTimeout(type, 100);
       }
     })();
+
+    // JavaScript untuk Zoom-in Animation
+    function checkZoom() {
+      const cards = document.querySelectorAll('.virga-card'); // Ganti selector menjadi .virga-card
+      cards.forEach(card => {
+        const cardTop = card.offsetTop;
+        const windowBottom = window.scrollY + window.innerHeight;
+        const windowTop = window.scrollY;
+        const cardHeight = card.offsetHeight;
+        // Kartu terlihat jika bagian atas kartu di bawah bagian bawah jendela DAN bagian bawah kartu di atas bagian atas jendela
+        const isVisible = (cardTop < windowBottom) && (cardTop + cardHeight > windowTop);
+
+        if (isVisible) {
+          card.classList.add('zoom-in');
+        } else {
+          card.classList.remove('zoom-in');
+        }
+      });
+    }
+
+    window.addEventListener('scroll', checkZoom);
+    window.addEventListener('resize', checkZoom); // Untuk menangani perubahan ukuran layar
+    window.addEventListener('load', checkZoom); // Trigger saat halaman dimuat
   </script>
 
   <script src="https://l2dwidget.js.org/lib/L2Dwidget.min.js"></script>
