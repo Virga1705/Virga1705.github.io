@@ -10,6 +10,13 @@
       margin: 0;
       padding: 0;
       background: #f8f8f8;
+      /* Mencegah seleksi teks */
+      -webkit-user-select: none; /* Safari */
+      -moz-user-select: none;    /* Firefox */
+      -ms-user-select: none;     /* Internet Explorer/Edge */
+      user-select: none;         /* Standard */
+      /* Mencegah menu konteks (klik kanan) secara global */
+      -webkit-touch-callout: none; /* Untuk iOS, mencegah menu pop-up saat long-press */
     }
 
     header {
@@ -24,6 +31,12 @@
       z-index: 999;
       display: flex; /* Mengatur tampilan flexbox untuk menyelaraskan item secara horizontal */
       align-items: center; /* Menyelaraskan item secara vertikal di tengah */
+      /* Tambahkan properti user-select untuk header juga */
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
     }
 
     /* Gaya untuk tombol kembali (back button) */
@@ -41,6 +54,12 @@
       width: 26px; /* Mengatur lebar tombol menjadi 48px */
       height: 26px; /* Mengatur tinggi tombol menjadi 48px */
       background: white; /* Menambahkan background putih agar ikon tetap terlihat */
+      /* Mencegah seleksi teks dan klik kanan pada back button */
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
     }
 
     .back-button:hover {
@@ -51,6 +70,13 @@
       display: block; /* Memastikan gambar mengambil seluruh ruang tautan */
       width: 26px; /* Mengatur lebar gambar menjadi 48px */
       height: 26px; /* Mengatur tinggi gambar menjadi 48px */
+      /* Mencegah draggable dan klik kanan pada gambar */
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
+      pointer-events: none; /* Mencegah interaksi mouse/touch pada gambar (termasuk download) */
     }
 
     .card {
@@ -63,12 +89,33 @@
       background: white;
       box-shadow: 0 2px 6px rgba(0,0,0,0.1);
       max-width: 360px;
+      opacity: 0; /* Initially hidden */
+      transform: scale(0.8); /* Start scaled down */
+      transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+      /* Mencegah seleksi teks dan klik kanan pada card */
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
+    }
+
+    .card.zoom-in {
+      opacity: 1;
+      transform: scale(1);
     }
 
     .card a img {
       width: 100%;
       display: block;
       cursor: pointer;
+      /* Mencegah draggable dan klik kanan pada gambar */
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
+      pointer-events: none; /* Mencegah interaksi mouse/touch pada gambar (termasuk download) */
     }
 
     .title {
@@ -118,6 +165,12 @@
       background: white;
       cursor: pointer;
       transition: all .2s ease-in-out;
+      /* Mencegah seleksi teks dan klik kanan pada tombol */
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
     }
 
     .buttons button:hover {
@@ -131,6 +184,12 @@
       padding: 10px;
       color: #555;
       font-size: 14px;
+      /* Mencegah seleksi teks pada footer */
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
     }
 
     .modal-overlay {
@@ -144,6 +203,12 @@
       justify-content: center;
       align-items: center;
       z-index: 999;
+      /* Mencegah seleksi teks dan klik kanan pada modal overlay */
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
     }
 
     .modal {
@@ -154,6 +219,13 @@
       max-width: 300px;
       box-shadow: 0 5px 15px rgba(0,0,0,0.2);
       text-align: center;
+      position: relative; /* Tambahkan ini untuk posisi tombol close */
+      /* Mencegah seleksi teks dan klik kanan pada modal */
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
     }
 
     .modal-buttons {
@@ -172,6 +244,12 @@
       color: black;
       background: white;
       transition: all .2s ease-in-out;
+      /* Mencegah seleksi teks dan klik kanan pada tombol modal */
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
     }
 
     .modal-buttons a:hover {
@@ -180,14 +258,35 @@
     }
 
     .close-btn {
-      margin-top: 15px;
-      color: red;
-      font-size: 14px;
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 30px;
+      height: 30px;
+      background: #ff5c5c; /* Warna latar belakang merah */
+      color: white;
+      border-radius: 50%; /* Membuatnya bulat sempurna */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 18px;
+      font-weight: bold;
       cursor: pointer;
+      transition: background 0.2s ease-in-out;
+      /* Mencegah seleksi teks dan klik kanan pada tombol tutup */
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
+    }
+
+    .close-btn:hover {
+      background: #e04444; /* Warna sedikit lebih gelap saat hover */
     }
   </style>
 </head>
-<body>
+<body oncontextmenu="return false;">
 
   <header>
     <a href="Virga1705.github.io" class="back-button">
@@ -214,32 +313,107 @@
   </div>
 
   <div class="card">
-    <a href="https://youtu.be/mRTvlyhyzuk"><img src="https://files.catbox.moe/deyydz.jpg" alt="NS Original"></a>
+    <a href="https://youtu.be/DwJKfYrzzbc"><img src="https://files.catbox.moe/v4kmyu.jpg" alt="NS Original"></a>
     <div class="title">
-      <span>Narsen Unprotect 1.17 Full Screen</span>
+      <span>GG THEME エスデス</span>
       <button class="desc-toggle" onclick="toggleDesc(this)">Deskripsi ▼</button>
       <div class="desc-text" style="display:none; margin-top:8px; font-weight:normal; font-size:14px; color:#333;">
-        Narsen Unprotect 1.17 adalah versi dasar dari Naruto Senki tanpa modifikasi Lain. Cocok untuk project narsen kalian.
+        Cocok untuk yang waifunya EsDeath.
       </div>
     </div>
     <div class="buttons">
-      <button onclick="openModal('download', 'original', 'Download Link1', 'Download Link2')">Download</button>
-      <button onclick="openModal('howto', 'original', '', '')">Cara Download</button>
+      <button onclick="openModal('download', 'original', 'Download', 'Password')">Download</button>
+      <button onclick="openModal('howto', 'original', '', '')">How To Download</button>
     </div>
   </div>
 
   <div class="card">
-    <a href="https://youtu.be/NCH1Ohn5okM"><img src="https://files.catbox.moe/zjidv3.jpg" alt="NS V2.1"></a>
+    <a href="https://youtu.be/Ts3d893rGHg"><img src="https://files.catbox.moe/sheg1p.jpg" alt="NS V2.1"></a>
     <div class="title">
-      <span>NARUTO SENKI 2.1.6</span>
+      <span>GG MOD ￾䄀渀椀</span>
       <button class="desc-toggle" onclick="toggleDesc(this)">Deskripsi ▼</button>
       <div class="desc-text" style="display:none; margin-top:8px; font-weight:normal; font-size:14px; color:#333;">
-        Naruto Senki 2.1.6 adalah Narsen yang di Kembangkan Oleh RE Memberikan Update Dengan Mode Baru dan Balancing Gameplay.
+        Tema yang simple.
       </div>
     </div>
     <div class="buttons">
-      <button onclick="openModal('download', 'v21', 'Download Link1', 'Download Link2')">Download</button>
-      <button onclick="openModal('howto', 'v21', '', '')">Cara Download</button>
+      <button onclick="openModal('download', 'v21', 'Download', 'Password')">Download</button>
+      <button onclick="openModal('howto', 'v21', '', '')">How To Download</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <a href="https://youtu.be/khw0JaJsyqc"><img src="https://files.catbox.moe/iw9ut2.jpg" alt="NS Cina"></a>
+    <div class="title">
+      <span>GG THEME YAE MIKO</span>
+      <button class="desc-toggle" onclick="toggleDesc(this)">Deskripsi ▼</button>
+      <div class="desc-text" style="display:none; margin-top:8px; font-weight:normal; font-size:14px; color:#333;">
+        Cocok buat yang suka Yae Miko.
+      </div>
+    </div>
+    <div class="buttons">
+      <button onclick="openModal('download', 'cina', 'Download', 'Password')">Download</button>
+      <button onclick="openModal('howto', 'cina', '', '')">How To Download</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <a href="https://youtu.be/bMCcwS09Ta8"><img src="https://files.catbox.moe/f4vlsi.jpg" alt="NS Uchiha"></a>
+    <div class="title">
+      <span>GG THEME GANYU</span>
+      <button class="desc-toggle" onclick="toggleDesc(this)">Deskripsi ▼</button>
+      <div class="desc-text" style="display:none; margin-top:8px; font-weight:normal; font-size:14px; color:#333;">
+        Cocok untuk yang waifunya Ganyu.
+      </div>
+    </div>
+    <div class="buttons">
+      <button onclick="openModal('download', 'uchiha', 'Download', 'Password')">Download</button>
+      <button onclick="openModal('howto', 'uchiha', '', '')">How To Download</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <a href="https://youtu.be/7bKQke2nRyc"><img src="https://files.catbox.moe/1uusb7.jpg" alt="NS Uchiha"></a>
+    <div class="title">
+      <span>GG THEME HUTAO</span>
+      <button class="desc-toggle" onclick="toggleDesc(this)">Deskripsi ▼</button>
+      <div class="desc-text" style="display:none; margin-top:8px; font-weight:normal; font-size:14px; color:#333;">
+        Cocok buat yang suka Hutao
+      </div>
+    </div>
+    <div class="buttons">
+      <button onclick="openModal('download', 'virga', 'Download', 'Password')">Download</button>
+      <button onclick="openModal('howto', 'virga', '', '')">How To Download</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <a href="https://youtu.be/U0Cdmm2i620"><img src="https://files.catbox.moe/3yi7j9.jpg" alt="NS Uchiha"></a>
+    <div class="title">
+      <span>GG THEME NAHIDA</span>
+      <button class="desc-toggle" onclick="toggleDesc(this)">Deskripsi ▼</button>
+      <div class="desc-text" style="display:none; margin-top:8px; font-weight:normal; font-size:14px; color:#333;">
+        Heyyo 🧐
+      </div>
+    </div>
+    <div class="buttons">
+      <button onclick="openModal('download', 'virgaa', 'Download', 'Password')">Download</button>
+      <button onclick="openModal('howto', 'virgaa', '', '')">How To Download</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <a href="https://youtu.be/9ZiVhlT2RNw?si=DbaqcWuaZ5uKD_Cu"><img src="https://files.catbox.moe/y7b59z.jpg" alt="NS Uchiha"></a>
+    <div class="title">
+      <span>PIXELLAB THEME WHITE RED🍒</span>
+      <button class="desc-toggle" onclick="toggleDesc(this)">Deskripsi ▼</button>
+      <div class="desc-text" style="display:none; margin-top:8px; font-weight:normal; font-size:14px; color:#333;">
+        Versi yang menampilkan tema PixelLab yang lebih fresh serta penambahan font dan penambahan stiker anime baru.
+      </div>
+    </div>
+    <div class="buttons">
+      <button onclick="openModal('download', 'virgaaa', 'Download', 'Password')">Download</button>
+      <button onclick="openModal('howto', 'virgaaa', '', '')">How To Download</button>
     </div>
   </div>
 
@@ -248,8 +422,7 @@
 
   <div class="modal-overlay" id="popup">
     <div class="modal">
-      <div id="modal-body"></div>
-      <div class="close-btn" onclick="closeModal()">Tutup</div>
+      <span class="close-btn" onclick="closeModal()">X</span> <div id="modal-body"></div>
     </div>
   </div>
 
@@ -266,32 +439,50 @@
       /* Untuk Stel Link */
       switch (gameVersion) {
         case 'waifu1':
-          downloadLink1 = 'https://tutwuri.id/soal-ulangan-harian-kelas-5-tema-1-sub-tema-3/';
-          downloadLink2 = 'https://example.com/waifu1_another_download.apk';
+          downloadLink1 = 'https://sfl.gl/5YGH3wH';
+          downloadLink2 = 'https://yy.com/404';
           youtubeLink1 = 'https://youtu.be/Af1Sj7MDhiM?si=EHKw02WB87uTumQI'; // Contoh link YouTube 1
           youtubeLink2 = 'https://youtube.com/waifu1_tutorial2'; // Contoh link YouTube 2
           break;
         case 'original':
-          downloadLink1 = 'https://link2unlock.com/d1e1c';
-          downloadLink2 = 'https://example.com/original_another_download.apk';
+          downloadLink1 = 'https://apkadmin.com/4xyd0vgan06m/PixelLab_Dark_Theme_V1_v6969.apk.html';
+          downloadLink2 = 'https://sfl.gl/t9EykRkc';
           youtubeLink1 = 'https://youtu.be/Af1Sj7MDhiM?si=EHKw02WB87uTumQI';
           youtubeLink2 = 'https://youtube.com/original_tutorial2';
           break;
         case 'v21':
-          downloadLink1 = 'https://example.com/v21_download.apk';
-          downloadLink2 = 'https://github.com/Naruto-Senki/files/releases/download/v2.1.6-fix/NSV2_2.1.6-fix_Android.apk';
+          downloadLink1 = 'https://apkadmin.com/yd6aqhp9kaxd/PixelLab_DarkWhiteGreen_6969.apk.html';
+          downloadLink2 = 'https://sfl.gl/3fuh';
           youtubeLink1 = 'https://youtu.be/Af1Sj7MDhiM?si=EHKw02WB87uTumQI';
           youtubeLink2 = 'https://youtube.com/v21_tutorial2';
           break;
         case 'cina':
-          downloadLink1 = 'https://example.com/cina_download.apk';
-          downloadLink2 = 'https://example.com/cina_another_download.apk';
+          downloadLink1 = 'https://apkadmin.com/a48vo2eea3g1/PixelLab_Theme_Like_IOS_V2.apk.html';
+          downloadLink2 = 'https://sfl.gl/KW3eU6O3';
           youtubeLink1 = 'https://youtu.be/Af1Sj7MDhiM?si=EHKw02WB87uTumQI';
           youtubeLink2 = 'https://youtube.com/cina_tutorial2';
           break;
         case 'uchiha':
-          downloadLink1 = 'https://example.com/uchiha_download.apk';
-          downloadLink2 = 'https://example.com/uchiha_another_download.apk';
+          downloadLink1 = 'https://sfl.gl/JKMAA3';
+          downloadLink2 = 'https://youtu.be/Jz20F6qPUBY?si=Rw1lKZESxjVYeZqQ';
+          youtubeLink1 = 'https://youtu.be/Af1Sj7MDhiM?si=EHKw02WB87uTumQI';
+          youtubeLink2 = 'https://youtube.com/uchiha_tutorial2';
+          break;
+        case 'virga':
+          downloadLink1 = 'https://sfl.gl/Dq61TI';
+          downloadLink2 = 'https://youtu.be/G0fEIVinbrU?si=ZTt-PfiW_Q0Usj6R';
+          youtubeLink1 = 'https://youtu.be/Af1Sj7MDhiM?si=EHKw02WB87uTumQI';
+          youtubeLink2 = 'https://youtube.com/uchiha_tutorial2';
+          break;
+        case 'virgaa':
+          downloadLink1 = 'https://sfl.gl/H96U';
+          downloadLink2 = 'https://youtu.be/G5U1em0TT8U?si=L0bLR6zfKwGU8yVC';
+          youtubeLink1 = 'https://youtu.be/Af1Sj7MDhiM?si=EHKw02WB87uTumQI';
+          youtubeLink2 = 'https://youtube.com/uchiha_tutorial2';
+          break;
+        case 'virgaaa':
+          downloadLink1 = 'https://sfl.gl/Pr7r40';
+          downloadLink2 = 'https://youtu.be/9ZiVhlT2RNw?si=DbaqcWuaZ5uKD_Cu';
           youtubeLink1 = 'https://youtu.be/Af1Sj7MDhiM?si=EHKw02WB87uTumQI';
           youtubeLink2 = 'https://youtube.com/uchiha_tutorial2';
           break;
@@ -316,7 +507,7 @@
           <h2>Cara Download</h2>
           <div class="modal-buttons">
             <a href="${youtubeLink1}" target="_blank">Tonton Panduan YouTube1</a>
-            <a href="${youtubeLink2}" target="_blank">Tonton Panduan YouTube2</a>
+            <a href="${youtubeLink1}" target="_blank">Tonton Panduan YouTube2</a>
           </div>
         `;
       }
@@ -329,9 +520,10 @@
       document.getElementById('popup').style.display = 'none';
     }
 
-    window.addEventListener('click', e => {
-      if (e.target === document.getElementById('popup')) closeModal();
-    });
+    // Baris ini telah dikomentari untuk mencegah modal menutup saat mengklik area luar modal
+    // window.addEventListener('click', e => {
+    //   if (e.target === document.getElementById('popup')) closeModal();
+    // });
 
     function toggleDesc(btn) {
       const desc = btn.nextElementSibling;
@@ -339,6 +531,28 @@
       desc.style.display = isVisible ? 'none' : 'block';
       btn.textContent = isVisible ? 'Deskripsi ▼' : 'Tutup ▲';
     }
+
+    function checkZoom() {
+      const cards = document.querySelectorAll('.card');
+      cards.forEach(card => {
+        const cardTop = card.offsetTop;
+        const windowBottom = window.scrollY + window.innerHeight;
+        const windowTop = window.scrollY;
+        const cardHeight = card.offsetHeight;
+        // Kartu terlihat jika bagian atas kartu di bawah bagian bawah jendela DAN bagian bawah kartu di atas bagian atas jendela
+        const isVisible = (cardTop < windowBottom) && (cardTop + cardHeight > windowTop);
+
+        if (isVisible) {
+          card.classList.add('zoom-in');
+        } else {
+          card.classList.remove('zoom-in');
+        }
+      });
+    }
+
+    window.addEventListener('scroll', checkZoom);
+    window.addEventListener('resize', checkZoom); // Untuk menangani perubahan ukuran layar
+    window.addEventListener('load', checkZoom); // Trigger saat halaman dimuat
   </script>
 
   <script src="https://l2dwidget.js.org/lib/L2Dwidget.min.js"></script>
