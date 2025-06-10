@@ -343,105 +343,98 @@
       transition: background-color 0.3s ease, color 0.3s ease;
     }
 
-    /* --- Gaya Modal Popup Baru --- */
-    .new-modal-overlay {
+    /* --- GAYA MODAL DARI NARUTO SENKI (BARU) --- */
+    .modal-overlay {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0,0,0,0.6);
-      display: flex;
+      background: rgba(0,0,0,0.5);
+      display: none; /* Defaultnya tersembunyi */
       justify-content: center;
       align-items: center;
-      z-index: 1002;
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity 0.3s ease, visibility 0.3s ease;
+      z-index: 1002; /* Pastikan modal di atas sidebar */
+      /* Mencegah seleksi teks dan klik kanan pada modal overlay */
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
     }
 
-    .new-modal-overlay.active {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    .new-modal {
+    .modal {
       background: white;
       border-radius: 12px;
-      padding: 30px;
-      padding-top: 50px; /* Tambahan padding di atas untuk tombol X */
-      position: relative; /* Untuk posisi tombol X */
-      width: 90%;
-      max-width: 400px;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+      padding: 20px;
+      width: 80%;
+      max-width: 300px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
       text-align: center;
-      transform: translateY(-20px);
-      transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      /* Mencegah seleksi teks dan klik kanan pada modal */
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
     }
 
-    .new-modal-overlay.active .new-modal {
-      transform: translateY(0);
+    .modal-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 15px;
     }
 
-    /* Tombol X untuk tutup modal */
-    .new-modal .close-x-button {
+    .modal-buttons a {
+      text-decoration: none;
+      padding: 10px;
+      border: 2px solid black;
+      border-radius: 10px;
+      font-weight: bold;
+      color: black;
+      background: white;
+      transition: all .2s ease-in-out;
+      /* Mencegah seleksi teks dan klik kanan pada tombol modal */
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
+    }
+
+    .modal-buttons a:hover {
+      background: black;
+      color: white;
+    }
+
+    .close-btn {
       position: absolute;
       top: 10px;
       right: 10px;
-      font-size: 20px;
-      font-weight: bold;
-      color: red;
-      cursor: pointer;
-      line-height: 1;
-      padding: 8px;
-      border: 2px solid red;
-      border-radius: 50%; /* Membuat tombol bulat sempurna */
-      transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+      width: 30px;
+      height: 30px;
+      background: #ff5c5c;
+      color: white;
+      border-radius: 50%;
       display: flex;
-      align-items: center;
       justify-content: center;
-      width: 24px;
-      height: 24px;
-      box-sizing: border-box;
-    }
-
-    .new-modal .close-x-button:hover {
-      background-color: red;
-      color: white;
-    }
-
-    .new-modal h3 {
-      margin-top: 0;
-      font-size: 1.5rem;
-      color: #333;
-      margin-bottom: 20px;
-      transition: color 0.3s ease;
-    }
-
-    .new-modal-buttons {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      margin-top: 20px;
-    }
-
-    .new-modal-buttons a, .new-modal-buttons button {
-      text-decoration: none;
-      padding: 12px;
-      border: 2px solid #007bff;
-      border-radius: 8px;
+      align-items: center;
+      font-size: 18px;
       font-weight: bold;
-      color: #007bff;
-      background: white;
-      transition: all .2s ease-in-out, background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
       cursor: pointer;
-      width: 100%;
-      box-sizing: border-box;
+      transition: background 0.2s ease-in-out;
+      /* Mencegah seleksi teks dan klik kanan pada tombol tutup */
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
     }
 
-    .new-modal-buttons a:hover, .new-modal-buttons button:hover {
-      background: #007bff;
-      color: white;
+    .close-btn:hover {
+      background: #e04444;
     }
   </style>
 </head>
@@ -461,8 +454,8 @@
         <p class="copyright-text">© 2025 вирга</p>
     </div>
     <div id="announcement-area" class="sidebar-announcement-card"></div>
-    <div class="sidebar-card" onclick="openCustomModal('donasi')">Donasi</div>
-    <div class="sidebar-card" onclick="openCustomModal('credits')">Credits</div>
+    <div class="sidebar-card" onclick="openGeneralModal('donasi')">Donasi</div>
+    <div class="sidebar-card" onclick="openGeneralModal('credits')">Credits</div>
   </div>
 
   <header>
@@ -529,12 +522,9 @@
   </div>
 
   <footer></footer>
-  <div class="new-modal-overlay" id="customModal">
-    <div class="new-modal">
-      <span class="close-x-button" onclick="closeCustomModal()">×</span>
-      <h3 id="customModalTitle"></h3>
-      <div id="customModalBody" class="new-modal-buttons">
-        </div>
+  <div class="modal-overlay" id="popup">
+    <div class="modal">
+      <span class="close-btn" onclick="closeModal()">X</span> <div id="modal-body"></div>
     </div>
   </div>
 
@@ -625,61 +615,23 @@
     window.addEventListener('click', function(event) {
       const sidebar = document.getElementById("mySidebar");
       const hamburgerIcon = document.querySelector(".hamburger-icon");
-      const customModal = document.getElementById('customModal');
+      const modalPopup = document.getElementById('popup'); // Mengganti customModal menjadi popup
 
-      if (sidebar.classList.contains("open") && !sidebar.contains(event.target) && !hamburgerIcon.contains(event.target) && !customModal.contains(event.target)) {
+      // Memastikan klik di luar sidebar dan tombol hamburger, dan di luar modal tidak menutup modal
+      if (sidebar.classList.contains("open") && !sidebar.contains(event.target) && !hamburgerIcon.contains(event.target) && !modalPopup.contains(event.target)) {
         closeSidebar();
       }
     });
 
-    // Modal Kustom untuk Sidebar
-    function openCustomModal(type) {
-      const modal = document.getElementById('customModal');
-      const modalTitle = document.getElementById('customModalTitle');
-      const modalBody = document.getElementById('customModalBody');
-      let content = '';
-
-      switch (type) {
-        case 'credits':
-          modalTitle.textContent = 'Credits';
-          content = `
-            <a href="https://github.com/KanzakiisYU" target="_blank" class="new-modal-buttons">KanzakiisYU (Live2D Model)</a>
-            <a href="https://flaticon.com/" target="_blank" class="new-modal-buttons">Flaticon (Icons)</a>
-            <a href="#" class="new-modal-buttons">Your Name (Developer)</a>
-          `;
-          break;
-        case 'donasi':
-          modalTitle.textContent = 'Donasi';
-          content = `
-            <p style="font-size:1em; color:#333; margin-bottom:15px;">Dukung kami melalui pilihan di bawah ini:</p>
-            <a href="https://link.dana.id/your_dana_link" target="_blank" class="new-modal-buttons">Donasi via Dana</a>
-            <a href="https://paypal.me/your_paypal_link" target="_blank" class="new-modal-buttons">Donasi via PayPal</a>
-            <p style="font-size:0.9em; color:#666; margin-top:15px;">Terima kasih atas dukungan Anda!</p>
-          `;
-          break;
-        default:
-          modalTitle.textContent = 'Informasi';
-          content = `<p>Konten tidak ditemukan.</p>`;
-      }
-
-      modalBody.innerHTML = content;
-      modal.classList.add('active');
-      closeSidebar();
-    }
-
-    function closeCustomModal() {
-      document.getElementById('customModal').classList.remove('active');
-    }
-
     // === JavaScript untuk Pengumuman Multibahasa ===
     const announcements = [
       { id: 'en', text: "If you want to translate this website into your preferred language, click the three dots in your browser and look for the translate feature. I recommend using Chrome browser." },
-      { id: 'ru', text: "Если вы хотите перевести этот веб-сайт на предпочитаемый вами язык, нажмите на три точки в браузере и найдите функцию перевода. Рекомендуется использовать браузер Chrome." },
+      { id: 'ru', text: "Если вы хотите перевести этот веб-сайт на предпочитаемый вами язык, нажмите на три точки в браузere и найдите функцию перевода. Рекомендуется использовать браузер Chrome." },
       { id: 'zh-CN', text: "如果您想将此网站翻译成您偏好的语言, 请点击浏览器中的三个点, 然后查找翻译功能。我建议使用 Chrome 浏览器。" },
       { id: 'ja', text: "このウェブサイトを希望の言語に翻訳したい場合は、ブラウザの三点リーダーをクリックして翻訳機能を探してください。Chromeブラウザの使用をお勧めします。" },
       { id: 'pt', text: "Se você deseja traduzir este site para o seu idioma preferido, clique nos três pontos do seu navegador e procure o recurso de tradução. Recomendo usar o navegador Chrome." },
       { id: 'fil', text: "Kung nais mong isalin ang website na ito sa iyong gustong wika, i-click ang tatlong tuldok sa iyong browser at hanapin ang tampok na pagsasalin. Inirerekomenda kong gamitin ang Chrome browser." },
-      { id: 'vi', text: "Nếu bạn muốn dịch trang web này sang ngôn ngữ ưa thích của mình, hãy nhấp vào ba dấu chấm trong trình duyệt của bạn và tìm tính năng dịch. Tôi khuyên bạn nên sử dụng trình duyệt Chrome." }
+      { id: 'vi', text: "Nếu bạn muốn dịch trang web này sang ngôn ngôn ngữ ưa thích của mình, hãy nhấp vào ba dấu chấm trong trình duyệt của bạn và tìm tính năng dịch. Tôi khuyên bạn nên sử dụng trình duyệt Chrome." }
     ];
     let currentAnnouncementIndex = 0;
     let announcementInterval;
@@ -712,6 +664,51 @@
                 announcementCard.classList.remove('visible');
             }
         }
+    }
+
+    // --- FUNGSI MODAL BARU (ADAPTASI DARI NARUTO SENKI) ---
+    function openGeneralModal(type) {
+      const popup = document.getElementById('popup');
+      const body = document.getElementById('modal-body');
+      let content = '';
+      let modalTitle = '';
+
+      switch (type) {
+        case 'credits':
+          modalTitle = 'Credits';
+          content = `
+            <h3 style="font-size: 1.5rem; color:#333; margin-bottom:20px;">${modalTitle}</h3>
+            <div class="modal-buttons">
+              <a href="https://github.com/KanzakiisYU" target="_blank">KanzakiisYU (Live2D Model)</a>
+              <a href="https://flaticon.com/" target="_blank">Flaticon (Icons)</a>
+              <a href="#">Your Name (Developer)</a>
+            </div>
+          `;
+          break;
+        case 'donasi':
+          modalTitle = 'Donasi';
+          content = `
+            <h3 style="font-size: 1.5rem; color:#333; margin-bottom:20px;">${modalTitle}</h3>
+            <p style="font-size:1em; color:#333; margin-bottom:15px;">Dukung kami melalui pilihan di bawah ini:</p>
+            <div class="modal-buttons">
+              <a href="https://link.dana.id/your_dana_link" target="_blank">Donasi via Dana</a>
+              <a href="https://paypal.me/your_paypal_link" target="_blank">Donasi via PayPal</a>
+            </div>
+            <p style="font-size:0.9em; color:#666; margin-top:15px;">Terima kasih atas dukungan Anda!</p>
+          `;
+          break;
+        default:
+          modalTitle = 'Informasi';
+          content = `<h3 style="font-size: 1.5rem; color:#333; margin-bottom:20px;">${modalTitle}</h3><p>Konten tidak ditemukan.</p>`;
+      }
+
+      body.innerHTML = content;
+      popup.style.display = 'flex'; // Tampilkan modal
+      closeSidebar(); // Pastikan sidebar tertutup saat modal terbuka
+    }
+
+    function closeModal() {
+      document.getElementById('popup').style.display = 'none';
     }
   </script>
 
