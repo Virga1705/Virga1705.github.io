@@ -59,13 +59,13 @@
       -ms-user-select: none;
       user-select: none;
       -webkit-touch-callout: none;
-      outline: none; /* Remove default focus outline */
+      outline: none;
     }
 
     .back-button:hover {
       background: #e0e0e0;
     }
-    .back-button:focus { /* Ensure no outline on programmatic focus */
+    .back-button:focus {
         outline: none;
     }
 
@@ -74,7 +74,7 @@
       width: 26px;
       height: 26px;
       /* Mencegah draggable dan klik kanan pada gambar */
-      pointer-events: none; /* Mencegah interaksi mouse/touch pada gambar (termasuk download) */
+      pointer-events: none;
     }
 
     .card {
@@ -89,16 +89,16 @@
       max-width: 360px;
       opacity: 0;
       transform: scale(0.8);
-      transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+      transition: opacity 0.5s ease-out, transform 0.5s ease-out, border-color 0.3s ease, box-shadow 0.3s ease; /* Added transitions for highlight */
       /* Mencegah seleksi teks dan klik kanan pada card */
       -webkit-user-select: none;
       -moz-user-select: none;
       -ms-user-select: none;
       user-select: none;
       -webkit-touch-callout: none;
-      outline: none; /* Remove default focus outline from the card itself */
+      outline: none;
     }
-    .card:focus { /* Ensure no outline on programmatic focus */
+    .card:focus {
         outline: none;
     }
 
@@ -112,7 +112,7 @@
       display: block;
       cursor: pointer;
       /* Mencegah draggable dan klik kanan pada gambar */
-      pointer-events: none; /* Mencegah interaksi mouse/touch pada gambar (termasuk download) */
+      pointer-events: none;
     }
 
     .title {
@@ -142,7 +142,7 @@
     }
 
     .desc-toggle {
-      margin-top: 0; /* Adjusted margin, now controlled by title-header margin-bottom */
+      margin-top: 0;
       background: none;
       border: none;
       color: #007BFF;
@@ -150,9 +150,9 @@
       font-size: 14px;
       padding: 0;
       text-align: left;
-      outline: none; /* Remove default focus outline */
+      outline: none;
     }
-    .desc-toggle:focus { /* Ensure no outline on programmatic focus */
+    .desc-toggle:focus {
         outline: none;
     }
 
@@ -188,9 +188,9 @@
       -ms-user-select: none;
       user-select: none;
       -webkit-touch-callout: none;
-      outline: none; /* Remove default focus outline */
+      outline: none;
     }
-    .buttons button:focus { /* Ensure no outline on programmatic focus */
+    .buttons button:focus {
         outline: none;
     }
 
@@ -240,7 +240,7 @@
       max-width: 300px;
       box-shadow: 0 5px 15px rgba(0,0,0,0.2);
       text-align: center;
-      position: relative; /* Tambahkan ini untuk posisi tombol close */
+      position: relative;
       /* Mencegah seleksi teks dan klik kanan pada modal */
       -webkit-user-select: none;
       -moz-user-select: none;
@@ -284,9 +284,9 @@
       right: 10px;
       width: 30px;
       height: 30px;
-      background: #ff5c5c; /* Warna latar belakang merah */
+      background: #ff5c5c;
       color: white;
-      border-radius: 50%; /* Membuatnya bulat sempurna */
+      border-radius: 50%;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -300,23 +300,22 @@
       -ms-user-select: none;
       user-select: none;
       -webkit-touch-callout: none;
-      outline: none; /* Remove default focus outline */
+      outline: none;
     }
-    .close-btn:focus { /* Ensure no outline on programmatic focus */
+    .close-btn:focus {
         outline: none;
     }
 
     .close-btn:hover {
-      background: #e04444; /* Warna sedikit lebih gelap saat hover */
+      background: #e04444;
     }
 
     /* SHARE BUTTON STYLES (UPDATED FOR NEW POSITION) */
     .share-button-container {
-      /* Removed absolute positioning */
       cursor: pointer;
       z-index: 5;
       transition: transform 0.2s ease-in-out;
-      outline: none; /* Remove default focus outline */
+      outline: none;
       margin-left: auto; /* Push to the right */
     }
 
@@ -324,7 +323,6 @@
         transform: scale(1.1);
     }
 
-    /* Ensure no outline on focus, for accessibility */
     .share-button-container:focus {
         outline: none;
     }
@@ -344,9 +342,9 @@
     /* Tooltip / Notification for "Copied!" */
     .share-tooltip {
         position: absolute; /* Relative to .share-button-container */
-        bottom: 40px; /* Adjust position relative to the share button */
-        left: 50%; /* Position from center */
-        transform: translateX(-50%); /* Center the tooltip */
+        bottom: 40px;
+        left: 50%;
+        transform: translateX(-50%);
         background-color: #333;
         color: white;
         padding: 5px 10px;
@@ -381,12 +379,12 @@
 
     /* NEW SHARE MODAL STYLES */
     #shareModal {
-      display: none; /* Hidden by default */
-      position: fixed; /* Stay in place */
-      z-index: 1003; /* Sit on top of everything */
+      display: none;
+      position: fixed;
+      z-index: 1003;
       left: 0;
       top: 0;
-      width: 100%; /* Full width */
+      width: 100%;
       height: 100%;
       overflow: auto;
       background-color: rgba(0,0,0,0.6);
@@ -441,7 +439,7 @@
         width: 48px;
         height: 48px;
         margin-bottom: 8px;
-        border-radius: 8px; /* Optional: slight roundness for icons */
+        border-radius: 8px;
         box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         transition: box-shadow 0.2s ease;
     }
@@ -471,9 +469,9 @@
         font-weight: bold;
         cursor: pointer;
         transition: background 0.2s ease-in-out;
-        outline: none; /* Remove default focus outline */
+        outline: none;
     }
-    #shareModal .close-btn-share:focus { /* Ensure no outline on programmatic focus */
+    #shareModal .close-btn-share:focus {
         outline: none;
     }
     #shareModal .close-btn-share:hover {
@@ -630,25 +628,6 @@
           youtubeLink2 = 'https://youtube.com/default_tutorial2';
       }
 
-      if (mode === 'download') {
-        content = `
-          <h2>Download Game</h2>
-          <div class="modal-buttons">
-            <a id="download-apk-sekarang-${gameVersion}" href="${downloadLink1}" download>${buttonText1}</a>
-            <a id="download-apk-lainnya-${gameVersion}" href="${downloadLink2}" download>${buttonText2}</a>
-            <p style="margin-top:10px; font-size:14px; color:#333;">Jika link tidak bisa dibuka, pastikan kamu sudah Menonaktifkan Adblock atau coba browser lain.</p>
-          </div>
-        `;
-      } else if (mode === 'howto') {
-        content = `
-          <h2>Cara Download</h2>
-          <div class="modal-buttons">
-            <a href="${youtubeLink1}" target="_blank">Tonton Panduan YouTube1</a>
-            <a href="${youtubeLink2}" target="_blank">Tonton Panduan YouTube2</a>
-          </div>
-        `;
-      }
-
       body.innerHTML = content;
       popup.style.display = 'flex';
       closeShareModal(); // Close share modal if general modal opens
@@ -656,7 +635,8 @@
 
     function closeModal() {
       document.getElementById('popup').style.display = 'none';
-      if (currentHighlightedCard) { // Ensure highlight is removed if modal closed without share
+      // Ensure highlight is removed if modal closed without share
+      if (currentHighlightedCard) {
           currentHighlightedCard.classList.remove('highlight-blink');
           currentHighlightedCard = null;
       }
@@ -667,19 +647,18 @@
         const popupModal = document.getElementById('popup');
         const shareModal = document.getElementById('shareModal');
 
-        // Close general modal (download/howto) if clicked outside
-        if (popupModal.style.display === 'flex' && !popupModal.querySelector('.modal').contains(e.target) && !e.target.closest('.buttons button')) {
+        // Close general modal (download/howto) if clicked outside its content
+        if (popupModal.style.display === 'flex' && !popupModal.querySelector('.modal').contains(e.target)) {
             closeModal();
         }
 
-        // Close share modal if clicked outside
-        // Make sure the click is not inside the modal content AND not on the share button that opened it
-        if (shareModal.style.display === 'flex' && !shareModal.querySelector('.modal-content').contains(e.target) && !e.target.closest('.share-button-container')) {
+        // Close share modal if clicked outside its content
+        if (shareModal.style.display === 'flex' && !shareModal.querySelector('.modal-content').contains(e.target)) {
             closeShareModal();
         }
     });
 
-    // Prevent clicks inside modals from closing them
+    // ADDED: Prevent clicks inside modals from closing them by stopping propagation
     document.getElementById('popup').querySelector('.modal').addEventListener('click', e => {
         e.stopPropagation();
     });
@@ -828,7 +807,7 @@
         }, 1000); // Blink for 1 second and hide tooltip
     }
 
-    // ADDED: Function to apply blinking effect to the card itself
+    // Function to apply blinking effect to the card itself
     function applyCardHighlightBlink(cardElement) {
         if (!cardElement) return;
 
@@ -873,6 +852,25 @@
             // Card highlight will be applied when closeShareModal is called
         }
     }
+
+    // ADDED: Function to handle direct link to a card (e.g., from a shared link)
+    function scrollToCardFromHash() {
+        if (window.location.hash) {
+            const targetId = window.location.hash.substring(1); // Remove the '#'
+            const targetElement = document.getElementById(targetId);
+
+            if (targetElement) {
+                // Add a small delay to ensure page layout is stable before scrolling and animating
+                setTimeout(() => {
+                    targetElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    applyCardHighlightBlink(targetElement); // Apply the blinking animation
+                }, 500); // Delay scroll to ensure elements are rendered
+            }
+        }
+    }
+
+    window.addEventListener('load', scrollToCardFromHash);
+    window.addEventListener('hashchange', scrollToCardFromHash); // Listen for changes in the URL hash
   </script>
 
   <script src="https://l2dwidget.js.org/lib/L2Dwidget.min.js"></script>
