@@ -143,12 +143,24 @@
       font-weight: bold;
       text-align: left;
       border-top: 1px solid #eee;
+      display: flex; /* Use flex to align title elements */
+      flex-direction: column; /* Stack main title row and description toggle */
+    }
+
+    .title-row {
       display: flex;
-      flex-direction: column;
+      justify-content: space-between; /* Pushes title text and share button to ends */
+      align-items: center;
+      width: 100%; /* Ensures this row takes full width */
+    }
+
+    .title-text {
+      flex-grow: 1; /* Allows title text to take up available space */
+      margin-right: 8px; /* Space between title and share button */
     }
 
     .desc-toggle {
-      margin-top: 8px;
+      margin-top: 8px; /* Space from the elements above */
       background: none;
       border: none;
       color: #007BFF;
@@ -156,6 +168,7 @@
       font-size: 14px;
       padding: 0;
       text-align: left;
+      width: 100%; /* Forces this button to a new line */
     }
 
     .desc-text {
@@ -195,6 +208,36 @@
     .buttons button:hover {
       background: black;
       color: white;
+    }
+
+    /* Style for the share icon button */
+    .share-button-icon {
+        background: none; /* Remove background */
+        border: none; /* Remove border */
+        cursor: pointer;
+        padding: 0; /* Remove padding to make it compact */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 30px; /* Set a fixed width for the button */
+        height: 30px; /* Set a fixed height for the button */
+        transition: transform 0.2s ease-in-out; /* Add transition for hover effect */
+        /* Mencegah seleksi teks dan klik kanan pada tombol */
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        -webkit-touch-callout: none;
+    }
+
+    .share-button-icon:hover {
+        transform: scale(1.1); /* Slightly enlarge on hover */
+    }
+
+    .share-button-icon img {
+        width: 24px; /* Adjust size as needed */
+        height: 24px; /* Adjust size as needed */
+        pointer-events: none; /* Prevent image dragging/context menu */
     }
 
     footer {
@@ -319,7 +362,10 @@
       <img src="https://files.catbox.moe/x724xz.jpg" alt="Review Gameplay">
     </a>
     <div class="title">
-      <span>PIXELLAB THEME LIKE IOS</span>
+      <div class="title-row">
+        <span class="title-text">PIXELLAB THEME LIKE IOS</span>
+        <button class="share-button-icon" data-card-id="pixellab-theme-ios"><img src="https://files.catbox.moe/40ynkg.png" alt="Share"></button>
+      </div>
       <button class="desc-toggle" onclick="toggleDesc(this)">Deskripsi ▼</button>
       <div class="desc-text" style="display:none; margin-top:8px; font-weight:normal; font-size:14px; color:#333;">
         Versi yang menampilkan tema PixelLab yang elegant serta penambahan font dan stiker baru.
@@ -328,14 +374,16 @@
     <div class="buttons">
       <button onclick="openModal('download', 'pixellab-theme-ios', 'Download', 'Password')">Download</button>
       <button onclick="openModal('howto', 'pixellab-theme-ios', '', '')">Cara Download</button>
-      <button class="share-button" data-card-id="pixellab-theme-ios">Share</button>
     </div>
   </div>
 
   <div class="card" id="card-pixellab-mod-dark-theme-v1">
     <a href="https://youtu.be/7i8shrBM3Fw?si=ls99mZh6lWBYQZYh"><img src="https://files.catbox.moe/c12tu2.jpg" alt="NS Original"></a>
     <div class="title">
-      <span>PIXELLAB MOD DARK THEME V1</span>
+      <div class="title-row">
+        <span class="title-text">PIXELLAB MOD DARK THEME V1</span>
+        <button class="share-button-icon" data-card-id="pixellab-mod-dark-theme-v1"><img src="https://files.catbox.moe/40ynkg.png" alt="Share"></button>
+      </div>
       <button class="desc-toggle" onclick="toggleDesc(this)">Deskripsi ▼</button>
       <div class="desc-text" style="display:none; margin-top:8px; font-weight:normal; font-size:14px; color:#333;">
         Versi yang menampilkan tema PixelLab yang elegant dan cocok buat kamu yang suka mode gelap serta penambahan font dan stiker baru.
@@ -344,14 +392,16 @@
     <div class="buttons">
       <button onclick="openModal('download', 'pixellab-mod-dark-theme-v1', 'Download', 'Password')">Download</button>
       <button onclick="openModal('howto', 'pixellab-mod-dark-theme-v1', '', '')">How To Download</button>
-      <button class="share-button" data-card-id="pixellab-mod-dark-theme-v1">Share</button>
     </div>
   </div>
 
   <div class="card" id="card-pixellab-theme-dark-white-green">
     <a href="https://youtu.be/GhCD1qqRmro?si=6qxXHQUyhXXwwXP2"><img src="https://files.catbox.moe/i5sgns.jpg" alt="NS V2.1"></a>
     <div class="title">
-      <span>PIXELLAB THEME DARK WHITE GREEN</span>
+      <div class="title-row">
+        <span class="title-text">PIXELLAB THEME DARK WHITE GREEN</span>
+        <button class="share-button-icon" data-card-id="pixellab-theme-dark-white-green"><img src="https://files.catbox.moe/40ynkg.png" alt="Share"></button>
+      </div>
       <button class="desc-toggle" onclick="toggleDesc(this)">Deskripsi ▼</button>
       <div class="desc-text" style="display:none; margin-top:8px; font-weight:normal; font-size:14px; color:#333;">
         Versi yang menampilkan tema PixelLab yang lebih fresh serta penambahan font dan stiker baru.
@@ -360,14 +410,16 @@
     <div class="buttons">
       <button onclick="openModal('download', 'pixellab-theme-dark-white-green', 'Download', 'Password')">Download</button>
       <button onclick="openModal('howto', 'pixellab-theme-dark-white-green', '', '')">How To Download</button>
-      <button class="share-button" data-card-id="pixellab-theme-dark-white-green">Share</button>
     </div>
   </div>
 
   <div class="card" id="card-pixellab-theme-ios-v2">
     <a href="https://youtu.be/Y7I0WOXvuxM?si=C1t0TS25GFM0ZtjH"><img src="https://files.catbox.moe/uu45pz.jpg" alt="NS Cina"></a>
     <div class="title">
-      <span>PIXELLAB THEME LIKE IOS V2</span>
+      <div class="title-row">
+        <span class="title-text">PIXELLAB THEME LIKE IOS V2</span>
+        <button class="share-button-icon" data-card-id="pixellab-theme-ios-v2"><img src="https://files.catbox.moe/40ynkg.png" alt="Share"></button>
+      </div>
       <button class="desc-toggle" onclick="toggleDesc(this)">Deskripsi ▼</button>
       <div class="desc-text" style="display:none; margin-top:8px; font-weight:normal; font-size:14px; color:#333;">
         Versi yang menampilkan tema PixelLab yang lebih fresh serta penambahan font dan penambahan stiker anime baru.
@@ -376,14 +428,16 @@
     <div class="buttons">
       <button onclick="openModal('download', 'pixellab-theme-ios-v2', 'Download', 'Password')">Download</button>
       <button onclick="openModal('howto', 'pixellab-theme-ios-v2', '', '')">How To Download</button>
-      <button class="share-button" data-card-id="pixellab-theme-ios-v2">Share</button>
     </div>
   </div>
 
   <div class="card" id="card-pixellab-theme-white-black">
     <a href="https://youtu.be/Jz20F6qPUBY?si=Rw1lKZESxjVYeZqQ"><img src="https://files.catbox.moe/aqnz2i.jpg" alt="NS Uchiha"></a>
     <div class="title">
-      <span>PIXELLAB THEME WHITE BLACK</span>
+      <div class="title-row">
+        <span class="title-text">PIXELLAB THEME WHITE BLACK</span>
+        <button class="share-button-icon" data-card-id="pixellab-theme-white-black"><img src="https://files.catbox.moe/40ynkg.png" alt="Share"></button>
+      </div>
       <button class="desc-toggle" onclick="toggleDesc(this)">Deskripsi ▼</button>
       <div class="desc-text" style="display:none; margin-top:8px; font-weight:normal; font-size:14px; color:#333;">
         Versi yang menampilkan tema PixelLab yang lebih fresh serta penambahan font dan penambahan stiker anime baru.
@@ -392,14 +446,16 @@
     <div class="buttons">
       <button onclick="openModal('download', 'pixellab-theme-white-black', 'Download', 'Password')">Download</button>
       <button onclick="openModal('howto', 'pixellab-theme-white-black', '', '')">How To Download</button>
-      <button class="share-button" data-card-id="pixellab-theme-white-black">Share</button>
     </div>
   </div>
 
   <div class="card" id="card-pixellab-theme-white-purple">
     <a href="https://youtu.be/G0fEIVinbrU?si=ZTt-PfiW_Q0Usj6R"><img src="https://files.catbox.moe/x2x7lj.jpg" alt="NS Uchiha"></a>
     <div class="title">
-      <span>PIXELLAB THEME WHITE PURPLE💜</span>
+      <div class="title-row">
+        <span class="title-text">PIXELLAB THEME WHITE PURPLE💜</span>
+        <button class="share-button-icon" data-card-id="pixellab-theme-white-purple"><img src="https://files.catbox.moe/40ynkg.png" alt="Share"></button>
+      </div>
       <button class="desc-toggle" onclick="toggleDesc(this)">Deskripsi ▼</button>
       <div class="desc-text" style="display:none; margin-top:8px; font-weight:normal; font-size:14px; color:#333;">
         Versi yang menampilkan tema PixelLab yang lebih fresh serta penambahan font dan penambahan stiker anime baru.
@@ -408,14 +464,16 @@
     <div class="buttons">
       <button onclick="openModal('download', 'pixellab-theme-white-purple', 'Download', 'Password')">Download</button>
       <button onclick="openModal('howto', 'pixellab-theme-white-purple', '', '')">How To Download</button>
-      <button class="share-button" data-card-id="pixellab-theme-white-purple">Share</button>
     </div>
   </div>
 
   <div class="card" id="card-pixellab-theme-white-green">
     <a href="https://youtu.be/G5U1em0TT8U?si=L0bLR6zfKwGU8yVC"><img src="https://files.catbox.moe/8bdhwp.jpg" alt="NS Uchiha"></a>
     <div class="title">
-      <span>PIXELLAB THEME WHITE GREEN🍏</span>
+      <div class="title-row">
+        <span class="title-text">PIXELLAB THEME WHITE GREEN🍏</span>
+        <button class="share-button-icon" data-card-id="pixellab-theme-white-green"><img src="https://files.catbox.moe/40ynkg.png" alt="Share"></button>
+      </div>
       <button class="desc-toggle" onclick="toggleDesc(this)">Deskripsi ▼</button>
       <div class="desc-text" style="display:none; margin-top:8px; font-weight:normal; font-size:14px; color:#333;">
         Versi yang menampilkan tema PixelLab yang lebih fresh serta penambahan font dan penambahan stiker anime baru.
@@ -424,14 +482,16 @@
     <div class="buttons">
       <button onclick="openModal('download', 'pixellab-theme-white-green', 'Download', 'Password')">Download</button>
       <button onclick="openModal('howto', 'pixellab-theme-white-green', '', '')">How To Download</button>
-      <button class="share-button" data-card-id="pixellab-theme-white-green">Share</button>
     </div>
   </div>
 
   <div class="card" id="card-pixellab-theme-white-red">
     <a href="https://youtu.be/9ZiVhlT2RNw?si=DbaqcWuaZ5uKD_Cu"><img src="https://files.catbox.moe/y7b59z.jpg" alt="NS Uchiha"></a>
     <div class="title">
-      <span>PIXELLAB THEME WHITE RED🍒</span>
+      <div class="title-row">
+        <span class="title-text">PIXELLAB THEME WHITE RED🍒</span>
+        <button class="share-button-icon" data-card-id="pixellab-theme-white-red"><img src="https://files.catbox.moe/40ynkg.png" alt="Share"></button>
+      </div>
       <button class="desc-toggle" onclick="toggleDesc(this)">Deskripsi ▼</button>
       <div class="desc-text" style="display:none; margin-top:8px; font-weight:normal; font-size:14px; color:#333;">
         Versi yang menampilkan tema PixelLab yang lebih fresh serta penambahan font dan penambahan stiker anime baru.
@@ -440,7 +500,6 @@
     <div class="buttons">
       <button onclick="openModal('download', 'pixellab-theme-white-red', 'Download', 'Password')">Download</button>
       <button onclick="openModal('howto', 'pixellab-theme-white-red', '', '')">How To Download</button>
-      <button class="share-button" data-card-id="pixellab-theme-white-red">Share</button>
     </div>
   </div>
 
@@ -572,22 +631,22 @@
     }
 
     window.addEventListener('scroll', checkZoom);
-    window.addEventListener('resize', checkZoom); // Untuk menangani perubahan ukuran layar
-    window.addEventListener('load', checkZoom); // Trigger saat halaman dimuat
+    window.addEventListener('resize', checkZoom);
+    window.addEventListener('load', checkZoom);
 
     // ************************************************
     // JavaScript untuk fitur Share (dari NarutoSenki.html)
     // ************************************************
     document.addEventListener('DOMContentLoaded', () => {
-        const shareButtons = document.querySelectorAll('.share-button');
+        // Changed from .share-button to .share-button-icon
+        const shareButtons = document.querySelectorAll('.share-button-icon');
 
         shareButtons.forEach(button => {
             button.addEventListener('click', () => {
-                const cardId = button.dataset.cardId; // Ambil ID unik dari atribut data-card-id
-                const baseUrl = window.location.origin + window.location.pathname; // URL dasar halaman Anda
-                const shareUrl = `${baseUrl}#card-${cardId}`; // Gabungkan URL dasar dengan hash ID kartu
+                const cardId = button.dataset.cardId;
+                const baseUrl = window.location.origin + window.location.pathname;
+                const shareUrl = `${baseUrl}#card-${cardId}`;
 
-                // Gunakan Web Share API jika tersedia (untuk berbagi native)
                 if (navigator.share) {
                     navigator.share({
                         title: document.title,
@@ -597,17 +656,14 @@
                         console.log('Berhasil dibagikan');
                     }).catch((error) => {
                         console.error('Gagal berbagi:', error);
-                        // Fallback jika ada error pada Web Share API
                         copyLinkToClipboard(shareUrl);
                     });
                 } else {
-                    // Fallback untuk browser yang tidak mendukung Web Share API
                     copyLinkToClipboard(shareUrl);
                 }
             });
         });
 
-        // Fungsi untuk menyalin link ke clipboard
         function copyLinkToClipboard(link) {
             const tempInput = document.createElement('input');
             document.body.appendChild(tempInput);
@@ -618,15 +674,16 @@
             alert('Link berhasil disalin ke clipboard: ' + link);
         }
 
-        // Tangani link masuk dengan hash (misalnya, jika seseorang mengklik link yang dibagikan)
         if (window.location.hash) {
-            const targetHash = window.location.hash.substring(1); // Hapus '#'
+            const targetHash = window.location.hash.substring(1);
             const targetElement = document.getElementById(targetHash);
 
             if (targetElement) {
                 targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                // Opsional: Highlight kartu untuk pengalaman pengguna yang lebih baik
+                // Tambahkan kelas highlight-card untuk mengaktifkan animasi
                 targetElement.classList.add('highlight-card');
+                // Hapus kelas setelah animasi selesai (sesuaikan durasi)
+                // Durasi animasi 1s, jadi kita bisa mengatur timeout untuk 3s agar berkedip 3 kali
                 setTimeout(() => {
                     targetElement.classList.remove('highlight-card');
                 }, 3000); // Hapus highlight setelah 3 detik
