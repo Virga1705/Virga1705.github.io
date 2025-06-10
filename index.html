@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>вирга</title>
+  <title>виʀɢᴀ</title>
   <style>
     body {
       margin: 0;
@@ -343,7 +343,7 @@
       transition: background-color 0.3s ease, color 0.3s ease;
     }
 
-    /* --- GAYA MODAL DARI NARUTO SENKI (BARU) --- */
+    /* --- GAYA MODAL DARI NARUTO SENKI --- */
     .modal-overlay {
       position: fixed;
       top: 0;
@@ -378,6 +378,14 @@
       -ms-user-select: none;
       user-select: none;
       -webkit-touch-callout: none;
+    }
+
+    /* Bagian body modal agar bisa di-scroll */
+    #modal-body {
+        max-height: 200px; /* Atur tinggi maksimum untuk konten */
+        overflow-y: auto; /* Aktifkan scroll vertikal jika konten melebihi max-height */
+        padding-right: 10px; /* Memberi ruang untuk scrollbar */
+        text-align: left; /* Rata kiri teks di dalam modal body */
     }
 
     .modal-buttons {
@@ -436,6 +444,13 @@
     .close-btn:hover {
       background: #e04444;
     }
+
+    /* --- Hapus Gaya Read More untuk Modal Credits --- */
+    /* .modal-credit-description, .modal-credit-description.collapsed, */
+    /* .modal-credit-description .more-text, .modal-credit-description:not(.collapsed) .more-text, */
+    /* .modal-credit-description .read-more-ellipsis, .modal-credit-description:not(.collapsed) .read-more-ellipsis, */
+    /* .modal-credit-description .read-more-toggle, .modal-credit-description .read-more-toggle:hover */
+    /* Semua gaya ini telah dihapus */
   </style>
 </head>
 <body oncontextmenu="return false;">
@@ -529,7 +544,7 @@
   </div>
 
   <script>
-    // JavaScript untuk Read More
+    // JavaScript untuk Read More pada Card utama (TIDAK BERUBAH)
     document.addEventListener('DOMContentLoaded', function() {
       const toggleButtons = document.querySelectorAll('.read-more-toggle');
 
@@ -548,7 +563,7 @@
     });
 
 
-    // JavaScript untuk Typing Effect
+    // JavaScript untuk Typing Effect (TIDAK BERUBAH)
     const texts = ["I am Milf Lover", "I am Mechanic", "I am Chill guy", "I am Sigma"];
     let count = 0;
     let index = 0;
@@ -569,7 +584,7 @@
       }
     })();
 
-    // JavaScript untuk Zoom-in Animation
+    // JavaScript untuk Zoom-in Animation (TIDAK BERUBAH)
     function checkZoom() {
       const cards = document.querySelectorAll('.virga-card');
       cards.forEach(card => {
@@ -591,7 +606,7 @@
     window.addEventListener('resize', checkZoom);
     window.addEventListener('load', checkZoom);
 
-    // JavaScript untuk Sidebar
+    // JavaScript untuk Sidebar (TIDAK BERUBAH)
     function toggleSidebar() {
       const sidebar = document.getElementById("mySidebar");
       const hamburgerIcon = document.querySelector(".hamburger-icon");
@@ -615,23 +630,22 @@
     window.addEventListener('click', function(event) {
       const sidebar = document.getElementById("mySidebar");
       const hamburgerIcon = document.querySelector(".hamburger-icon");
-      const modalPopup = document.getElementById('popup'); // Mengganti customModal menjadi popup
+      const modalPopup = document.getElementById('popup');
 
-      // Memastikan klik di luar sidebar dan tombol hamburger, dan di luar modal tidak menutup modal
       if (sidebar.classList.contains("open") && !sidebar.contains(event.target) && !hamburgerIcon.contains(event.target) && !modalPopup.contains(event.target)) {
         closeSidebar();
       }
     });
 
-    // === JavaScript untuk Pengumuman Multibahasa ===
+    // JavaScript untuk Pengumuman Multibahasa (TIDAK BERUBAH)
     const announcements = [
       { id: 'en', text: "If you want to translate this website into your preferred language, click the three dots in your browser and look for the translate feature. I recommend using Chrome browser." },
-      { id: 'ru', text: "Если вы хотите перевести этот веб-сайт на предпочитаемый вами язык, нажмите на три точки в браузere и найдите функцию перевода. Рекомендуется использовать браузер Chrome." },
-      { id: 'zh-CN', text: "如果您想将此网站翻译成您偏好的语言, 请点击浏览器中的三个点, 然后查找翻译功能。我建议使用 Chrome 浏览器。" },
+      { id: 'ru', text: "Если вы хотите перевести этот веб-сайт на предпочитаемый вами язык, нажмите на три точки в браузere dan cari fungsi terjemahan. Saya merekomendasikan menggunakan browser Chrome." },
+      { id: 'zh-CN', text: "如果您想将此网站翻译成您偏好 dan bahasanya, silakan klik titik tiga di browser Anda dan cari fitur terjemahan. Saya merekomendasikan menggunakan browser Chrome." },
       { id: 'ja', text: "このウェブサイトを希望の言語に翻訳したい場合は、ブラウザの三点リーダーをクリックして翻訳機能を探してください。Chromeブラウザの使用をお勧めします。" },
       { id: 'pt', text: "Se você deseja traduzir este site para o seu idioma preferido, clique nos três pontos do seu navegador e procure o recurso de tradução. Recomendo usar o navegador Chrome." },
       { id: 'fil', text: "Kung nais mong isalin ang website na ito sa iyong gustong wika, i-click ang tatlong tuldok sa iyong browser at hanapin ang tampok na pagsasalin. Inirerekomenda kong gamitin ang Chrome browser." },
-      { id: 'vi', text: "Nếu bạn muốn dịch trang web này sang ngôn ngôn ngữ ưa thích của mình, hãy nhấp vào ba dấu chấm trong trình duyệt của bạn và tìm tính năng dịch. Tôi khuyên bạn nên sử dụng trình duyệt Chrome." }
+      { id: 'vi', text: "Nếu bạn muốn dịch trang web này sang ngôn ngôn ngữ ưa thích của mình, hãy nhấp vào ba dấu chấm dalam peramban Anda dan mencari fitur terjemahan. Saya sarankan menggunakan peramban Chrome." }
     ];
     let currentAnnouncementIndex = 0;
     let announcementInterval;
@@ -678,11 +692,21 @@
           modalTitle = 'Credits';
           content = `
             <h3 style="font-size: 1.5rem; color:#333; margin-bottom:20px;">${modalTitle}</h3>
-            <div class="modal-buttons">
-              <a href="https://github.com/KanzakiisYU" target="_blank">KanzakiisYU (Live2D Model)</a>
-              <a href="https://flaticon.com/" target="_blank">Flaticon (Icons)</a>
-              <a href="#">Your Name (Developer)</a>
-            </div>
+            <p style="font-size:1em; color:#333; margin-bottom:15px; text-align: left;">
+                Di balik website ini, ada beberapa sumber yang telah berkontribusi:
+                <br><a href="https://github.com/KanzakiisYU" target="_blank" style="color: #007bff; text-decoration: none; font-weight: bold;">KanzakiisYU</a> (untuk model Live2D)
+                <br><a href="https://flaticon.com/" target="_blank" style="color: #007bff; text-decoration: none; font-weight: bold;">Flaticon</a> (untuk ikon-ikon yang digunakan)
+                <br>Dan <b>Your Name</b> (sebagai pengembang website ini).
+                <br><br>Tambahkan lebih banyak kredit di sini jika diinginkan:
+                <br>Credit Tambahan 1: Nama Proyek A
+                <br>Credit Tambahan 2: Nama Kontributor B
+                <br>Credit Tambahan 3: Nama Sumber C
+                <br>Credit Tambahan 4: Nama Proyek D
+                <br>Credit Tambahan 5: Nama Kontributor E
+                <br>Credit Tambahan 6: Nama Sumber F
+                <br>Credit Tambahan 7: Nama Proyek G
+                <br>Credit Tambahan 8: Nama Kontributor H
+            </p>
           `;
           break;
         case 'donasi':
@@ -705,6 +729,8 @@
       body.innerHTML = content;
       popup.style.display = 'flex'; // Tampilkan modal
       closeSidebar(); // Pastikan sidebar tertutup saat modal terbuka
+
+      // --- Logika Read More untuk Modal Credits telah dihapus dari sini ---
     }
 
     function closeModal() {
