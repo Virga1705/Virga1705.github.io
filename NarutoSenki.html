@@ -102,8 +102,21 @@
     /* CSS untuk highlight kartu */
     .card.highlight-card {
       border: 2px solid #007bff; /* Warna border highlight */
-      box-shadow: 0 0 10px rgba(0, 123, 255, 0.5); /* Efek shadow highlight */
-      transition: all 0.5s ease-in-out;
+      /* Mengganti box-shadow statis dengan animasi */
+      animation: blink-highlight 1s infinite alternate; /* Animasi kedip biru */
+    }
+
+    /* Keyframes untuk animasi kedip biru */
+    @keyframes blink-highlight {
+      0% {
+        box-shadow: 0 0 0px rgba(0, 123, 255, 0); /* Awal: transparan */
+      }
+      50% {
+        box-shadow: 0 0 10px rgba(0, 123, 255, 0.7); /* Tengah: biru cerah */
+      }
+      100% {
+        box-shadow: 0 0 0px rgba(0, 123, 255, 0); /* Akhir: transparan kembali */
+      }
     }
 
     .card a img {
@@ -455,18 +468,17 @@
     window.addEventListener('load', checkZoom);
 
     // ************************************************
-    // Bagian JavaScript baru untuk fitur Share
+    // Bagian JavaScript untuk fitur Share dan animasi
     // ************************************************
     document.addEventListener('DOMContentLoaded', () => {
         const shareButtons = document.querySelectorAll('.share-button');
 
         shareButtons.forEach(button => {
             button.addEventListener('click', () => {
-                const cardId = button.dataset.cardId; // Ambil ID unik dari atribut data-card-id
-                const baseUrl = window.location.origin + window.location.pathname; // URL dasar halaman Anda
-                const shareUrl = `${baseUrl}#card-${cardId}`; // Gabungkan URL dasar dengan hash ID kartu
+                const cardId = button.dataset.cardId;
+                const baseUrl = window.location.origin + window.location.pathname;
+                const shareUrl = `${baseUrl}#card-${cardId}`;
 
-                // Gunakan Web Share API jika tersedia (untuk berbagi native)
                 if (navigator.share) {
                     navigator.share({
                         title: document.title,
@@ -476,17 +488,14 @@
                         console.log('Berhasil dibagikan');
                     }).catch((error) => {
                         console.error('Gagal berbagi:', error);
-                        // Fallback jika ada error pada Web Share API
                         copyLinkToClipboard(shareUrl);
                     });
                 } else {
-                    // Fallback untuk browser yang tidak mendukung Web Share API
                     copyLinkToClipboard(shareUrl);
                 }
             });
         });
 
-        // Fungsi untuk menyalin link ke clipboard
         function copyLinkToClipboard(link) {
             const tempInput = document.createElement('input');
             document.body.appendChild(tempInput);
@@ -497,15 +506,16 @@
             alert('Link berhasil disalin ke clipboard: ' + link);
         }
 
-        // Tangani link masuk dengan hash (misalnya, jika seseorang mengklik link yang dibagikan)
         if (window.location.hash) {
-            const targetHash = window.location.hash.substring(1); // Hapus '#'
+            const targetHash = window.location.hash.substring(1);
             const targetElement = document.getElementById(targetHash);
 
             if (targetElement) {
                 targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                // Opsional: Highlight kartu untuk pengalaman pengguna yang lebih baik
+                // Tambahkan kelas highlight-card untuk mengaktifkan animasi
                 targetElement.classList.add('highlight-card');
+                // Hapus kelas setelah animasi selesai (sesuaikan durasi)
+                // Durasi animasi 1s, jadi kita bisa mengatur timeout untuk 3s agar berkedip 3 kali
                 setTimeout(() => {
                     targetElement.classList.remove('highlight-card');
                 }, 3000); // Hapus highlight setelah 3 detik
@@ -513,7 +523,7 @@
         }
     });
     // ************************************************
-    // Akhir dari JavaScript baru
+    // Akhir dari JavaScript
     // ************************************************
   </script>
 
