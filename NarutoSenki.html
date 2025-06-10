@@ -59,13 +59,13 @@
       -ms-user-select: none;
       user-select: none;
       -webkit-touch-callout: none;
-      outline: none; /* ADDED: Remove default focus outline */
+      outline: none; /* Remove default focus outline */
     }
 
     .back-button:hover {
       background: #e0e0e0;
     }
-    .back-button:focus { /* ADDED: Ensure no outline on programmatic focus */
+    .back-button:focus { /* Ensure no outline on programmatic focus */
         outline: none;
     }
 
@@ -97,7 +97,6 @@
       user-select: none;
       -webkit-touch-callout: none;
       outline: none; /* Remove default focus outline from the card itself */
-      /* Removed position: relative from here, not needed for share button anymore */
     }
     .card:focus { /* Ensure no outline on programmatic focus */
         outline: none;
@@ -122,11 +121,11 @@
       font-weight: bold;
       text-align: left;
       border-top: 1px solid #eee;
-      display: flex; /* Changed to flex */
-      flex-direction: column; /* Changed to column to stack title-header and desc-toggle */
+      display: flex;
+      flex-direction: column;
     }
 
-    /* ADDED: New style for title-header */
+    /* New style for title-header */
     .title-header {
         display: flex;
         justify-content: space-between;
@@ -311,7 +310,7 @@
       background: #e04444; /* Warna sedikit lebih gelap saat hover */
     }
 
-    /* UPDATED: SHARE BUTTON STYLES */
+    /* SHARE BUTTON STYLES (UPDATED FOR NEW POSITION) */
     .share-button-container {
       /* Removed absolute positioning */
       cursor: pointer;
@@ -346,7 +345,6 @@
     .share-tooltip {
         position: absolute; /* Relative to .share-button-container */
         bottom: 40px; /* Adjust position relative to the share button */
-        /* right: 0px; Removed, let it center with transform */
         left: 50%; /* Position from center */
         transform: translateX(-50%); /* Center the tooltip */
         background-color: #333;
@@ -364,8 +362,22 @@
         opacity: 1;
     }
 
-    /* REMOVED: ANIMASI KEDIP UNTUK KARTU YANG DIHIGHLIGHT */
-    /* Karena halaman ini tidak memiliki fitur scroll-to-card berdasarkan hash */
+    /* ADDED BACK: ANIMATION FOR CARD HIGHLIGHT */
+    @keyframes card-highlight-blink {
+        0%, 100% {
+            border-color: #ccc; /* Default border color for .card */
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1); /* Default shadow for .card */
+        }
+        50% {
+            border-color: #007bff; /* Blue color when blinking */
+            box-shadow: 0 0 15px rgba(0, 123, 255, 0.6); /* Blue shadow when blinking */
+        }
+    }
+
+    .card.highlight-blink {
+        animation: card-highlight-blink 1s ease-in-out 3; /* Blink 3 times */
+    }
+
 
     /* NEW SHARE MODAL STYLES */
     #shareModal {
@@ -375,9 +387,9 @@
       left: 0;
       top: 0;
       width: 100%; /* Full width */
-      height: 100%; /* Full height */
-      overflow: auto; /* Enable scroll if needed */
-      background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.6);
       justify-content: center;
       align-items: center;
     }
@@ -567,6 +579,9 @@
   </div>
 
   <script>
+    // Global variable to keep track of the currently highlighted card
+    let currentHighlightedCard = null;
+
     function openModal(mode, gameVersion, buttonText1 = 'Download Apk sekarang', buttonText2 = 'Download APK Lainnya') {
       const popup = document.getElementById('popup');
       const body = document.getElementById('modal-body');
@@ -574,15 +589,15 @@
       let downloadLink1 = '';
       let downloadLink2 = '';
       let youtubeLink1 = '';
-      let youtubeLink2 = ''; // Link baru untuk panduan YouTube
+      let youtubeLink2 = '';
 
       /* Untuk Stel Link */
       switch (gameVersion) {
         case 'waifu1':
           downloadLink1 = 'https://sfl.gl/JUucxpu';
           downloadLink2 = 'https://example.com/waifu1_another_download.apk';
-          youtubeLink1 = 'https://youtu.be/Af1Sj7MDhiM?si=EHKw02WB87uTumQI'; // Contoh link YouTube 1
-          youtubeLink2 = 'https://youtube.com/waifu1_tutorial2'; // Contoh link YouTube 2
+          youtubeLink1 = 'https://youtu.be/Af1Sj7MDhiM?si=EHKw02WB87uTumQI';
+          youtubeLink2 = 'https://youtube.com/waifu1_tutorial2';
           break;
         case 'original':
           downloadLink1 = 'https://link2unlock.com/d1e1c';
@@ -641,23 +656,35 @@
 
     function closeModal() {
       document.getElementById('popup').style.display = 'none';
+      if (currentHighlightedCard) { // Ensure highlight is removed if modal closed without share
+          currentHighlightedCard.classList.remove('highlight-blink');
+          currentHighlightedCard = null;
+      }
     }
 
-    // General event listener for closing modals when clicking outside
-    window.addEventListener('click', e => {
-      const popupModal = document.getElementById('popup');
-      const shareModal = document.getElementById('shareModal');
+    // UPDATED: Event listeners for closing modals when clicking outside
+    document.addEventListener('click', e => {
+        const popupModal = document.getElementById('popup');
+        const shareModal = document.getElementById('shareModal');
 
-      // Check if clicking outside of the general modal
-      if (popupModal.style.display === 'flex' && !popupModal.querySelector('.modal').contains(e.target) && !e.target.closest('.buttons button')) {
-        closeModal();
-      }
+        // Close general modal (download/howto) if clicked outside
+        if (popupModal.style.display === 'flex' && !popupModal.querySelector('.modal').contains(e.target) && !e.target.closest('.buttons button')) {
+            closeModal();
+        }
 
-      // Check if clicking outside of the share modal
-      // Make sure the click is not inside the modal content AND not on the share button that opened it
-      if (shareModal.style.display === 'flex' && !shareModal.querySelector('.modal-content').contains(e.target) && !e.target.closest('.share-button-container')) {
-        closeShareModal();
-      }
+        // Close share modal if clicked outside
+        // Make sure the click is not inside the modal content AND not on the share button that opened it
+        if (shareModal.style.display === 'flex' && !shareModal.querySelector('.modal-content').contains(e.target) && !e.target.closest('.share-button-container')) {
+            closeShareModal();
+        }
+    });
+
+    // Prevent clicks inside modals from closing them
+    document.getElementById('popup').querySelector('.modal').addEventListener('click', e => {
+        e.stopPropagation();
+    });
+    document.getElementById('shareModal').querySelector('.modal-content').addEventListener('click', e => {
+        e.stopPropagation();
     });
 
     function toggleDesc(btn) {
@@ -688,7 +715,7 @@
     window.addEventListener('resize', checkZoom);
     window.addEventListener('load', checkZoom);
 
-    // NEW SHARE OPTIONS MODAL FUNCTIONS
+    // SHARE OPTIONS MODAL FUNCTIONS
     let currentShareLink = '';
     let currentShareTitle = '';
     let currentShareIconElement = null; // To store the icon element for blink effect
@@ -706,7 +733,7 @@
         shareModalTitle.textContent = `Share "${cardTitle}"`;
         shareOptionsContainer.innerHTML = ''; // Clear previous options
 
-        // Define share options
+        // Define share platforms
         const sharePlatforms = [
             { name: 'WhatsApp', icon: 'https://cdn-icons-png.flaticon.com/512/2111/2111644.png', url: `https://wa.me/?text=${encodeURIComponent(currentShareTitle + ' - ' + currentShareLink)}`, class: 'whatsapp' },
             { name: 'Telegram', icon: 'https://cdn-icons-png.flaticon.com/512/2111/2111646.png', url: `https://t.me/share/url?url=${encodeURIComponent(currentShareLink)}&text=${encodeURIComponent(currentShareTitle)}`, class: 'telegram' },
@@ -723,9 +750,9 @@
                 url: currentShareLink
             }).then(() => {
                 console.log('Successfully shared via Web Share API');
-                // Apply blink effect to the icon after successful share
                 if (currentShareIconElement) {
                     applyShareIconBlink(currentShareIconElement);
+                    applyCardHighlightBlink(currentShareIconElement.closest('.card')); // Trigger card highlight
                 }
             }).catch((error) => {
                 console.error('Error sharing via Web Share API:', error);
@@ -774,6 +801,10 @@
 
     function closeShareModal() {
       document.getElementById('shareModal').style.display = 'none';
+      if (currentShareIconElement) { // If there was an icon element from the share click
+          applyCardHighlightBlink(currentShareIconElement.closest('.card')); // Trigger card highlight
+          applyShareIconBlink(currentShareIconElement); // Trigger icon blink as well
+      }
       currentShareLink = '';
       currentShareTitle = '';
       currentShareIconElement = null; // Clear the stored element
@@ -797,12 +828,34 @@
         }, 1000); // Blink for 1 second and hide tooltip
     }
 
+    // ADDED: Function to apply blinking effect to the card itself
+    function applyCardHighlightBlink(cardElement) {
+        if (!cardElement) return;
+
+        // Remove highlight from previously highlighted card, if any
+        if (currentHighlightedCard && currentHighlightedCard !== cardElement) {
+            currentHighlightedCard.classList.remove('highlight-blink');
+        }
+
+        cardElement.classList.add('highlight-blink');
+        currentHighlightedCard = cardElement; // Set the current highlighted card
+
+        // Remove the animation class after it completes
+        setTimeout(() => {
+            cardElement.classList.remove('highlight-blink');
+            if (currentHighlightedCard === cardElement) { // Only reset if it's still the same card
+                currentHighlightedCard = null;
+            }
+        }, 3000); // Duration matches animation: 3 blinks * 1s/blink = 3s
+    }
+
     // Function to copy link to clipboard (used within the custom share modal)
     function copyLinkToClipboard(link, iconElement) {
         if (navigator.clipboard) {
             navigator.clipboard.writeText(link).then(() => {
                 console.log('Link copied to clipboard:', link);
-                applyShareIconBlink(iconElement); // Apply blink effect to the original icon
+                applyShareIconBlink(iconElement); // Apply blink effect to the original share icon
+                // Card highlight will be applied when closeShareModal is called
             }).catch(err => {
                 console.error('Failed to copy link:', err);
                 alert('Failed to copy link. Please copy it manually: ' + link);
@@ -816,7 +869,8 @@
             document.execCommand('copy');
             document.body.removeChild(tempInput);
             alert('Link copied to clipboard: ' + link);
-            applyShareIconBlink(iconElement); // Apply blink effect to the original icon
+            applyShareIconBlink(iconElement); // Apply blink effect to the original share icon
+            // Card highlight will be applied when closeShareModal is called
         }
     }
   </script>
