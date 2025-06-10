@@ -99,6 +99,13 @@
       transform: scale(1);
     }
 
+    /* CSS untuk highlight kartu */
+    .card.highlight-card {
+      border: 2px solid #007bff; /* Warna border highlight */
+      box-shadow: 0 0 10px rgba(0, 123, 255, 0.5); /* Efek shadow highlight */
+      transition: all 0.5s ease-in-out;
+    }
+
     .card a img {
       width: 100%;
       display: block;
@@ -284,7 +291,7 @@
     Naruto Senki
   </header>
 
-  <div class="card">
+  <div class="card" id="card-waifu-war-v1">
     <a href="https://youtu.be/1NVlvJIrFPY?si=Cv-ta_itqLGUVg2D" target="_blank">
       <img src="https://files.catbox.moe/ml9alc.jpg" alt="Review Gameplay" draggable="false">
     </a>
@@ -298,10 +305,11 @@
     <div class="buttons">
       <button onclick="openModal('download', 'waifu1', 'Download Link1', 'Download Link2')">Download</button>
       <button onclick="openModal('howto', 'waifu1', '', '')">Cara Download</button>
+      <button class="share-button" data-card-id="waifu-war-v1">Share</button>
     </div>
   </div>
 
-  <div class="card">
+  <div class="card" id="card-narsen-unprotect-117">
     <a href="https://youtu.be/mRTvlyhyzuk"><img src="https://files.catbox.moe/deyydz.jpg" alt="NS Original" draggable="false"></a>
     <div class="title">
       <span>Narsen Unprotect 1.17 Full Screen</span>
@@ -313,10 +321,11 @@
     <div class="buttons">
       <button onclick="openModal('download', 'original', 'Download Link1', 'Download Link2')">Download</button>
       <button onclick="openModal('howto', 'original', '', '')">Cara Download</button>
+      <button class="share-button" data-card-id="narsen-unprotect-117">Share</button>
     </div>
   </div>
 
-  <div class="card">
+  <div class="card" id="card-naruto-senki-216">
     <a href="https://youtu.be/NCH1Ohn5okM"><img src="https://files.catbox.moe/zjidv3.jpg" alt="NS V2.1" draggable="false"></a>
     <div class="title">
       <span>NARUTO SENKI 2.1.6</span>
@@ -328,6 +337,7 @@
     <div class="buttons">
       <button onclick="openModal('download', 'v21', 'Download Link1', 'Download Link2')">Download</button>
       <button onclick="openModal('howto', 'v21', '', '')">Cara Download</button>
+      <button class="share-button" data-card-id="naruto-senki-216">Share</button>
     </div>
   </div>
 
@@ -416,11 +426,6 @@
       document.getElementById('popup').style.display = 'none';
     }
 
-    // Hapus atau komentari bagian ini untuk mencegah penutupan modal saat klik di luar
-    // window.addEventListener('click', e => {
-    //   if (e.target === document.getElementById('popup')) closeModal();
-    // });
-
     function toggleDesc(btn) {
       const desc = btn.nextElementSibling;
       const isVisible = desc.style.display === 'block';
@@ -448,6 +453,68 @@
     window.addEventListener('scroll', checkZoom);
     window.addEventListener('resize', checkZoom);
     window.addEventListener('load', checkZoom);
+
+    // ************************************************
+    // Bagian JavaScript baru untuk fitur Share
+    // ************************************************
+    document.addEventListener('DOMContentLoaded', () => {
+        const shareButtons = document.querySelectorAll('.share-button');
+
+        shareButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const cardId = button.dataset.cardId; // Ambil ID unik dari atribut data-card-id
+                const baseUrl = window.location.origin + window.location.pathname; // URL dasar halaman Anda
+                const shareUrl = `${baseUrl}#card-${cardId}`; // Gabungkan URL dasar dengan hash ID kartu
+
+                // Gunakan Web Share API jika tersedia (untuk berbagi native)
+                if (navigator.share) {
+                    navigator.share({
+                        title: document.title,
+                        text: `Lihat mod game keren ini di ${document.title}!`,
+                        url: shareUrl
+                    }).then(() => {
+                        console.log('Berhasil dibagikan');
+                    }).catch((error) => {
+                        console.error('Gagal berbagi:', error);
+                        // Fallback jika ada error pada Web Share API
+                        copyLinkToClipboard(shareUrl);
+                    });
+                } else {
+                    // Fallback untuk browser yang tidak mendukung Web Share API
+                    copyLinkToClipboard(shareUrl);
+                }
+            });
+        });
+
+        // Fungsi untuk menyalin link ke clipboard
+        function copyLinkToClipboard(link) {
+            const tempInput = document.createElement('input');
+            document.body.appendChild(tempInput);
+            tempInput.value = link;
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+            alert('Link berhasil disalin ke clipboard: ' + link);
+        }
+
+        // Tangani link masuk dengan hash (misalnya, jika seseorang mengklik link yang dibagikan)
+        if (window.location.hash) {
+            const targetHash = window.location.hash.substring(1); // Hapus '#'
+            const targetElement = document.getElementById(targetHash);
+
+            if (targetElement) {
+                targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                // Opsional: Highlight kartu untuk pengalaman pengguna yang lebih baik
+                targetElement.classList.add('highlight-card');
+                setTimeout(() => {
+                    targetElement.classList.remove('highlight-card');
+                }, 3000); // Hapus highlight setelah 3 detik
+            }
+        }
+    });
+    // ************************************************
+    // Akhir dari JavaScript baru
+    // ************************************************
   </script>
 
   <script src="https://l2dwidget.js.org/lib/L2Dwidget.min.js"></script>
