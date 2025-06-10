@@ -105,6 +105,25 @@
       transform: scale(1);
     }
 
+    /* CSS untuk highlight kartu */
+    .card.highlight-card {
+      border: 2px solid #007bff; /* Warna border highlight */
+      animation: blink-highlight 1s infinite alternate; /* Animasi kedip biru */
+    }
+
+    /* Keyframes untuk animasi kedip biru */
+    @keyframes blink-highlight {
+      0% {
+        box-shadow: 0 0 0px rgba(0, 123, 255, 0); /* Awal: transparan */
+      }
+      50% {
+        box-shadow: 0 0 10px rgba(0, 123, 255, 0.7); /* Tengah: biru cerah */
+      }
+      100% {
+        box-shadow: 0 0 0px rgba(0, 123, 255, 0); /* Akhir: transparan kembali */
+      }
+    }
+
     .card a img {
       width: 100%;
       display: block;
@@ -295,7 +314,7 @@
     PixelLab
   </header>
 
-  <div class="card">
+  <div class="card" id="card-pixellab-theme-ios">
     <a href="https://youtu.be/oWRwrdK-www" target="_blank">
       <img src="https://files.catbox.moe/x724xz.jpg" alt="Review Gameplay">
     </a>
@@ -307,12 +326,13 @@
       </div>
     </div>
     <div class="buttons">
-      <button onclick="openModal('download', 'waifu1', 'Download', 'Password')">Download</button>
-      <button onclick="openModal('howto', 'waifu1', '', '')">Cara Download</button>
+      <button onclick="openModal('download', 'pixellab-theme-ios', 'Download', 'Password')">Download</button>
+      <button onclick="openModal('howto', 'pixellab-theme-ios', '', '')">Cara Download</button>
+      <button class="share-button" data-card-id="pixellab-theme-ios">Share</button>
     </div>
   </div>
 
-  <div class="card">
+  <div class="card" id="card-pixellab-mod-dark-theme-v1">
     <a href="https://youtu.be/7i8shrBM3Fw?si=ls99mZh6lWBYQZYh"><img src="https://files.catbox.moe/c12tu2.jpg" alt="NS Original"></a>
     <div class="title">
       <span>PIXELLAB MOD DARK THEME V1</span>
@@ -322,12 +342,13 @@
       </div>
     </div>
     <div class="buttons">
-      <button onclick="openModal('download', 'original', 'Download', 'Password')">Download</button>
-      <button onclick="openModal('howto', 'original', '', '')">How To Download</button>
+      <button onclick="openModal('download', 'pixellab-mod-dark-theme-v1', 'Download', 'Password')">Download</button>
+      <button onclick="openModal('howto', 'pixellab-mod-dark-theme-v1', '', '')">How To Download</button>
+      <button class="share-button" data-card-id="pixellab-mod-dark-theme-v1">Share</button>
     </div>
   </div>
 
-  <div class="card">
+  <div class="card" id="card-pixellab-theme-dark-white-green">
     <a href="https://youtu.be/GhCD1qqRmro?si=6qxXHQUyhXXwwXP2"><img src="https://files.catbox.moe/i5sgns.jpg" alt="NS V2.1"></a>
     <div class="title">
       <span>PIXELLAB THEME DARK WHITE GREEN</span>
@@ -337,12 +358,13 @@
       </div>
     </div>
     <div class="buttons">
-      <button onclick="openModal('download', 'v21', 'Download', 'Password')">Download</button>
-      <button onclick="openModal('howto', 'v21', '', '')">How To Download</button>
+      <button onclick="openModal('download', 'pixellab-theme-dark-white-green', 'Download', 'Password')">Download</button>
+      <button onclick="openModal('howto', 'pixellab-theme-dark-white-green', '', '')">How To Download</button>
+      <button class="share-button" data-card-id="pixellab-theme-dark-white-green">Share</button>
     </div>
   </div>
 
-  <div class="card">
+  <div class="card" id="card-pixellab-theme-ios-v2">
     <a href="https://youtu.be/Y7I0WOXvuxM?si=C1t0TS25GFM0ZtjH"><img src="https://files.catbox.moe/uu45pz.jpg" alt="NS Cina"></a>
     <div class="title">
       <span>PIXELLAB THEME LIKE IOS V2</span>
@@ -352,12 +374,13 @@
       </div>
     </div>
     <div class="buttons">
-      <button onclick="openModal('download', 'cina', 'Download', 'Password')">Download</button>
-      <button onclick="openModal('howto', 'cina', '', '')">How To Download</button>
+      <button onclick="openModal('download', 'pixellab-theme-ios-v2', 'Download', 'Password')">Download</button>
+      <button onclick="openModal('howto', 'pixellab-theme-ios-v2', '', '')">How To Download</button>
+      <button class="share-button" data-card-id="pixellab-theme-ios-v2">Share</button>
     </div>
   </div>
 
-  <div class="card">
+  <div class="card" id="card-pixellab-theme-white-black">
     <a href="https://youtu.be/Jz20F6qPUBY?si=Rw1lKZESxjVYeZqQ"><img src="https://files.catbox.moe/aqnz2i.jpg" alt="NS Uchiha"></a>
     <div class="title">
       <span>PIXELLAB THEME WHITE BLACK</span>
@@ -367,12 +390,13 @@
       </div>
     </div>
     <div class="buttons">
-      <button onclick="openModal('download', 'uchiha', 'Download', 'Password')">Download</button>
-      <button onclick="openModal('howto', 'uchiha', '', '')">How To Download</button>
+      <button onclick="openModal('download', 'pixellab-theme-white-black', 'Download', 'Password')">Download</button>
+      <button onclick="openModal('howto', 'pixellab-theme-white-black', '', '')">How To Download</button>
+      <button class="share-button" data-card-id="pixellab-theme-white-black">Share</button>
     </div>
   </div>
 
-  <div class="card">
+  <div class="card" id="card-pixellab-theme-white-purple">
     <a href="https://youtu.be/G0fEIVinbrU?si=ZTt-PfiW_Q0Usj6R"><img src="https://files.catbox.moe/x2x7lj.jpg" alt="NS Uchiha"></a>
     <div class="title">
       <span>PIXELLAB THEME WHITE PURPLE💜</span>
@@ -382,12 +406,13 @@
       </div>
     </div>
     <div class="buttons">
-      <button onclick="openModal('download', 'virga', 'Download', 'Password')">Download</button>
-      <button onclick="openModal('howto', 'virga', '', '')">How To Download</button>
+      <button onclick="openModal('download', 'pixellab-theme-white-purple', 'Download', 'Password')">Download</button>
+      <button onclick="openModal('howto', 'pixellab-theme-white-purple', '', '')">How To Download</button>
+      <button class="share-button" data-card-id="pixellab-theme-white-purple">Share</button>
     </div>
   </div>
 
-  <div class="card">
+  <div class="card" id="card-pixellab-theme-white-green">
     <a href="https://youtu.be/G5U1em0TT8U?si=L0bLR6zfKwGU8yVC"><img src="https://files.catbox.moe/8bdhwp.jpg" alt="NS Uchiha"></a>
     <div class="title">
       <span>PIXELLAB THEME WHITE GREEN🍏</span>
@@ -397,12 +422,13 @@
       </div>
     </div>
     <div class="buttons">
-      <button onclick="openModal('download', 'virgaa', 'Download', 'Password')">Download</button>
-      <button onclick="openModal('howto', 'virgaa', '', '')">How To Download</button>
+      <button onclick="openModal('download', 'pixellab-theme-white-green', 'Download', 'Password')">Download</button>
+      <button onclick="openModal('howto', 'pixellab-theme-white-green', '', '')">How To Download</button>
+      <button class="share-button" data-card-id="pixellab-theme-white-green">Share</button>
     </div>
   </div>
 
-  <div class="card">
+  <div class="card" id="card-pixellab-theme-white-red">
     <a href="https://youtu.be/9ZiVhlT2RNw?si=DbaqcWuaZ5uKD_Cu"><img src="https://files.catbox.moe/y7b59z.jpg" alt="NS Uchiha"></a>
     <div class="title">
       <span>PIXELLAB THEME WHITE RED🍒</span>
@@ -412,8 +438,9 @@
       </div>
     </div>
     <div class="buttons">
-      <button onclick="openModal('download', 'virgaaa', 'Download', 'Password')">Download</button>
-      <button onclick="openModal('howto', 'virgaaa', '', '')">How To Download</button>
+      <button onclick="openModal('download', 'pixellab-theme-white-red', 'Download', 'Password')">Download</button>
+      <button onclick="openModal('howto', 'pixellab-theme-white-red', '', '')">How To Download</button>
+      <button class="share-button" data-card-id="pixellab-theme-white-red">Share</button>
     </div>
   </div>
 
@@ -438,49 +465,49 @@
 
       /* Untuk Stel Link */
       switch (gameVersion) {
-        case 'waifu1':
+        case 'pixellab-theme-ios':
           downloadLink1 = 'https://apkadmin.com/3hfox6r0nmj2/PixelLab_signed.7z.html';
           downloadLink2 = 'https://sfl.gl/QBUP3FG';
           youtubeLink1 = 'https://youtu.be/Af1Sj7MDhiM?si=EHKw02WB87uTumQI'; // Contoh link YouTube 1
           youtubeLink2 = 'https://youtube.com/waifu1_tutorial2'; // Contoh link YouTube 2
           break;
-        case 'original':
+        case 'pixellab-mod-dark-theme-v1':
           downloadLink1 = 'https://apkadmin.com/4xyd0vgan06m/PixelLab_Dark_Theme_V1_v6969.apk.html';
           downloadLink2 = 'https://sfl.gl/t9EykRkc';
           youtubeLink1 = 'https://youtu.be/Af1Sj7MDhiM?si=EHKw02WB87uTumQI';
           youtubeLink2 = 'https://youtube.com/original_tutorial2';
           break;
-        case 'v21':
+        case 'pixellab-theme-dark-white-green':
           downloadLink1 = 'https://apkadmin.com/yd6aqhp9kaxd/PixelLab_DarkWhiteGreen_6969.apk.html';
           downloadLink2 = 'https://sfl.gl/3fuh';
           youtubeLink1 = 'https://youtu.be/Af1Sj7MDhiM?si=EHKw02WB87uTumQI';
           youtubeLink2 = 'https://youtube.com/v21_tutorial2';
           break;
-        case 'cina':
+        case 'pixellab-theme-ios-v2':
           downloadLink1 = 'https://apkadmin.com/a48vo2eea3g1/PixelLab_Theme_Like_IOS_V2.apk.html';
           downloadLink2 = 'https://sfl.gl/KW3eU6O3';
           youtubeLink1 = 'https://youtu.be/Af1Sj7MDhiM?si=EHKw02WB87uTumQI';
           youtubeLink2 = 'https://youtube.com/cina_tutorial2';
           break;
-        case 'uchiha':
+        case 'pixellab-theme-white-black':
           downloadLink1 = 'https://sfl.gl/JKMAA3';
           downloadLink2 = 'https://youtu.be/Jz20F6qPUBY?si=Rw1lKZESxjVYeZqQ';
           youtubeLink1 = 'https://youtu.be/Af1Sj7MDhiM?si=EHKw02WB87uTumQI';
           youtubeLink2 = 'https://youtube.com/uchiha_tutorial2';
           break;
-        case 'virga':
+        case 'pixellab-theme-white-purple':
           downloadLink1 = 'https://sfl.gl/Dq61TI';
           downloadLink2 = 'https://youtu.be/G0fEIVinbrU?si=ZTt-PfiW_Q0Usj6R';
           youtubeLink1 = 'https://youtu.be/Af1Sj7MDhiM?si=EHKw02WB87uTumQI';
           youtubeLink2 = 'https://youtube.com/uchiha_tutorial2';
           break;
-        case 'virgaa':
+        case 'pixellab-theme-white-green':
           downloadLink1 = 'https://sfl.gl/H96U';
           downloadLink2 = 'https://youtu.be/G5U1em0TT8U?si=L0bLR6zfKwGU8yVC';
           youtubeLink1 = 'https://youtu.be/Af1Sj7MDhiM?si=EHKw02WB87uTumQI';
           youtubeLink2 = 'https://youtube.com/uchiha_tutorial2';
           break;
-        case 'virgaaa':
+        case 'pixellab-theme-white-red':
           downloadLink1 = 'https://sfl.gl/Pr7r40';
           downloadLink2 = 'https://youtu.be/9ZiVhlT2RNw?si=DbaqcWuaZ5uKD_Cu';
           youtubeLink1 = 'https://youtu.be/Af1Sj7MDhiM?si=EHKw02WB87uTumQI';
@@ -507,7 +534,7 @@
           <h2>Cara Download</h2>
           <div class="modal-buttons">
             <a href="${youtubeLink1}" target="_blank">Tonton Panduan YouTube1</a>
-            <a href="${youtubeLink1}" target="_blank">Tonton Panduan YouTube2</a>
+            <a href="${youtubeLink2}" target="_blank">Tonton Panduan YouTube2</a>
           </div>
         `;
       }
@@ -519,11 +546,6 @@
     function closeModal() {
       document.getElementById('popup').style.display = 'none';
     }
-
-    // Baris ini telah dikomentari untuk mencegah modal menutup saat mengklik area luar modal
-    // window.addEventListener('click', e => {
-    //   if (e.target === document.getElementById('popup')) closeModal();
-    // });
 
     function toggleDesc(btn) {
       const desc = btn.nextElementSibling;
@@ -539,7 +561,6 @@
         const windowBottom = window.scrollY + window.innerHeight;
         const windowTop = window.scrollY;
         const cardHeight = card.offsetHeight;
-        // Kartu terlihat jika bagian atas kartu di bawah bagian bawah jendela DAN bagian bawah kartu di atas bagian atas jendela
         const isVisible = (cardTop < windowBottom) && (cardTop + cardHeight > windowTop);
 
         if (isVisible) {
@@ -553,6 +574,68 @@
     window.addEventListener('scroll', checkZoom);
     window.addEventListener('resize', checkZoom); // Untuk menangani perubahan ukuran layar
     window.addEventListener('load', checkZoom); // Trigger saat halaman dimuat
+
+    // ************************************************
+    // JavaScript untuk fitur Share (dari NarutoSenki.html)
+    // ************************************************
+    document.addEventListener('DOMContentLoaded', () => {
+        const shareButtons = document.querySelectorAll('.share-button');
+
+        shareButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const cardId = button.dataset.cardId; // Ambil ID unik dari atribut data-card-id
+                const baseUrl = window.location.origin + window.location.pathname; // URL dasar halaman Anda
+                const shareUrl = `${baseUrl}#card-${cardId}`; // Gabungkan URL dasar dengan hash ID kartu
+
+                // Gunakan Web Share API jika tersedia (untuk berbagi native)
+                if (navigator.share) {
+                    navigator.share({
+                        title: document.title,
+                        text: `Lihat mod PixelLab keren ini di ${document.title}!`,
+                        url: shareUrl
+                    }).then(() => {
+                        console.log('Berhasil dibagikan');
+                    }).catch((error) => {
+                        console.error('Gagal berbagi:', error);
+                        // Fallback jika ada error pada Web Share API
+                        copyLinkToClipboard(shareUrl);
+                    });
+                } else {
+                    // Fallback untuk browser yang tidak mendukung Web Share API
+                    copyLinkToClipboard(shareUrl);
+                }
+            });
+        });
+
+        // Fungsi untuk menyalin link ke clipboard
+        function copyLinkToClipboard(link) {
+            const tempInput = document.createElement('input');
+            document.body.appendChild(tempInput);
+            tempInput.value = link;
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+            alert('Link berhasil disalin ke clipboard: ' + link);
+        }
+
+        // Tangani link masuk dengan hash (misalnya, jika seseorang mengklik link yang dibagikan)
+        if (window.location.hash) {
+            const targetHash = window.location.hash.substring(1); // Hapus '#'
+            const targetElement = document.getElementById(targetHash);
+
+            if (targetElement) {
+                targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                // Opsional: Highlight kartu untuk pengalaman pengguna yang lebih baik
+                targetElement.classList.add('highlight-card');
+                setTimeout(() => {
+                    targetElement.classList.remove('highlight-card');
+                }, 3000); // Hapus highlight setelah 3 detik
+            }
+        }
+    });
+    // ************************************************
+    // Akhir dari JavaScript Share
+    // ************************************************
   </script>
 
   <script src="https://l2dwidget.js.org/lib/L2Dwidget.min.js"></script>
