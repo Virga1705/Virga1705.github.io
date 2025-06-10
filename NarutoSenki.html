@@ -59,10 +59,14 @@
       -ms-user-select: none;
       user-select: none;
       -webkit-touch-callout: none;
+      outline: none; /* ADDED: Remove default focus outline */
     }
 
     .back-button:hover {
       background: #e0e0e0;
+    }
+    .back-button:focus { /* ADDED: Ensure no outline on programmatic focus */
+        outline: none;
     }
 
     .back-button img {
@@ -92,31 +96,16 @@
       -ms-user-select: none;
       user-select: none;
       -webkit-touch-callout: none;
+      outline: none; /* Remove default focus outline from the card itself */
+      /* Removed position: relative from here, not needed for share button anymore */
+    }
+    .card:focus { /* Ensure no outline on programmatic focus */
+        outline: none;
     }
 
     .card.zoom-in {
       opacity: 1;
       transform: scale(1);
-    }
-
-    /* CSS untuk highlight kartu */
-    .card.highlight-card {
-      border: 2px solid #007bff; /* Warna border highlight */
-      /* Mengganti box-shadow statis dengan animasi */
-      animation: blink-highlight 1s infinite alternate; /* Animasi kedip biru */
-    }
-
-    /* Keyframes untuk animasi kedip biru */
-    @keyframes blink-highlight {
-      0% {
-        box-shadow: 0 0 0px rgba(0, 123, 255, 0); /* Awal: transparan */
-      }
-      50% {
-        box-shadow: 0 0 10px rgba(0, 123, 255, 0.7); /* Tengah: biru cerah */
-      }
-      100% {
-        box-shadow: 0 0 0px rgba(0, 123, 255, 0); /* Akhir: transparan kembali */
-      }
     }
 
     .card a img {
@@ -133,12 +122,28 @@
       font-weight: bold;
       text-align: left;
       border-top: 1px solid #eee;
-      display: flex;
-      flex-direction: column;
+      display: flex; /* Changed to flex */
+      flex-direction: column; /* Changed to column to stack title-header and desc-toggle */
+    }
+
+    /* ADDED: New style for title-header */
+    .title-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        margin-bottom: 8px; /* Space between title line and description toggle */
+    }
+
+    .title-header span {
+        flex-grow: 1; /* Allow title text to take available space */
+        font-size: 16px; /* Ensure title size is consistent */
+        font-weight: bold; /* Ensure title weight is consistent */
+        padding-right: 10px; /* Space between title and share button */
     }
 
     .desc-toggle {
-      margin-top: 8px;
+      margin-top: 0; /* Adjusted margin, now controlled by title-header margin-bottom */
       background: none;
       border: none;
       color: #007BFF;
@@ -146,6 +151,10 @@
       font-size: 14px;
       padding: 0;
       text-align: left;
+      outline: none; /* Remove default focus outline */
+    }
+    .desc-toggle:focus { /* Ensure no outline on programmatic focus */
+        outline: none;
     }
 
     .desc-text {
@@ -180,6 +189,10 @@
       -ms-user-select: none;
       user-select: none;
       -webkit-touch-callout: none;
+      outline: none; /* Remove default focus outline */
+    }
+    .buttons button:focus { /* Ensure no outline on programmatic focus */
+        outline: none;
     }
 
     .buttons button:hover {
@@ -288,10 +301,176 @@
       -ms-user-select: none;
       user-select: none;
       -webkit-touch-callout: none;
+      outline: none; /* Remove default focus outline */
+    }
+    .close-btn:focus { /* Ensure no outline on programmatic focus */
+        outline: none;
     }
 
     .close-btn:hover {
       background: #e04444; /* Warna sedikit lebih gelap saat hover */
+    }
+
+    /* UPDATED: SHARE BUTTON STYLES */
+    .share-button-container {
+      /* Removed absolute positioning */
+      cursor: pointer;
+      z-index: 5;
+      transition: transform 0.2s ease-in-out;
+      outline: none; /* Remove default focus outline */
+      margin-left: auto; /* Push to the right */
+    }
+
+    .share-button-container:hover {
+        transform: scale(1.1);
+    }
+
+    /* Ensure no outline on focus, for accessibility */
+    .share-button-container:focus {
+        outline: none;
+    }
+
+    .share-button-container img {
+      width: 24px;
+      height: 24px;
+      filter: grayscale(100%) brightness(1.5); /* Default icon style */
+      transition: filter 0.3s ease-in-out;
+    }
+
+    /* Blinking effect for share icon */
+    .share-button-container.blink img {
+        filter: brightness(0) invert(1) sepia(1) saturate(5000%) hue-rotate(200deg); /* Change to a distinct color, e.g., blue */
+    }
+
+    /* Tooltip / Notification for "Copied!" */
+    .share-tooltip {
+        position: absolute; /* Relative to .share-button-container */
+        bottom: 40px; /* Adjust position relative to the share button */
+        /* right: 0px; Removed, let it center with transform */
+        left: 50%; /* Position from center */
+        transform: translateX(-50%); /* Center the tooltip */
+        background-color: #333;
+        color: white;
+        padding: 5px 10px;
+        border-radius: 5px;
+        font-size: 0.8rem;
+        white-space: nowrap;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease-in-out;
+    }
+
+    .share-tooltip.show {
+        opacity: 1;
+    }
+
+    /* REMOVED: ANIMASI KEDIP UNTUK KARTU YANG DIHIGHLIGHT */
+    /* Karena halaman ini tidak memiliki fitur scroll-to-card berdasarkan hash */
+
+    /* NEW SHARE MODAL STYLES */
+    #shareModal {
+      display: none; /* Hidden by default */
+      position: fixed; /* Stay in place */
+      z-index: 1003; /* Sit on top of everything */
+      left: 0;
+      top: 0;
+      width: 100%; /* Full width */
+      height: 100%; /* Full height */
+      overflow: auto; /* Enable scroll if needed */
+      background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+      justify-content: center;
+      align-items: center;
+    }
+
+    #shareModal .modal-content {
+      background-color: #fefefe;
+      margin: auto;
+      padding: 25px;
+      border-radius: 12px;
+      width: 85%;
+      max-width: 350px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      position: relative;
+      text-align: center;
+      animation: zoomIn 0.3s ease-out;
+    }
+
+    #shareModal .modal-content h3 {
+        margin-top: 0;
+        color: #333;
+        font-size: 1.3rem;
+        margin-bottom: 20px;
+    }
+
+    .share-options {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+        gap: 15px;
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+
+    .share-option {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-decoration: none;
+        color: #555;
+        font-size: 0.85rem;
+        transition: transform 0.2s ease-in-out, color 0.2s ease;
+    }
+
+    .share-option:hover {
+        transform: translateY(-3px);
+        color: #007bff;
+    }
+
+    .share-option img {
+        width: 48px;
+        height: 48px;
+        margin-bottom: 8px;
+        border-radius: 8px; /* Optional: slight roundness for icons */
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        transition: box-shadow 0.2s ease;
+    }
+
+    .share-option:hover img {
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    /* Specific colors for icons if needed */
+    .share-option.whatsapp img { background-color: #25D366; }
+    .share-option.telegram img { background-color: #0088CC; }
+    .share-option.copy-link img { background-color: #6c757d; }
+
+    #shareModal .close-btn-share {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        width: 30px;
+        height: 30px;
+        background: #ff5c5c;
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background 0.2s ease-in-out;
+        outline: none; /* Remove default focus outline */
+    }
+    #shareModal .close-btn-share:focus { /* Ensure no outline on programmatic focus */
+        outline: none;
+    }
+    #shareModal .close-btn-share:hover {
+        background: #e04444;
+    }
+
+    @keyframes zoomIn {
+        from { transform: scale(0.8); opacity: 0; }
+        to { transform: scale(1); opacity: 1; }
     }
   </style>
 </head>
@@ -304,12 +483,18 @@
     Naruto Senki
   </header>
 
-  <div class="card" id="card-waifu-war-v1">
+  <div class="card" id="card-waifu-war-v1" data-share-id="waifu-war-v1">
     <a href="https://youtu.be/1NVlvJIrFPY?si=Cv-ta_itqLGUVg2D" target="_blank">
       <img src="https://files.catbox.moe/ml9alc.jpg" alt="Review Gameplay" draggable="false">
     </a>
     <div class="title">
-      <span>NS: Waifu War V1</span>
+      <div class="title-header">
+        <span>NS: Waifu War V1</span>
+        <div class="share-button-container" onclick="openShareOptionsModal('NS: Waifu War V1', 'card-waifu-war-v1', this); event.preventDefault();">
+            <img src="https://files.catbox.moe/40ynkg.png" alt="Share" draggable="false">
+            <span class="share-tooltip">Copied!</span>
+        </div>
+      </div>
       <button class="desc-toggle" onclick="toggleDesc(this)">Deskripsi ▼</button>
       <div class="desc-text" style="display:none; margin-top:8px; font-weight:normal; font-size:14px; color:#333;">
         Versi yang menampilkan karakter waifu dari Naruto. Cocok bagi fans karakter cewek dan mod anime.
@@ -318,14 +503,19 @@
     <div class="buttons">
       <button onclick="openModal('download', 'waifu1', 'Download Link1', 'Download Link2')">Download</button>
       <button onclick="openModal('howto', 'waifu1', '', '')">Cara Download</button>
-      <button class="share-button" data-card-id="waifu-war-v1">Share</button>
     </div>
   </div>
 
-  <div class="card" id="card-narsen-unprotect-117">
-    <a href="https://youtu.be/mRTvlyhyzuk"><img src="https://files.catbox.moe/deyydz.jpg" alt="NS Original" draggable="false"></a>
+  <div class="card" id="card-narsen-unprotect" data-share-id="narsen-unprotect">
+    <a href="https://youtu.be/mRTvlyhyzuk" target="_blank"><img src="https://files.catbox.moe/deyydz.jpg" alt="NS Original" draggable="false"></a>
     <div class="title">
-      <span>Narsen Unprotect 1.17 Full Screen</span>
+      <div class="title-header">
+        <span>Narsen Unprotect 1.17 Full Screen</span>
+        <div class="share-button-container" onclick="openShareOptionsModal('Narsen Unprotect 1.17', 'card-narsen-unprotect', this); event.preventDefault();">
+            <img src="https://files.catbox.moe/40ynkg.png" alt="Share" draggable="false">
+            <span class="share-tooltip">Copied!</span>
+        </div>
+      </div>
       <button class="desc-toggle" onclick="toggleDesc(this)">Deskripsi ▼</button>
       <div class="desc-text" style="display:none; margin-top:8px; font-weight:normal; font-size:14px; color:#333;">
         Narsen Unprotect 1.17 adalah versi dasar dari Naruto Senki tanpa modifikasi Lain. Cocok untuk project narsen kalian.
@@ -334,14 +524,19 @@
     <div class="buttons">
       <button onclick="openModal('download', 'original', 'Download Link1', 'Download Link2')">Download</button>
       <button onclick="openModal('howto', 'original', '', '')">Cara Download</button>
-      <button class="share-button" data-card-id="narsen-unprotect-117">Share</button>
     </div>
   </div>
 
-  <div class="card" id="card-naruto-senki-216">
-    <a href="https://youtu.be/NCH1Ohn5okM"><img src="https://files.catbox.moe/zjidv3.jpg" alt="NS V2.1" draggable="false"></a>
+  <div class="card" id="card-naruto-senki-216" data-share-id="naruto-senki-216">
+    <a href="https://youtu.be/NCH1Ohn5okM" target="_blank"><img src="https://files.catbox.moe/zjidv3.jpg" alt="NS V2.1" draggable="false"></a>
     <div class="title">
-      <span>NARUTO SENKI 2.1.6</span>
+      <div class="title-header">
+        <span>NARUTO SENKI 2.1.6</span>
+        <div class="share-button-container" onclick="openShareOptionsModal('NARUTO SENKI 2.1.6', 'card-naruto-senki-216', this); event.preventDefault();">
+            <img src="https://files.catbox.moe/40ynkg.png" alt="Share" draggable="false">
+            <span class="share-tooltip">Copied!</span>
+        </div>
+      </div>
       <button class="desc-toggle" onclick="toggleDesc(this)">Deskripsi ▼</button>
       <div class="desc-text" style="display:none; margin-top:8px; font-weight:normal; font-size:14px; color:#333;">
         Naruto Senki 2.1.6 adalah Narsen yang di Kembangkan Oleh RE Memberikan Update Dengan Mode Baru dan Balancing Gameplay.
@@ -350,7 +545,6 @@
     <div class="buttons">
       <button onclick="openModal('download', 'v21', 'Download Link1', 'Download Link2')">Download</button>
       <button onclick="openModal('howto', 'v21', '', '')">Cara Download</button>
-      <button class="share-button" data-card-id="naruto-senki-216">Share</button>
     </div>
   </div>
 
@@ -360,6 +554,15 @@
   <div class="modal-overlay" id="popup">
     <div class="modal">
       <span class="close-btn" onclick="closeModal()">X</span> <div id="modal-body"></div>
+    </div>
+  </div>
+
+  <div id="shareModal">
+    <div class="modal-content">
+      <span class="close-btn-share" onclick="closeShareModal()">X</span>
+      <h3 id="shareModalTitle">Share this Card</h3>
+      <div class="share-options">
+        </div>
     </div>
   </div>
 
@@ -433,11 +636,29 @@
 
       body.innerHTML = content;
       popup.style.display = 'flex';
+      closeShareModal(); // Close share modal if general modal opens
     }
 
     function closeModal() {
       document.getElementById('popup').style.display = 'none';
     }
+
+    // General event listener for closing modals when clicking outside
+    window.addEventListener('click', e => {
+      const popupModal = document.getElementById('popup');
+      const shareModal = document.getElementById('shareModal');
+
+      // Check if clicking outside of the general modal
+      if (popupModal.style.display === 'flex' && !popupModal.querySelector('.modal').contains(e.target) && !e.target.closest('.buttons button')) {
+        closeModal();
+      }
+
+      // Check if clicking outside of the share modal
+      // Make sure the click is not inside the modal content AND not on the share button that opened it
+      if (shareModal.style.display === 'flex' && !shareModal.querySelector('.modal-content').contains(e.target) && !e.target.closest('.share-button-container')) {
+        closeShareModal();
+      }
+    });
 
     function toggleDesc(btn) {
       const desc = btn.nextElementSibling;
@@ -467,64 +688,137 @@
     window.addEventListener('resize', checkZoom);
     window.addEventListener('load', checkZoom);
 
-    // ************************************************
-    // Bagian JavaScript untuk fitur Share dan animasi
-    // ************************************************
-    document.addEventListener('DOMContentLoaded', () => {
-        const shareButtons = document.querySelectorAll('.share-button');
+    // NEW SHARE OPTIONS MODAL FUNCTIONS
+    let currentShareLink = '';
+    let currentShareTitle = '';
+    let currentShareIconElement = null; // To store the icon element for blink effect
 
-        shareButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const cardId = button.dataset.cardId;
-                const baseUrl = window.location.origin + window.location.pathname;
-                const shareUrl = `${baseUrl}#card-${cardId}`;
+    function openShareOptionsModal(cardTitle, cardId, iconElement) {
+        currentShareTitle = cardTitle;
+        // Use full URL for sharing, assuming this page is also hosted
+        currentShareLink = window.location.origin + window.location.pathname + '#' + cardId;
+        currentShareIconElement = iconElement; // Store the icon element
 
-                if (navigator.share) {
-                    navigator.share({
-                        title: document.title,
-                        text: `Lihat mod game keren ini di ${document.title}!`,
-                        url: shareUrl
-                    }).then(() => {
-                        console.log('Berhasil dibagikan');
-                    }).catch((error) => {
-                        console.error('Gagal berbagi:', error);
-                        copyLinkToClipboard(shareUrl);
-                    });
+        const shareModal = document.getElementById('shareModal');
+        const shareModalTitle = document.getElementById('shareModalTitle');
+        const shareOptionsContainer = shareModal.querySelector('.share-options');
+
+        shareModalTitle.textContent = `Share "${cardTitle}"`;
+        shareOptionsContainer.innerHTML = ''; // Clear previous options
+
+        // Define share options
+        const sharePlatforms = [
+            { name: 'WhatsApp', icon: 'https://cdn-icons-png.flaticon.com/512/2111/2111644.png', url: `https://wa.me/?text=${encodeURIComponent(currentShareTitle + ' - ' + currentShareLink)}`, class: 'whatsapp' },
+            { name: 'Telegram', icon: 'https://cdn-icons-png.flaticon.com/512/2111/2111646.png', url: `https://t.me/share/url?url=${encodeURIComponent(currentShareLink)}&text=${encodeURIComponent(currentShareTitle)}`, class: 'telegram' },
+            { name: 'Facebook', icon: 'https://cdn-icons-png.flaticon.com/512/174/174848.png', url: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentShareLink)}&quote=${encodeURIComponent(currentShareTitle)}` },
+            { name: 'Twitter (X)', icon: 'https://cdn-icons-png.flaticon.com/512/5968/5968830.png', url: `https://twitter.com/intent/tweet?url=${encodeURIComponent(currentShareLink)}&text=${encodeURIComponent(currentShareTitle)}` },
+            { name: 'Copy Link', icon: 'https://cdn-icons-png.flaticon.com/512/1000/1000957.png', action: 'copy', class: 'copy-link' }
+        ];
+
+        // Try Web Share API first
+        if (navigator.share) {
+            navigator.share({
+                title: currentShareTitle,
+                text: `Check out this card: ${currentShareTitle}`,
+                url: currentShareLink
+            }).then(() => {
+                console.log('Successfully shared via Web Share API');
+                // Apply blink effect to the icon after successful share
+                if (currentShareIconElement) {
+                    applyShareIconBlink(currentShareIconElement);
+                }
+            }).catch((error) => {
+                console.error('Error sharing via Web Share API:', error);
+                // If Web Share API fails or is cancelled, fall back to custom modal
+                showCustomShareModal(shareOptionsContainer, sharePlatforms);
+            });
+        } else {
+            // Fallback to custom share modal
+            showCustomShareModal(shareOptionsContainer, sharePlatforms);
+        }
+
+        closeModal(); // Close any other open modals (like download/howto)
+    }
+
+    function showCustomShareModal(container, platforms) {
+        platforms.forEach(platform => {
+            const optionDiv = document.createElement('div');
+            optionDiv.classList.add('share-option');
+            if (platform.class) optionDiv.classList.add(platform.class);
+
+            const img = document.createElement('img');
+            img.src = platform.icon;
+            img.alt = platform.name;
+            img.draggable = false; // Prevent dragging
+
+            const nameSpan = document.createElement('span');
+            nameSpan.textContent = platform.name;
+
+            optionDiv.appendChild(img);
+            optionDiv.appendChild(nameSpan);
+
+            optionDiv.addEventListener('click', () => {
+                if (platform.action === 'copy') {
+                    copyLinkToClipboard(currentShareLink, currentShareIconElement);
+                    closeShareModal(); // Close modal after copying
                 } else {
-                    copyLinkToClipboard(shareUrl);
+                    window.open(platform.url, '_blank');
+                    closeShareModal(); // Close modal after opening share URL
                 }
             });
+            container.appendChild(optionDiv);
         });
+        document.getElementById('shareModal').style.display = 'flex'; // Show the custom modal
+    }
 
-        function copyLinkToClipboard(link) {
-            const tempInput = document.createElement('input');
-            document.body.appendChild(tempInput);
+
+    function closeShareModal() {
+      document.getElementById('shareModal').style.display = 'none';
+      currentShareLink = '';
+      currentShareTitle = '';
+      currentShareIconElement = null; // Clear the stored element
+    }
+
+    // Function to apply blinking effect to share icon
+    function applyShareIconBlink(iconContainer) {
+        if (!iconContainer) return;
+
+        iconContainer.classList.add('blink');
+        const tooltip = iconContainer.querySelector('.share-tooltip');
+        if (tooltip) {
+            tooltip.classList.add('show');
+        }
+
+        setTimeout(() => {
+            iconContainer.classList.remove('blink');
+            if (tooltip) {
+                tooltip.classList.remove('show');
+            }
+        }, 1000); // Blink for 1 second and hide tooltip
+    }
+
+    // Function to copy link to clipboard (used within the custom share modal)
+    function copyLinkToClipboard(link, iconElement) {
+        if (navigator.clipboard) {
+            navigator.clipboard.writeText(link).then(() => {
+                console.log('Link copied to clipboard:', link);
+                applyShareIconBlink(iconElement); // Apply blink effect to the original icon
+            }).catch(err => {
+                console.error('Failed to copy link:', err);
+                alert('Failed to copy link. Please copy it manually: ' + link);
+            });
+        } else {
+            // Fallback for browsers that do not support navigator.clipboard
+            const tempInput = document.createElement('textarea');
             tempInput.value = link;
+            document.body.appendChild(tempInput);
             tempInput.select();
             document.execCommand('copy');
             document.body.removeChild(tempInput);
-            alert('Link berhasil disalin ke clipboard: ' + link);
+            alert('Link copied to clipboard: ' + link);
+            applyShareIconBlink(iconElement); // Apply blink effect to the original icon
         }
-
-        if (window.location.hash) {
-            const targetHash = window.location.hash.substring(1);
-            const targetElement = document.getElementById(targetHash);
-
-            if (targetElement) {
-                targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                // Tambahkan kelas highlight-card untuk mengaktifkan animasi
-                targetElement.classList.add('highlight-card');
-                // Hapus kelas setelah animasi selesai (sesuaikan durasi)
-                // Durasi animasi 1s, jadi kita bisa mengatur timeout untuk 3s agar berkedip 3 kali
-                setTimeout(() => {
-                    targetElement.classList.remove('highlight-card');
-                }, 3000); // Hapus highlight setelah 3 detik
-            }
-        }
-    });
-    // ************************************************
-    // Akhir dari JavaScript
-    // ************************************************
+    }
   </script>
 
   <script src="https://l2dwidget.js.org/lib/L2Dwidget.min.js"></script>
