@@ -383,6 +383,23 @@
         opacity: 1;
     }
 
+    /* ANIMASI KEDIP UNTUK KARTU YANG DIHIGHLIGHT */
+    @keyframes card-highlight-blink {
+        0%, 100% {
+            border-color: #ddd; /* Warna border default */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow default */
+        }
+        50% {
+            border-color: #007bff; /* Warna biru saat kedip */
+            box-shadow: 0 0 15px rgba(0, 123, 255, 0.6); /* Shadow biru saat kedip */
+        }
+    }
+
+    .virga-card.highlight-blink {
+        animation: card-highlight-blink 1s ease-in-out 3; /* Kedip 3 kali */
+    }
+
+
     footer {
       text-align: center;
       padding: 2rem 1rem;
@@ -812,7 +829,7 @@
         if (navigator.clipboard) {
             navigator.clipboard.writeText(shareLink).then(() => {
                 console.log('Link copied to clipboard:', shareLink);
-                // Add blink effect
+                // Add blink effect to icon
                 iconContainer.classList.add('blink');
                 const tooltip = iconContainer.querySelector('.share-tooltip');
                 if (tooltip) {
@@ -855,22 +872,47 @@
     }
 
     // Function to handle direct link to a card (e.g., from a shared link)
+    let currentHighlightedCard = null; // Variable to keep track of the currently highlighted card
+
     function scrollToCardFromHash() {
         if (window.location.hash) {
             const targetId = window.location.hash.substring(1); // Remove the '#'
             const targetElement = document.getElementById(targetId);
+
+            // Remove highlight from previously highlighted card, if any
+            if (currentHighlightedCard && currentHighlightedCard !== targetElement) {
+                currentHighlightedCard.classList.remove('highlight-blink');
+                // Ensure default styles are reapplied if animation didn't fully revert
+                currentHighlightedCard.style.border = '';
+                currentHighlightedCard.style.boxShadow = '';
+            }
+
             if (targetElement) {
-                // Add a small delay to ensure page layout is stable
+                // Add a small delay to ensure page layout is stable before scrolling and animating
                 setTimeout(() => {
                     targetElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    // Optionally, add a temporary highlight to the card
-                    targetElement.style.border = '2px solid #007bff';
-                    targetElement.style.boxShadow = '0 0 15px rgba(0, 123, 255, 0.6)';
+
+                    // Apply the blinking animation
+                    targetElement.classList.add('highlight-blink');
+                    currentHighlightedCard = targetElement; // Set the current highlighted card
+
+                    // Remove the animation class after it completes (3 blinks * 1 second/blink = 3 seconds)
                     setTimeout(() => {
+                        targetElement.classList.remove('highlight-blink');
+                        currentHighlightedCard = null; // Reset
+                        // Ensure default styles are reapplied just in case
                         targetElement.style.border = '';
                         targetElement.style.boxShadow = '';
-                    }, 2000); // Remove highlight after 2 seconds
+                    }, 3000); // Duration matches animation: 3 blinks * 1s/blink = 3s
                 }, 500); // Delay scroll to ensure elements are rendered
+            }
+        } else {
+            // If hash is cleared, remove any existing highlight
+            if (currentHighlightedCard) {
+                currentHighlightedCard.classList.remove('highlight-blink');
+                currentHighlightedCard.style.border = '';
+                currentHighlightedCard.style.boxShadow = '';
+                currentHighlightedCard = null;
             }
         }
     }
