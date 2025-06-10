@@ -344,10 +344,16 @@
       cursor: pointer;
       z-index: 5; /* Ensure it's above card content */
       transition: transform 0.2s ease-in-out;
+      outline: none; /* Remove default focus outline */
     }
 
     .share-button-container:hover {
         transform: scale(1.1);
+    }
+
+    /* Add this rule to remove outline on focus, for accessibility */
+    .share-button-container:focus {
+        outline: none;
     }
 
     .share-button-container img {
@@ -408,7 +414,7 @@
       transition: background-color 0.3s ease, color 0.3s ease;
     }
 
-    /* --- GAYA MODAL DARI NARUTO SENKI --- */
+    /* --- GAYA MODAL UMUM (DARI NARUTO SENKI) --- */
     .modal-overlay {
       position: fixed;
       top: 0;
@@ -509,6 +515,108 @@
     .close-btn:hover {
       background: #e04444;
     }
+
+    /* NEW SHARE MODAL STYLES */
+    #shareModal {
+      display: none; /* Hidden by default */
+      position: fixed; /* Stay in place */
+      z-index: 1003; /* Sit on top of everything */
+      left: 0;
+      top: 0;
+      width: 100%; /* Full width */
+      height: 100%; /* Full height */
+      overflow: auto; /* Enable scroll if needed */
+      background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+      justify-content: center;
+      align-items: center;
+    }
+
+    #shareModal .modal-content {
+      background-color: #fefefe;
+      margin: auto;
+      padding: 25px;
+      border-radius: 12px;
+      width: 85%;
+      max-width: 350px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      position: relative;
+      text-align: center;
+      animation: zoomIn 0.3s ease-out;
+    }
+
+    #shareModal .modal-content h3 {
+        margin-top: 0;
+        color: #333;
+        font-size: 1.3rem;
+        margin-bottom: 20px;
+    }
+
+    .share-options {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+        gap: 15px;
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+
+    .share-option {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-decoration: none;
+        color: #555;
+        font-size: 0.85rem;
+        transition: transform 0.2s ease-in-out, color 0.2s ease;
+    }
+
+    .share-option:hover {
+        transform: translateY(-3px);
+        color: #007bff;
+    }
+
+    .share-option img {
+        width: 48px;
+        height: 48px;
+        margin-bottom: 8px;
+        border-radius: 8px; /* Optional: slight roundness for icons */
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        transition: box-shadow 0.2s ease;
+    }
+
+    .share-option:hover img {
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    /* Specific colors for icons if needed */
+    .share-option.whatsapp img { background-color: #25D366; }
+    .share-option.telegram img { background-color: #0088CC; }
+    .share-option.copy-link img { background-color: #6c757d; }
+
+    #shareModal .close-btn-share {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        width: 30px;
+        height: 30px;
+        background: #ff5c5c;
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background 0.2s ease-in-out;
+    }
+    #shareModal .close-btn-share:hover {
+        background: #e04444;
+    }
+
+    @keyframes zoomIn {
+        from { transform: scale(0.8); opacity: 0; }
+        to { transform: scale(1); opacity: 1; }
+    }
   </style>
 </head>
 <body oncontextmenu="return false;">
@@ -567,7 +675,7 @@
           <span class="read-more-toggle">Read More</span>
         </p>
       </div>
-      <div class="share-button-container" onclick="shareCard('card-naruto-senki', this); event.preventDefault();">
+      <div class="share-button-container" onclick="openShareOptionsModal('Naruto Senki', 'card-naruto-senki', this); event.preventDefault();">
         <img src="https://files.catbox.moe/40ynkg.png" alt="Share" draggable="false">
         <span class="share-tooltip">Copied!</span>
       </div>
@@ -583,7 +691,7 @@
           <span class="read-more-toggle">Read More</span>
         </p>
       </div>
-      <div class="share-button-container" onclick="shareCard('card-pixellab', this); event.preventDefault();">
+      <div class="share-button-container" onclick="openShareOptionsModal('PixelLab', 'card-pixellab', this); event.preventDefault();">
         <img src="https://files.catbox.moe/40ynkg.png" alt="Share" draggable="false">
         <span class="share-tooltip">Copied!</span>
       </div>
@@ -599,13 +707,13 @@
           <span class="read-more-toggle">Read More</span>
         </p>
       </div>
-      <div class="share-button-container" onclick="shareCard('card-game-guardian', this); event.preventDefault();">
+      <div class="share-button-container" onclick="openShareOptionsModal('Game Guardian', 'card-game-guardian', this); event.preventDefault();">
         <img src="https://files.catbox.moe/40ynkg.png" alt="Share" draggable="false">
         <span class="share-tooltip">Copied!</span>
       </div>
     </a>
     
-        <a href="https://Virga1705.github.io/gta-sa.html" class="virga-card align-right-logo" id="card-gta-sa" data-share-id="gta-sa">
+    <a href="https://Virga1705.github.io/gta-sa.html" class="virga-card align-right-logo" id="card-gta-sa" data-share-id="gta-sa">
       <img src="https://files.catbox.moe/97vkic.png" alt="GTA SA Logo" class="card-logo" draggable="false">
       <div class="card-content-wrapper">
         <p class="card-title">GTA SA</p>
@@ -615,7 +723,7 @@
           <span class="read-more-toggle">Read More</span>
         </p>
       </div>
-      <div class="share-button-container" onclick="shareCard('card-gta-sa', this); event.preventDefault();">
+      <div class="share-button-container" onclick="openShareOptionsModal('GTA SA', 'card-gta-sa', this); event.preventDefault();">
         <img src="https://files.catbox.moe/40ynkg.png" alt="Share" draggable="false">
         <span class="share-tooltip">Copied!</span>
       </div>
@@ -623,9 +731,20 @@
   </div>
 
   <footer></footer>
+
   <div class="modal-overlay" id="popup">
     <div class="modal">
-      <span class="close-btn" onclick="closeModal()">X</span> <div id="modal-body"></div>
+      <span class="close-btn" onclick="closeModal()">X</span>
+      <div id="modal-body"></div>
+    </div>
+  </div>
+
+  <div id="shareModal">
+    <div class="modal-content">
+      <span class="close-btn-share" onclick="closeShareModal()">X</span>
+      <h3 id="shareModalTitle">Share this Card</h3>
+      <div class="share-options">
+        </div>
     </div>
   </div>
 
@@ -717,9 +836,15 @@
       const sidebar = document.getElementById("mySidebar");
       const hamburgerIcon = document.querySelector(".hamburger-icon");
       const modalPopup = document.getElementById('popup');
+      const shareModal = document.getElementById('shareModal');
 
-      if (sidebar.classList.contains("open") && !sidebar.contains(event.target) && !hamburgerIcon.contains(event.target) && !modalPopup.contains(event.target)) {
+
+      if (sidebar.classList.contains("open") && !sidebar.contains(event.target) && !hamburgerIcon.contains(event.target) && !modalPopup.contains(event.target) && !shareModal.contains(event.target)) {
         closeSidebar();
+      }
+      // Close share modal if clicked outside
+      if (shareModal.style.display === 'flex' && !shareModal.querySelector('.modal-content').contains(event.target) && !event.target.closest('.share-button-container')) {
+          closeShareModal();
       }
     });
 
@@ -766,7 +891,7 @@
         }
     }
 
-    // --- FUNGSI MODAL BARU (ADAPTASI DARI NARUTO SENKI) ---
+    // --- FUNGSI MODAL UMUM (untuk Donasi/Credits) ---
     function openGeneralModal(type) {
       const popup = document.getElementById('popup');
       const body = document.getElementById('modal-body');
@@ -815,61 +940,144 @@
       body.innerHTML = content;
       popup.style.display = 'flex'; // Tampilkan modal
       closeSidebar(); // Pastikan sidebar tertutup saat modal terbuka
+      closeShareModal(); // Pastikan modal share tertutup jika terbuka
     }
 
     function closeModal() {
       document.getElementById('popup').style.display = 'none';
     }
 
-    // NEW JAVASCRIPT FOR SHARE CARD FEATURE
-    function shareCard(cardId, iconContainer) {
-        const baseUrl = window.location.origin + window.location.pathname; // Gets the base URL of the current page
-        const shareLink = `${baseUrl}#${cardId}`;
+    // NEW SHARE OPTIONS MODAL FUNCTIONS
+    let currentShareLink = '';
+    let currentShareTitle = '';
+    let currentShareIconElement = null; // To store the icon element for blink effect
 
-        if (navigator.clipboard) {
-            navigator.clipboard.writeText(shareLink).then(() => {
-                console.log('Link copied to clipboard:', shareLink);
-                // Add blink effect to icon
-                iconContainer.classList.add('blink');
-                const tooltip = iconContainer.querySelector('.share-tooltip');
-                if (tooltip) {
-                    tooltip.classList.add('show');
+    function openShareOptionsModal(cardTitle, cardId, iconElement) {
+        currentShareTitle = cardTitle;
+        currentShareLink = window.location.origin + window.location.pathname + '#' + cardId;
+        currentShareIconElement = iconElement; // Store the icon element
+
+        const shareModal = document.getElementById('shareModal');
+        const shareModalTitle = document.getElementById('shareModalTitle');
+        const shareOptionsContainer = shareModal.querySelector('.share-options');
+
+        shareModalTitle.textContent = `Share "${cardTitle}"`;
+        shareOptionsContainer.innerHTML = ''; // Clear previous options
+
+        // Define share options
+        const sharePlatforms = [
+            { name: 'WhatsApp', icon: 'https://cdn-icons-png.flaticon.com/512/2111/2111644.png', url: `https://wa.me/?text=${encodeURIComponent(currentShareTitle + ' - ' + currentShareLink)}`, class: 'whatsapp' },
+            { name: 'Telegram', icon: 'https://cdn-icons-png.flaticon.com/512/2111/2111646.png', url: `https://t.me/share/url?url=${encodeURIComponent(currentShareLink)}&text=${encodeURIComponent(currentShareTitle)}`, class: 'telegram' },
+            { name: 'Facebook', icon: 'https://cdn-icons-png.flaticon.com/512/174/174848.png', url: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentShareLink)}&quote=${encodeURIComponent(currentShareTitle)}` },
+            { name: 'Twitter (X)', icon: 'https://cdn-icons-png.flaticon.com/512/5968/5968830.png', url: `https://twitter.com/intent/tweet?url=${encodeURIComponent(currentShareLink)}&text=${encodeURIComponent(currentShareTitle)}` },
+            { name: 'Copy Link', icon: 'https://cdn-icons-png.flaticon.com/512/1000/1000957.png', action: 'copy', class: 'copy-link' }
+        ];
+
+        // Try Web Share API first
+        if (navigator.share) {
+            navigator.share({
+                title: currentShareTitle,
+                text: `Check out this card on VirgaFS: ${currentShareTitle}`,
+                url: currentShareLink
+            }).then(() => {
+                console.log('Successfully shared via Web Share API');
+                // Apply blink effect to the icon after successful share
+                if (currentShareIconElement) {
+                    applyShareIconBlink(currentShareIconElement);
                 }
+            }).catch((error) => {
+                console.error('Error sharing via Web Share API:', error);
+                // If Web Share API fails or is cancelled, fall back to custom modal
+                showCustomShareModal(shareOptionsContainer, sharePlatforms);
+            });
+        } else {
+            // Fallback to custom share modal
+            showCustomShareModal(shareOptionsContainer, sharePlatforms);
+        }
 
-                setTimeout(() => {
-                    iconContainer.classList.remove('blink');
-                    if (tooltip) {
-                        tooltip.classList.remove('show');
-                    }
-                }, 1000); // Blink for 1 second and hide tooltip
+        closeSidebar(); // Close sidebar if it's open
+    }
+
+    function showCustomShareModal(container, platforms) {
+        platforms.forEach(platform => {
+            const optionDiv = document.createElement('div');
+            optionDiv.classList.add('share-option');
+            if (platform.class) optionDiv.classList.add(platform.class);
+
+            const img = document.createElement('img');
+            img.src = platform.icon;
+            img.alt = platform.name;
+            img.draggable = false; // Prevent dragging
+
+            const nameSpan = document.createElement('span');
+            nameSpan.textContent = platform.name;
+
+            optionDiv.appendChild(img);
+            optionDiv.appendChild(nameSpan);
+
+            optionDiv.addEventListener('click', () => {
+                if (platform.action === 'copy') {
+                    copyLinkToClipboard(currentShareLink, currentShareIconElement);
+                    closeShareModal(); // Close modal after copying
+                } else {
+                    window.open(platform.url, '_blank');
+                    closeShareModal(); // Close modal after opening share URL
+                }
+            });
+            container.appendChild(optionDiv);
+        });
+        document.getElementById('shareModal').style.display = 'flex'; // Show the custom modal
+    }
+
+
+    function closeShareModal() {
+      document.getElementById('shareModal').style.display = 'none';
+      currentShareLink = '';
+      currentShareTitle = '';
+      currentShareIconElement = null; // Clear the stored element
+    }
+
+    // Function to apply blinking effect to share icon
+    function applyShareIconBlink(iconContainer) {
+        if (!iconContainer) return;
+
+        iconContainer.classList.add('blink');
+        const tooltip = iconContainer.querySelector('.share-tooltip');
+        if (tooltip) {
+            tooltip.classList.add('show');
+        }
+
+        setTimeout(() => {
+            iconContainer.classList.remove('blink');
+            if (tooltip) {
+                tooltip.classList.remove('show');
+            }
+        }, 1000); // Blink for 1 second and hide tooltip
+    }
+
+    // Function to copy link to clipboard (used within the custom share modal)
+    function copyLinkToClipboard(link, iconElement) {
+        if (navigator.clipboard) {
+            navigator.clipboard.writeText(link).then(() => {
+                console.log('Link copied to clipboard:', link);
+                applyShareIconBlink(iconElement); // Apply blink effect to the original icon
             }).catch(err => {
                 console.error('Failed to copy link:', err);
-                alert('Failed to copy link. Please copy it manually: ' + shareLink);
+                alert('Failed to copy link. Please copy it manually: ' + link);
             });
         } else {
             // Fallback for browsers that do not support navigator.clipboard
             const tempInput = document.createElement('textarea');
-            tempInput.value = shareLink;
+            tempInput.value = link;
             document.body.appendChild(tempInput);
             tempInput.select();
             document.execCommand('copy');
             document.body.removeChild(tempInput);
-            alert('Link copied to clipboard: ' + shareLink);
-
-            // Still try to apply visual feedback if possible, even without native clipboard API
-            iconContainer.classList.add('blink');
-            const tooltip = iconContainer.querySelector('.share-tooltip');
-            if (tooltip) {
-                tooltip.classList.add('show');
-            }
-            setTimeout(() => {
-                iconContainer.classList.remove('blink');
-                if (tooltip) {
-                    tooltip.classList.remove('show');
-                }
-            }, 1000);
+            alert('Link copied to clipboard: ' + link);
+            applyShareIconBlink(iconElement); // Apply blink effect to the original icon
         }
     }
+
 
     // Function to handle direct link to a card (e.g., from a shared link)
     let currentHighlightedCard = null; // Variable to keep track of the currently highlighted card
