@@ -133,18 +133,25 @@
       font-weight: bold;
       text-align: left;
       border-top: 1px solid #eee;
-      display: flex;
-      flex-wrap: wrap; /* Allow items to wrap if space is limited */
-      align-items: center;
-      position: relative; /* Needed for absolute positioning of share button */
+      display: flex; /* Use flex to align title elements */
+      flex-wrap: wrap; /* Allow wrapping of elements */
+      align-items: center; /* Vertically align items */
     }
 
-    .title span {
-      flex-grow: 1; /* Allow title text to grow and take available space */
+    .title-row {
+      display: flex;
+      justify-content: space-between; /* Pushes title and share button to ends */
+      align-items: center;
+      width: 100%; /* Ensures this row takes full width */
+    }
+
+    .title-text {
+      flex-grow: 1; /* Allows title text to take up available space */
+      margin-right: 8px; /* Space between title and share button */
     }
 
     .desc-toggle {
-      margin-top: 8px;
+      margin-top: 8px; /* Space from the elements above */
       background: none;
       border: none;
       color: #007BFF;
@@ -152,7 +159,7 @@
       font-size: 14px;
       padding: 0;
       text-align: left;
-      width: 100%; /* Make description toggle take full width on a new line */
+      width: 100%; /* Forces this button to a new line */
     }
 
     .desc-text {
@@ -206,10 +213,6 @@
         width: 30px; /* Set a fixed width for the button */
         height: 30px; /* Set a fixed height for the button */
         transition: transform 0.2s ease-in-out; /* Add transition for hover effect */
-        position: absolute; /* Position absolutely within the title */
-        right: 12px; /* Align to the far right with padding */
-        top: 50%; /* Center vertically */
-        transform: translateY(-50%); /* Adjust for perfect vertical centering */
         /* Mencegah seleksi teks dan klik kanan pada tombol */
         -webkit-user-select: none;
         -moz-user-select: none;
@@ -219,7 +222,7 @@
     }
 
     .share-button-icon:hover {
-        transform: translateY(-50%) scale(1.1); /* Slightly enlarge on hover */
+        transform: scale(1.1); /* Slightly enlarge on hover */
     }
 
     .share-button-icon img {
@@ -350,8 +353,10 @@
       <img src="https://files.catbox.moe/ml9alc.jpg" alt="Review Gameplay" draggable="false">
     </a>
     <div class="title">
-      <span>NS: Waifu War V1</span>
-      <button class="share-button-icon" data-card-id="waifu-war-v1"><img src="https://files.catbox.moe/40ynkg.png" alt="Share"></button>
+      <div class="title-row">
+        <span class="title-text">NS: Waifu War V1</span>
+        <button class="share-button-icon" data-card-id="waifu-war-v1"><img src="https://files.catbox.moe/40ynkg.png" alt="Share"></button>
+      </div>
       <button class="desc-toggle" onclick="toggleDesc(this)">Deskripsi ▼</button>
       <div class="desc-text" style="display:none; margin-top:8px; font-weight:normal; font-size:14px; color:#333;">
         Versi yang menampilkan karakter waifu dari Naruto. Cocok bagi fans karakter cewek dan mod anime.
@@ -366,8 +371,10 @@
   <div class="card" id="card-narsen-unprotect-117">
     <a href="https://youtu.be/mRTvlyhyzuk"><img src="https://files.catbox.moe/deyydz.jpg" alt="NS Original" draggable="false"></a>
     <div class="title">
-      <span>Narsen Unprotect 1.17 Full Screen</span>
-      <button class="share-button-icon" data-card-id="narsen-unprotect-117"><img src="https://files.catbox.moe/40ynkg.png" alt="Share"></button>
+      <div class="title-row">
+        <span class="title-text">Narsen Unprotect 1.17 Full Screen</span>
+        <button class="share-button-icon" data-card-id="narsen-unprotect-117"><img src="https://files.catbox.moe/40ynkg.png" alt="Share"></button>
+      </div>
       <button class="desc-toggle" onclick="toggleDesc(this)">Deskripsi ▼</button>
       <div class="desc-text" style="display:none; margin-top:8px; font-weight:normal; font-size:14px; color:#333;">
         Narsen Unprotect 1.17 adalah versi dasar dari Naruto Senki tanpa modifikasi Lain. Cocok untuk project narsen kalian.
@@ -382,8 +389,10 @@
   <div class="card" id="card-naruto-senki-216">
     <a href="https://youtu.be/NCH1Ohn5okM"><img src="https://files.catbox.moe/zjidv3.jpg" alt="NS V2.1" draggable="false"></a>
     <div class="title">
-      <span>NARUTO SENKI 2.1.6</span>
-      <button class="share-button-icon" data-card-id="naruto-senki-216"><img src="https://files.catbox.moe/40ynkg.png" alt="Share"></button>
+      <div class="title-row">
+        <span class="title-text">NARUTO SENKI 2.1.6</span>
+        <button class="share-button-icon" data-card-id="naruto-senki-216"><img src="https://files.catbox.moe/40ynkg.png" alt="Share"></button>
+      </div>
       <button class="desc-toggle" onclick="toggleDesc(this)">Deskripsi ▼</button>
       <div class="desc-text" style="display:none; margin-top:8px; font-weight:normal; font-size:14px; color:#333;">
         Naruto Senki 2.1.6 adalah Narsen yang di Kembangkan Oleh RE Memberikan Update Dengan Mode Baru dan Balancing Gameplay.
@@ -481,6 +490,7 @@
     }
 
     function toggleDesc(btn) {
+      // The description text is now the next sibling of the .desc-toggle button
       const desc = btn.nextElementSibling;
       const isVisible = desc.style.display === 'block';
       desc.style.display = isVisible ? 'none' : 'block';
