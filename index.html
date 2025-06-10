@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VIRGA_FS</title>
+  <title>виʀɢᴀ</title>
   <style>
     body {
       margin: 0;
@@ -237,10 +237,10 @@
 
       display: flex;
       align-items: flex-start;
+      position: relative; /* Untuk positioning tombol share */
 
       opacity: 0;
       transform: scale(0.8);
-      position: relative; /* Diperlukan untuk penempatan ikon share */
     }
 
     .virga-card.zoom-in {
@@ -250,25 +250,6 @@
 
     .virga-card:hover {
       transform: translateY(-5px);
-    }
-
-    /* CSS untuk highlight kartu */
-    .virga-card.highlight-card {
-      border: 2px solid #007bff; /* Warna border highlight */
-      animation: blink-highlight 1s infinite alternate; /* Animasi kedip biru */
-    }
-
-    /* Keyframes untuk animasi kedip biru */
-    @keyframes blink-highlight {
-      0% {
-        box-shadow: 0 0 0px rgba(0, 123, 255, 0); /* Awal: transparan */
-      }
-      50% {
-        box-shadow: 0 0 10px rgba(0, 123, 255, 0.7); /* Tengah: biru cerah */
-      }
-      100% {
-        box-shadow: 0 0 0px rgba(0, 123, 255, 0); /* Akhir: transparan kembali */
-      }
     }
 
     .virga-card .card-logo {
@@ -355,21 +336,51 @@
       display: none;
     }
 
-    /* Gaya untuk ikon share */
-    .share-image {
-      width: 24px; /* Ukuran ikon */
-      height: 24px;
+    /* SHARE BUTTON STYLES */
+    .share-button-container {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
       cursor: pointer;
-      position: absolute; /* Posisi absolut di dalam card */
-      bottom: 10px; /* Jarak dari bawah */
-      right: 10px; /* Jarak dari kanan */
-      filter: brightness(0.8); /* Sedikit redup */
-      transition: filter 0.2s ease;
-      z-index: 10; /* Pastikan di atas konten lain */
+      z-index: 5; /* Ensure it's above card content */
+      transition: transform 0.2s ease-in-out;
     }
 
-    .share-image:hover {
-        filter: brightness(1); /* Lebih cerah saat hover */
+    .share-button-container:hover {
+        transform: scale(1.1);
+    }
+
+    .share-button-container img {
+      width: 24px;
+      height: 24px;
+      filter: grayscale(100%) brightness(1.5); /* Default icon style */
+      transition: filter 0.3s ease-in-out;
+    }
+
+    /* Blinking effect for share icon */
+    .share-button-container.blink img {
+        filter: brightness(0) invert(1) sepia(1) saturate(5000%) hue-rotate(200deg); /* Change to a distinct color, e.g., blue */
+    }
+
+    /* Tooltip / Notification for "Copied!" */
+    .share-tooltip {
+        position: absolute;
+        bottom: 40px; /* Adjust position relative to the share button */
+        right: 0px;
+        background-color: #333;
+        color: white;
+        padding: 5px 10px;
+        border-radius: 5px;
+        font-size: 0.8rem;
+        white-space: nowrap;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease-in-out;
+        transform: translateX(50%); /* Center the tooltip */
+    }
+
+    .share-tooltip.show {
+        opacity: 1;
     }
 
     footer {
@@ -380,111 +391,112 @@
       transition: background-color 0.3s ease, color 0.3s ease;
     }
 
-    /* --- GAYA MODAL POPUP (dari index.html Anda sebelumnya) --- */
-    .new-modal-overlay {
+    /* --- GAYA MODAL DARI NARUTO SENKI --- */
+    .modal-overlay {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0,0,0,0.6);
-      display: flex;
+      background: rgba(0,0,0,0.5);
+      display: none; /* Defaultnya tersembunyi */
       justify-content: center;
       align-items: center;
-      z-index: 1002;
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity 0.3s ease, visibility 0.3s ease;
+      z-index: 1002; /* Pastikan modal di atas sidebar */
+      /* Mencegah seleksi teks dan klik kanan pada modal overlay */
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
     }
 
-    .new-modal-overlay.active {
-      opacity: 1;
-      visibility: visible;
-    }
-
-    .new-modal {
+    .modal {
       background: white;
       border-radius: 12px;
-      padding: 30px;
-      padding-top: 50px; /* Tambahan padding di atas untuk tombol X */
-      position: relative; /* Untuk posisi tombol X */
-      width: 90%;
-      max-width: 400px;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+      padding: 20px;
+      width: 80%;
+      max-width: 300px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
       text-align: center;
-      transform: translateY(-20px);
-      transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      /* Mencegah seleksi teks dan klik kanan pada modal */
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
     }
 
-    .new-modal-overlay.active .new-modal {
-      transform: translateY(0);
+    /* Bagian body modal agar bisa di-scroll */
+    #modal-body {
+        max-height: 200px; /* Atur tinggi maksimum untuk konten */
+        overflow-y: auto; /* Aktifkan scroll vertikal jika konten melebihi max-height */
+        padding-right: 10px; /* Memberi ruang untuk scrollbar */
+        text-align: left; /* Rata kiri teks di dalam modal body */
     }
 
-    /* Tombol X untuk tutup modal */
-    .new-modal .close-x-button {
+    .modal-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 15px;
+    }
+
+    .modal-buttons a {
+      text-decoration: none;
+      padding: 10px;
+      border: 2px solid black;
+      border-radius: 10px;
+      font-weight: bold;
+      color: black;
+      background: white;
+      transition: all .2s ease-in-out;
+      /* Mencegah seleksi teks dan klik kanan pada tombol modal */
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
+    }
+
+    .modal-buttons a:hover {
+      background: black;
+      color: white;
+    }
+
+    .close-btn {
       position: absolute;
       top: 10px;
       right: 10px;
-      font-size: 20px;
-      font-weight: bold;
-      color: red;
-      cursor: pointer;
-      line-height: 1;
-      padding: 8px;
-      border: 2px solid red;
-      border-radius: 50%; /* Membuat tombol bulat sempurna */
-      transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+      width: 30px;
+      height: 30px;
+      background: #ff5c5c;
+      color: white;
+      border-radius: 50%;
       display: flex;
-      align-items: center;
       justify-content: center;
-      width: 24px;
-      height: 24px;
-      box-sizing: border-box;
-    }
-
-    .new-modal .close-x-button:hover {
-      background-color: red;
-      color: white;
-    }
-
-    .new-modal h3 {
-      margin-top: 0;
-      font-size: 1.5rem;
-      color: #333;
-      margin-bottom: 20px;
-      transition: color 0.3s ease;
-    }
-
-    .new-modal-buttons {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      margin-top: 20px;
-    }
-
-    .new-modal-buttons a, .new-modal-buttons button {
-      text-decoration: none;
-      padding: 12px;
-      border: 2px solid #007bff;
-      border-radius: 8px;
+      align-items: center;
+      font-size: 18px;
       font-weight: bold;
-      color: #007bff;
-      background: white;
-      transition: all .2s ease-in-out, background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
       cursor: pointer;
-      width: 100%;
-      box-sizing: border-box;
+      transition: background 0.2s ease-in-out;
+      /* Mencegah seleksi teks dan klik kanan pada tombol tutup */
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
     }
 
-    .new-modal-buttons a:hover, .new-modal-buttons button:hover {
-      background: #007bff;
-      color: white;
+    .close-btn:hover {
+      background: #e04444;
     }
   </style>
 </head>
 <body oncontextmenu="return false;">
   <nav>
-    <h1>ㅤвирга</h1>
+    <h1>vɪʀɢᴀ ꜰꜱ</h1>
     <div class="hamburger-icon" onclick="toggleSidebar()">
       <span></span>
       <span></span>
@@ -498,8 +510,8 @@
         <p class="copyright-text">© 2025 вирга</p>
     </div>
     <div id="announcement-area" class="sidebar-announcement-card"></div>
-    <div class="sidebar-card" onclick="openCustomModal('donasi')">Donasi</div>
-    <div class="sidebar-card" onclick="openCustomModal('credits')">Credits</div>
+    <div class="sidebar-card" onclick="openGeneralModal('donasi')">Donasi</div>
+    <div class="sidebar-card" onclick="openGeneralModal('credits')">Credits</div>
   </div>
 
   <header>
@@ -528,7 +540,7 @@
 
   <div class="container">
 
-    <a href="https://Virga1705.github.io/NarutoSenki.html" class="virga-card align-left-logo" id="card-naruto-senki">
+    <a href="https://Virga1705.github.io/NarutoSenki.html" class="virga-card align-left-logo" id="card-naruto-senki" data-share-id="naruto-senki">
       <img src="https://files.catbox.moe/ngsl57.jpg" alt="Naruto Senki Logo" class="card-logo" draggable="false">
       <div class="card-content-wrapper">
         <p class="card-title">Naruto Senki</p>
@@ -538,10 +550,13 @@
           <span class="read-more-toggle">Read More</span>
         </p>
       </div>
-      <img src="https://files.catbox.moe/40ynkg.png" alt="Share" class="share-image" data-card-id="naruto-senki" draggable="false">
+      <div class="share-button-container" onclick="shareCard('card-naruto-senki', this); event.preventDefault();">
+        <img src="https://files.catbox.moe/40ynkg.png" alt="Share" draggable="false">
+        <span class="share-tooltip">Copied!</span>
+      </div>
     </a>
 
-    <a href="https://Virga1705.github.io/pixellab.html" class="virga-card align-right-logo" id="card-pixellab">
+    <a href="https://Virga1705.github.io/pixellab.html" class="virga-card align-right-logo" id="card-pixellab" data-share-id="pixellab">
       <img src="https://files.catbox.moe/97vkic.png" alt="PixelLab Logo" class="card-logo" draggable="false">
       <div class="card-content-wrapper">
         <p class="card-title">PixelLab</p>
@@ -551,23 +566,29 @@
           <span class="read-more-toggle">Read More</span>
         </p>
       </div>
-      <img src="https://files.catbox.moe/40ynkg.png" alt="Share" class="share-image" data-card-id="pixellab" draggable="false">
+      <div class="share-button-container" onclick="shareCard('card-pixellab', this); event.preventDefault();">
+        <img src="https://files.catbox.moe/40ynkg.png" alt="Share" draggable="false">
+        <span class="share-tooltip">Copied!</span>
+      </div>
     </a>
 
-    <a href="https://Virga1705.github.io/gg.html" class="virga-card align-left-logo" id="card-game-guardian">
+    <a href="https://Virga1705.github.io/gg.html" class="virga-card align-left-logo" id="card-game-guardian" data-share-id="game-guardian">
       <img src="https://files.catbox.moe/xqmdrq.png" alt="Game Guardian Logo" class="card-logo" draggable="false">
       <div class="card-content-wrapper">
         <p class="card-title">GAME GUARDIAN</p>
         <p class="card-description collapsed" data-full-text="Modifikasi Game Guardian dengan tema kustom dan fitur unik untuk pengalaman bermain game. Dapatkan akses ke fitur-fitur eksklusif dan optimasi performa. Cocok untuk para modder dan gamer sejati.">
-          Modifikasi Game Guardian dengan tema kustom dan fitur unik untuk <span class="more-text">pengalaman bermain game.Dapatkan akses ke fitur-fitur eksklusif dan optimasi performa. Cocok untuk para modder dan gamer sejati.</span>
+          Modifikasi Game Guardian dengan tema kustom dan fitur unik untuk pengalaman bermain game. <span class="more-text">Dapatkan akses ke fitur-fitur eksklusif dan optimasi performa. Cocok untuk para modder dan gamer sejati.</span>
           <span class="read-more-ellipsis">...</span>
           <span class="read-more-toggle">Read More</span>
         </p>
       </div>
-      <img src="https://files.catbox.moe/40ynkg.png" alt="Share" class="share-image" data-card-id="game-guardian" draggable="false">
+      <div class="share-button-container" onclick="shareCard('card-game-guardian', this); event.preventDefault();">
+        <img src="https://files.catbox.moe/40ynkg.png" alt="Share" draggable="false">
+        <span class="share-tooltip">Copied!</span>
+      </div>
     </a>
-
-    <a href="https://Virga1705.github.io/gta-sa.html" class="virga-card align-right-logo" id="card-gta-sa">
+    
+        <a href="https://Virga1705.github.io/gta-sa.html" class="virga-card align-right-logo" id="card-gta-sa" data-share-id="gta-sa">
       <img src="https://files.catbox.moe/97vkic.png" alt="GTA SA Logo" class="card-logo" draggable="false">
       <div class="card-content-wrapper">
         <p class="card-title">GTA SA</p>
@@ -577,22 +598,22 @@
           <span class="read-more-toggle">Read More</span>
         </p>
       </div>
-      <img src="https://files.catbox.moe/40ynkg.png" alt="Share" class="share-image" data-card-id="gta-sa" draggable="false">
+      <div class="share-button-container" onclick="shareCard('card-gta-sa', this); event.preventDefault();">
+        <img src="https://files.catbox.moe/40ynkg.png" alt="Share" draggable="false">
+        <span class="share-tooltip">Copied!</span>
+      </div>
     </a>
   </div>
 
   <footer></footer>
-  <div class="new-modal-overlay" id="customModal">
-    <div class="new-modal">
-      <span class="close-x-button" onclick="closeCustomModal()">×</span>
-      <h3 id="customModalTitle"></h3>
-      <div id="customModalBody" class="new-modal-buttons">
-        </div>
+  <div class="modal-overlay" id="popup">
+    <div class="modal">
+      <span class="close-btn" onclick="closeModal()">X</span> <div id="modal-body"></div>
     </div>
   </div>
 
   <script>
-    // JavaScript untuk Read More pada Card utama
+    // JavaScript untuk Read More pada Card utama (TIDAK BERUBAH)
     document.addEventListener('DOMContentLoaded', function() {
       const toggleButtons = document.querySelectorAll('.read-more-toggle');
 
@@ -611,7 +632,7 @@
     });
 
 
-    // JavaScript untuk Typing Effect
+    // JavaScript untuk Typing Effect (TIDAK BERUBAH)
     const texts = ["I am Milf Lover", "I am Mechanic", "I am Chill guy", "I am Sigma"];
     let count = 0;
     let index = 0;
@@ -632,7 +653,7 @@
       }
     })();
 
-    // JavaScript untuk Zoom-in Animation
+    // JavaScript untuk Zoom-in Animation (TIDAK BERUBAH)
     function checkZoom() {
       const cards = document.querySelectorAll('.virga-card');
       cards.forEach(card => {
@@ -654,7 +675,7 @@
     window.addEventListener('resize', checkZoom);
     window.addEventListener('load', checkZoom);
 
-    // JavaScript untuk Sidebar
+    // JavaScript untuk Sidebar (TIDAK BERUBAH)
     function toggleSidebar() {
       const sidebar = document.getElementById("mySidebar");
       const hamburgerIcon = document.querySelector(".hamburger-icon");
@@ -678,61 +699,22 @@
     window.addEventListener('click', function(event) {
       const sidebar = document.getElementById("mySidebar");
       const hamburgerIcon = document.querySelector(".hamburger-icon");
-      const customModal = document.getElementById('customModal');
+      const modalPopup = document.getElementById('popup');
 
-      if (sidebar.classList.contains("open") && !sidebar.contains(event.target) && !hamburgerIcon.contains(event.target) && !customModal.contains(event.target)) {
+      if (sidebar.classList.contains("open") && !sidebar.contains(event.target) && !hamburgerIcon.contains(event.target) && !modalPopup.contains(event.target)) {
         closeSidebar();
       }
     });
 
-    // Modal Kustom untuk Sidebar (TIDAK BERUBAH)
-    function openCustomModal(type) {
-      const modal = document.getElementById('customModal');
-      const modalTitle = document.getElementById('customModalTitle');
-      const modalBody = document.getElementById('customModalBody');
-      let content = '';
-
-      switch (type) {
-        case 'credits':
-          modalTitle.textContent = 'Credits';
-          content = `
-            <a href="https://github.com/KanzakiisYU" target="_blank" class="new-modal-buttons">KanzakiisYU (Live2D Model)</a>
-            <a href="https://flaticon.com/" target="_blank" class="new-modal-buttons">Flaticon (Icons)</a>
-            <a href="#" class="new-modal-buttons">Your Name (Developer)</a>
-          `;
-          break;
-        case 'donasi':
-          modalTitle.textContent = 'Donasi';
-          content = `
-            <p style="font-size:1em; color:#333; margin-bottom:15px;">Dukung kami melalui pilihan di bawah ini:</p>
-            <a href="https://link.dana.id/your_dana_link" target="_blank" class="new-modal-buttons">Donasi via Dana</a>
-            <a href="https://paypal.me/your_paypal_link" target="_blank" class="new-modal-buttons">Donasi via PayPal</a>
-            <p style="font-size:0.9em; color:#666; margin-top:15px;">Terima kasih atas dukungan Anda!</p>
-          `;
-          break;
-        default:
-          modalTitle.textContent = 'Informasi';
-          content = `<p>Konten tidak ditemukan.</p>`;
-      }
-
-      modalBody.innerHTML = content;
-      modal.classList.add('active');
-      closeSidebar();
-    }
-
-    function closeCustomModal() {
-      document.getElementById('customModal').classList.remove('active');
-    }
-
-    // JavaScript untuk Pengumuman Multibahasa (Terjemahan Disesuaikan)
+    // JavaScript untuk Pengumuman Multibahasa (TIDAK BERUBAH)
     const announcements = [
       { id: 'en', text: "If you want to translate this website into your preferred language, click the three dots in your browser and look for the translate feature. I recommend using Chrome browser." },
-      { id: 'ru', text: "Если вы хотите перевести этот веб-сайт на предпочитаемый вами язык, нажмите на три точки в вашем браузере и найдите функцию перевода. Я рекомендую использовать браузер Chrome." },
-      { id: 'zh-CN', text: "如果您想将此网站翻译成您偏好的语言，请点击浏览器中的三个点并查找翻译功能。我建议使用 Chrome 浏览器。" },
-      { id: 'ja', text: "このウェブサイトを希望の言語に翻訳したい場合は、ブラウザの3つの点をクリックして翻訳機能を探してください。Chromeブラウザの使用をお勧めします。" },
+      { id: 'ru', text: "Если вы хотите перевести этот веб-сайт на предпочитаемый вами язык, нажмите на три точки в браузere dan cari fungsi terjemahan. Saya merekomendasikan menggunakan browser Chrome." },
+      { id: 'zh-CN', text: "如果您想将此网站翻译成您偏好 dan bahasanya, silakan klik titik tiga di browser Anda dan cari fitur terjemahan. Saya merekomendasikan menggunakan browser Chrome." },
+      { id: 'ja', text: "このウェブサイトを希望の言語に翻訳したい場合は、ブラウザの三点リーダーをクリックして翻訳機能を探してください。Chromeブラウザの使用をお勧めします。" },
       { id: 'pt', text: "Se você deseja traduzir este site para o seu idioma preferido, clique nos três pontos do seu navegador e procure o recurso de tradução. Recomendo usar o navegador Chrome." },
       { id: 'fil', text: "Kung nais mong isalin ang website na ito sa iyong gustong wika, i-click ang tatlong tuldok sa iyong browser at hanapin ang tampok na pagsasalin. Inirerekomenda kong gamitin ang Chrome browser." },
-      { id: 'vi', text: "Nếu bạn muốn dịch trang web này sang ngôn ngữ ưa thích của mình, hãy nhấp vào ba dấu chấm trong trình duyệt của bạn và tìm tính năng dịch. Tôi khuyên bạn nên sử dụng trình duyệt Chrome." }
+      { id: 'vi', text: "Nếu bạn muốn dịch trang web này sang ngôn ngôn ngữ ưa thích của mình, hãy nhấp vào ba dấu chấm dalam peramban Anda dan mencari fitur terjemahan. Saya sarankan menggunakan peramban Chrome." }
     ];
     let currentAnnouncementIndex = 0;
     let announcementInterval;
@@ -767,70 +749,134 @@
         }
     }
 
-    // ************************************************
-    // JavaScript untuk fitur Share (diadaptasi untuk ikon gambar)
-    // ************************************************
-    document.addEventListener('DOMContentLoaded', () => {
-        const shareImages = document.querySelectorAll('.share-image');
+    // --- FUNGSI MODAL BARU (ADAPTASI DARI NARUTO SENKI) ---
+    function openGeneralModal(type) {
+      const popup = document.getElementById('popup');
+      const body = document.getElementById('modal-body');
+      let content = '';
+      let modalTitle = '';
 
-        shareImages.forEach(image => {
-            image.addEventListener('click', (event) => {
-                event.preventDefault(); // Mencegah navigasi link utama jika ikon di dalam <a>
-                event.stopPropagation(); // Mencegah event klik menyebar ke elemen induk (link card)
+      switch (type) {
+        case 'credits':
+          modalTitle = 'Credits';
+          content = `
+            <h3 style="font-size: 1.5rem; color:#333; margin-bottom:20px;">${modalTitle}</h3>
+            <p style="font-size:1em; color:#333; margin-bottom:15px; text-align: left;">
+                Di balik website ini, ada beberapa sumber yang telah berkontribusi:
+                <br><a href="https://github.com/KanzakiisYU" target="_blank" style="color: #007bff; text-decoration: none; font-weight: bold;">KanzakiisYU</a> (untuk model Live2D)
+                <br><a href="https://flaticon.com/" target="_blank" style="color: #007bff; text-decoration: none; font-weight: bold;">Flaticon</a> (untuk ikon-ikon yang digunakan)
+                <br>Dan <b>Your Name</b> (sebagai pengembang website ini).
+                <br><br>Tambahkan lebih banyak kredit di sini jika diinginkan:
+                <br>Credit Tambahan 1: Nama Proyek A
+                <br>Credit Tambahan 2: Nama Kontributor B
+                <br>Credit Tambahan 3: Nama Sumber C
+                <br>Credit Tambahan 4: Nama Proyek D
+                <br>Credit Tambahan 5: Nama Kontributor E
+                <br>Credit Tambahan 6: Nama Sumber F
+                <br>Credit Tambahan 7: Nama Proyek G
+                <br>Credit Tambahan 8: Nama Kontributor H
+            </p>
+          `;
+          break;
+        case 'donasi':
+          modalTitle = 'Donasi';
+          content = `
+            <h3 style="font-size: 1.5rem; color:#333; margin-bottom:20px;">${modalTitle}</h3>
+            <p style="font-size:1em; color:#333; margin-bottom:15px;">Dukung kami melalui pilihan di bawah ini:</p>
+            <div class="modal-buttons">
+              <a href="https://link.dana.id/your_dana_link" target="_blank">Donasi via Dana</a>
+              <a href="https://paypal.me/your_paypal_link" target="_blank">Donasi via PayPal</a>
+            </div>
+            <p style="font-size:0.9em; color:#666; margin-top:15px;">Terima kasih atas dukungan Anda!</p>
+          `;
+          break;
+        default:
+          modalTitle = 'Informasi';
+          content = `<h3 style="font-size: 1.5rem; color:#333; margin-bottom:20px;">${modalTitle}</h3><p>Konten tidak ditemukan.</p>`;
+      }
 
-                const cardId = image.dataset.cardId; // Ambil ID unik dari atribut data-card-id
-                const baseUrl = window.location.origin + window.location.pathname; // URL dasar halaman Anda
-                const shareUrl = `${baseUrl}#card-${cardId}`; // Gabungkan URL dasar dengan hash ID kartu
+      body.innerHTML = content;
+      popup.style.display = 'flex'; // Tampilkan modal
+      closeSidebar(); // Pastikan sidebar tertutup saat modal terbuka
+    }
 
-                // Gunakan Web Share API jika tersedia (untuk berbagi native)
-                if (navigator.share) {
-                    navigator.share({
-                        title: document.title,
-                        text: `Lihat konten keren ini di website виʀɢᴀ!`, // Pesan share umum
-                        url: shareUrl
-                    }).then(() => {
-                        console.log('Berhasil dibagikan');
-                    }).catch((error) => {
-                        console.error('Gagal berbagi:', error);
-                        // Fallback jika ada error pada Web Share API
-                        copyLinkToClipboard(shareUrl);
-                    });
-                } else {
-                    // Fallback untuk browser yang tidak mendukung Web Share API
-                    copyLinkToClipboard(shareUrl);
+    function closeModal() {
+      document.getElementById('popup').style.display = 'none';
+    }
+
+    // NEW JAVASCRIPT FOR SHARE CARD FEATURE
+    function shareCard(cardId, iconContainer) {
+        const baseUrl = window.location.origin + window.location.pathname; // Gets the base URL of the current page
+        const shareLink = `${baseUrl}#${cardId}`;
+
+        if (navigator.clipboard) {
+            navigator.clipboard.writeText(shareLink).then(() => {
+                console.log('Link copied to clipboard:', shareLink);
+                // Add blink effect
+                iconContainer.classList.add('blink');
+                const tooltip = iconContainer.querySelector('.share-tooltip');
+                if (tooltip) {
+                    tooltip.classList.add('show');
                 }
-            });
-        });
 
-        // Fungsi untuk menyalin link ke clipboard
-        function copyLinkToClipboard(link) {
-            const tempInput = document.createElement('input');
+                setTimeout(() => {
+                    iconContainer.classList.remove('blink');
+                    if (tooltip) {
+                        tooltip.classList.remove('show');
+                    }
+                }, 1000); // Blink for 1 second and hide tooltip
+            }).catch(err => {
+                console.error('Failed to copy link:', err);
+                alert('Failed to copy link. Please copy it manually: ' + shareLink);
+            });
+        } else {
+            // Fallback for browsers that do not support navigator.clipboard
+            const tempInput = document.createElement('textarea');
+            tempInput.value = shareLink;
             document.body.appendChild(tempInput);
-            tempInput.value = link;
             tempInput.select();
             document.execCommand('copy');
             document.body.removeChild(tempInput);
-            alert('Link berhasil disalin ke clipboard: ' + link);
+            alert('Link copied to clipboard: ' + shareLink);
+
+            // Still try to apply visual feedback if possible, even without native clipboard API
+            iconContainer.classList.add('blink');
+            const tooltip = iconContainer.querySelector('.share-tooltip');
+            if (tooltip) {
+                tooltip.classList.add('show');
+            }
+            setTimeout(() => {
+                iconContainer.classList.remove('blink');
+                if (tooltip) {
+                    tooltip.classList.remove('show');
+                }
+            }, 1000);
         }
+    }
 
-        // Tangani link masuk dengan hash (misalnya, jika seseorang mengklik link yang dibagikan)
+    // Function to handle direct link to a card (e.g., from a shared link)
+    function scrollToCardFromHash() {
         if (window.location.hash) {
-            const targetHash = window.location.hash.substring(1); // Hapus '#'
-            const targetElement = document.getElementById(targetHash);
-
+            const targetId = window.location.hash.substring(1); // Remove the '#'
+            const targetElement = document.getElementById(targetId);
             if (targetElement) {
-                targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                // Opsional: Highlight kartu untuk pengalaman pengguna yang lebih baik
-                targetElement.classList.add('highlight-card');
+                // Add a small delay to ensure page layout is stable
                 setTimeout(() => {
-                    targetElement.classList.remove('highlight-card');
-                }, 3000); // Hapus highlight setelah 3 detik
+                    targetElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    // Optionally, add a temporary highlight to the card
+                    targetElement.style.border = '2px solid #007bff';
+                    targetElement.style.boxShadow = '0 0 15px rgba(0, 123, 255, 0.6)';
+                    setTimeout(() => {
+                        targetElement.style.border = '';
+                        targetElement.style.boxShadow = '';
+                    }, 2000); // Remove highlight after 2 seconds
+                }, 500); // Delay scroll to ensure elements are rendered
             }
         }
-    });
-    // ************************************************
-    // Akhir dari JavaScript Share
-    // ************************************************
+    }
+
+    window.addEventListener('load', scrollToCardFromHash);
+    window.addEventListener('hashchange', scrollToCardFromHash); // Listen for changes in the URL hash
   </script>
 
   <script src="https://l2dwidget.js.org/lib/L2Dwidget.min.js"></script>
