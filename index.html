@@ -642,12 +642,12 @@
         <p class="copyright-text">© 2025 вирга</p>
     </div>
     <div id="announcement-area" class="sidebar-announcement-card"></div>
-    <div class="sidebar-card" onclick="openGeneralModal('donasi')">Donasi</div>
-    <div class="sidebar-card" onclick="openGeneralModal('credits')">Credits</div>
+    <div class="sidebar-card" onclick="openGeneralModal('donasi')">Donate</div>
+    <div class="sidebar-card" onclick="openGeneralModal('credits')">Thanks To</div>
   </div>
 
   <header>
-    <h2>Welcome To My Website</h2>
+    <h2>Welcome</h2>
     <div class="typing" id="typing"></div>
     <div class="social">
       <a href="https://instagram.com/i.lifenot4you" target="_blank">
@@ -721,7 +721,7 @@
     </a>
     
     <a href="https://Virga1705.github.io/gta-sa.html" class="virga-card align-right-logo" id="card-gta-sa" data-share-id="gta-sa">
-      <img src="https://files.catbox.moe/97vkic.png" alt="GTA SA Logo" class="card-logo" draggable="false">
+      <img src="https://files.catbox.moe/yvixfh.png" alt="GTA SA Logo" class="card-logo" draggable="false">
       <div class="card-content-wrapper">
         <p class="card-title">GTA: SA</p>
         <p class="card-description collapsed" data-full-text="Grand Theft Auto: San Andreas (GTA SA) adalah game aksi-petualangan dunia terbuka yang dikembangkan oleh Rockstar North dan diterbitkan oleh Rockstar Games.">
@@ -907,36 +907,36 @@
 
       switch (type) {
         case 'credits':
-          modalTitle = 'Credits';
+          modalTitle = 'Thanks To';
           content = `
             <h3 style="font-size: 1.5rem; color:#333; margin-bottom:20px;">${modalTitle}</h3>
             <p style="font-size:1em; color:#333; margin-bottom:15px; text-align: left;">
-                Di balik website ini, ada beberapa sumber yang telah berkontribusi:
-                <br><a href="https://github.com/KanzakiisYU" target="_blank" style="color: #007bff; text-decoration: none; font-weight: bold;">KanzakiisYU</a> (untuk model Live2D)
-                <br><a href="https://flaticon.com/" target="_blank" style="color: #007bff; text-decoration: none; font-weight: bold;">Flaticon</a> (untuk ikon-ikon yang digunakan)
-                <br>Dan <b>Your Name</b> (sebagai pengembang website ini).
-                <br><br>Tambahkan lebih banyak kredit di sini jika diinginkan:
-                <br>Credit Tambahan 1: Nama Proyek A
-                <br>Credit Tambahan 2: Nama Kontributor B
-                <br>Credit Tambahan 3: Nama Sumber C
-                <br>Credit Tambahan 4: Nama Proyek D
-                <br>Credit Tambahan 5: Nama Kontributor E
-                <br>Credit Tambahan 6: Nama Sumber F
-                <br>Credit Tambahan 7: Nama Proyek G
-                <br>Credit Tambahan 8: Nama Kontributor H
+                Behind this website, there are several sources that have contributed:
+                <br>
+                <br>-•<a href="https://youtube.com/@vvirgafs?si=Yb0XwtEuLSYYrAhJ" target="_blank" style="color: #007bff; text-decoration: none; font-weight: bold;">VIRGA FS</a> (owner)
+                <br>-•<a href="https://github.com/KanzakiisYU" target="_blank" style="color: #007bff; text-decoration: none; font-weight: bold;">KanzakiisYU</a> (model Live2D)
+                <br>-•<a href="https://flaticon.com/" target="_blank" style="color: #007bff; text-decoration: none; font-weight: bold;">Flaticon</a> (Icon)
+                <br>-•UchiShinkai (Source Code Putting L2D)
+                <br>-•ChatGPT
+                <br>-•Gemini
             </p>
           `;
           break;
         case 'donasi':
-          modalTitle = 'Donasi';
+          modalTitle = 'Donate';
           content = `
             <h3 style="font-size: 1.5rem; color:#333; margin-bottom:20px;">${modalTitle}</h3>
-            <p style="font-size:1em; color:#333; margin-bottom:15px;">Dukung kami melalui pilihan di bawah ini:</p>
+            <p style="font-size:1em; color:#333; margin-bottom:15px;">The slightest support will be very meaningful to me, Thanks for you support:)</p>
+            <p style="font-size:0,5em; color:#333; margin-bottom:15px;">Scroll down for other methods</p>
             <div class="modal-buttons">
-              <a href="https://link.dana.id/your_dana_link" target="_blank">Donasi via Dana</a>
-              <a href="https://paypal.me/your_paypal_link" target="_blank">Donasi via PayPal</a>
+             <p style="font-size:0.9em; color:#666; margin-top:15px;">Donate via picture that's a free methods,you just click button And skip the ads😁</p>     
+              <a href="https://belum" target="_blank">Donate via Picture</a>          
+              <a href="https://youtu.be/Af1Sj7MDhiM?si=id90triY7LUiuARY" target="_blank">Tutorial Donate via Picture</a>
+             <p style="font-size:0.9em; color:#666; margin-top:15px;">Dana is e-money from Indonesia</p>                                           
+              <a href="https://link.dana.id/minta?full_url=https://qr.dana.id/v1/281012012020120104570691" target="_blank">Donate via Dana</a>
+            <p style="font-size:0.9em; color:#666; margin-top:15px;">PayPal is a international e-money,donate for support me:)</p>
+              <a href="https://www.paypal.me/VirgaFahreza" target="_blank">Donate via PayPal</a>
             </div>
-            <p style="font-size:0.9em; color:#666; margin-top:15px;">Terima kasih atas dukungan Anda!</p>
           `;
           break;
         default:
