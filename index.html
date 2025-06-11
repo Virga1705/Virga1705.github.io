@@ -858,12 +858,12 @@
     // JavaScript untuk Pengumuman Multibahasa (TIDAK BERUBAH)
     const announcements = [
       { id: 'en', text: "If you want to translate this website into your preferred language, click the three dots in your browser and look for the translate feature. I recommend using Chrome browser." },
-      { id: 'ru', text: "Если вы хотите перевести этот веб-сайт на предпочитаемый вами язык, нажмите на три точки в браузere dan cari fungsi terjemahan. Saya merekomendasikan menggunakan browser Chrome." },
-      { id: 'zh-CN', text: "如果您想将此网站翻译成您偏好 dan bahasanya, silakan klik titik tiga di browser Anda dan cari fitur terjemahan. Saya merekomendasikan menggunakan browser Chrome." },
+      { id: 'ru', text: "Если вы хотите перевести этот веб-сайт на предпочитаемый вами язык, нажмите на три точки в браузере и найдите функцию перевода. Я рекомендую использовать браузер Chrome." },
+      { id: 'zh-CN', text: "如果您想将此网站翻译成您偏好的语言，请点击浏览器中的三个点并寻找翻译功能。我建议使用 Chrome 浏览器。" },
       { id: 'ja', text: "このウェブサイトを希望の言語に翻訳したい場合は、ブラウザの三点リーダーをクリックして翻訳機能を探してください。Chromeブラウザの使用をお勧めします。" },
       { id: 'pt', text: "Se você deseja traduzir este site para o seu idioma preferido, clique nos três pontos do seu navegador e procure o recurso de tradução. Recomendo usar o navegador Chrome." },
       { id: 'fil', text: "Kung nais mong isalin ang website na ito sa iyong gustong wika, i-click ang tatlong tuldok sa iyong browser at hanapin ang tampok na pagsasalin. Inirerekomenda kong gamitin ang Chrome browser." },
-      { id: 'vi', text: "Nếu bạn muốn dịch trang web này sang ngôn ngôn ngữ ưa thích của mình, hãy nhấp vào ba dấu chấm dalam peramban Anda dan mencari fitur terjemahan. Saya sarankan menggunakan peramban Chrome." }
+      { id: 'vi', text: "Nếu bạn muốn dịch trang web này sang ngôn ngữ ưa thích của mình, hãy nhấp vào ba dấu chấm trong trình duyệt của bạn và tìm tính năng dịch. Tôi khuyên bạn nên sử dụng trình duyệt Chrome." }
     ];
     let currentAnnouncementIndex = 0;
     let announcementInterval;
@@ -884,7 +884,7 @@
     function startAnnouncementRotation() {
         updateAnnouncement();
         if (announcementInterval) clearInterval(announcementInterval);
-        announcementInterval = setInterval(updateAnnouncement, 10000);
+        announcementInterval = setInterval(updateAnnouncement, 5000);
     }
 
     function stopAnnouncementRotation() {
