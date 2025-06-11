@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>вирга</title>
+  <title>виʀɢᴀ</title>
 <style>
     body {
       margin: 0;
@@ -523,106 +523,7 @@
       background: #e04444;
     }
 
-    /* NEW SHARE MODAL STYLES */
-    #shareModal {
-      display: none; /* Hidden by default */
-      position: fixed; /* Stay in place */
-      z-index: 1003; /* Sit on top of everything */
-      left: 0;
-      top: 0;
-      width: 100%; /* Full width */
-      height: 100%; /* Full height */
-      overflow: auto; /* Enable scroll if needed */
-      background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
-      justify-content: center;
-      align-items: center;
-    }
-
-    #shareModal .modal-content {
-      background-color: #fefefe;
-      margin: auto;
-      padding: 25px;
-      border-radius: 12px;
-      width: 85%;
-      max-width: 350px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-      position: relative;
-      text-align: center;
-      animation: zoomIn 0.3s ease-out;
-    }
-
-    #shareModal .modal-content h3 {
-        margin-top: 0;
-        color: #333;
-        font-size: 1.3rem;
-        margin-bottom: 20px;
-    }
-
-    .share-options {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
-        gap: 15px;
-        justify-content: center;
-        margin-bottom: 20px;
-    }
-
-    .share-option {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-decoration: none;
-        color: #555;
-        font-size: 0.85rem;
-        transition: transform 0.2s ease-in-out, color 0.2s ease;
-    }
-
-    .share-option:hover {
-        transform: translateY(-3px);
-        color: #007bff;
-    }
-
-    .share-option img {
-        width: 48px;
-        height: 48px;
-        margin-bottom: 8px;
-        border-radius: 8px; /* Optional: slight roundness for icons */
-        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        transition: box-shadow 0.2s ease;
-    }
-
-    .share-option:hover img {
-        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-    }
-
-    /* Specific colors for icons if needed */
-    .share-option.whatsapp img { background-color: #25D366; }
-    .share-option.telegram img { background-color: #0088CC; }
-    .share-option.copy-link img { background-color: #6c757d; }
-
-    #shareModal .close-btn-share {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        width: 30px;
-        height: 30px;
-        background: #ff5c5c;
-        color: white;
-        border-radius: 50%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 18px;
-        font-weight: bold;
-        cursor: pointer;
-        transition: background 0.2s ease-in-out;
-    }
-    #shareModal .close-btn-share:hover {
-        background: #e04444;
-    }
-
-    @keyframes zoomIn {
-        from { transform: scale(0.8); opacity: 0; }
-        to { transform: scale(1); opacity: 1; }
+    to { transform: scale(1); opacity: 1; }
     }
 </style>
 </head>
@@ -672,7 +573,7 @@
 
   <div class="container">
 
-    <a href="https://Virga1705.github.io/NarutoSenki.html" class="virga-card align-left-logo" id="card-naruto-senki" data-share-id="naruto-senki">
+    <a href="https://Virga1705.github.io/NarutoSenki.html" class="virga-card align-left-logo" id="card-naruto-senki" data-card-id="naruto-senki" data-card-title="Naruto Senki">
       <img src="https://files.catbox.moe/ngsl57.jpg" alt="Naruto Senki Logo" class="card-logo" draggable="false">
       <div class="card-content-wrapper">
         <p class="card-title">Naruto Senki</p>
@@ -682,13 +583,13 @@
           <span class="read-more-toggle">Read More</span>
         </p>
       </div>
-      <div class="share-button-container" onclick="openShareOptionsModal('Naruto Senki', 'card-naruto-senki', this); event.preventDefault();">
+      <div class="share-button-container" onclick="handleDirectShare(this); event.preventDefault();">
         <img src="https://files.catbox.moe/40ynkg.png" alt="Share" draggable="false">
         <span class="share-tooltip">Copied!</span>
       </div>
     </a>
 
-    <a href="https://Virga1705.github.io/pixellab.html" class="virga-card align-right-logo" id="card-pixellab" data-share-id="pixellab">
+    <a href="https://Virga1705.github.io/pixellab.html" class="virga-card align-right-logo" id="card-pixellab" data-card-id="pixellab" data-card-title="PixelLab">
       <img src="https://files.catbox.moe/97vkic.png" alt="PixelLab Logo" class="card-logo" draggable="false">
       <div class="card-content-wrapper">
         <p class="card-title">PixelLab</p>
@@ -698,13 +599,13 @@
           <span class="read-more-toggle">Read More</span>
         </p>
       </div>
-      <div class="share-button-container" onclick="openShareOptionsModal('PixelLab', 'card-pixellab', this); event.preventDefault();">
+      <div class="share-button-container" onclick="handleDirectShare(this); event.preventDefault();">
         <img src="https://files.catbox.moe/40ynkg.png" alt="Share" draggable="false">
         <span class="share-tooltip">Copied!</span>
       </div>
     </a>
 
-    <a href="https://Virga1705.github.io/gg.html" class="virga-card align-left-logo" id="card-game-guardian" data-share-id="game-guardian">
+    <a href="https://Virga1705.github.io/gg.html" class="virga-card align-left-logo" id="card-game-guardian" data-card-id="game-guardian" data-card-title="Game Guardian">
       <img src="https://files.catbox.moe/xqmdrq.png" alt="Game Guardian Logo" class="card-logo" draggable="false">
       <div class="card-content-wrapper">
         <p class="card-title">Game Guardian</p>
@@ -714,13 +615,13 @@
           <span class="read-more-toggle">Read More</span>
         </p>
       </div>
-      <div class="share-button-container" onclick="openShareOptionsModal('Game Guardian', 'card-game-guardian', this); event.preventDefault();">
+      <div class="share-button-container" onclick="handleDirectShare(this); event.preventDefault();">
         <img src="https://files.catbox.moe/40ynkg.png" alt="Share" draggable="false">
         <span class="share-tooltip">Copied!</span>
       </div>
     </a>
     
-    <a href="https://Virga1705.github.io/gta-sa.html" class="virga-card align-right-logo" id="card-gta-sa" data-share-id="gta-sa">
+    <a href="https://Virga1705.github.io/gta-sa.html" class="virga-card align-right-logo" id="card-gta-sa" data-card-id="gta-sa" data-card-title="GTA: SA">
       <img src="https://files.catbox.moe/97vkic.png" alt="GTA SA Logo" class="card-logo" draggable="false">
       <div class="card-content-wrapper">
         <p class="card-title">GTA: SA</p>
@@ -730,7 +631,7 @@
           <span class="read-more-toggle">Read More</span>
         </p>
       </div>
-      <div class="share-button-container" onclick="openShareOptionsModal('GTA SA', 'card-gta-sa', this); event.preventDefault();">
+      <div class="share-button-container" onclick="handleDirectShare(this); event.preventDefault();">
         <img src="https://files.catbox.moe/40ynkg.png" alt="Share" draggable="false">
         <span class="share-tooltip">Copied!</span>
       </div>
@@ -743,15 +644,6 @@
     <div class="modal">
       <span class="close-btn" onclick="closeModal()">X</span>
       <div id="modal-body"></div>
-    </div>
-  </div>
-
-  <div id="shareModal">
-    <div class="modal-content">
-      <span class="close-btn-share" onclick="closeShareModal()">X</span>
-      <h3 id="shareModalTitle">Share this Card</h3>
-      <div class="share-options">
-        </div>
     </div>
   </div>
 
@@ -843,27 +735,25 @@
       const sidebar = document.getElementById("mySidebar");
       const hamburgerIcon = document.querySelector(".hamburger-icon");
       const modalPopup = document.getElementById('popup');
-      const shareModal = document.getElementById('shareModal');
-
-
-      if (sidebar.classList.contains("open") && !sidebar.contains(event.target) && !hamburgerIcon.contains(event.target) && !modalPopup.contains(event.target) && !shareModal.contains(event.target)) {
+      // Mengubah kondisi klik di luar: jika sidebar terbuka DAN yang diklik BUKAN sidebar, hamburger, atau modal popup, maka tutup sidebar.
+      if (sidebar.classList.contains("open") && !sidebar.contains(event.target) && !hamburgerIcon.contains(event.target) && !modalPopup.contains(event.target)) {
         closeSidebar();
       }
-      // Close share modal if clicked outside
-      if (shareModal.style.display === 'flex' && !shareModal.querySelector('.modal-content').contains(event.target) && !event.target.closest('.share-button-container')) {
-          closeShareModal();
+      // Logika untuk menutup modal umum jika diklik di luar.
+      if (modalPopup.style.display === 'flex' && !modalPopup.querySelector('.modal').contains(event.target) && !event.target.closest('.sidebar-card[onclick*="openGeneralModal"]')) {
+          closeModal();
       }
     });
 
-    // JavaScript untuk Pengumuman Multibahasa (TIDAK BERUBAH)
+    // JavaScript untuk Pengumuman Multibahasa (Terjemahan Disesuaikan)
     const announcements = [
       { id: 'en', text: "If you want to translate this website into your preferred language, click the three dots in your browser and look for the translate feature. I recommend using Chrome browser." },
-      { id: 'ru', text: "Если вы хотите перевести этот веб-сайт на предпочитаемый вами язык, нажмите на три точки в браузere dan cari fungsi terjemahan. Saya merekomendasikan menggunakan browser Chrome." },
-      { id: 'zh-CN', text: "如果您想将此网站翻译成您偏好 dan bahasanya, silakan klik titik tiga di browser Anda dan cari fitur terjemahan. Saya merekomendasikan menggunakan browser Chrome." },
-      { id: 'ja', text: "このウェブサイトを希望の言語に翻訳したい場合は、ブラウザの三点リーダーをクリックして翻訳機能を探してください。Chromeブラウザの使用をお勧めします。" },
+      { id: 'ru', text: "Если вы хотите перевести этот веб-сайт на предпочитаемый вами язык, нажмите на три точки в вашем браузере и найдите функцию перевода. Я рекомендую использовать браузер Chrome." },
+      { id: 'zh-CN', text: "如果您想将此网站翻译成您偏好的语言，请点击浏览器中的三个点并查找翻译功能。我建议使用 Chrome 浏览器。" },
+      { id: 'ja', text: "このウェブサイトを希望の言語に翻訳したい場合は、ブラウザの3つの点をクリックして翻訳機能を探してください。Chromeブラウザの使用をお勧めします。" },
       { id: 'pt', text: "Se você deseja traduzir este site para o seu idioma preferido, clique nos três pontos do seu navegador e procure o recurso de tradução. Recomendo usar o navegador Chrome." },
       { id: 'fil', text: "Kung nais mong isalin ang website na ito sa iyong gustong wika, i-click ang tatlong tuldok sa iyong browser at hanapin ang tampok na pagsasalin. Inirerekomenda kong gamitin ang Chrome browser." },
-      { id: 'vi', text: "Nếu bạn muốn dịch trang web này sang ngôn ngôn ngữ ưa thích của mình, hãy nhấp vào ba dấu chấm dalam peramban Anda dan mencari fitur terjemahan. Saya sarankan menggunakan peramban Chrome." }
+      { id: 'vi', text: "Nếu bạn muốn dịch trang web này sang ngôn ngữ ưa thích của mình, hãy nhấp vào ba dấu chấm dalam peramban Anda dan cari fitur terjemahan. Saya sarankan menggunakan browser Chrome." }
     ];
     let currentAnnouncementIndex = 0;
     let announcementInterval;
@@ -898,7 +788,7 @@
         }
     }
 
-    // --- FUNGSI MODAL UMUM (untuk Donasi/Credits) ---
+    // --- FUNGSI MODAL UMUM (untuk Donasi/Credits - TIDAK BERUBAH) ---
     function openGeneralModal(type) {
       const popup = document.getElementById('popup');
       const body = document.getElementById('modal-body');
@@ -947,104 +837,17 @@
       body.innerHTML = content;
       popup.style.display = 'flex'; // Tampilkan modal
       closeSidebar(); // Pastikan sidebar tertutup saat modal terbuka
-      closeShareModal(); // Pastikan modal share tertutup jika terbuka
     }
 
     function closeModal() {
       document.getElementById('popup').style.display = 'none';
     }
 
-    // NEW SHARE OPTIONS MODAL FUNCTIONS
-    let currentShareLink = '';
-    let currentShareTitle = '';
-    let currentShareIconElement = null; // To store the icon element for blink effect
+    // ************************************************
+    // JavaScript untuk Fitur Share (DIREK KE NATIVE/COPY)
+    // ************************************************
 
-    function openShareOptionsModal(cardTitle, cardId, iconElement) {
-        currentShareTitle = cardTitle;
-        currentShareLink = window.location.origin + window.location.pathname + '#' + cardId;
-        currentShareIconElement = iconElement; // Store the icon element
-
-        const shareModal = document.getElementById('shareModal');
-        const shareModalTitle = document.getElementById('shareModalTitle');
-        const shareOptionsContainer = shareModal.querySelector('.share-options');
-
-        shareModalTitle.textContent = `Share "${cardTitle}"`;
-        shareOptionsContainer.innerHTML = ''; // Clear previous options
-
-        // Define share options
-        const sharePlatforms = [
-            { name: 'WhatsApp', icon: 'https://cdn-icons-png.flaticon.com/512/2111/2111644.png', url: `https://wa.me/?text=${encodeURIComponent(currentShareTitle + ' - ' + currentShareLink)}`, class: 'whatsapp' },
-            { name: 'Telegram', icon: 'https://cdn-icons-png.flaticon.com/512/2111/2111646.png', url: `https://t.me/share/url?url=${encodeURIComponent(currentShareLink)}&text=${encodeURIComponent(currentShareTitle)}`, class: 'telegram' },
-            { name: 'Facebook', icon: 'https://cdn-icons-png.flaticon.com/512/174/174848.png', url: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentShareLink)}&quote=${encodeURIComponent(currentShareTitle)}` },
-            { name: 'Twitter (X)', icon: 'https://cdn-icons-png.flaticon.com/512/5968/5968830.png', url: `https://twitter.com/intent/tweet?url=${encodeURIComponent(currentShareLink)}&text=${encodeURIComponent(currentShareTitle)}` },
-            { name: 'Copy Link', icon: 'https://cdn-icons-png.flaticon.com/512/1000/1000957.png', action: 'copy', class: 'copy-link' }
-        ];
-
-        // Try Web Share API first
-        if (navigator.share) {
-            navigator.share({
-                title: currentShareTitle,
-                text: `Check out this card on VirgaFS: ${currentShareTitle}`,
-                url: currentShareLink
-            }).then(() => {
-                console.log('Successfully shared via Web Share API');
-                // Apply blink effect to the icon after successful share
-                if (currentShareIconElement) {
-                    applyShareIconBlink(currentShareIconElement);
-                }
-            }).catch((error) => {
-                console.error('Error sharing via Web Share API:', error);
-                // If Web Share API fails or is cancelled, fall back to custom modal
-                showCustomShareModal(shareOptionsContainer, sharePlatforms);
-            });
-        } else {
-            // Fallback to custom share modal
-            showCustomShareModal(shareOptionsContainer, sharePlatforms);
-        }
-
-        closeSidebar(); // Close sidebar if it's open
-    }
-
-    function showCustomShareModal(container, platforms) {
-        platforms.forEach(platform => {
-            const optionDiv = document.createElement('div');
-            optionDiv.classList.add('share-option');
-            if (platform.class) optionDiv.classList.add(platform.class);
-
-            const img = document.createElement('img');
-            img.src = platform.icon;
-            img.alt = platform.name;
-            img.draggable = false; // Prevent dragging
-
-            const nameSpan = document.createElement('span');
-            nameSpan.textContent = platform.name;
-
-            optionDiv.appendChild(img);
-            optionDiv.appendChild(nameSpan);
-
-            optionDiv.addEventListener('click', () => {
-                if (platform.action === 'copy') {
-                    copyLinkToClipboard(currentShareLink, currentShareIconElement);
-                    closeShareModal(); // Close modal after copying
-                } else {
-                    window.open(platform.url, '_blank');
-                    closeShareModal(); // Close modal after opening share URL
-                }
-            });
-            container.appendChild(optionDiv);
-        });
-        document.getElementById('shareModal').style.display = 'flex'; // Show the custom modal
-    }
-
-
-    function closeShareModal() {
-      document.getElementById('shareModal').style.display = 'none';
-      currentShareLink = '';
-      currentShareTitle = '';
-      currentShareIconElement = null; // Clear the stored element
-    }
-
-    // Function to apply blinking effect to share icon
+    // Fungsi untuk menerapkan efek kedip pada ikon share dan menampilkan tooltip
     function applyShareIconBlink(iconContainer) {
         if (!iconContainer) return;
 
@@ -1059,81 +862,112 @@
             if (tooltip) {
                 tooltip.classList.remove('show');
             }
-        }, 1000); // Blink for 1 second and hide tooltip
+        }, 1000); // Kedip selama 1 detik dan sembunyikan tooltip
     }
 
-    // Function to copy link to clipboard (used within the custom share modal)
-    function copyLinkToClipboard(link, iconElement) {
+    // Fungsi untuk menyalin link ke clipboard
+    function copyLinkToClipboard(link, iconContainer) {
         if (navigator.clipboard) {
             navigator.clipboard.writeText(link).then(() => {
                 console.log('Link copied to clipboard:', link);
-                applyShareIconBlink(iconElement); // Apply blink effect to the original icon
+                applyShareIconBlink(iconContainer); // Terapkan efek kedip ke ikon aslinya
             }).catch(err => {
-                console.error('Failed to copy link:', err);
-                alert('Failed to copy link. Please copy it manually: ' + link);
+                console.error('Gagal menyalin link:', err);
+                alert('Gagal menyalin link. Silakan salin secara manual: ' + link);
             });
         } else {
-            // Fallback for browsers that do not support navigator.clipboard
+            // Fallback untuk browser yang tidak mendukung navigator.clipboard
             const tempInput = document.createElement('textarea');
             tempInput.value = link;
             document.body.appendChild(tempInput);
             tempInput.select();
             document.execCommand('copy');
             document.body.removeChild(tempInput);
-            alert('Link copied to clipboard: ' + link);
-            applyShareIconBlink(iconElement); // Apply blink effect to the original icon
+            alert('Link berhasil disalin ke clipboard: ' + link);
+            applyShareIconBlink(iconContainer); // Terapkan efek kedip ke ikon aslinya
+        }
+    }
+
+    // Fungsi utama untuk menangani klik ikon share (langsung ke native/copy)
+    function handleDirectShare(clickedElement) {
+        const cardId = clickedElement.dataset.cardId;
+        const cardTitle = clickedElement.dataset.cardTitle; // Ambil judul dari data attribute
+        const baseUrl = window.location.origin + window.location.pathname;
+        const shareUrl = `${baseUrl}#${cardId}`;
+
+        // Coba gunakan Web Share API (fitur share native browser)
+        if (navigator.share) {
+            navigator.share({
+                title: cardTitle || document.title, // Gunakan judul kartu jika ada, atau judul dokumen
+                text: `Lihat konten keren ini di website виʀɢᴀ: ${cardTitle || ''}`,
+                url: shareUrl
+            }).then(() => {
+                console.log('Berhasil dibagikan via Web Share API');
+                applyShareIconBlink(clickedElement); // Terapkan kedip setelah sukses share
+            }).catch((error) => {
+                console.error('Gagal berbagi via Web Share API:', error);
+                // Jika Web Share API gagal atau dibatalkan, salin link ke clipboard
+                copyLinkToClipboard(shareUrl, clickedElement);
+            });
+        } else {
+            // Jika Web Share API tidak tersedia, salin link ke clipboard
+            copyLinkToClipboard(shareUrl, clickedElement);
         }
     }
 
 
-    // Function to handle direct link to a card (e.g., from a shared link)
-    let currentHighlightedCard = null; // Variable to keep track of the currently highlighted card
+    // Fungsi untuk menangani link langsung ke sebuah kartu (misalnya dari link yang dibagikan)
+    let currentHighlightedCard = null; // Variabel untuk melacak kartu yang sedang di-highlight
 
     function scrollToCardFromHash() {
         if (window.location.hash) {
-            const targetId = window.location.hash.substring(1); // Remove the '#'
+            const targetId = window.location.hash.substring(1); // Hapus '#'
             const targetElement = document.getElementById(targetId);
 
-            // Remove highlight from previously highlighted card, if any
+            // Hapus highlight dari kartu yang sebelumnya di-highlight, jika ada
             if (currentHighlightedCard && currentHighlightedCard !== targetElement) {
                 currentHighlightedCard.classList.remove('highlight-blink');
-                // Ensure default styles are reapplied if animation didn't fully revert
-                currentHighlightedCard.style.border = '';
+                // Pastikan gaya default diterapkan kembali jika animasi belum sepenuhnya kembali
+                currentHighlightedCard.style.borderColor = '';
                 currentHighlightedCard.style.boxShadow = '';
             }
 
             if (targetElement) {
-                // Add a small delay to ensure page layout is stable before scrolling and animating
+                // Tambahkan sedikit penundaan untuk memastikan tata letak halaman stabil sebelum menggulir dan menganimasikan
                 setTimeout(() => {
                     targetElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
-                    // Apply the blinking animation
+                    // Terapkan animasi kedip
                     targetElement.classList.add('highlight-blink');
-                    currentHighlightedCard = targetElement; // Set the current highlighted card
+                    currentHighlightedCard = targetElement; // Set kartu yang sedang di-highlight
 
-                    // Remove the animation class after it completes (3 blinks * 1 second/blink = 3 seconds)
+                    // Hapus kelas animasi setelah selesai (3 kedipan * 1 detik/kedip = 3 detik)
                     setTimeout(() => {
                         targetElement.classList.remove('highlight-blink');
                         currentHighlightedCard = null; // Reset
-                        // Ensure default styles are reapplied just in case
-                        targetElement.style.border = '';
+                        // Pastikan gaya default diterapkan kembali untuk berjaga-jaga
+                        targetElement.style.borderColor = '';
                         targetElement.style.boxShadow = '';
-                    }, 3000); // Duration matches animation: 3 blinks * 1s/blink = 3s
-                }, 500); // Delay scroll to ensure elements are rendered
+                    }, 3000); // Durasi sesuai animasi: 3 kedipan * 1s/kedip = 3s
+                }, 500); // Tunda scroll untuk memastikan elemen dirender
             }
         } else {
-            // If hash is cleared, remove any existing highlight
+            // Jika hash dihapus, hapus highlight yang ada
             if (currentHighlightedCard) {
                 currentHighlightedCard.classList.remove('highlight-blink');
-                currentHighlightedCard.style.border = '';
+                currentHighlightedCard.style.borderColor = '';
                 currentHighlightedCard.style.boxShadow = '';
                 currentHighlightedCard = null;
             }
         }
     }
 
+    // Panggil fungsi saat halaman dimuat dan saat hash URL berubah
     window.addEventListener('load', scrollToCardFromHash);
-    window.addEventListener('hashchange', scrollToCardFromHash); // Listen for changes in the URL hash
+    window.addEventListener('hashchange', scrollToCardFromHash);
+    // ************************************************
+    // Akhir dari JavaScript Fitur Share
+    // ************************************************
   </script>
 
   <script src="https://l2dwidget.js.org/lib/L2Dwidget.min.js"></script>
