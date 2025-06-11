@@ -3,22 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>вирга</title>
-<style>
+  <title>виʀɢᴀ</title>
+  <style>
     body {
       margin: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f4f4f4; /* Light mode default */
-      color: #111; /* Light mode default text */
-      /* Mencegah seleksi teks */
-      -webkit-user-select: none; /* Safari */
-      -moz-user-select: none;    /* Firefox */
-      -ms-user-select: none;     /* Internet Explorer/Edge */
-      user-select: none;         /* Standard */
-      /* Mencegah menu konteks (klik kanan) secara global */
-      -webkit-touch-callout: none; /* Untuk iOS, mencegah menu pop-up saat long-press */
-      overflow-x: hidden; /* Mencegah overflow saat sidebar terbuka */
-      transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition for dark mode */
+      background-color: #f4f4f4;
+      color: #111;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
+      overflow-x: hidden;
+      transition: background-color 0.3s ease, color 0.3s ease;
     }
 
     nav {
@@ -41,7 +39,6 @@
       transition: color 0.3s ease;
     }
 
-    /* Hamburger Menu Icon */
     .hamburger-icon {
       width: 30px;
       height: 20px;
@@ -51,7 +48,7 @@
       flex-direction: column;
       justify-content: space-between;
       z-index: 1001;
-      margin-left: auto; /* Dorong ke kanan navbar */
+      margin-left: auto;
     }
 
     .hamburger-icon span {
@@ -63,7 +60,6 @@
       transition: all 0.3s ease-in-out;
     }
 
-    /* Animasi ikon hamburger menjadi silang */
     .hamburger-icon.open span:nth-child(1) {
       transform: translateY(8.5px) rotate(45deg);
     }
@@ -74,10 +70,9 @@
       transform: translateY(-8.5px) rotate(-45deg);
     }
 
-    /* Sidebar Menu */
     .sidebar {
       height: 100%;
-      width: 0; /* Awalnya tersembunyi */
+      width: 0;
       position: fixed;
       z-index: 999;
       top: 0;
@@ -96,31 +91,28 @@
       width: 250px;
     }
 
-    /* Wrapper untuk copyright di sidebar */
     .copyright-wrapper {
         display: flex;
-        justify-content: center; /* Memusatkan konten di dalam wrapper */
-        align-items: center; /* Penyelarasan vertikal */
-        margin: 15px 0; /* Margin dari elemen lain di sidebar */
-        padding: 0 20px; /* Padding sisi agar tidak terlalu mepet */
-        width: 100%; /* Agar wrapper mengambil lebar penuh sidebar */
+        justify-content: center;
+        align-items: center;
+        margin: 15px 0;
+        padding: 0 20px;
+        width: 100%;
         box-sizing: border-box;
     }
 
-    /* Copyright di sidebar */
     .sidebar .copyright-text {
       font-size: 0.85rem;
       color: #666;
-      margin: 0; /* Reset margin yang mungkin ada dari aturan lain */
+      margin: 0;
       text-align: center;
       transition: color 0.3s ease;
     }
 
-    /* Gaya untuk card di dalam sidebar (dilekatkan lagi agar jelas) */
     .sidebar-card {
       background-color: #f9f9f9;
       border: 1px solid #ddd;
-      border-radius: 8px; /* Kotak dengan sudut melengkung */
+      border-radius: 8px;
       margin: 10px 0;
       padding: 15px;
       width: 80%;
@@ -138,7 +130,6 @@
       transform: translateY(-2px);
     }
 
-    /* Gaya untuk pengumuman card di sidebar */
     .sidebar-announcement-card {
       background-color: #e0f7fa;
       border: 1px solid #b2ebf2;
@@ -213,7 +204,6 @@
       text-align: center;
     }
 
-    /* CONTAINER untuk layout grid */
     .container {
       display: flex;
       flex-wrap: wrap;
@@ -222,7 +212,6 @@
       padding: 2rem;
     }
 
-    /* Gaya Dasar Card */
     .virga-card {
       background-color: #ffffff;
       border-radius: 15px;
@@ -234,15 +223,12 @@
       min-height: 150px;
       text-decoration: none;
       box-sizing: border-box;
-
       display: flex;
       align-items: flex-start;
-      position: relative; /* Untuk positioning tombol share */
-
+      position: relative;
       opacity: 0;
       transform: scale(0.8);
-
-      outline: none; /* ADDED: Remove default focus outline from the card itself */
+      outline: none;
     }
 
     .virga-card.zoom-in {
@@ -254,7 +240,6 @@
       transform: translateY(-5px);
     }
 
-    /* ADDED: Ensure no outline on focus for accessibility, if needed */
     .virga-card:focus {
         outline: none;
     }
@@ -264,7 +249,7 @@
       height: 60px;
       flex-shrink: 0;
       object-fit: contain;
-      pointer-events: none; /* Menjaga agar gambar tidak dapat diklik terpisah dari link card */
+      pointer-events: none;
     }
 
     .virga-card .card-content-wrapper {
@@ -292,7 +277,6 @@
       transition: color 0.3s ease;
     }
 
-    /* --- Gaya untuk Logo di Kiri (Card 1 dan 3) --- */
     .align-left-logo .card-logo {
       margin-right: 15px;
     }
@@ -301,7 +285,6 @@
       order: 1;
     }
 
-    /* --- Gaya untuk Logo di Kanan (Card 2) --- */
     .align-right-logo {
       flex-direction: row-reverse;
     }
@@ -316,7 +299,6 @@
       margin-left: 0;
     }
 
-    /* Gaya untuk "Read More" */
     .read-more-text {
       display: inline;
     }
@@ -333,32 +315,28 @@
       display: inline;
     }
 
-    /* Sembunyikan sebagian teks saat tidak diperluas */
     .card-description.collapsed .more-text {
       display: none;
     }
 
-    /* Sembunyikan elipsis saat diperluas */
     .card-description:not(.collapsed) .read-more-ellipsis {
       display: none;
     }
 
-    /* SHARE BUTTON STYLES */
     .share-button-container {
       position: absolute;
       bottom: 10px;
       right: 10px;
       cursor: pointer;
-      z-index: 5; /* Ensure it's above card content */
+      z-index: 5;
       transition: transform 0.2s ease-in-out;
-      outline: none; /* Remove default focus outline */
+      outline: none;
     }
 
     .share-button-container:hover {
         transform: scale(1.1);
     }
 
-    /* Add this rule to remove outline on focus, for accessibility */
     .share-button-container:focus {
         outline: none;
     }
@@ -366,19 +344,17 @@
     .share-button-container img {
       width: 24px;
       height: 24px;
-      filter: grayscale(100%) brightness(1.5); /* Default icon style */
+      filter: grayscale(100%) brightness(1.5);
       transition: filter 0.3s ease-in-out;
     }
 
-    /* Blinking effect for share icon */
     .share-button-container.blink img {
-        filter: brightness(0) invert(1) sepia(1) saturate(5000%) hue-rotate(200deg); /* Change to a distinct color, e.g., blue */
+        filter: brightness(0) invert(1) sepia(1) saturate(5000%) hue-rotate(200deg);
     }
 
-    /* Tooltip / Notification for "Copied!" */
     .share-tooltip {
         position: absolute;
-        bottom: 40px; /* Adjust position relative to the share button */
+        bottom: 40px;
         right: 0px;
         background-color: #333;
         color: white;
@@ -389,29 +365,27 @@
         opacity: 0;
         pointer-events: none;
         transition: opacity 0.3s ease-in-out;
-        transform: translateX(50%); /* Center the tooltip */
+        transform: translateX(50%);
     }
 
     .share-tooltip.show {
         opacity: 1;
     }
 
-    /* ANIMASI KEDIP UNTUK KARTU YANG DIHIGHLIGHT */
     @keyframes card-highlight-blink {
         0%, 100% {
-            border-color: #ddd; /* Warna border default */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow default */
+            border-color: #ddd;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
         50% {
-            border-color: #007bff; /* Warna biru saat kedip */
-            box-shadow: 0 0 15px rgba(0, 123, 255, 0.6); /* Shadow biru saat kedip */
+            border-color: #007bff;
+            box-shadow: 0 0 15px rgba(0, 123, 255, 0.6);
         }
     }
 
     .virga-card.highlight-blink {
-        animation: card-highlight-blink 1s ease-in-out 3; /* Kedip 3 kali */
+        animation: card-highlight-blink 1s ease-in-out 3;
     }
-
 
     footer {
       text-align: center;
@@ -421,7 +395,6 @@
       transition: background-color 0.3s ease, color 0.3s ease;
     }
 
-    /* --- GAYA MODAL UMUM (DARI NARUTO SENKI) --- */
     .modal-overlay {
       position: fixed;
       top: 0;
@@ -429,11 +402,10 @@
       width: 100%;
       height: 100%;
       background: rgba(0,0,0,0.5);
-      display: none; /* Defaultnya tersembunyi */
+      display: none;
       justify-content: center;
       align-items: center;
-      z-index: 1002; /* Pastikan modal di atas sidebar */
-      /* Mencegah seleksi teks dan klik kanan pada modal overlay */
+      z-index: 1002;
       -webkit-user-select: none;
       -moz-user-select: none;
       -ms-user-select: none;
@@ -450,7 +422,6 @@
       box-shadow: 0 5px 15px rgba(0,0,0,0.2);
       text-align: center;
       position: relative;
-      /* Mencegah seleksi teks dan klik kanan pada modal */
       -webkit-user-select: none;
       -moz-user-select: none;
       -ms-user-select: none;
@@ -458,12 +429,11 @@
       -webkit-touch-callout: none;
     }
 
-    /* Bagian body modal agar bisa di-scroll */
     #modal-body {
-        max-height: 200px; /* Atur tinggi maksimum untuk konten */
-        overflow-y: auto; /* Aktifkan scroll vertikal jika konten melebihi max-height */
-        padding-right: 10px; /* Memberi ruang untuk scrollbar */
-        text-align: left; /* Rata kiri teks di dalam modal body */
+        max-height: 200px;
+        overflow-y: auto;
+        padding-right: 10px;
+        text-align: left;
     }
 
     .modal-buttons {
@@ -482,7 +452,6 @@
       color: black;
       background: white;
       transition: all .2s ease-in-out;
-      /* Mencegah seleksi teks dan klik kanan pada tombol modal */
       -webkit-user-select: none;
       -moz-user-select: none;
       -ms-user-select: none;
@@ -511,7 +480,6 @@
       font-weight: bold;
       cursor: pointer;
       transition: background 0.2s ease-in-out;
-      /* Mencegah seleksi teks dan klik kanan pada tombol tutup */
       -webkit-user-select: none;
       -moz-user-select: none;
       -ms-user-select: none;
@@ -526,7 +494,7 @@
 </head>
 <body oncontextmenu="return false;">
   <nav>
-    <h1>ㅤвирга</h1>
+    <h1>vɪʀɢᴀ ꜰꜱ</h1>
     <div class="hamburger-icon" onclick="toggleSidebar()">
       <span></span>
       <span></span>
@@ -551,7 +519,7 @@
       <a href="https://instagram.com/i.lifenot4you" target="_blank">
         <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram" draggable="false">
       </a>
-      <a href="https://youtube.com/@VVIRGAFS" target="_blank">
+      <a href="https://www.youtube.com/@virgajr" target="_blank">
         <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="YouTube" draggable="false">
       </a>
       <a href="mailto:virga1705@gmail.com">
@@ -570,7 +538,7 @@
 
   <div class="container">
 
-    <a href="https://Virga1705.github.io/NarutoSenki.html#card-waifu-war-v1" class="virga-card align-left-logo" id="card-naruto-senki" data-card-id="card-naruto-senki" data-card-title="Naruto Senki">
+    <a href="https://Virga1705.github.io/NarutoSenki.html" class="virga-card align-left-logo" data-card-id="card-naruto-senki" data-card-title="Naruto Senki">
       <img src="https://files.catbox.moe/ngsl57.jpg" alt="Naruto Senki Logo" class="card-logo" draggable="false">
       <div class="card-content-wrapper">
         <p class="card-title">Naruto Senki</p>
@@ -580,13 +548,13 @@
           <span class="read-more-toggle">Read More</span>
         </p>
       </div>
-      <div class="share-button-container" onclick="handleDirectShare(this); event.preventDefault();">
-        <img src="https://files.catbox.moe/40ynkg.png" alt="Share" draggable="false">
+      <div class="share-button-container" onclick="handleShareClick(this)">
+        <img src="https://cdn-icons-png.flaticon.com/512/3247/3247000.png" alt="Share Icon">
         <span class="share-tooltip">Copied!</span>
       </div>
     </a>
 
-    <a href="https://Virga1705.github.io/pixellab.html#card-pixellab-theme-ios" class="virga-card align-right-logo" id="card-pixellab" data-card-id="card-pixellab" data-card-title="PixelLab">
+    <a href="https://Virga1705.github.io/pixellab.html" class="virga-card align-right-logo" data-card-id="card-pixellab" data-card-title="PixelLab">
       <img src="https://files.catbox.moe/97vkic.png" alt="PixelLab Logo" class="card-logo" draggable="false">
       <div class="card-content-wrapper">
         <p class="card-title">PixelLab</p>
@@ -596,64 +564,43 @@
           <span class="read-more-toggle">Read More</span>
         </p>
       </div>
-      <div class="share-button-container" onclick="handleDirectShare(this); event.preventDefault();">
-        <img src="https://files.catbox.moe/40ynkg.png" alt="Share" draggable="false">
+      <div class="share-button-container" onclick="handleShareClick(this)">
+        <img src="https://cdn-icons-png.flaticon.com/512/3247/3247000.png" alt="Share Icon">
         <span class="share-tooltip">Copied!</span>
       </div>
     </a>
 
-    <a href="https://Virga1705.github.io/gg.html#card-gg-new-theme-icon" class="virga-card align-left-logo" id="card-game-guardian" data-card-id="card-game-guardian" data-card-title="Game Guardian">
+    <a href="https://Virga1705.github.io/gg.html" class="virga-card align-left-logo" data-card-id="card-game-guardian" data-card-title="GAME GUARDIAN">
       <img src="https://files.catbox.moe/xqmdrq.png" alt="Game Guardian Logo" class="card-logo" draggable="false">
       <div class="card-content-wrapper">
-        <p class="card-title">Game Guardian</p>
+        <p class="card-title">GAME GUARDIAN</p>
         <p class="card-description collapsed" data-full-text="Modifikasi Game Guardian dengan tema kustom dan fitur unik untuk pengalaman bermain game. Dapatkan akses ke fitur-fitur eksklusif dan optimasi performa. Cocok untuk para modder dan gamer sejati.">
-          Modifikasi Game Guardian dengan tema kustom dan fitur <span class="more-text">unik untuk pengalaman bermain game.Dapatkan akses ke fitur-fitur eksklusif dan optimasi performa. Cocok untuk para modder dan gamer sejati.</span>
+          Modifikasi Game Guardian dengan tema kustom dan fitur unik untuk pengalaman bermain game. <span class="more-text">Dapatkan akses ke fitur-fitur eksklusif dan optimasi performa. Cocok untuk para modder dan gamer sejati.</span>
           <span class="read-more-ellipsis">...</span>
           <span class="read-more-toggle">Read More</span>
         </p>
       </div>
-      <div class="share-button-container" onclick="handleDirectShare(this); event.preventDefault();">
-        <img src="https://files.catbox.moe/40ynkg.png" alt="Share" draggable="false">
-        <span class="share-tooltip">Copied!</span>
-      </div>
-    </a>
-    
-    <a href="https://Virga1705.github.io/gta-sa.html#card-gta-sa-intro" class="virga-card align-right-logo" id="card-gta-sa" data-card-id="card-gta-sa" data-card-title="GTA: SA">
-      <img src="https://files.catbox.moe/97vkic.png" alt="GTA SA Logo" class="card-logo" draggable="false">
-      <div class="card-content-wrapper">
-        <p class="card-title">GTA: SA</p>
-        <p class="card-description collapsed" data-full-text="Grand Theft Auto: San Andreas (GTA SA) adalah game aksi-petualangan dunia terbuka yang dikembangkan oleh Rockstar North dan diterbitkan oleh Rockstar Games.">
-          Grand Theft Auto: San Andreas (GTA SA) adalah game aksi-petualangan<span class="more-text"> dunia terbuka yang dikembangkan oleh Rockstar North dan diterbitkan oleh Rockstar Games.</span>
-          <span class="read-more-ellipsis">...</span>
-          <span class="read-more-toggle">Read More</span>
-        </p>
-      </div>
-      <div class="share-button-container" onclick="handleDirectShare(this); event.preventDefault();">
-        <img src="https://files.catbox.moe/40ynkg.png" alt="Share" draggable="false">
+      <div class="share-button-container" onclick="handleShareClick(this)">
+        <img src="https://cdn-icons-png.flaticon.com/512/3247/3247000.png" alt="Share Icon">
         <span class="share-tooltip">Copied!</span>
       </div>
     </a>
   </div>
 
   <footer></footer>
-
   <div class="modal-overlay" id="popup">
     <div class="modal">
-      <span class="close-btn" onclick="closeModal()">X</span>
-      <div id="modal-body"></div>
+      <span class="close-btn" onclick="closeModal()">X</span> <div id="modal-body"></div>
     </div>
   </div>
 
   <script>
-    // JavaScript untuk Read More pada Card utama (TIDAK BERUBAH)
     document.addEventListener('DOMContentLoaded', function() {
-      const toggleButtons = document.querySelectorAll('.read-more-toggle');
-
-      toggleButtons.forEach(button => {
+      // Read More functionality
+      document.querySelectorAll('.read-more-toggle').forEach(button => {
         button.addEventListener('click', function(event) {
           event.preventDefault();
           event.stopPropagation();
-
           const description = this.closest('.card-description');
           if (description) {
             description.classList.toggle('collapsed');
@@ -661,53 +608,58 @@
           }
         });
       });
+
+      // Typing Effect
+      const texts = ["I am Milf Lover", "I am Mechanic", "I am Chill guy", "I am Sigma"];
+      let count = 0;
+      let index = 0;
+      let currentText = '';
+      let letter = '';
+
+      (function type(){
+        if (count === texts.length) count = 0;
+        currentText = texts[count];
+        letter = currentText.slice(0, ++index);
+        document.getElementById('typing').textContent = letter;
+        if (letter.length === currentText.length) {
+          count++;
+          index = 0;
+          setTimeout(type, 1500);
+        } else {
+          setTimeout(type, 100);
+        }
+      })();
+
+      // Zoom-in Animation
+      function checkZoom() {
+        const cards = document.querySelectorAll('.virga-card');
+        cards.forEach(card => {
+          const cardTop = card.offsetTop;
+          const windowBottom = window.scrollY + window.innerHeight;
+          const windowTop = window.scrollY;
+          const cardHeight = card.offsetHeight;
+          const isVisible = (cardTop < windowBottom) && (cardTop + cardHeight > windowTop);
+          if (isVisible) {
+            card.classList.add('zoom-in');
+          } else {
+            card.classList.remove('zoom-in');
+          }
+        });
+      }
+
+      window.addEventListener('scroll', checkZoom);
+      window.addEventListener('resize', checkZoom);
+      window.addEventListener('load', checkZoom);
+
+      // Announcement Rotation (Start when sidebar opens, stop when closes)
+      // Initial call to hide announcement area if sidebar is not open on load
+      const announcementCard = document.getElementById('announcement-area');
+      if (announcementCard && !document.getElementById("mySidebar").classList.contains("open")) {
+          announcementCard.classList.remove('visible');
+      }
     });
 
-
-    // JavaScript untuk Typing Effect (TIDAK BERUBAH)
-    const texts = ["I am Milf Lover", "I am Mechanic", "I am Chill guy", "I am Sigma"];
-    let count = 0;
-    let index = 0;
-    let currentText = '';
-    let letter = '';
-
-    (function type(){
-      if (count === texts.length) count = 0;
-      currentText = texts[count];
-      letter = currentText.slice(0, ++index);
-      document.getElementById('typing').textContent = letter;
-      if (letter.length === currentText.length) {
-        count++;
-        index = 0;
-        setTimeout(type, 1500);
-      } else {
-        setTimeout(type, 100);
-      }
-    })();
-
-    // JavaScript untuk Zoom-in Animation (TIDAK BERUBAH)
-    function checkZoom() {
-      const cards = document.querySelectorAll('.virga-card');
-      cards.forEach(card => {
-        const cardTop = card.offsetTop;
-        const windowBottom = window.scrollY + window.innerHeight;
-        const windowTop = window.scrollY;
-        const cardHeight = card.offsetHeight;
-        const isVisible = (cardTop < windowBottom) && (cardTop + cardHeight > windowTop);
-
-        if (isVisible) {
-          card.classList.add('zoom-in');
-        } else {
-          card.classList.remove('zoom-in');
-        }
-      });
-    }
-
-    window.addEventListener('scroll', checkZoom);
-    window.addEventListener('resize', checkZoom);
-    window.addEventListener('load', checkZoom);
-
-    // JavaScript untuk Sidebar (TIDAK BERUBAH)
+    // Sidebar functions
     function toggleSidebar() {
       const sidebar = document.getElementById("mySidebar");
       const hamburgerIcon = document.querySelector(".hamburger-icon");
@@ -732,25 +684,21 @@
       const sidebar = document.getElementById("mySidebar");
       const hamburgerIcon = document.querySelector(".hamburger-icon");
       const modalPopup = document.getElementById('popup');
-      // Mengubah kondisi klik di luar: jika sidebar terbuka DAN yang diklik BUKAN sidebar, hamburger, atau modal popup, maka tutup sidebar.
+
       if (sidebar.classList.contains("open") && !sidebar.contains(event.target) && !hamburgerIcon.contains(event.target) && !modalPopup.contains(event.target)) {
         closeSidebar();
       }
-      // Logika untuk menutup modal umum jika diklik di luar.
-      if (modalPopup.style.display === 'flex' && !modalPopup.querySelector('.modal').contains(event.target) && !event.target.closest('.sidebar-card[onclick*="openGeneralModal"]')) {
-          closeModal();
-      }
     });
 
-    // JavaScript untuk Pengumuman Multibahasa (Terjemahan Disesuaikan)
+    // Multilingual Announcement functions
     const announcements = [
       { id: 'en', text: "If you want to translate this website into your preferred language, click the three dots in your browser and look for the translate feature. I recommend using Chrome browser." },
-      { id: 'ru', text: "Если вы хотите перевести этот веб-сайт на предпочитаемый вами язык, нажмите на три точки в вашем браузере dan cari fungsi terjemahan. Saya merekomendasikan menggunakan browser Chrome." },
-      { id: 'zh-CN', text: "如果您想将此网站翻译成 Anda akan menyukai bahasa Anda, klik tiga titik di browser Anda dan cari fitur terjemahan. Saya merekomendasikan menggunakan browser Chrome." },
+      { id: 'ru', text: "Если вы хотите перевести этот веб-сайт на предпочитаемый вами язык, нажмите на три точки в браузере и найдите функцию перевода. Рекомендуется использовать браузер Chrome." },
+      { id: 'zh-CN', text: "如果您想将此网站翻译成您偏好的语言, 请点击浏览器中的三个点, 然后查找翻译功能。我建议使用 Chrome 浏览器。" },
       { id: 'ja', text: "このウェブサイトを希望の言語に翻訳したい場合は、ブラウザの三点リーダーをクリックして翻訳機能を探してください。Chromeブラウザの使用をお勧めします。" },
       { id: 'pt', text: "Se você deseja traduzir este site para o seu idioma preferido, clique nos três pontos do seu navegador e procure o recurso de tradução. Recomendo usar o navegador Chrome." },
       { id: 'fil', text: "Kung nais mong isalin ang website na ini ke bahasa yang Anda inginkan, i-click ang tatlong tuldok sa iyong browser dan hanapin ang tampok na pagsasalin. Inirerekomenda kong gamitin ang Chrome browser." },
-      { id: 'vi', text: "Jika Anda ingin menerjemahkan situs web ini ke bahasa pilihan Anda, silakan klik tiga titik di browser Anda dan cari fitur terjemahan. Saya sarankan menggunakan browser Chrome." }
+      { id: 'vi', text: "Nếu Anda ingin menerjemahkan situs web ini ke bahasa pilihan Anda, silakan klik tiga titik di browser Anda dan cari fitur terjemahan. Saya sarankan menggunakan browser Chrome." }
     ];
     let currentAnnouncementIndex = 0;
     let announcementInterval;
@@ -760,7 +708,6 @@
       if (!announcementCard) return;
 
       announcementCard.classList.remove('visible');
-
       setTimeout(() => {
         announcementCard.textContent = announcements[currentAnnouncementIndex].text;
         announcementCard.classList.add('visible');
@@ -785,7 +732,7 @@
         }
     }
 
-    // --- FUNGSI MODAL UMUM (untuk Donasi/Credits) ---
+    // Modal functions
     function openGeneralModal(type) {
       const popup = document.getElementById('popup');
       const body = document.getElementById('modal-body');
@@ -832,146 +779,71 @@
       }
 
       body.innerHTML = content;
-      popup.style.display = 'flex'; // Tampilkan modal
-      closeSidebar(); // Pastikan sidebar tertutup saat modal terbuka
+      popup.style.display = 'flex';
+      closeSidebar();
     }
 
     function closeModal() {
       document.getElementById('popup').style.display = 'none';
     }
 
-    // ************************************************
-    // JavaScript untuk Fitur Share (DIREK KE NATIVE/COPY)
-    // ************************************************
-
-    // Fungsi untuk menerapkan efek kedip pada ikon share dan menampilkan tooltip
-    function applyShareIconBlink(iconContainer) {
-        if (!iconContainer) return;
-
-        iconContainer.classList.add('blink');
-        const tooltip = iconContainer.querySelector('.share-tooltip');
-        if (tooltip) {
-            tooltip.classList.add('show');
-        }
-
-        setTimeout(() => {
-            iconContainer.classList.remove('blink');
-            if (tooltip) {
-                tooltip.classList.remove('show');
-            }
-        }, 1000); // Kedip selama 1 detik dan sembunyikan tooltip
-    }
-
-    // Fungsi untuk menyalin link ke clipboard
-    function copyLinkToClipboard(link, iconContainer) {
-        if (navigator.clipboard) {
-            navigator.clipboard.writeText(link).then(() => {
-                console.log('Link copied to clipboard:', link);
-                applyShareIconBlink(iconContainer); // Terapkan efek kedip ke ikon aslinya
-            }).catch(err => {
-                console.error('Gagal menyalin link:', err);
-                alert('Gagal menyalin link. Silakan salin secara manual: ' + link);
-            });
-        } else {
-            // Fallback untuk browser yang tidak mendukung navigator.clipboard
-            const tempInput = document.createElement('textarea');
-            tempInput.value = link;
-            document.body.appendChild(tempInput);
-            tempInput.select();
-            document.execCommand('copy');
-            document.body.removeChild(tempInput);
-            alert('Link berhasil disalin ke clipboard: ' + link);
-            applyShareIconBlink(iconContainer); // Terapkan efek kedip ke ikon aslinya
-        }
-    }
-
-    // Fungsi utama untuk menangani klik ikon share (langsung ke native/copy)
-    function handleDirectShare(clickedElement) {
-        // Temukan elemen virga-card terdekat yang merupakan induk
-        const virgaCard = clickedElement.closest('.virga-card'); 
+    // Share functionality
+    function handleShareClick(clickedElement) {
+        const virgaCard = clickedElement.closest('.virga-card');
         if (!virgaCard) {
-            console.error("Elemen '.virga-card' induk tidak ditemukan untuk tombol share ini.");
-            return; // Hentikan fungsi jika induk tidak ditemukan
+            console.error("Parent '.virga-card' element not found for this share button.");
+            return;
         }
 
-        const cardId = virgaCard.dataset.cardId; // Ambil ID dari data-card-id di .virga-card
-        const cardTitle = virgaCard.dataset.cardTitle; // Ambil judul dari data-card-title di .virga-card
+        const cardId = virgaCard.dataset.cardId;
+        const cardTitle = virgaCard.dataset.cardTitle;
         const baseUrl = window.location.origin + window.location.pathname;
-        const shareUrl = `${baseUrl}#${cardId}`; // Link akan menjadi base_url#ID_KARTU
+        const shareUrl = `${baseUrl}#${cardId}`;
 
-        // Coba gunakan Web Share API (fitur share native browser)
         if (navigator.share) {
             navigator.share({
-                title: cardTitle || document.title, // Gunakan judul kartu jika ada, atau judul dokumen
-                text: `Check out this from ${cardTitle || document.title} ${shareUrl}`, // Format pesan share yang baru
-                url: shareUrl
+                title: cardTitle,
+                url: shareUrl,
             }).then(() => {
-                console.log('Berhasil dibagikan via Web Share API');
-                applyShareIconBlink(clickedElement); // Terapkan kedip setelah sukses share
-            }).catch((error) => {
-                console.error('Gagal berbagi via Web Share API:', error);
-                // Jika Web Share API gagal atau dibatalkan, salin link ke clipboard
-                copyLinkToClipboard(shareUrl, clickedElement);
-            });
+                console.log('Thanks for sharing!');
+            })
+            .catch(console.error);
         } else {
-            // Jika Web Share API tidak tersedia, salin link ke clipboard
+            // Fallback: Copy to clipboard if Web Share API is not available
             copyLinkToClipboard(shareUrl, clickedElement);
         }
     }
 
+    function copyLinkToClipboard(text, shareButton) {
+        navigator.clipboard.writeText(text).then(() => {
+            console.log('Link copied to clipboard:', text);
+            // Show tooltip and animate blink
+            const tooltip = shareButton.querySelector('.share-tooltip');
+            const icon = shareButton.querySelector('img');
 
-    // Fungsi untuk menangani link langsung ke sebuah kartu (misalnya dari link yang dibagikan)
-    let currentHighlightedCard = null; // Variabel untuk melacak kartu yang sedang di-highlight
-
-    function scrollToCardFromHash() {
-        if (window.location.hash) {
-            const targetId = window.location.hash.substring(1); // Hapus '#'
-            const targetElement = document.getElementById(targetId); // Cari elemen berdasarkan ID
-
-            // Hapus highlight dari kartu yang sebelumnya di-highlight, jika ada
-            if (currentHighlightedCard && currentHighlightedCard !== targetElement) {
-                currentHighlightedCard.classList.remove('highlight-blink');
-                // Pastikan gaya default diterapkan kembali jika animasi belum sepenuhnya kembali
-                currentHighlightedCard.style.borderColor = '';
-                currentHighlightedCard.style.boxShadow = '';
-            }
-
-            if (targetElement) {
-                // Tambahkan sedikit penundaan untuk memastikan tata letak halaman stabil sebelum menggulir dan menganimasikan
+            if (tooltip) {
+                tooltip.classList.add('show');
+                icon.classList.add('blink'); // Add blinking effect class
                 setTimeout(() => {
-                    targetElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
-
-                    // Terapkan animasi kedip
-                    targetElement.classList.add('highlight-blink');
-                    currentHighlightedCard = targetElement; // Set kartu yang sedang di-highlight
-
-                    // Hapus kelas animasi setelah selesai (3 kedipan * 1 detik/kedip = 3 detik)
-                    setTimeout(() => {
-                        targetElement.classList.remove('highlight-blink');
-                        currentHighlightedCard = null; // Reset
-                        // Pastikan gaya default diterapkan kembali untuk berjaga-jaga
-                        targetElement.style.borderColor = '';
-                        targetElement.style.boxShadow = '';
-                    }, 3000); // Durasi sesuai animasi: 3 kedipan * 1s/kedip = 3s
-                }, 500); // Tunda scroll untuk memastikan elemen dirender
+                    tooltip.classList.remove('show');
+                    icon.classList.remove('blink'); // Remove blinking effect after delay
+                }, 2000); // Tooltip and blink disappear after 2 seconds
             }
-        } else {
-            // Jika hash dihapus, hapus highlight yang ada
-            if (currentHighlightedCard) {
-                currentHighlightedCard.classList.remove('highlight-blink');
-                currentHighlightedCard.style.borderColor = '';
-                currentHighlightedCard.style.boxShadow = '';
-                currentHighlightedCard = null;
+
+            // Also add highlight animation to the card
+            const virgaCard = shareButton.closest('.virga-card');
+            if (virgaCard) {
+                virgaCard.classList.add('highlight-blink');
+                setTimeout(() => {
+                    virgaCard.classList.remove('highlight-blink');
+                }, 3000); // Match animation duration (1s * 3 iterations)
             }
-        }
+
+        }).catch(err => {
+            console.error('Failed to copy link: ', err);
+        });
     }
 
-    // Panggil fungsi saat halaman dimuat dan saat hash URL berubah
-    window.addEventListener('load', scrollToCardFromHash);
-    window.addEventListener('hashchange', scrollToCardFromHash);
-    // ************************************************
-    // Akhir dari JavaScript Fitur Share
-    // ************************************************
   </script>
 
   <script src="https://l2dwidget.js.org/lib/L2Dwidget.min.js"></script>
@@ -1013,6 +885,5 @@
         }
     });
   </script>
-
 </body>
 </html>
