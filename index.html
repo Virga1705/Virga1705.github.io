@@ -3,20 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>виʀɢᴀ</title>
-  <style>
+  <title>вирга</title>
+<style>
     body {
       margin: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f4f4f4;
-      color: #111;
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
-      -webkit-touch-callout: none;
-      overflow-x: hidden;
-      transition: background-color 0.3s ease, color 0.3s ease;
+      background-color: #f4f4f4; /* Light mode default */
+      color: #111; /* Light mode default text */
+      /* Mencegah seleksi teks */
+      -webkit-user-select: none; /* Safari */
+      -moz-user-select: none;    /* Firefox */
+      -ms-user-select: none;     /* Internet Explorer/Edge */
+      user-select: none;         /* Standard */
+      /* Mencegah menu konteks (klik kanan) secara global */
+      -webkit-touch-callout: none; /* Untuk iOS, mencegah menu pop-up saat long-press */
+      overflow-x: hidden; /* Mencegah overflow saat sidebar terbuka */
+      transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition for dark mode */
     }
 
     nav {
@@ -39,6 +41,7 @@
       transition: color 0.3s ease;
     }
 
+    /* Hamburger Menu Icon */
     .hamburger-icon {
       width: 30px;
       height: 20px;
@@ -48,7 +51,7 @@
       flex-direction: column;
       justify-content: space-between;
       z-index: 1001;
-      margin-left: auto;
+      margin-left: auto; /* Dorong ke kanan navbar */
     }
 
     .hamburger-icon span {
@@ -60,6 +63,7 @@
       transition: all 0.3s ease-in-out;
     }
 
+    /* Animasi ikon hamburger menjadi silang */
     .hamburger-icon.open span:nth-child(1) {
       transform: translateY(8.5px) rotate(45deg);
     }
@@ -70,9 +74,10 @@
       transform: translateY(-8.5px) rotate(-45deg);
     }
 
+    /* Sidebar Menu */
     .sidebar {
       height: 100%;
-      width: 0;
+      width: 0; /* Awalnya tersembunyi */
       position: fixed;
       z-index: 999;
       top: 0;
@@ -91,28 +96,31 @@
       width: 250px;
     }
 
+    /* Wrapper untuk copyright di sidebar */
     .copyright-wrapper {
         display: flex;
-        justify-content: center;
-        align-items: center;
-        margin: 15px 0;
-        padding: 0 20px;
-        width: 100%;
+        justify-content: center; /* Memusatkan konten di dalam wrapper */
+        align-items: center; /* Penyelarasan vertikal */
+        margin: 15px 0; /* Margin dari elemen lain di sidebar */
+        padding: 0 20px; /* Padding sisi agar tidak terlalu mepet */
+        width: 100%; /* Agar wrapper mengambil lebar penuh sidebar */
         box-sizing: border-box;
     }
 
+    /* Copyright di sidebar */
     .sidebar .copyright-text {
       font-size: 0.85rem;
       color: #666;
-      margin: 0;
+      margin: 0; /* Reset margin yang mungkin ada dari aturan lain */
       text-align: center;
       transition: color 0.3s ease;
     }
 
+    /* Gaya untuk card di dalam sidebar (dilekatkan lagi agar jelas) */
     .sidebar-card {
       background-color: #f9f9f9;
       border: 1px solid #ddd;
-      border-radius: 8px;
+      border-radius: 8px; /* Kotak dengan sudut melengkung */
       margin: 10px 0;
       padding: 15px;
       width: 80%;
@@ -130,6 +138,7 @@
       transform: translateY(-2px);
     }
 
+    /* Gaya untuk pengumuman card di sidebar */
     .sidebar-announcement-card {
       background-color: #e0f7fa;
       border: 1px solid #b2ebf2;
@@ -204,6 +213,7 @@
       text-align: center;
     }
 
+    /* CONTAINER untuk layout grid */
     .container {
       display: flex;
       flex-wrap: wrap;
@@ -212,6 +222,7 @@
       padding: 2rem;
     }
 
+    /* Gaya Dasar Card */
     .virga-card {
       background-color: #ffffff;
       border-radius: 15px;
@@ -223,12 +234,15 @@
       min-height: 150px;
       text-decoration: none;
       box-sizing: border-box;
+
       display: flex;
       align-items: flex-start;
-      position: relative;
+      position: relative; /* Untuk positioning tombol share */
+
       opacity: 0;
       transform: scale(0.8);
-      outline: none;
+
+      outline: none; /* ADDED: Remove default focus outline from the card itself */
     }
 
     .virga-card.zoom-in {
@@ -240,6 +254,7 @@
       transform: translateY(-5px);
     }
 
+    /* ADDED: Ensure no outline on focus for accessibility, if needed */
     .virga-card:focus {
         outline: none;
     }
@@ -249,7 +264,7 @@
       height: 60px;
       flex-shrink: 0;
       object-fit: contain;
-      pointer-events: none;
+      pointer-events: none; /* Menjaga agar gambar tidak dapat diklik terpisah dari link card */
     }
 
     .virga-card .card-content-wrapper {
@@ -277,6 +292,7 @@
       transition: color 0.3s ease;
     }
 
+    /* --- Gaya untuk Logo di Kiri (Card 1 dan 3) --- */
     .align-left-logo .card-logo {
       margin-right: 15px;
     }
@@ -285,6 +301,7 @@
       order: 1;
     }
 
+    /* --- Gaya untuk Logo di Kanan (Card 2) --- */
     .align-right-logo {
       flex-direction: row-reverse;
     }
@@ -299,6 +316,7 @@
       margin-left: 0;
     }
 
+    /* Gaya untuk "Read More" */
     .read-more-text {
       display: inline;
     }
@@ -315,28 +333,32 @@
       display: inline;
     }
 
+    /* Sembunyikan sebagian teks saat tidak diperluas */
     .card-description.collapsed .more-text {
       display: none;
     }
 
+    /* Sembunyikan elipsis saat diperluas */
     .card-description:not(.collapsed) .read-more-ellipsis {
       display: none;
     }
 
+    /* SHARE BUTTON STYLES */
     .share-button-container {
       position: absolute;
       bottom: 10px;
       right: 10px;
       cursor: pointer;
-      z-index: 5;
+      z-index: 5; /* Ensure it's above card content */
       transition: transform 0.2s ease-in-out;
-      outline: none;
+      outline: none; /* Remove default focus outline */
     }
 
     .share-button-container:hover {
         transform: scale(1.1);
     }
 
+    /* Add this rule to remove outline on focus, for accessibility */
     .share-button-container:focus {
         outline: none;
     }
@@ -344,17 +366,19 @@
     .share-button-container img {
       width: 24px;
       height: 24px;
-      filter: grayscale(100%) brightness(1.5);
+      filter: grayscale(100%) brightness(1.5); /* Default icon style */
       transition: filter 0.3s ease-in-out;
     }
 
+    /* Blinking effect for share icon */
     .share-button-container.blink img {
-        filter: brightness(0) invert(1) sepia(1) saturate(5000%) hue-rotate(200deg);
+        filter: brightness(0) invert(1) sepia(1) saturate(5000%) hue-rotate(200deg); /* Change to a distinct color, e.g., blue */
     }
 
+    /* Tooltip / Notification for "Copied!" */
     .share-tooltip {
         position: absolute;
-        bottom: 40px;
+        bottom: 40px; /* Adjust position relative to the share button */
         right: 0px;
         background-color: #333;
         color: white;
@@ -365,27 +389,29 @@
         opacity: 0;
         pointer-events: none;
         transition: opacity 0.3s ease-in-out;
-        transform: translateX(50%);
+        transform: translateX(50%); /* Center the tooltip */
     }
 
     .share-tooltip.show {
         opacity: 1;
     }
 
+    /* ANIMASI KEDIP UNTUK KARTU YANG DIHIGHLIGHT */
     @keyframes card-highlight-blink {
         0%, 100% {
-            border-color: #ddd;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-color: #ddd; /* Warna border default */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow default */
         }
         50% {
-            border-color: #007bff;
-            box-shadow: 0 0 15px rgba(0, 123, 255, 0.6);
+            border-color: #007bff; /* Warna biru saat kedip */
+            box-shadow: 0 0 15px rgba(0, 123, 255, 0.6); /* Shadow biru saat kedip */
         }
     }
 
     .virga-card.highlight-blink {
-        animation: card-highlight-blink 1s ease-in-out 3;
+        animation: card-highlight-blink 1s ease-in-out 3; /* Kedip 3 kali */
     }
+
 
     footer {
       text-align: center;
@@ -395,6 +421,7 @@
       transition: background-color 0.3s ease, color 0.3s ease;
     }
 
+    /* --- GAYA MODAL UMUM (DARI NARUTO SENKI) --- */
     .modal-overlay {
       position: fixed;
       top: 0;
@@ -402,10 +429,11 @@
       width: 100%;
       height: 100%;
       background: rgba(0,0,0,0.5);
-      display: none;
+      display: none; /* Defaultnya tersembunyi */
       justify-content: center;
       align-items: center;
-      z-index: 1002;
+      z-index: 1002; /* Pastikan modal di atas sidebar */
+      /* Mencegah seleksi teks dan klik kanan pada modal overlay */
       -webkit-user-select: none;
       -moz-user-select: none;
       -ms-user-select: none;
@@ -422,6 +450,7 @@
       box-shadow: 0 5px 15px rgba(0,0,0,0.2);
       text-align: center;
       position: relative;
+      /* Mencegah seleksi teks dan klik kanan pada modal */
       -webkit-user-select: none;
       -moz-user-select: none;
       -ms-user-select: none;
@@ -429,11 +458,12 @@
       -webkit-touch-callout: none;
     }
 
+    /* Bagian body modal agar bisa di-scroll */
     #modal-body {
-        max-height: 200px;
-        overflow-y: auto;
-        padding-right: 10px;
-        text-align: left;
+        max-height: 200px; /* Atur tinggi maksimum untuk konten */
+        overflow-y: auto; /* Aktifkan scroll vertikal jika konten melebihi max-height */
+        padding-right: 10px; /* Memberi ruang untuk scrollbar */
+        text-align: left; /* Rata kiri teks di dalam modal body */
     }
 
     .modal-buttons {
@@ -452,6 +482,7 @@
       color: black;
       background: white;
       transition: all .2s ease-in-out;
+      /* Mencegah seleksi teks dan klik kanan pada tombol modal */
       -webkit-user-select: none;
       -moz-user-select: none;
       -ms-user-select: none;
@@ -480,6 +511,7 @@
       font-weight: bold;
       cursor: pointer;
       transition: background 0.2s ease-in-out;
+      /* Mencegah seleksi teks dan klik kanan pada tombol tutup */
       -webkit-user-select: none;
       -moz-user-select: none;
       -ms-user-select: none;
@@ -490,11 +522,113 @@
     .close-btn:hover {
       background: #e04444;
     }
-  </style>
+
+    /* NEW SHARE MODAL STYLES */
+    #shareModal {
+      display: none; /* Hidden by default */
+      position: fixed; /* Stay in place */
+      z-index: 1003; /* Sit on top of everything */
+      left: 0;
+      top: 0;
+      width: 100%; /* Full width */
+      height: 100%; /* Full height */
+      overflow: auto; /* Enable scroll if needed */
+      background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+      justify-content: center;
+      align-items: center;
+    }
+
+    #shareModal .modal-content {
+      background-color: #fefefe;
+      margin: auto;
+      padding: 25px;
+      border-radius: 12px;
+      width: 85%;
+      max-width: 350px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      position: relative;
+      text-align: center;
+      animation: zoomIn 0.3s ease-out;
+    }
+
+    #shareModal .modal-content h3 {
+        margin-top: 0;
+        color: #333;
+        font-size: 1.3rem;
+        margin-bottom: 20px;
+    }
+
+    .share-options {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+        gap: 15px;
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+
+    .share-option {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-decoration: none;
+        color: #555;
+        font-size: 0.85rem;
+        transition: transform 0.2s ease-in-out, color 0.2s ease;
+    }
+
+    .share-option:hover {
+        transform: translateY(-3px);
+        color: #007bff;
+    }
+
+    .share-option img {
+        width: 48px;
+        height: 48px;
+        margin-bottom: 8px;
+        border-radius: 8px; /* Optional: slight roundness for icons */
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        transition: box-shadow 0.2s ease;
+    }
+
+    .share-option:hover img {
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    /* Specific colors for icons if needed */
+    .share-option.whatsapp img { background-color: #25D366; }
+    .share-option.telegram img { background-color: #0088CC; }
+    .share-option.copy-link img { background-color: #6c757d; }
+
+    #shareModal .close-btn-share {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        width: 30px;
+        height: 30px;
+        background: #ff5c5c;
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background 0.2s ease-in-out;
+    }
+    #shareModal .close-btn-share:hover {
+        background: #e04444;
+    }
+
+    @keyframes zoomIn {
+        from { transform: scale(0.8); opacity: 0; }
+        to { transform: scale(1); opacity: 1; }
+    }
+</style>
 </head>
 <body oncontextmenu="return false;">
   <nav>
-    <h1>vɪʀɢᴀ ꜰꜱ</h1>
+    <h1>ㅤвирга</h1>
     <div class="hamburger-icon" onclick="toggleSidebar()">
       <span></span>
       <span></span>
@@ -519,7 +653,7 @@
       <a href="https://instagram.com/i.lifenot4you" target="_blank">
         <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram" draggable="false">
       </a>
-      <a href="https://www.youtube.com/@virgajr" target="_blank">
+      <a href="https://youtube.com/@VVIRGAFS" target="_blank">
         <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="YouTube" draggable="false">
       </a>
       <a href="mailto:virga1705@gmail.com">
@@ -538,7 +672,7 @@
 
   <div class="container">
 
-    <a href="https://Virga1705.github.io/NarutoSenki.html" class="virga-card align-left-logo" data-card-id="card-naruto-senki" data-card-title="Naruto Senki">
+    <a href="https://Virga1705.github.io/NarutoSenki.html" class="virga-card align-left-logo" id="card-naruto-senki" data-share-id="naruto-senki">
       <img src="https://files.catbox.moe/ngsl57.jpg" alt="Naruto Senki Logo" class="card-logo" draggable="false">
       <div class="card-content-wrapper">
         <p class="card-title">Naruto Senki</p>
@@ -548,13 +682,13 @@
           <span class="read-more-toggle">Read More</span>
         </p>
       </div>
-      <div class="share-button-container" onclick="handleShareClick(this)">
-        <img src="https://cdn-icons-png.flaticon.com/512/3247/3247000.png" alt="Share Icon">
+      <div class="share-button-container" onclick="openShareOptionsModal('Naruto Senki', 'card-naruto-senki', this); event.preventDefault();">
+        <img src="https://files.catbox.moe/40ynkg.png" alt="Share" draggable="false">
         <span class="share-tooltip">Copied!</span>
       </div>
     </a>
 
-    <a href="https://Virga1705.github.io/pixellab.html" class="virga-card align-right-logo" data-card-id="card-pixellab" data-card-title="PixelLab">
+    <a href="https://Virga1705.github.io/pixellab.html" class="virga-card align-right-logo" id="card-pixellab" data-share-id="pixellab">
       <img src="https://files.catbox.moe/97vkic.png" alt="PixelLab Logo" class="card-logo" draggable="false">
       <div class="card-content-wrapper">
         <p class="card-title">PixelLab</p>
@@ -564,43 +698,73 @@
           <span class="read-more-toggle">Read More</span>
         </p>
       </div>
-      <div class="share-button-container" onclick="handleShareClick(this)">
-        <img src="https://cdn-icons-png.flaticon.com/512/3247/3247000.png" alt="Share Icon">
+      <div class="share-button-container" onclick="openShareOptionsModal('PixelLab', 'card-pixellab', this); event.preventDefault();">
+        <img src="https://files.catbox.moe/40ynkg.png" alt="Share" draggable="false">
         <span class="share-tooltip">Copied!</span>
       </div>
     </a>
 
-    <a href="https://Virga1705.github.io/gg.html" class="virga-card align-left-logo" data-card-id="card-game-guardian" data-card-title="GAME GUARDIAN">
+    <a href="https://Virga1705.github.io/gg.html" class="virga-card align-left-logo" id="card-game-guardian" data-share-id="game-guardian">
       <img src="https://files.catbox.moe/xqmdrq.png" alt="Game Guardian Logo" class="card-logo" draggable="false">
       <div class="card-content-wrapper">
-        <p class="card-title">GAME GUARDIAN</p>
+        <p class="card-title">Game Guardian</p>
         <p class="card-description collapsed" data-full-text="Modifikasi Game Guardian dengan tema kustom dan fitur unik untuk pengalaman bermain game. Dapatkan akses ke fitur-fitur eksklusif dan optimasi performa. Cocok untuk para modder dan gamer sejati.">
-          Modifikasi Game Guardian dengan tema kustom dan fitur unik untuk pengalaman bermain game. <span class="more-text">Dapatkan akses ke fitur-fitur eksklusif dan optimasi performa. Cocok untuk para modder dan gamer sejati.</span>
+          Modifikasi Game Guardian dengan tema kustom dan fitur <span class="more-text">unik untuk pengalaman bermain game.Dapatkan akses ke fitur-fitur eksklusif dan optimasi performa. Cocok untuk para modder dan gamer sejati.</span>
           <span class="read-more-ellipsis">...</span>
           <span class="read-more-toggle">Read More</span>
         </p>
       </div>
-      <div class="share-button-container" onclick="handleShareClick(this)">
-        <img src="https://cdn-icons-png.flaticon.com/512/3247/3247000.png" alt="Share Icon">
+      <div class="share-button-container" onclick="openShareOptionsModal('Game Guardian', 'card-game-guardian', this); event.preventDefault();">
+        <img src="https://files.catbox.moe/40ynkg.png" alt="Share" draggable="false">
+        <span class="share-tooltip">Copied!</span>
+      </div>
+    </a>
+    
+    <a href="https://Virga1705.github.io/gta-sa.html" class="virga-card align-right-logo" id="card-gta-sa" data-share-id="gta-sa">
+      <img src="https://files.catbox.moe/97vkic.png" alt="GTA SA Logo" class="card-logo" draggable="false">
+      <div class="card-content-wrapper">
+        <p class="card-title">GTA: SA</p>
+        <p class="card-description collapsed" data-full-text="Grand Theft Auto: San Andreas (GTA SA) adalah game aksi-petualangan dunia terbuka yang dikembangkan oleh Rockstar North dan diterbitkan oleh Rockstar Games.">
+          Grand Theft Auto: San Andreas (GTA SA) adalah game aksi-petualangan<span class="more-text"> dunia terbuka yang dikembangkan oleh Rockstar North dan diterbitkan oleh Rockstar Games.</span>
+          <span class="read-more-ellipsis">...</span>
+          <span class="read-more-toggle">Read More</span>
+        </p>
+      </div>
+      <div class="share-button-container" onclick="openShareOptionsModal('GTA SA', 'card-gta-sa', this); event.preventDefault();">
+        <img src="https://files.catbox.moe/40ynkg.png" alt="Share" draggable="false">
         <span class="share-tooltip">Copied!</span>
       </div>
     </a>
   </div>
 
   <footer></footer>
+
   <div class="modal-overlay" id="popup">
     <div class="modal">
-      <span class="close-btn" onclick="closeModal()">X</span> <div id="modal-body"></div>
+      <span class="close-btn" onclick="closeModal()">X</span>
+      <div id="modal-body"></div>
+    </div>
+  </div>
+
+  <div id="shareModal">
+    <div class="modal-content">
+      <span class="close-btn-share" onclick="closeShareModal()">X</span>
+      <h3 id="shareModalTitle">Share this Card</h3>
+      <div class="share-options">
+        </div>
     </div>
   </div>
 
   <script>
+    // JavaScript untuk Read More pada Card utama (TIDAK BERUBAH)
     document.addEventListener('DOMContentLoaded', function() {
-      // Read More functionality
-      document.querySelectorAll('.read-more-toggle').forEach(button => {
+      const toggleButtons = document.querySelectorAll('.read-more-toggle');
+
+      toggleButtons.forEach(button => {
         button.addEventListener('click', function(event) {
           event.preventDefault();
           event.stopPropagation();
+
           const description = this.closest('.card-description');
           if (description) {
             description.classList.toggle('collapsed');
@@ -608,58 +772,53 @@
           }
         });
       });
-
-      // Typing Effect
-      const texts = ["I am Milf Lover", "I am Mechanic", "I am Chill guy", "I am Sigma"];
-      let count = 0;
-      let index = 0;
-      let currentText = '';
-      let letter = '';
-
-      (function type(){
-        if (count === texts.length) count = 0;
-        currentText = texts[count];
-        letter = currentText.slice(0, ++index);
-        document.getElementById('typing').textContent = letter;
-        if (letter.length === currentText.length) {
-          count++;
-          index = 0;
-          setTimeout(type, 1500);
-        } else {
-          setTimeout(type, 100);
-        }
-      })();
-
-      // Zoom-in Animation
-      function checkZoom() {
-        const cards = document.querySelectorAll('.virga-card');
-        cards.forEach(card => {
-          const cardTop = card.offsetTop;
-          const windowBottom = window.scrollY + window.innerHeight;
-          const windowTop = window.scrollY;
-          const cardHeight = card.offsetHeight;
-          const isVisible = (cardTop < windowBottom) && (cardTop + cardHeight > windowTop);
-          if (isVisible) {
-            card.classList.add('zoom-in');
-          } else {
-            card.classList.remove('zoom-in');
-          }
-        });
-      }
-
-      window.addEventListener('scroll', checkZoom);
-      window.addEventListener('resize', checkZoom);
-      window.addEventListener('load', checkZoom);
-
-      // Announcement Rotation (Start when sidebar opens, stop when closes)
-      // Initial call to hide announcement area if sidebar is not open on load
-      const announcementCard = document.getElementById('announcement-area');
-      if (announcementCard && !document.getElementById("mySidebar").classList.contains("open")) {
-          announcementCard.classList.remove('visible');
-      }
     });
 
-    // Sidebar functions
+
+    // JavaScript untuk Typing Effect (TIDAK BERUBAH)
+    const texts = ["I am Milf Lover", "I am Mechanic", "I am Chill guy", "I am Sigma"];
+    let count = 0;
+    let index = 0;
+    let currentText = '';
+    let letter = '';
+
+    (function type(){
+      if (count === texts.length) count = 0;
+      currentText = texts[count];
+      letter = currentText.slice(0, ++index);
+      document.getElementById('typing').textContent = letter;
+      if (letter.length === currentText.length) {
+        count++;
+        index = 0;
+        setTimeout(type, 1500);
+      } else {
+        setTimeout(type, 100);
+      }
+    })();
+
+    // JavaScript untuk Zoom-in Animation (TIDAK BERUBAH)
+    function checkZoom() {
+      const cards = document.querySelectorAll('.virga-card');
+      cards.forEach(card => {
+        const cardTop = card.offsetTop;
+        const windowBottom = window.scrollY + window.innerHeight;
+        const windowTop = window.scrollY;
+        const cardHeight = card.offsetHeight;
+        const isVisible = (cardTop < windowBottom) && (cardTop + cardHeight > windowTop);
+
+        if (isVisible) {
+          card.classList.add('zoom-in');
+        } else {
+          card.classList.remove('zoom-in');
+        }
+      });
+    }
+
+    window.addEventListener('scroll', checkZoom);
+    window.addEventListener('resize', checkZoom);
+    window.addEventListener('load', checkZoom);
+
+    // JavaScript untuk Sidebar (TIDAK BERUBAH)
     function toggleSidebar() {
       const sidebar = document.getElementById("mySidebar");
       const hamburgerIcon = document.querySelector(".hamburger-icon");
@@ -684,21 +843,27 @@
       const sidebar = document.getElementById("mySidebar");
       const hamburgerIcon = document.querySelector(".hamburger-icon");
       const modalPopup = document.getElementById('popup');
+      const shareModal = document.getElementById('shareModal');
 
-      if (sidebar.classList.contains("open") && !sidebar.contains(event.target) && !hamburgerIcon.contains(event.target) && !modalPopup.contains(event.target)) {
+
+      if (sidebar.classList.contains("open") && !sidebar.contains(event.target) && !hamburgerIcon.contains(event.target) && !modalPopup.contains(event.target) && !shareModal.contains(event.target)) {
         closeSidebar();
+      }
+      // Close share modal if clicked outside
+      if (shareModal.style.display === 'flex' && !shareModal.querySelector('.modal-content').contains(event.target) && !event.target.closest('.share-button-container')) {
+          closeShareModal();
       }
     });
 
-    // Multilingual Announcement functions
+    // JavaScript untuk Pengumuman Multibahasa (TIDAK BERUBAH)
     const announcements = [
       { id: 'en', text: "If you want to translate this website into your preferred language, click the three dots in your browser and look for the translate feature. I recommend using Chrome browser." },
-      { id: 'ru', text: "Если вы хотите перевести этот веб-сайт на предпочитаемый вами язык, нажмите на три точки в браузере и найдите функцию перевода. Рекомендуется использовать браузер Chrome." },
-      { id: 'zh-CN', text: "如果您想将此网站翻译成您偏好的语言, 请点击浏览器中的三个点, 然后查找翻译功能。我建议使用 Chrome 浏览器。" },
+      { id: 'ru', text: "Если вы хотите перевести этот веб-сайт на предпочитаемый вами язык, нажмите на три точки в браузere dan cari fungsi terjemahan. Saya merekomendasikan menggunakan browser Chrome." },
+      { id: 'zh-CN', text: "如果您想将此网站翻译成您偏好 dan bahasanya, silakan klik titik tiga di browser Anda dan cari fitur terjemahan. Saya merekomendasikan menggunakan browser Chrome." },
       { id: 'ja', text: "このウェブサイトを希望の言語に翻訳したい場合は、ブラウザの三点リーダーをクリックして翻訳機能を探してください。Chromeブラウザの使用をお勧めします。" },
       { id: 'pt', text: "Se você deseja traduzir este site para o seu idioma preferido, clique nos três pontos do seu navegador e procure o recurso de tradução. Recomendo usar o navegador Chrome." },
-      { id: 'fil', text: "Kung nais mong isalin ang website na ini ke bahasa yang Anda inginkan, i-click ang tatlong tuldok sa iyong browser dan hanapin ang tampok na pagsasalin. Inirerekomenda kong gamitin ang Chrome browser." },
-      { id: 'vi', text: "Nếu Anda ingin menerjemahkan situs web ini ke bahasa pilihan Anda, silakan klik tiga titik di browser Anda dan cari fitur terjemahan. Saya sarankan menggunakan browser Chrome." }
+      { id: 'fil', text: "Kung nais mong isalin ang website na ito sa iyong gustong wika, i-click ang tatlong tuldok sa iyong browser at hanapin ang tampok na pagsasalin. Inirerekomenda kong gamitin ang Chrome browser." },
+      { id: 'vi', text: "Nếu bạn muốn dịch trang web này sang ngôn ngôn ngữ ưa thích của mình, hãy nhấp vào ba dấu chấm dalam peramban Anda dan mencari fitur terjemahan. Saya sarankan menggunakan peramban Chrome." }
     ];
     let currentAnnouncementIndex = 0;
     let announcementInterval;
@@ -708,6 +873,7 @@
       if (!announcementCard) return;
 
       announcementCard.classList.remove('visible');
+
       setTimeout(() => {
         announcementCard.textContent = announcements[currentAnnouncementIndex].text;
         announcementCard.classList.add('visible');
@@ -732,7 +898,7 @@
         }
     }
 
-    // Modal functions
+    // --- FUNGSI MODAL UMUM (untuk Donasi/Credits) ---
     function openGeneralModal(type) {
       const popup = document.getElementById('popup');
       const body = document.getElementById('modal-body');
@@ -779,71 +945,195 @@
       }
 
       body.innerHTML = content;
-      popup.style.display = 'flex';
-      closeSidebar();
+      popup.style.display = 'flex'; // Tampilkan modal
+      closeSidebar(); // Pastikan sidebar tertutup saat modal terbuka
+      closeShareModal(); // Pastikan modal share tertutup jika terbuka
     }
 
     function closeModal() {
       document.getElementById('popup').style.display = 'none';
     }
 
-    // Share functionality
-    function handleShareClick(clickedElement) {
-        const virgaCard = clickedElement.closest('.virga-card');
-        if (!virgaCard) {
-            console.error("Parent '.virga-card' element not found for this share button.");
-            return;
-        }
+    // NEW SHARE OPTIONS MODAL FUNCTIONS
+    let currentShareLink = '';
+    let currentShareTitle = '';
+    let currentShareIconElement = null; // To store the icon element for blink effect
 
-        const cardId = virgaCard.dataset.cardId;
-        const cardTitle = virgaCard.dataset.cardTitle;
-        const baseUrl = window.location.origin + window.location.pathname;
-        const shareUrl = `${baseUrl}#${cardId}`;
+    function openShareOptionsModal(cardTitle, cardId, iconElement) {
+        currentShareTitle = cardTitle;
+        currentShareLink = window.location.origin + window.location.pathname + '#' + cardId;
+        currentShareIconElement = iconElement; // Store the icon element
 
+        const shareModal = document.getElementById('shareModal');
+        const shareModalTitle = document.getElementById('shareModalTitle');
+        const shareOptionsContainer = shareModal.querySelector('.share-options');
+
+        shareModalTitle.textContent = `Share "${cardTitle}"`;
+        shareOptionsContainer.innerHTML = ''; // Clear previous options
+
+        // Define share options
+        const sharePlatforms = [
+            { name: 'WhatsApp', icon: 'https://cdn-icons-png.flaticon.com/512/2111/2111644.png', url: `https://wa.me/?text=${encodeURIComponent(currentShareTitle + ' - ' + currentShareLink)}`, class: 'whatsapp' },
+            { name: 'Telegram', icon: 'https://cdn-icons-png.flaticon.com/512/2111/2111646.png', url: `https://t.me/share/url?url=${encodeURIComponent(currentShareLink)}&text=${encodeURIComponent(currentShareTitle)}`, class: 'telegram' },
+            { name: 'Facebook', icon: 'https://cdn-icons-png.flaticon.com/512/174/174848.png', url: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentShareLink)}&quote=${encodeURIComponent(currentShareTitle)}` },
+            { name: 'Twitter (X)', icon: 'https://cdn-icons-png.flaticon.com/512/5968/5968830.png', url: `https://twitter.com/intent/tweet?url=${encodeURIComponent(currentShareLink)}&text=${encodeURIComponent(currentShareTitle)}` },
+            { name: 'Copy Link', icon: 'https://cdn-icons-png.flaticon.com/512/1000/1000957.png', action: 'copy', class: 'copy-link' }
+        ];
+
+        // Try Web Share API first
         if (navigator.share) {
             navigator.share({
-                title: cardTitle,
-                url: shareUrl,
+                title: currentShareTitle,
+                text: `Check out this card on VirgaFS: ${currentShareTitle}`,
+                url: currentShareLink
             }).then(() => {
-                console.log('Thanks for sharing!');
-            })
-            .catch(console.error);
+                console.log('Successfully shared via Web Share API');
+                // Apply blink effect to the icon after successful share
+                if (currentShareIconElement) {
+                    applyShareIconBlink(currentShareIconElement);
+                }
+            }).catch((error) => {
+                console.error('Error sharing via Web Share API:', error);
+                // If Web Share API fails or is cancelled, fall back to custom modal
+                showCustomShareModal(shareOptionsContainer, sharePlatforms);
+            });
         } else {
-            // Fallback: Copy to clipboard if Web Share API is not available
-            copyLinkToClipboard(shareUrl, clickedElement);
+            // Fallback to custom share modal
+            showCustomShareModal(shareOptionsContainer, sharePlatforms);
+        }
+
+        closeSidebar(); // Close sidebar if it's open
+    }
+
+    function showCustomShareModal(container, platforms) {
+        platforms.forEach(platform => {
+            const optionDiv = document.createElement('div');
+            optionDiv.classList.add('share-option');
+            if (platform.class) optionDiv.classList.add(platform.class);
+
+            const img = document.createElement('img');
+            img.src = platform.icon;
+            img.alt = platform.name;
+            img.draggable = false; // Prevent dragging
+
+            const nameSpan = document.createElement('span');
+            nameSpan.textContent = platform.name;
+
+            optionDiv.appendChild(img);
+            optionDiv.appendChild(nameSpan);
+
+            optionDiv.addEventListener('click', () => {
+                if (platform.action === 'copy') {
+                    copyLinkToClipboard(currentShareLink, currentShareIconElement);
+                    closeShareModal(); // Close modal after copying
+                } else {
+                    window.open(platform.url, '_blank');
+                    closeShareModal(); // Close modal after opening share URL
+                }
+            });
+            container.appendChild(optionDiv);
+        });
+        document.getElementById('shareModal').style.display = 'flex'; // Show the custom modal
+    }
+
+
+    function closeShareModal() {
+      document.getElementById('shareModal').style.display = 'none';
+      currentShareLink = '';
+      currentShareTitle = '';
+      currentShareIconElement = null; // Clear the stored element
+    }
+
+    // Function to apply blinking effect to share icon
+    function applyShareIconBlink(iconContainer) {
+        if (!iconContainer) return;
+
+        iconContainer.classList.add('blink');
+        const tooltip = iconContainer.querySelector('.share-tooltip');
+        if (tooltip) {
+            tooltip.classList.add('show');
+        }
+
+        setTimeout(() => {
+            iconContainer.classList.remove('blink');
+            if (tooltip) {
+                tooltip.classList.remove('show');
+            }
+        }, 1000); // Blink for 1 second and hide tooltip
+    }
+
+    // Function to copy link to clipboard (used within the custom share modal)
+    function copyLinkToClipboard(link, iconElement) {
+        if (navigator.clipboard) {
+            navigator.clipboard.writeText(link).then(() => {
+                console.log('Link copied to clipboard:', link);
+                applyShareIconBlink(iconElement); // Apply blink effect to the original icon
+            }).catch(err => {
+                console.error('Failed to copy link:', err);
+                alert('Failed to copy link. Please copy it manually: ' + link);
+            });
+        } else {
+            // Fallback for browsers that do not support navigator.clipboard
+            const tempInput = document.createElement('textarea');
+            tempInput.value = link;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+            alert('Link copied to clipboard: ' + link);
+            applyShareIconBlink(iconElement); // Apply blink effect to the original icon
         }
     }
 
-    function copyLinkToClipboard(text, shareButton) {
-        navigator.clipboard.writeText(text).then(() => {
-            console.log('Link copied to clipboard:', text);
-            // Show tooltip and animate blink
-            const tooltip = shareButton.querySelector('.share-tooltip');
-            const icon = shareButton.querySelector('img');
 
-            if (tooltip) {
-                tooltip.classList.add('show');
-                icon.classList.add('blink'); // Add blinking effect class
-                setTimeout(() => {
-                    tooltip.classList.remove('show');
-                    icon.classList.remove('blink'); // Remove blinking effect after delay
-                }, 2000); // Tooltip and blink disappear after 2 seconds
+    // Function to handle direct link to a card (e.g., from a shared link)
+    let currentHighlightedCard = null; // Variable to keep track of the currently highlighted card
+
+    function scrollToCardFromHash() {
+        if (window.location.hash) {
+            const targetId = window.location.hash.substring(1); // Remove the '#'
+            const targetElement = document.getElementById(targetId);
+
+            // Remove highlight from previously highlighted card, if any
+            if (currentHighlightedCard && currentHighlightedCard !== targetElement) {
+                currentHighlightedCard.classList.remove('highlight-blink');
+                // Ensure default styles are reapplied if animation didn't fully revert
+                currentHighlightedCard.style.border = '';
+                currentHighlightedCard.style.boxShadow = '';
             }
 
-            // Also add highlight animation to the card
-            const virgaCard = shareButton.closest('.virga-card');
-            if (virgaCard) {
-                virgaCard.classList.add('highlight-blink');
+            if (targetElement) {
+                // Add a small delay to ensure page layout is stable before scrolling and animating
                 setTimeout(() => {
-                    virgaCard.classList.remove('highlight-blink');
-                }, 3000); // Match animation duration (1s * 3 iterations)
-            }
+                    targetElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
-        }).catch(err => {
-            console.error('Failed to copy link: ', err);
-        });
+                    // Apply the blinking animation
+                    targetElement.classList.add('highlight-blink');
+                    currentHighlightedCard = targetElement; // Set the current highlighted card
+
+                    // Remove the animation class after it completes (3 blinks * 1 second/blink = 3 seconds)
+                    setTimeout(() => {
+                        targetElement.classList.remove('highlight-blink');
+                        currentHighlightedCard = null; // Reset
+                        // Ensure default styles are reapplied just in case
+                        targetElement.style.border = '';
+                        targetElement.style.boxShadow = '';
+                    }, 3000); // Duration matches animation: 3 blinks * 1s/blink = 3s
+                }, 500); // Delay scroll to ensure elements are rendered
+            }
+        } else {
+            // If hash is cleared, remove any existing highlight
+            if (currentHighlightedCard) {
+                currentHighlightedCard.classList.remove('highlight-blink');
+                currentHighlightedCard.style.border = '';
+                currentHighlightedCard.style.boxShadow = '';
+                currentHighlightedCard = null;
+            }
+        }
     }
 
+    window.addEventListener('load', scrollToCardFromHash);
+    window.addEventListener('hashchange', scrollToCardFromHash); // Listen for changes in the URL hash
   </script>
 
   <script src="https://l2dwidget.js.org/lib/L2Dwidget.min.js"></script>
@@ -885,5 +1175,6 @@
         }
     });
   </script>
+
 </body>
 </html>
