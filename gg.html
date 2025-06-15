@@ -375,7 +375,7 @@
     </div>
     <div class="buttons">
       <button onclick="openModal('download', 'gg-theme-esdeath', 'Download', 'Download2')">Download</button>
-      <button onclick="openModal('howto', 'gg-theme-esdeath', '', '')">How To Download</button>
+      <button onclick="openModal('howto', 'gg-theme-esdeath', '', '')">Cara Download</button>
     </div>
   </div>
 
@@ -393,7 +393,7 @@
     </div>
     <div class="buttons">
       <button onclick="openModal('download', 'gg-mod-ani', 'Download', 'Download2')">Download</button>
-      <button onclick="openModal('howto', 'gg-mod-ani', '', '')">How To Download</button>
+      <button onclick="openModal('howto', 'gg-mod-ani', '', '')">Cara Download</button>
     </div>
   </div>
 
@@ -411,7 +411,7 @@
     </div>
     <div class="buttons">
       <button onclick="openModal('download', 'gg-theme-yae-miko', 'Download', 'Download2')">Download</button>
-      <button onclick="openModal('howto', 'gg-theme-yae-miko', '', '')">How To Download</button>
+      <button onclick="openModal('howto', 'gg-theme-yae-miko', '', '')">Cara Download</button>
     </div>
   </div>
 
@@ -429,7 +429,7 @@
     </div>
     <div class="buttons">
       <button onclick="openModal('download', 'gg-theme-ganyu', 'Download', 'Download2')">Download</button>
-      <button onclick="openModal('howto', 'gg-theme-ganyu', '', '')">How To Download</button>
+      <button onclick="openModal('howto', 'gg-theme-ganyu', '', '')">Cara Download</button>
     </div>
   </div>
 
@@ -447,7 +447,7 @@
     </div>
     <div class="buttons">
       <button onclick="openModal('download', 'gg-theme-hutao', 'Download', 'Download2')">Download</button>
-      <button onclick="openModal('howto', 'gg-theme-hutao', '', '')">How To Download</button>
+      <button onclick="openModal('howto', 'gg-theme-hutao', '', '')">Cara Download</button>
     </div>
   </div>
 
@@ -465,10 +465,27 @@
     </div>
     <div class="buttons">
       <button onclick="openModal('download', 'gg-theme-nahida', 'Download', 'Download2')">Download</button>
-      <button onclick="openModal('howto', 'gg-theme-nahida', '', '')">How To Download</button>
+      <button onclick="openModal('howto', 'gg-theme-nahida', '', '')">Cara Download</button>
     </div>
   </div>
 
+  <div class="card" id="card-gg-theme-アニメ">
+    <a href="https://youtu.be/ujzgmD7qI0o?si=StOhueDw8Xf3KXGf"><img src="https://files.catbox.moe/kanz79.jpg" alt="NS Uchiha"></a>
+    <div class="title">
+      <div class="title-top-row">
+        <span>GG THEME アニメ</span>
+        <img src="https://files.catbox.moe/40ynkg.png" alt="Share" class="share-icon" data-card-id="gg-theme-アニメ" draggable="false">
+      </div>
+      <button class="desc-toggle" onclick="toggleDesc(this)">Deskripsi ▼</button>
+      <div class="desc-text" style="display:none; margin-top:8px; font-weight:normal; font-size:14px; color:#333;">
+        Tema simple disertai wallpaper video di awal menu
+      </div>
+    </div>
+    <div class="buttons">
+      <button onclick="openModal('download', 'gg-theme-アニメ', 'Download', 'Download2')">Download</button>
+      <button onclick="openModal('howto', 'gg-theme-アニメ', '', '')">Cara Download</button>
+    </div>
+  </div>
 
   <footer>© 2025 вирга</footer>
 
@@ -531,6 +548,12 @@
           downloadLink2 = 'https://sfl.gl/JUjGLtjn';
           youtubeLink1 = 'https://youtu.be/Af1Sj7MDhiM?si=EHKw02WB87uTumQI';
           youtubeLink2 = 'https://youtube.com/uchiha_tutorial2';
+          break;
+        case 'gg-theme-アニメ':
+          downloadLink1 = 'https://pslk.net/lmmyec3h';
+          downloadLink2 = 'https://sfl.gl/bQnMPN';
+          youtubeLink1 = 'https://youtu.be/Af1Sj7MDhiM?si=EHKw02WB87uTumQI';
+          youtubeLink2 = 'https://youtube.com/uchiha_tutorial2';  
           break;
         default: /* The last card with Pixellab theme was removed */
           downloadLink1 = 'https://example.com/default_download.apk';
