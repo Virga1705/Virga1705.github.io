@@ -644,6 +644,7 @@
     <div id="announcement-area" class="sidebar-announcement-card"></div>
     <div class="sidebar-card" onclick="openGeneralModal('donasi')">Donate</div>
     <div class="sidebar-card" onclick="openGeneralModal('credits')">Thanks To</div>
+    <div class="sidebar-card" onclick="openGeneralModal('information')">Read This</div>
   </div>
 
   <header>
@@ -1024,15 +1025,24 @@
             </div>
           `;
           break;
+        case 'information': // Virga Announcement
+          modalTitle = 'INFORMATION';
+          content = `
+            <h3 style="font-size: 1.5rem; color:#333; margin-bottom:20px;">${modalTitle}</h3>
+            <p style="font-size:1em; color:#333; margin-bottom:15px; text-align: left;">
+                If you want to use my website code or take some features for your website, go ahead but give credit to this web, and include my github username, namely "Virga1705".
+            </p>
+          `;
+          break;
         default:
           modalTitle = 'Informasi';
           content = `<h3 style="font-size: 1.5rem; color:#333; margin-bottom:20px;">${modalTitle}</h3><p>Konten tidak ditemukan.</p>`;
       }
 
       body.innerHTML = content;
-      popup.style.display = 'flex'; // Tampilkan modal
-      closeSidebar(); // Pastikan sidebar tertutup saat modal terbuka
-      closeShareModal(); // Pastikan modal share tertutup jika terbuka
+      popup.style.display = 'flex';
+      closeSidebar();
+      closeShareModal();
     }
 
     function closeModal() {
