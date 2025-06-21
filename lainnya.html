@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Lainnya</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f8f8f8;
+      /* Mencegah seleksi teks */
+      -webkit-user-select: none; /* Safari */
+      -moz-user-select: none;    /* Firefox */
+      -ms-user-select: none;     /* Internet Explorer/Edge */
+      user-select: none;         /* Standard */
+      /* Mencegah menu konteks (klik kanan) secara global */
+      -webkit-touch-callout: none; /* Untuk iOS, mencegah menu pop-up saat long-press */
+    }
+
+    header {
+      background: white;
+      padding: 16px;
+      font-size: 22px;
+      font-weight: bold;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      /* Tambahkan properti user-select untuk header juga */
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
+    }
+
+    .back-button {
+      margin-right: 10px;
+      padding: 0;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all .2s ease-in-out;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 26px;
+      height: 26px;
+      background: white;
+      /* Mencegah seleksi teks dan klik kanan pada back button */
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
+    }
+
+    .back-button:hover {
+      background: #e0e0e0;
+    }
+
+    .back-button img {
+      display: block;
+      width: 26px;
+      height: 26px;
+      /* Mencegah draggable dan klik kanan pada gambar */
+      pointer-events: none; /* Mencegah interaksi mouse/touch pada gambar (termasuk download) */
+    }
+
+    .card {
+      margin: 30px auto;
+      margin-left: 20px;
+      margin-right: 20px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      overflow: hidden;
+      background: white;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      max-width: 360px;
+      opacity: 0;
+      transform: scale(0.8);
+      transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+      /* Mencegah seleksi teks dan klik kanan pada card */
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
+    }
+
+    .card.zoom-in {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* CSS untuk highlight kartu */
+    .card.highlight-card {
+      border: 2px solid #007bff; /* Warna border highlight */
+      /* Mengganti box-shadow statis dengan animasi */
+      animation: blink-highlight 1s infinite alternate; /* Animasi kedip biru */
+    }
+
+    /* Keyframes untuk animasi kedip biru */
+    @keyframes blink-highlight {
+      0% {
+        box-shadow: 0 0 0px rgba(0, 123, 255, 0); /* Awal: transparan */
+      }
+      50% {
+        box-shadow: 0 0 10px rgba(0, 123, 255, 0.7); /* Tengah: biru cerah */
+      }
+      100% {
+        box-shadow: 0 0 0px rgba(0, 123, 255, 0); /* Akhir: transparan kembali */
+      }
+    }
+
+    .card a img {
+      width: 100%;
+      display: block;
+      cursor: pointer;
+      /* Mencegah draggable dan klik kanan pada gambar */
+      pointer-events: none; /* Mencegah interaksi mouse/touch pada gambar (termasuk download) */
+    }
+
+    .title {
+      padding: 12px;
+      font-size: 16px;
+      font-weight: bold;
+      text-align: left;
+      border-top: 1px solid #eee;
+      display: flex; /* Use flex to align title elements */
+      flex-wrap: wrap; /* Allow wrapping of elements */
+      align-items: center; /* Vertically align items */
+    }
+
+    .title-row {
+      display: flex;
+      justify-content: space-between; /* Pushes title and share button to ends */
+      align-items: center;
+      width: 100%; /* Ensures this row takes full width */
+    }
+
+    .title-text {
+      flex-grow: 1; /* Allows title text to take up available space */
+      margin-right: 8px; /* Space between title and share button */
+    }
+
+    .desc-toggle {
+      margin-top: 8px; /* Space from the elements above */
+      background: none;
+      border: none;
+      color: #007BFF;
+      cursor: pointer;
+      font-size: 14px;
+      padding: 0;
+      text-align: left;
+      width: 100%; /* Forces this button to a new line */
+    }
+
+    .desc-text {
+      display: none;
+      margin-top: 8px;
+      font-weight: normal;
+      font-size: 14px;
+      color: #333;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: space-between;
+      padding: 12px;
+      gap: 10px;
+    }
+
+    .buttons button {
+      flex: 1;
+      text-align: center;
+      padding: 10px;
+      border: 2px solid black;
+      border-radius: 10px;
+      font-weight: bold;
+      color: black;
+      background: white;
+      cursor: pointer;
+      transition: all .2s ease-in-out;
+      /* Mencegah seleksi teks dan klik kanan pada tombol */
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
+    }
+
+    .buttons button:hover {
+      background: black;
+      color: white;
+    }
+
+    /* Style for the share icon button */
+    .share-button-icon {
+        background: none; /* Remove background */
+        border: none; /* Remove border */
+        cursor: pointer;
+        padding: 0; /* Remove padding to make it compact */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 30px; /* Set a fixed width for the button */
+        height: 30px; /* Set a fixed height for the button */
+        transition: transform 0.2s ease-in-out; /* Add transition for hover effect */
+        /* Mencegah seleksi teks dan klik kanan pada tombol */
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        -webkit-touch-callout: none;
+    }
+
+    .share-button-icon:hover {
+        transform: scale(1.1); /* Slightly enlarge on hover */
+    }
+
+    .share-button-icon img {
+        width: 24px; /* Adjust size as needed */
+        height: 24px; /* Adjust size as needed */
+        pointer-events: none; /* Prevent image dragging/context menu */
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 50px;
+      padding: 10px;
+      color: #555;
+      font-size: 14px;
+      /* Mencegah seleksi teks pada footer */
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
+    }
+
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+      /* Mencegah seleksi teks dan klik kanan pada modal overlay */
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
+    }
+
+.modal {
+  background: white;
+  border-radius: 12px;
+  /* Hapus padding dari sini, pindah ke modal-body */
+  padding: 0;
+  width: 80%;
+  max-width: 300px;
+  /* Sesuaikan tinggi agar tidak terlalu panjang */
+  max-height: 80vh; /* Menggunakan vh agar responsif */
+  overflow-y: auto;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
+.modal-header {
+  position: sticky;
+  top: 0;
+  background: white;
+  z-index: 1;
+  padding: 16px; /* Padding di sini untuk header */
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-size: 18px;
+}
+
+/* Sesuaikan tombol close agar posisinya di kanan atas modal */
+.close-btn {
+  width: 30px;
+  height: 30px;
+  background: #ff5c5c;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s ease-in-out;
+  flex-shrink: 0;
+  /* Hapus position absolute jika sudah di dalam flexbox header */
+}
+
+.close-btn:hover {
+  background: #e04444;
+}
+
+/* Konten utama modal, beri padding di sini */
+.modal-content-body {
+  padding: 16px; /* Padding untuk konten di dalam modal */
+  flex-grow: 1; /* Agar mengambil sisa ruang */
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Jarak antar blok download */
+  /* Padding sudah dipindah ke modal-content-body */
+}
+
+.download-block {
+  margin-bottom: 0; /* Hapus margin-bottom di sini, gap sudah menangani */
+  text-align: left;
+}
+
+.download-button {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px;
+  border: 2px solid black;
+  border-radius: 10px;
+  font-weight: bold;
+  color: black;
+  background: white;
+  text-align: center;
+  text-decoration: none;
+  transition: all .2s ease-in-out;
+}
+
+.download-button:hover {
+  background: black;
+  color: white;
+}
+
+.download-note {
+  font-size: 13px;
+  color: #666;
+  padding-top: 4px;
+  padding-left: 6px; /* Konsisten dengan padding lainnya */
+  padding-right: 6px;
+  line-height: 1.4;
+}
+
+/* Style untuk footer modal (catatan Adblock) */
+.modal-footer-note {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #333;
+  padding: 0 16px 16px; /* Padding bawah dan samping */
+}
+
+.button-group-separator {
+  border-top: 7px solid #eee; /* Garis tipis abu-abu */
+  margin: 5px 0; /* Jarak atas dan bawah garis */
+  height: 0; /* Pastikan tidak ada tinggi */
+}
+
+  </style>
+</head>
+<body oncontextmenu="return false;">
+
+  <header>
+    <a href="Virga1705.github.io" class="back-button">
+      <img src="https://files.catbox.moe/g9z1ny.png" alt="Kembali ke Beranda" draggable="false">
+    </a>
+    Lainnya
+  </header>
+
+<div class="card" id="card-apk-editor">
+  <div style="display: flex; align-items: flex-start; padding: 12px;">
+    <img src="https://files.catbox.moe/kozvmw.png" alt="404" style="width: 60px; height: 60px; margin-right: 12px; border-radius: 10px;" draggable="false">
+    <div style="flex-grow: 1;">
+      <div style="font-weight: bold; font-size: 16px;">Apk Editor</div>
+      <div class="desc-short" style="font-size: 14px; color: #444;">
+        Apk Editor versi ini ialah yang di kembangkan oleh Zeratul, namun..<span class="read-more-toggle" onclick="toggleReadMore(this)" style="color:#007BFF; cursor:pointer;">Read More</span>
+      </div>
+      <div class="desc-full" style="font-size: 14px; color: #444; display: none;">
+        Apk Editor versi ini ialah yang di kembangkan oleh Zeratul, namun tidak hanya Zeratul ada beberapa kontribusi lain yang bisa kamu cek sendiri dalam about di aplikasi nya.Kegunaan dari Apk Editor ini sangat banyak jika anda paham betul dunia pemerograman<span class="read-more-toggle" onclick="toggleReadMore(this)" style="color:#007BFF; cursor:pointer;">Close</span>
+      </div>
+    </div>
+    <button class="share-button-icon" data-card-id="apk-editor"><img src="https://files.catbox.moe/40ynkg.png" alt="Share"></button>
+  </div>
+  <div class="buttons">
+  <button onclick="openModal('download', [
+    { text: 'Download dari Mediafire', link: 'https://a.com' },
+    { text: 'Download Resmi', link: 'https://b.com', note: 'No 2 untuk mengunjungi situs asli' },
+    { text: 'Mirror Link', link: 'https://c.com' },
+    { separator: true }, // Tambahkan ini untuk garis pemisah
+    { text: 'Link Tambahan 1', link: 'https://g.com' },
+    { text: 'Link Tambahan 2', link: 'https://h.com' }
+  ])">Download</button>
+  <button onclick="openModal('howto', [
+    { text: 'Panduan YouTube 1', link: 'https://youtu.be/tutorial1' },
+    { text: 'Panduan Alternatif', link: 'https://youtu.be/tutorial2', note: 'Gunakan jika link utama error' }
+  ])">Cara Download</button>
+</div>
+</div>
+
+<div class="card" id="card-script-rr3">
+  <div style="display: flex; align-items: flex-start; padding: 12px;">
+    <img src="https://files.catbox.moe/kozvmw.png" alt="404" style="width: 60px; height: 60px; margin-right: 12px; border-radius: 10px;" draggable="false">
+    <div style="flex-grow: 1;">
+      <div style="font-weight: bold; font-size: 16px;">Semua script RR3</div>
+      <div class="desc-short" style="font-size: 14px; color: #444;">
+        Kumpulan Script Real Racing 3..<span class="read-more-toggle" onclick="toggleReadMore(this)" style="color:#007BFF; cursor:pointer;">Read More</span>
+      </div>
+      <div class="desc-full" style="font-size: 14px; color: #444; display: none;">
+        Kumpulan script Real Racing 3 untuk digunakan di Game Guardian,Bisa digunakan dalam device no root maupun root.<span class="read-more-toggle" onclick="toggleReadMore(this)" style="color:#007BFF; cursor:pointer;">Close</span>
+      </div>
+    </div>
+    <button class="share-button-icon" data-card-id="script-rr3"><img src="https://files.catbox.moe/40ynkg.png" alt="Share"></button>
+  </div>
+  <div class="buttons">
+  <button onclick="openModal('download', [
+    { text: 'Download dari Mediafire', link: 'https://a.com' },
+    { text: 'Download Resmi', link: 'https://b.com', note: 'No 2 untuk mengunjungi situs asli' },
+    { text: 'Mirror Link', link: 'https://c.com' },
+    { separator: true }, // Tambahkan ini untuk garis pemisah
+    { text: 'Link Tambahan 1', link: 'https://g.com' },
+    { text: 'Link Tambahan 2', link: 'https://h.com' }
+  ])">Download</button>
+  <button onclick="openModal('howto', [
+    { text: 'Panduan YouTube 1', link: 'https://youtu.be/tutorial1' },
+    { text: 'Panduan Alternatif', link: 'https://youtu.be/tutorial2', note: 'Gunakan jika link utama error' }
+  ])">Cara Download</button>
+</div>
+</div>
+
+
+
+  <footer>© 2025 вирга</footer>
+
+ <div class="modal-overlay" id="popup">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 id="modal-title"></h2> <span class="close-btn" onclick="closeModal()">X</span>
+      </div>
+      
+      <div class="modal-content-body">
+        <div id="modal-buttons-container" class="modal-buttons">
+          </div>
+        <p id="modal-adblock-note" class="modal-footer-note" style="display: none;">
+          Jika link tidak bisa dibuka, pastikan kamu sudah menonaktifkan Adblock atau coba browser lain.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  
+    // --- FUNGSI-FUNGSI TOMBOL DOWNLOAD FLEXIBLE ---
+
+function openModal(mode, buttons = []) {
+  const popup = document.getElementById('popup');
+  const modalTitle = document.getElementById('modal-title');
+  const modalButtonsContainer = document.getElementById('modal-buttons-container');
+  const modalAdblockNote = document.getElementById('modal-adblock-note');
+
+  let buttonsHtml = '';
+
+  buttons.forEach(btn => {
+    if (btn.separator) {
+      // Jika objek ini adalah pemisah, tambahkan div pemisah
+      buttonsHtml += '<div class="button-group-separator"></div>';
+    } else {
+      // Jika bukan pemisah, tambahkan tombol seperti biasa
+      buttonsHtml += `
+        <div class="download-block">
+          <a href="${btn.link}" target="_blank" class="download-button">${btn.text}</a>
+          ${btn.note ? `<div class="download-note">${btn.note}</div>` : ''}
+        </div>
+      `;
+    }
+  });
+
+  modalTitle.textContent = mode === 'download' ? 'Download Game' : 'Cara Download';
+  modalButtonsContainer.innerHTML = buttonsHtml;
+
+  if (mode === 'download') {
+    modalAdblockNote.style.display = 'block';
+  } else {
+    modalAdblockNote.style.display = 'none';
+  }
+
+  popup.style.display = 'flex';
+}
+
+function closeModal() {
+  document.getElementById('popup').style.display = 'none';
+}
+
+    // --- BATAS ---
+
+    function closeModal() {
+        document.getElementById('popup').style.display = 'none';
+    }
+
+    function toggleDesc(btn) {
+        const desc = btn.nextElementSibling;
+        const isVisible = desc.style.display === 'block';
+        desc.style.display = isVisible ? 'none' : 'block';
+        btn.textContent = isVisible ? 'Deskripsi ▼' : 'Tutup ▲';
+    }
+
+    function toggleReadMore(el) {
+        const card = el.closest('.card');
+        if (!card) return;
+
+        const shortDesc = card.querySelector('.desc-short');
+        const fullDesc = card.querySelector('.desc-full');
+
+        if (shortDesc && fullDesc) {
+            shortDesc.style.display = shortDesc.style.display === 'none' ? 'block' : 'none';
+            fullDesc.style.display = fullDesc.style.display === 'block' ? 'none' : 'block';
+        }
+    }
+
+    function checkZoom() {
+        const cards = document.querySelectorAll('.card');
+        cards.forEach(card => {
+            const cardTop = card.offsetTop;
+            const windowBottom = window.scrollY + window.innerHeight;
+            const windowTop = window.scrollY;
+            const cardHeight = card.offsetHeight;
+            const isVisible = (cardTop < windowBottom) && (cardTop + cardHeight > windowTop);
+
+            if (isVisible) {
+                card.classList.add('zoom-in');
+            } else {
+                card.classList.remove('zoom-in');
+            }
+        });
+    }
+
+    // Event listeners untuk animasi zoom saat scroll
+    window.addEventListener('scroll', checkZoom);
+    window.addEventListener('resize', checkZoom);
+    window.addEventListener('load', checkZoom);
+
+    // --- FUNGSI UNTUK FITUR SHARE DAN ANIMASI HIGHLIGHT ---
+    document.addEventListener('DOMContentLoaded', () => {
+        const shareButtons = document.querySelectorAll('.share-button-icon');
+
+        shareButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const cardId = button.dataset.cardId;
+                const baseUrl = window.location.origin + window.location.pathname;
+                const shareUrl = `${baseUrl}#card-${cardId}`;
+
+                if (navigator.share) {
+                    navigator.share({
+                        title: document.title,
+                        text: `Lihat mod game keren ini di ${document.title}!`,
+                        url: shareUrl
+                    }).then(() => {
+                        console.log('Berhasil dibagikan');
+                    }).catch((error) => {
+                        console.error('Gagal berbagi:', error);
+                        copyLinkToClipboard(shareUrl);
+                    });
+                } else {
+                    copyLinkToClipboard(shareUrl);
+                }
+            });
+        });
+
+        function copyLinkToClipboard(link) {
+            const tempInput = document.createElement('input');
+            document.body.appendChild(tempInput);
+            tempInput.value = link;
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+            alert('Link berhasil disalin ke clipboard: ' + link);
+        }
+
+        if (window.location.hash) {
+            const targetHash = window.location.hash.substring(1);
+            const targetElement = document.getElementById(targetHash);
+
+            if (targetElement) {
+                targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                targetElement.classList.add('highlight-card');
+                setTimeout(() => {
+                    targetElement.classList.remove('highlight-card');
+                }, 3000); // Hapus highlight setelah 3 detik
+            }
+        }
+    });
+  </script>
+
+  <script src="https://l2dwidget.js.org/lib/L2Dwidget.min.js"></script>
+  <script>
+    function getRandomMessage() {
+      const messages = [
+        'Tekan Tombol Cara Downloadnya Ya Jika Kamu Bingung',
+        'Kalau Ada Masalah Link Yang Eror Silahkan Beri Tahu Tuan Ku Ya. Dan Sabar Menunggu Linknya Di Fix ;)',
+        'Jangan Lupa Belangganan Channel Tuan Ku Ya :3',
+        'Jangan Lupa Klik Gambarnya Untuk Melihat Gameplay nya~',
+      ];
+      const randomIndex = Math.floor(Math.random() * messages.length);
+      return messages[randomIndex];
+    }
+
+    L2Dwidget.init({
+      model: {
+        jsonPath: "https://raw.githubusercontent.com/KanzakiisYU/live2d-model/main/kurumi/model.json"
+      },
+      display: {
+        position: "right",
+        width: 200,
+        height: 550,
+        hOffset: 20,
+        vOffset: -200
+      },
+      mobile: {
+        show: true,
+        scale: 1
+      },
+      dialog: {
+        enable: true,
+        script: {
+          'every idle 10s': getRandomMessage(),
+          'tap body': 'Hentai!',
+          'tap face': getRandomMessage()
+        }
+      }
+    });
+  </script>
+
+</body>
+</html>
