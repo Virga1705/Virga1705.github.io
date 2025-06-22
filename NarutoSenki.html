@@ -480,8 +480,7 @@
         <span class="title-text" data-i18n="game1Title">NS: Waifu War V1</span>
         <button class="share-button-icon" data-card-id="waifu-war-v1"><img src="https://files.catbox.moe/40ynkg.png" alt="Share"></button>
       </div>
-      <button class="desc-toggle" onclick="toggleDesc(this)" data-i18n-toggle="game1DescToggle">Deskripsi ▼</button>
-      <div class="desc-text" style="display:none; margin-top:8px; font-weight:normal; font-size:14px; color:#333;" data-i18n="game1Desc">
+      <button class="desc-toggle" onclick="toggleDesc(this)">Deskripsi ▼</button> <div class="desc-text" style="display:none; margin-top:8px; font-weight:normal; font-size:14px; color:#333;" data-i18n="game1Desc">
         Versi yang menampilkan karakter waifu dari Naruto. Cocok bagi fans karakter cewek dan mod anime.
       </div>
     </div>
@@ -503,8 +502,7 @@
         <span class="title-text" data-i18n="game2Title">Narsen Unprotect 1.17 Full Screen</span>
         <button class="share-button-icon" data-card-id="narsen-unprotect-117"><img src="https://files.catbox.moe/40ynkg.png" alt="Share"></button>
       </div>
-      <button class="desc-toggle" onclick="toggleDesc(this)" data-i18n-toggle="game2DescToggle">Deskripsi ▼</button>
-      <div class="desc-text" style="display:none; margin-top:8px; font-weight:normal; font-size:14px; color:#333;" data-i18n="game2Desc">
+      <button class="desc-toggle" onclick="toggleDesc(this)">Deskripsi ▼</button> <div class="desc-text" style="display:none; margin-top:8px; font-weight:normal; font-size:14px; color:#333;" data-i18n="game2Desc">
         Narsen Unprotect 1.17 adalah versi dasar dari Naruto Senki tanpa modifikasi Lain. Cocok untuk project narsen kalian.
       </div>
     </div>
@@ -526,8 +524,7 @@
         <span class="title-text" data-i18n="game3Title">NARUTO SENKI 2.1.6</span>
         <button class="share-button-icon" data-card-id="naruto-senki-216"><img src="https://files.catbox.moe/40ynkg.png" alt="Share"></button>
       </div>
-      <button class="desc-toggle" onclick="toggleDesc(this)" data-i18n-toggle="game3DescToggle">Deskripsi ▼</button>
-      <div class="desc-text" style="display:none; margin-top:8px; font-weight:normal; font-size:14px; color:#333;" data-i18n="game3Desc">
+      <button class="desc-toggle" onclick="toggleDesc(this)">Deskripsi ▼</button> <div class="desc-text" style="display:none; margin-top:8px; font-weight:normal; font-size:14px; color:#333;" data-i18n="game3Desc">
         Naruto Senki 2.1.6 adalah Narsen yang di Kembangkan Oleh RE Memberikan Update Dengan Mode Baru dan Balancing Gameplay.
       </div>
     </div>
@@ -589,7 +586,8 @@ function setLanguage(lang) {
     }
   });
 
-  // Translate buttons with data-i18n-toggle attribute
+  // Translate buttons with class .desc-toggle (Deskripsi/Tutup)
+  // This needs to be handled separately because its text depends on its visibility
   document.querySelectorAll('.desc-toggle').forEach(btn => {
     const desc = btn.nextElementSibling;
     const isVisible = desc.style.display === 'block';
@@ -602,6 +600,7 @@ function setLanguage(lang) {
   const modalTitleElement = document.getElementById('modal-title');
   if (modalTitleElement) {
       // Determine current modal mode based on its existing text
+      // This part is a bit tricky if the modal is not open, but it works when it's actively used.
       const currentModalMode = (modalTitleElement.textContent === translations['id']['modalDownloadTitle'] || modalTitleElement.textContent === translations['en']['modalDownloadTitle']) ? 'download' : 'howto';
       modalTitleElement.textContent = currentModalMode === 'download' ? translations[lang]['modalDownloadTitle'] : translations[lang]['modalHowToTitle'];
   }
@@ -623,9 +622,10 @@ function openModal(mode, buttonsData = []) {
       buttonsHtml += '<div class="button-group-separator"></div>';
     } else {
       if (btn.subButtons && btn.subButtons.length > 0) {
+        // Corrected JSON.stringify to handle single quotes for attribute values correctly
         buttonsHtml += `
           <div class="download-block">
-            <button class="download-button" onclick="showSubModal('${btn.text}', ${JSON.stringify(btn.subButtons).replace(/'/g, "\\'").replace(/"/g, "'")})">${btn.text}</button>
+            <button class="download-button" onclick="showSubModal('${btn.text.replace(/'/g, "\\'")}', ${JSON.stringify(btn.subButtons).replace(/'/g, "\\'").replace(/"/g, "'")})">${btn.text}</button>
             ${btn.note ? `<div class="download-note">${btn.note}</div>` : ''}
           </div>
         `;
@@ -703,12 +703,20 @@ function closeModal() {
     showMainModal(); // Pastikan modal kembali ke tampilan awal jika dibuka lagi
 }
 
+    // *** PERBAIKAN PENTING DI SINI ***
     function toggleDesc(btn) {
-      // The description text is now the next sibling of the .desc-toggle button
       const desc = btn.nextElementSibling;
       const isVisible = desc.style.display === 'block';
-      desc.style.display = isVisible ? translations[currentLang]['descBtnShow'] : translations[currentLang]['descBtnHide'];
+
+      // Mengubah display CSS properti
+      desc.style.display = isVisible ? 'none' : 'block';
+
+      // Mengubah textContent tombol berdasarkan status visibilitas
+      btn.textContent = isVisible
+        ? translations[currentLang]['descBtnShow']
+        : translations[currentLang]['descBtnHide'];
     }
+    // *** AKHIR PERBAIKAN ***
 
     function toggleLangDropdown() {
       const menu = document.getElementById('lang-options');
