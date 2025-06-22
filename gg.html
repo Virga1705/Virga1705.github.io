@@ -29,8 +29,8 @@
       position: sticky;
       top: 0;
       z-index: 999;
-      display: flex; /* Mengatur tampilan flexbox untuk menyelaraskan item secara horizontal */
-      align-items: center; /* Menyelaraskan item secara vertikal di tengah */
+      display: flex;
+      align-items: center;
       /* Tambahkan properti user-select untuk header juga */
       -webkit-user-select: none;
       -moz-user-select: none;
@@ -39,21 +39,20 @@
       -webkit-touch-callout: none;
     }
 
-    /* Gaya untuk tombol kembali (back button) */
     .back-button {
-      margin-right: 10px; /* Memberi jarak antara tombol dan judul */
-      padding: 0; /* Menghapus padding agar ikon tidak ada jarak di dalamnya */
-      border: none; /* Menghapus border */
+      margin-right: 10px;
+      padding: 0;
+      border: none;
       border-radius: 10px;
       cursor: pointer;
       transition: all .2s ease-in-out;
-      text-decoration: none; /* Menghilangkan garis bawah pada tautan */
-      display: flex; /* Mengatur tampilan flexbox untuk memusatkan ikon */
-      align-items: center; /* Memusatkan ikon secara vertikal */
-      justify-content: center; /* Memusatkan ikon secara horizontal */
-      width: 26px; /* Mengatur lebar tombol menjadi 48px */
-      height: 26px; /* Mengatur tinggi tombol menjadi 48px */
-      background: white; /* Menambahkan background putih agar ikon tetap terlihat */
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 26px;
+      height: 26px;
+      background: white;
       /* Mencegah seleksi teks dan klik kanan pada back button */
       -webkit-user-select: none;
       -moz-user-select: none;
@@ -63,19 +62,14 @@
     }
 
     .back-button:hover {
-      background: #e0e0e0; /* Mengubah background saat hover untuk efek visual */
+      background: #e0e0e0;
     }
 
     .back-button img {
-      display: block; /* Memastikan gambar mengambil seluruh ruang tautan */
-      width: 26px; /* Mengatur lebar gambar menjadi 48px */
-      height: 26px; /* Mengatur tinggi gambar menjadi 48px */
+      display: block;
+      width: 26px;
+      height: 26px;
       /* Mencegah draggable dan klik kanan pada gambar */
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
-      -webkit-touch-callout: none;
       pointer-events: none; /* Mencegah interaksi mouse/touch pada gambar (termasuk download) */
     }
 
@@ -89,8 +83,8 @@
       background: white;
       box-shadow: 0 2px 6px rgba(0,0,0,0.1);
       max-width: 360px;
-      opacity: 0; /* Initially hidden */
-      transform: scale(0.8); /* Start scaled down */
+      opacity: 0;
+      transform: scale(0.8);
       transition: opacity 0.5s ease-out, transform 0.5s ease-out;
       /* Mencegah seleksi teks dan klik kanan pada card */
       -webkit-user-select: none;
@@ -108,6 +102,7 @@
     /* CSS untuk highlight kartu */
     .card.highlight-card {
       border: 2px solid #007bff; /* Warna border highlight */
+      /* Mengganti box-shadow statis dengan animasi */
       animation: blink-highlight 1s infinite alternate; /* Animasi kedip biru */
     }
 
@@ -129,11 +124,6 @@
       display: block;
       cursor: pointer;
       /* Mencegah draggable dan klik kanan pada gambar */
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
-      -webkit-touch-callout: none;
       pointer-events: none; /* Mencegah interaksi mouse/touch pada gambar (termasuk download) */
     }
 
@@ -143,39 +133,25 @@
       font-weight: bold;
       text-align: left;
       border-top: 1px solid #eee;
-      display: flex;
-      flex-direction: column; /* Konten di dalamnya disusun vertikal */
-      position: relative; /* Untuk penempatan ikon share absolut */
+      display: flex; /* Use flex to align title elements */
+      flex-wrap: wrap; /* Allow wrapping of elements */
+      align-items: center; /* Vertically align items */
     }
 
-    .title-top-row {
+    .title-row {
       display: flex;
-      justify-content: space-between; /* Judul dan ikon share terpisah */
+      justify-content: space-between; /* Pushes title and share button to ends */
       align-items: center;
-      width: 100%;
-      margin-bottom: 8px; /* Jarak antara baris judul/share dan tombol deskripsi */
+      width: 100%; /* Ensures this row takes full width */
     }
 
-    .title-top-row span {
-        flex-grow: 1; /* Judul teks akan mengambil ruang yang tersedia */
-        margin-right: 10px; /* Jarak antara teks judul dan ikon share */
-    }
-
-    .share-icon {
-      width: 24px; /* Ukuran ikon share */
-      height: 24px;
-      cursor: pointer;
-      filter: brightness(0.8); /* Sedikit redup */
-      transition: filter 0.2s ease;
-      flex-shrink: 0; /* Mencegah ikon menyusut */
-    }
-
-    .share-icon:hover {
-        filter: brightness(1); /* Lebih cerah saat hover */
+    .title-text {
+      flex-grow: 1; /* Allows title text to take up available space */
+      margin-right: 8px; /* Space between title and share button */
     }
 
     .desc-toggle {
-      margin-top: 0; /* Sesuaikan margin karena sekarang di bawah title-top-row */
+      margin-top: 8px; /* Space from the elements above */
       background: none;
       border: none;
       color: #007BFF;
@@ -183,6 +159,7 @@
       font-size: 14px;
       padding: 0;
       text-align: left;
+      width: 100%; /* Forces this button to a new line */
     }
 
     .desc-text {
@@ -224,6 +201,37 @@
       color: white;
     }
 
+    /* Style for the share icon button */
+    .share-button-icon {
+        background: none; /* Remove background */
+        border: none; /* Remove border */
+        cursor: pointer;
+        padding: 0; /* Remove padding to make it compact */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 30px; /* Set a fixed width for the button */
+        height: 30px; /* Set a fixed height for the button */
+        transition: transform 0.2s ease-in-out; /* Add transition for hover effect */
+        /* Mencegah seleksi teks dan klik kanan pada tombol */
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        -webkit-touch-callout: none;
+    }
+
+    .share-button-icon:hover {
+        transform: scale(1.1); /* Slightly enlarge on hover */
+    }
+
+    .share-button-icon img {
+        width: 24px; /* Adjust size as needed */
+        height: 24px; /* Adjust size as needed */
+        pointer-events: none; /* Prevent image dragging/context menu */
+    }
+
+
     footer {
       text-align: center;
       margin-top: 50px;
@@ -257,79 +265,129 @@
       -webkit-touch-callout: none;
     }
 
-    .modal {
-      background: white;
-      border-radius: 12px;
-      padding: 20px;
-      width: 80%;
-      max-width: 300px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-      text-align: center;
-      position: relative; /* Tambahkan ini untuk posisi tombol close */
-      /* Mencegah seleksi teks dan klik kanan pada modal */
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
-      -webkit-touch-callout: none;
-    }
+.modal {
+  background: white;
+  border-radius: 12px;
+  /* Hapus padding dari sini, pindah ke modal-body */
+  padding: 0;
+  width: 80%;
+  max-width: 300px;
+  /* Sesuaikan tinggi agar tidak terlalu panjang */
+  max-height: 80vh; /* Menggunakan vh agar responsif */
+  overflow-y: auto;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
 
-    .modal-buttons {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-top: 15px;
-    }
+.modal-header {
+  position: sticky;
+  top: 0;
+  background: white;
+  z-index: 1;
+  padding: 16px; /* Padding di sini untuk header */
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
-    .modal-buttons a {
-      text-decoration: none;
-      padding: 10px;
-      border: 2px solid black;
-      border-radius: 10px;
-      font-weight: bold;
-      color: black;
-      background: white;
-      transition: all .2s ease-in-out;
-      /* Mencegah seleksi teks dan klik kanan pada tombol modal */
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
-      -webkit-touch-callout: none;
-    }
+.modal-header h2 {
+  margin: 0;
+  font-size: 18px;
+}
 
-    .modal-buttons a:hover {
-      background: black;
-      color: white;
-    }
+/* Sesuaikan tombol close agar posisinya di kanan atas modal */
+.close-btn {
+  width: 30px;
+  height: 30px;
+  background: #ff5c5c;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s ease-in-out;
+  flex-shrink: 0;
+  /* Hapus position absolute jika sudah di dalam flexbox header */
+}
 
-    .close-btn {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      width: 30px;
-      height: 30px;
-      background: #ff5c5c; /* Warna latar belakang merah */
-      color: white;
-      border-radius: 50%; /* Membuatnya bulat sempurna */
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 18px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background 0.2s ease-in-out;
-      /* Mencegah seleksi teks dan klik kanan pada tombol tutup */
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
-      -webkit-touch-callout: none;
-    }
+.close-btn:hover {
+  background: #e04444;
+}
 
-    .close-btn:hover {
-      background: #e04444; /* Warna sedikit lebih gelap saat hover */
-    }
+/* Konten utama modal, beri padding di sini */
+.modal-content-body {
+  padding: 16px; /* Padding untuk konten di dalam modal */
+  flex-grow: 1; /* Agar mengambil sisa ruang */
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Jarak antar blok download */
+  /* Padding sudah dipindah ke modal-content-body */
+}
+
+.download-block {
+  margin-bottom: 0; /* Hapus margin-bottom di sini, gap sudah menangani */
+  text-align: left;
+}
+
+.download-button {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px;
+  border: 2px solid black;
+  border-radius: 10px;
+  font-weight: bold;
+  color: black;
+  background: white;
+  text-align: center;
+  text-decoration: none;
+  transition: all .2s ease-in-out;
+}
+
+.download-button:hover {
+  background: black;
+  color: white;
+}
+
+.download-note {
+  font-size: 13px;
+  color: #666;
+  padding-top: 4px;
+  padding-left: 6px; /* Konsisten dengan padding lainnya */
+  padding-right: 6px;
+  line-height: 1.4;
+}
+
+/* Style untuk footer modal (catatan Adblock) */
+.modal-footer-note {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #333;
+  padding: 0 16px 16px; /* Padding bawah dan samping */
+}
+
+.button-group-separator {
+  border-top: 7px solid #eee; /* Garis tipis abu-abu */
+  margin: 5px 0; /* Jarak atas dan bawah garis */
+  height: 0; /* Pastikan tidak ada tinggi */
+}
+
   </style>
 </head>
 <body oncontextmenu="return false;">
@@ -340,254 +398,275 @@
     </a>
     Game Guardian
   </header>
-
-  <div class="card" id="card-gg-new-theme-icon">
-    <a href="https://youtu.be/StYtvhXTls8" target="_blank">
-      <img src="https://files.catbox.moe/bew02e.jpg" alt="Review Gameplay">
-    </a>
-    <div class="title">
-      <div class="title-top-row">
-        <span>GG MOD NEW THEME AND ICON</span>
-        <img src="https://files.catbox.moe/40ynkg.png" alt="Share" class="share-icon" data-card-id="gg-new-theme-icon" draggable="false">
-      </div>
-      <button class="desc-toggle" onclick="toggleDesc(this)">Deskripsi ▼</button>
-      <div class="desc-text" style="display:none; margin-top:8px; font-weight:normal; font-size:14px; color:#333;">
-        Versi yang menampilkan design simple tetapi elegant.
-      </div>
+<div class="card" id="card-gg-new-theme-icon">
+  <a href="https://youtu.be/StYtvhXTls8" target="_blank">
+    <img src="https://files.catbox.moe/bew02e.jpg" alt="Review Gameplay">
+  </a>
+  <div class="title">
+    <div class="title-row">
+      <span class="title-text">GG MOD NEW THEME AND ICON</span>
+      <button class="share-button-icon" data-card-id="gg-new-theme-icon">
+        <img src="https://files.catbox.moe/40ynkg.png" alt="Share">
+      </button>
     </div>
-    <div class="buttons">
-      <button onclick="openModal('download', 'gg-new-theme-icon', 'Download Link1', 'Download Link2')">Download</button>
-      <button onclick="openModal('howto', 'gg-new-theme-icon', '', '')">Cara Download</button>
-    </div>
+    <button class="desc-toggle" onclick="toggleDesc(this)">Deskripsi ▼</button>
+    <div class="desc-text">Versi yang menampilkan design simple tetapi elegant.</div>
   </div>
-
-  <div class="card" id="card-gg-theme-esdeath">
-    <a href="https://youtu.be/DwJKfYrzzbc"><img src="https://files.catbox.moe/v4kmyu.jpg" alt="NS Original"></a>
-    <div class="title">
-      <div class="title-top-row">
-        <span>GG THEME エスデス</span>
-        <img src="https://files.catbox.moe/40ynkg.png" alt="Share" class="share-icon" data-card-id="gg-theme-esdeath" draggable="false">
-      </div>
-      <button class="desc-toggle" onclick="toggleDesc(this)">Deskripsi ▼</button>
-      <div class="desc-text" style="display:none; margin-top:8px; font-weight:normal; font-size:14px; color:#333;">
-        Cocok untuk yang waifunya EsDeath.
-      </div>
-    </div>
-    <div class="buttons">
-      <button onclick="openModal('download', 'gg-theme-esdeath', 'Download', 'Download2')">Download</button>
-      <button onclick="openModal('howto', 'gg-theme-esdeath', '', '')">Cara Download</button>
-    </div>
+  <div class="buttons">
+    <button onclick="openModal('download', [{ text: 'New Theme And Icon', subButtons: [{ text: 'App', link: 'https://sfl.gl/5YGH3wH' }, { text: 'Password', link: 'https://youtu.be/StYtvhXTls8' }] }])">Download</button>
+    <button onclick="openModal('howto', [{ text: 'Panduan YouTube', link: 'https://youtu.be/Af1Sj7MDhiM?si=a3nkEjDqBjj5NY14' }, { text: 'Panduan Alternatif', link: 'https://youtu.be/tutorial2' }])">Cara Download</button>
   </div>
-
-  <div class="card" id="card-gg-mod-ani">
-    <a href="https://youtu.be/Ts3d893rGHg"><img src="https://files.catbox.moe/sheg1p.jpg" alt="NS V2.1"></a>
-    <div class="title">
-      <div class="title-top-row">
-        <span>GG MOD 𠄀渀椀</span>
-        <img src="https://files.catbox.moe/40ynkg.png" alt="Share" class="share-icon" data-card-id="gg-mod-ani" draggable="false">
-      </div>
-      <button class="desc-toggle" onclick="toggleDesc(this)">Deskripsi ▼</button>
-      <div class="desc-text" style="display:none; margin-top:8px; font-weight:normal; font-size:14px; color:#333;">
-        Tema yang simple.
-      </div>
+</div>
+<div class="card" id="card-gg-theme-esdeath">
+  <a href="https://youtu.be/DwJKfYrzzbc"><img src="https://files.catbox.moe/v4kmyu.jpg" alt="NS Original"></a>
+  <div class="title">
+    <div class="title-row">
+      <span class="title-text">GG THEME エスデス</span>
+      <button class="share-button-icon" data-card-id="gg-theme-esdeath">
+        <img src="https://files.catbox.moe/40ynkg.png" alt="Share">
+      </button>
     </div>
-    <div class="buttons">
-      <button onclick="openModal('download', 'gg-mod-ani', 'Download', 'Download2')">Download</button>
-      <button onclick="openModal('howto', 'gg-mod-ani', '', '')">Cara Download</button>
-    </div>
+    <button class="desc-toggle" onclick="toggleDesc(this)">Deskripsi ▼</button>
+    <div class="desc-text">Cocok untuk yang waifunya EsDeath.</div>
   </div>
-
-  <div class="card" id="card-gg-theme-yae-miko">
-    <a href="https://youtu.be/khw0JaJsyqc"><img src="https://files.catbox.moe/iw9ut2.jpg" alt="NS Cina"></a>
-    <div class="title">
-      <div class="title-top-row">
-        <span>GG THEME YAE MIKO</span>
-        <img src="https://files.catbox.moe/40ynkg.png" alt="Share" class="share-icon" data-card-id="gg-theme-yae-miko" draggable="false">
-      </div>
-      <button class="desc-toggle" onclick="toggleDesc(this)">Deskripsi ▼</button>
-      <div class="desc-text" style="display:none; margin-top:8px; font-weight:normal; font-size:14px; color:#333;">
-        Cocok buat yang suka Yae Miko.
-      </div>
-    </div>
-    <div class="buttons">
-      <button onclick="openModal('download', 'gg-theme-yae-miko', 'Download', 'Download2')">Download</button>
-      <button onclick="openModal('howto', 'gg-theme-yae-miko', '', '')">Cara Download</button>
-    </div>
+  <div class="buttons">
+    <button onclick="openModal('download', [{ text: 'Download EsDeath', subButtons: [{ text: 'App', link: 'https://pslk.net/xbzqmvpc' },{ text: 'Server 2', link: 'https://sfl.gl/gAVzF' }, { text: 'Password', link: 'https://youtu.be/DwJKfYrzzbc' }] }])">Download</button>
+    <button onclick="openModal('howto', [{ text: 'Panduan YouTube', link: 'https://youtu.be/Af1Sj7MDhiM?si=a3nkEjDqBjj5NY14' }, { text: 'Panduan Alternatif', link: 'https://youtu.be/tutorial2' }])">Cara Download</button>
   </div>
+</div>
 
-  <div class="card" id="card-gg-theme-ganyu">
-    <a href="https://youtu.be/bMCcwS09Ta8"><img src="https://files.catbox.moe/f4vlsi.jpg" alt="NS Uchiha"></a>
-    <div class="title">
-      <div class="title-top-row">
-        <span>GG THEME GANYU</span>
-        <img src="https://files.catbox.moe/40ynkg.png" alt="Share" class="share-icon" data-card-id="gg-theme-ganyu" draggable="false">
-      </div>
-      <button class="desc-toggle" onclick="toggleDesc(this)">Deskripsi ▼</button>
-      <div class="desc-text" style="display:none; margin-top:8px; font-weight:normal; font-size:14px; color:#333;">
-        Cocok untuk yang waifunya Ganyu.
-      </div>
+<div class="card" id="card-gg-mod-渀椀">
+  <a href="https://youtu.be/Ts3d893rGHg"><img src="https://files.catbox.moe/sheg1p.jpg" alt="NS V2.1"></a>
+  <div class="title">
+    <div class="title-row">
+      <span class="title-text">GG MOD 𠄀渀椀</span>
+      <button class="share-button-icon" data-card-id="gg-mod-渀椀=">
+        <img src="https://files.catbox.moe/40ynkg.png" alt="Share">
+      </button>
     </div>
-    <div class="buttons">
-      <button onclick="openModal('download', 'gg-theme-ganyu', 'Download', 'Download2')">Download</button>
-      <button onclick="openModal('howto', 'gg-theme-ganyu', '', '')">Cara Download</button>
-    </div>
+    <button class="desc-toggle" onclick="toggleDesc(this)">Deskripsi ▼</button>
+    <div class="desc-text">Tema yang simple 渀椀.</div>
   </div>
+  <div class="buttons">
+    <button onclick="openModal('download', [{ text: 'Download 渀椀', subButtons: [{ text: 'App', link: 'https://pslk.net/q6nbma2l' },{ text: 'Server 2', link: 'https://sfl.gl/2xhk' }, { text: 'Password', link: 'https://youtu.be/Ts3d893rGHg?si=WTdpE8htpuNNqyLd' }] }])">Download</button>
+    <button onclick="openModal('howto', [{ text: 'Panduan YouTube', link: 'https://youtu.be/Af1Sj7MDhiM?si=a3nkEjDqBjj5NY14' }, { text: 'Panduan Alternatif', link: 'https://youtu.be/tutorial2' }])">Cara Download</button>
+  </div>
+</div>
 
-  <div class="card" id="card-gg-theme-hutao">
-    <a href="https://youtu.be/7bKQke2nRyc"><img src="https://files.catbox.moe/1uusb7.jpg" alt="NS Uchiha"></a>
-    <div class="title">
-      <div class="title-top-row">
-        <span>GG THEME HUTAO</span>
-        <img src="https://files.catbox.moe/40ynkg.png" alt="Share" class="share-icon" data-card-id="gg-theme-hutao" draggable="false">
-      </div>
-      <button class="desc-toggle" onclick="toggleDesc(this)">Deskripsi ▼</button>
-      <div class="desc-text" style="display:none; margin-top:8px; font-weight:normal; font-size:14px; color:#333;">
-        Cocok buat yang suka Hutao
-      </div>
+<div class="card" id="card-gg-theme-yae-miko">
+  <a href="https://youtu.be/khw0JaJsyqc"><img src="https://files.catbox.moe/iw9ut2.jpg" alt="NS Cina"></a>
+  <div class="title">
+    <div class="title-row">
+      <span class="title-text">GG THEME YAE MIKO</span>
+      <button class="share-button-icon" data-card-id="gg-theme-yae-miko">
+        <img src="https://files.catbox.moe/40ynkg.png" alt="Share">
+      </button>
     </div>
-    <div class="buttons">
-      <button onclick="openModal('download', 'gg-theme-hutao', 'Download', 'Download2')">Download</button>
-      <button onclick="openModal('howto', 'gg-theme-hutao', '', '')">Cara Download</button>
-    </div>
+    <button class="desc-toggle" onclick="toggleDesc(this)">Deskripsi ▼</button>
+    <div class="desc-text">Cocok buat yang suka Yae Miko.</div>
   </div>
+  <div class="buttons">
+    <button onclick="openModal('download', [{ text: 'Download Yae', subButtons: [{ text: 'App', link: 'https://pslk.net/74hwl027' },{ text: 'Server 2', link: 'https://sfl.gl/7NmC' }, { text: 'Password', link: 'https://youtu.be/khw0JaJsyqc?si=cdPtxptefabPjM7H' }] }])">Download</button>
+    <button onclick="openModal('howto', [{ text: 'Panduan YouTube', link: 'https://youtu.be/Af1Sj7MDhiM?si=a3nkEjDqBjj5NY14' }, { text: 'Panduan Alternatif', link: 'https://youtu.be/tutorial2' }])">Cara Download</button>
+  </div>
+</div>
 
-  <div class="card" id="card-gg-theme-nahida">
-    <a href="https://youtu.be/U0Cdmm2i620"><img src="https://files.catbox.moe/3yi7j9.jpg" alt="NS Uchiha"></a>
-    <div class="title">
-      <div class="title-top-row">
-        <span>GG THEME NAHIDA</span>
-        <img src="https://files.catbox.moe/40ynkg.png" alt="Share" class="share-icon" data-card-id="gg-theme-nahida" draggable="false">
-      </div>
-      <button class="desc-toggle" onclick="toggleDesc(this)">Deskripsi ▼</button>
-      <div class="desc-text" style="display:none; margin-top:8px; font-weight:normal; font-size:14px; color:#333;">
-        Heyyo 🧐
-      </div>
+<div class="card" id="card-gg-theme-ganyu">
+  <a href="https://youtu.be/bMCcwS09Ta8"><img src="https://files.catbox.moe/f4vlsi.jpg" alt="NS Uchiha"></a>
+  <div class="title">
+    <div class="title-row">
+      <span class="title-text">GG THEME GANYU</span>
+      <button class="share-button-icon" data-card-id="gg-theme-ganyu">
+        <img src="https://files.catbox.moe/40ynkg.png" alt="Share">
+      </button>
     </div>
-    <div class="buttons">
-      <button onclick="openModal('download', 'gg-theme-nahida', 'Download', 'Download2')">Download</button>
-      <button onclick="openModal('howto', 'gg-theme-nahida', '', '')">Cara Download</button>
-    </div>
+    <button class="desc-toggle" onclick="toggleDesc(this)">Deskripsi ▼</button>
+    <div class="desc-text">Cocok untuk yang waifunya Ganyu.</div>
   </div>
+  <div class="buttons">
+    <button onclick="openModal('download', [{ text: 'Download Ganyu', subButtons: [{ text: 'App', link: 'https://pslk.net/ifcat3ui' },{ text: 'Server 2', link: 'https://sfl.gl/1NTbTX' }, { text: 'Password', link: 'https://youtu.be/bMCcwS09Ta8?si=QqQBS1i_-FM-AiLd' }] }])">Download</button>
+    <button onclick="openModal('howto', [{ text: 'Panduan YouTube', link: 'https://youtu.be/Af1Sj7MDhiM?si=a3nkEjDqBjj5NY14' }, { text: 'Panduan Alternatif', link: 'https://youtu.be/tutorial2' }])">Cara Download</button>
+  </div>
+</div>
+
+<!-- CARD: GG THEME HUTAO -->
+<div class="card" id="card-gg-theme-hutao">
+  <a href="https://youtu.be/7bKQke2nRyc"><img src="https://files.catbox.moe/1uusb7.jpg" alt="NS Uchiha"></a>
+  <div class="title">
+    <div class="title-row">
+      <span class="title-text">GG THEME HUTAO</span>
+      <button class="share-button-icon" data-card-id="gg-theme-hutao">
+        <img src="https://files.catbox.moe/40ynkg.png" alt="Share">
+      </button>
+    </div>
+    <button class="desc-toggle" onclick="toggleDesc(this)">Deskripsi ▼</button>
+    <div class="desc-text">Cocok buat yang suka Hutao</div>
+  </div>
+  <div class="buttons">
+    <button onclick="openModal('download', [{ text: 'Download Hutao', subButtons: [{ text: 'App', link: 'https://sfl.gl/XC4oO' },{ text: 'Server 2', link: 'https://sfl.gl/XC4oO' }, { text: 'Password', link: 'https://youtu.be/7bKQke2nRyc?si=V7kc-WmFsbq9jVKt' }] }])">Download</button>
+    <button onclick="openModal('howto', [{ text: 'Panduan YouTube', link: 'https://youtu.be/Af1Sj7MDhiM?si=a3nkEjDqBjj5NY14' }, { text: 'Panduan Alternatif', link: 'https://youtu.be/tutorial2' }])">Cara Download</button>
+  </div>
+</div>
+
+<!-- CARD: GG THEME NAHIDA -->
+<div class="card" id="card-gg-theme-nahida">
+  <a href="https://youtu.be/U0Cdmm2i620"><img src="https://files.catbox.moe/3yi7j9.jpg" alt="NS Uchiha"></a>
+  <div class="title">
+    <div class="title-row">
+      <span class="title-text">GG THEME NAHIDA</span>
+      <button class="share-button-icon" data-card-id="gg-theme-nahida">
+        <img src="https://files.catbox.moe/40ynkg.png" alt="Share">
+      </button>
+    </div>
+    <button class="desc-toggle" onclick="toggleDesc(this)">Deskripsi ▼</button>
+    <div class="desc-text">Heyyo 🧐</div>
+  </div>
+  <div class="buttons">
+    <button onclick="openModal('download', [{ text: 'Download Nahida', subButtons: [{ text: 'App', link: 'https://pslk.net/vcbm2f3a' },{ text: 'Server 2', link: 'https://sfl.gl/JUjGLtjn' }, { text: 'Password', link: 'https://youtu.be/U0Cdmm2i620' }] }])">Download</button>
+    <button onclick="openModal('howto', [{ text: 'Panduan YouTube', link: 'https://youtu.be/Af1Sj7MDhiM?si=a3nkEjDqBjj5NY14' }, { text: 'Panduan Alternatif', link: 'https://youtu.be/tutorial2' }])">Cara Download</button>
+  </div>
+</div>
 
   <div class="card" id="card-gg-theme-アニメ">
     <a href="https://youtu.be/ujzgmD7qI0o?si=StOhueDw8Xf3KXGf"><img src="https://files.catbox.moe/kanz79.jpg" alt="NS Uchiha"></a>
-    <div class="title">
-      <div class="title-top-row">
-        <span>GG THEME アニメ</span>
-        <img src="https://files.catbox.moe/40ynkg.png" alt="Share" class="share-icon" data-card-id="gg-theme-アニメ" draggable="false">
-      </div>
+<div class="title">
+  <div class="title-row">
+    <span class="title-text">GG MOD THEME アニメ</span>
+    <button class="share-button-icon" data-card-id="gg-theme-アニメ">
+      <img src="https://files.catbox.moe/40ynkg.png" alt="Share">
+    </button>
+  </div>
       <button class="desc-toggle" onclick="toggleDesc(this)">Deskripsi ▼</button>
       <div class="desc-text" style="display:none; margin-top:8px; font-weight:normal; font-size:14px; color:#333;">
         Tema simple disertai wallpaper video di awal menu
       </div>
     </div>
     <div class="buttons">
-      <button onclick="openModal('download', 'gg-theme-アニメ', 'Download', 'Download2')">Download</button>
-      <button onclick="openModal('howto', 'gg-theme-アニメ', '', '')">Cara Download</button>
+      <button onclick="openModal('download', [
+  { text: 'Download アニメ',  subButtons: [ 
+      { text: 'App', link: 'https://pslk.net/lmmyec3h' },
+      { text: 'Server 2', link: 'https://sfl.gl/bQnMPN' },
+      { text: 'Password', link: 'https://youtu.be/ujzgmD7qI0o' } // <-- Tambahkan ini
+    ] // <-- Dan ini
+  } // <-- Dan ini
+])">Download</button>
+  <button onclick="openModal('howto', [
+    { text: 'Panduan YouTube', link: 'https://youtu.be/Af1Sj7MDhiM?si=a3nkEjDqBjj5NY14' },
+    { text: 'Panduan Alternatif', link: 'https://youtu.be/tutorial2' }
+  ])">Cara Download</button>
     </div>
   </div>
 
+
   <footer>© 2025 вирга</footer>
 
-  <div class="modal-overlay" id="popup">
+ <div class="modal-overlay" id="popup">
     <div class="modal">
-      <span class="close-btn" onclick="closeModal()">X</span> <div id="modal-body"></div>
+      <div class="modal-header">
+        <h2 id="modal-title"></h2> <span class="close-btn" onclick="closeModal()">X</span>
+      </div>
+      
+      <div class="modal-content-body">
+        <div id="modal-buttons-container" class="modal-buttons">
+          </div>
+        <p id="modal-adblock-note" class="modal-footer-note" style="display: none;">
+          Jika link tidak bisa dibuka, pastikan kamu sudah menonaktifkan Adblock atau coba browser lain.
+        </p>
+      </div>
     </div>
   </div>
 
   <script>
-    function openModal(mode, gameVersion, buttonText1 = 'Download Apk sekarang', buttonText2 = 'Download APK Lainnya') {
-      const popup = document.getElementById('popup');
-      const body = document.getElementById('modal-body');
-      let content = '';
-      let downloadLink1 = '';
-      let downloadLink2 = '';
-      let youtubeLink1 = '';
-      let youtubeLink2 = ''; // Link baru untuk panduan YouTube
+let currentModalData = null; // Menyimpan data modal terakhir yang dibuka
 
-      /* Untuk Stel Link */
-      switch (gameVersion) {
-        case 'gg-new-theme-icon':
-          downloadLink1 = 'https://sfl.gl/5YGH3wH';
-          downloadLink2 = 'https://yy.com/404';
-          youtubeLink1 = 'https://youtu.be/Af1Sj7MDhiM?si=EHKw02WB87uTumQI'; // Contoh link YouTube 1
-          youtubeLink2 = 'https://youtube.com/waifu1_tutorial2'; // Contoh link YouTube 2
-          break;
-        case 'gg-theme-esdeath':
-          downloadLink1 = 'https://pslk.net/xbzqmvpc';
-          downloadLink2 = 'https://sfl.gl/gAVzF';
-          youtubeLink1 = 'https://youtu.be/Af1Sj7MDhiM?si=EHKw02WB87uTumQI';
-          youtubeLink2 = 'https://youtube.com/original_tutorial2';
-          break;
-        case 'gg-mod-ani':
-          downloadLink1 = 'https://pslk.net/q6nbma2l';
-          downloadLink2 = 'https://sfl.gl/2xhk';
-          youtubeLink1 = 'https://youtu.be/Af1Sj7MDhiM?si=EHKw02WB87uTumQI';
-          youtubeLink2 = 'https://youtube.com/v21_tutorial2';
-          break;
-        case 'gg-theme-yae-miko':
-          downloadLink1 = 'https://pslk.net/74hwl027';
-          downloadLink2 = 'https://sfl.gl/7NmC';
-          youtubeLink1 = 'https://youtu.be/Af1Sj7MDhiM?si=EHKw02WB87uTumQI';
-          youtubeLink2 = 'https://youtube.com/cina_tutorial2';
-          break;
-        case 'gg-theme-ganyu':
-          downloadLink1 = 'https://pslk.net/ifcat3ui';
-          downloadLink2 = 'https://sfl.gl/1NTbTX';
-          youtubeLink1 = 'https://youtu.be/Af1Sj7MDhiM?si=EHKw02WB87uTumQI';
-          youtubeLink2 = 'https://youtube.com/uchiha_tutorial2';
-          break;
-        case 'gg-theme-hutao':
-          downloadLink1 = 'https://pslk.net/kz21m6mq';
-          downloadLink2 = 'https://sfl.gl/XC4oO';
-          youtubeLink1 = 'https://youtu.be/Af1Sj7MDhiM?si=EHKw02WB87uTumQI';
-          youtubeLink2 = 'https://youtube.com/uchiha_tutorial2';
-          break;
-        case 'gg-theme-nahida':
-          downloadLink1 = 'https://pslk.net/vcbm2f3a';
-          downloadLink2 = 'https://sfl.gl/JUjGLtjn';
-          youtubeLink1 = 'https://youtu.be/Af1Sj7MDhiM?si=EHKw02WB87uTumQI';
-          youtubeLink2 = 'https://youtube.com/uchiha_tutorial2';
-          break;
-        case 'gg-theme-アニメ':
-          downloadLink1 = 'https://pslk.net/lmmyec3h';
-          downloadLink2 = 'https://sfl.gl/bQnMPN';
-          youtubeLink1 = 'https://youtu.be/Af1Sj7MDhiM?si=EHKw02WB87uTumQI';
-          youtubeLink2 = 'https://youtube.com/uchiha_tutorial2';  
-          break;
-        default: /* The last card with Pixellab theme was removed */
-          downloadLink1 = 'https://example.com/default_download.apk';
-          downloadLink2 = 'https://example.com/default_another_download.apk';
-          youtubeLink1 = 'https://youtu.be/Af1Sj7MDhiM?si=EHKw02WB87uTumQI';
-          youtubeLink2 = 'https://youtube.com/default_tutorial2';
-      }
+function openModal(mode, buttonsData) {
+    const popup = document.getElementById('popup');
+    const modalTitle = document.getElementById('modal-title');
+    const modalButtonsContainer = document.getElementById('modal-buttons-container');
+    const modalAdblockNote = document.getElementById('modal-adblock-note');
 
-      if (mode === 'download') {
-        content = `
-          <h2>Download Game</h2>
-          <div class="modal-buttons">
-            <a id="download-apk-sekarang-${gameVersion}" href="${downloadLink1}" download>${buttonText1}</a>
-            <a id="download-apk-lainnya-${gameVersion}" href="${downloadLink2}" download>${buttonText2}</a>
-            <p style="margin-top:10px; font-size:14px; color:#333;">Jika link tidak bisa dibuka, pastikan kamu sudah Menonaktifkan Adblock atau coba browser lain.</p>
-          </div>
-        `;
-      } else if (mode === 'howto') {
-        content = `
-          <h2>Cara Download</h2>
-          <div class="modal-buttons">
-            <a href="${youtubeLink1}" target="_blank">Tonton Panduan YouTube1</a>
-            <a href="${youtubeLink2}" target="_blank">Tonton Panduan YouTube2</a>
-          </div>
-        `;
-      }
+    // Simpan data modal saat ini untuk kemungkinan "kembali" atau refresh
+    currentModalData = { mode: mode, buttons: buttonsData };
 
-      body.innerHTML = content;
-      popup.style.display = 'flex';
+    modalTitle.textContent = mode === 'download' ? 'Download' : 'Cara Download';
+    modalButtonsContainer.innerHTML = ''; // Kosongkan container sebelum mengisi
+
+    buttonsData.forEach(btn => {
+        if (btn.separator) {
+            // Jika objek adalah separator, tambahkan saja
+            modalButtonsContainer.innerHTML += '<div class="button-group-separator"></div>';
+        } else {
+            // Jika bukan separator, tambahkan download-block
+            let downloadBlockHtml = `
+                <div class="download-block">
+                    ${btn.subButtons && btn.subButtons.length > 0 ?
+                        `<button class="download-button" onclick="showSubModal('${btn.text}', ${JSON.stringify(btn.subButtons).replace(/"/g, '\'')})">${btn.text}</button>` :
+                        `<a href="${btn.link}" target="_blank" class="download-button">${btn.text}</a>`
+                    }
+                    ${btn.note ? `<div class="download-note">${btn.note}</div>` : ''}
+                </div>
+            `;
+            modalButtonsContainer.innerHTML += downloadBlockHtml;
+        }
+    });
+
+    if (mode === 'download') {
+        modalAdblockNote.style.display = 'block';
+    } else {
+        modalAdblockNote.style.display = 'none';
     }
 
-    function closeModal() {
-      document.getElementById('popup').style.display = 'none';
+    popup.style.display = 'flex';
+}
+
+// Fungsi ini akan dipanggil dari tombol di dalam modal untuk menampilkan sub-pilihan
+function showSubModal(parentButtonText, subButtonsData) {
+    const modalTitle = document.getElementById('modal-title');
+    const modalButtonsContainer = document.getElementById('modal-buttons-container');
+    const modalAdblockNote = document.getElementById('modal-adblock-note');
+
+    modalTitle.textContent = parentButtonText; // Ubah judul modal sesuai sub-pilihan
+    modalButtonsContainer.innerHTML = ''; // Kosongkan konten sebelumnya
+
+    // Tambahkan tombol kembali ke modal utama TANPA separator di bawahnya
+    modalButtonsContainer.innerHTML += `
+        <div class="download-block">
+            <button class="download-button" onclick="goBackToMainModal()">← Kembali</button>
+        </div>
+    `;
+    // Tidak ada `<div class="button-group-separator"></div>` di sini
+
+    subButtonsData.forEach(btn => {
+        // Tambahkan download-block
+        let downloadBlockHtml = `
+            <div class="download-block">
+                <a href="${btn.link}" target="_blank" class="download-button">${btn.text}</a>
+                ${btn.note ? `<div class="download-note">${btn.note}</div>` : ''}
+            </div>
+        `;
+        modalButtonsContainer.innerHTML += downloadBlockHtml;
+        // Tidak ada penambahan separator otomatis di sini.
+        // Jika Anda ingin separator di sub-modal juga, Anda perlu menambahkannya ke `subButtons` data.
+    });
+
+    // Catatan adblock tetap ditampilkan jika ini adalah bagian dari proses download
+    // Asumsi sub-modal ini selalu terkait dengan download
+    modalAdblockNote.style.display = 'block'; 
+}
+
+// Fungsi untuk kembali ke tampilan modal utama
+function goBackToMainModal() {
+    if (currentModalData) {
+        openModal(currentModalData.mode, currentModalData.buttons);
+    } else {
+        closeModal();
     }
+}
+
+function closeModal() {
+    document.getElementById('popup').style.display = 'none';
+    currentModalData = null; // Reset data saat modal ditutup
+}
 
     function toggleDesc(btn) {
       const desc = btn.nextElementSibling;
@@ -622,7 +701,7 @@
     // JavaScript untuk fitur Share (diadaptasi untuk ikon gambar)
     // ************************************************
     document.addEventListener('DOMContentLoaded', () => {
-        const shareIcons = document.querySelectorAll('.share-icon'); // Memilih ikon share dengan kelas 'share-icon'
+        const shareIcons = document.querySelectorAll('.share-button-icon'); // Memilih ikon share dengan kelas 'share-icon'
 
         shareIcons.forEach(icon => {
             icon.addEventListener('click', (event) => {
