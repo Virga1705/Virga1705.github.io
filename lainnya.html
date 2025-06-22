@@ -382,9 +382,23 @@
 }
 
 .button-group-separator {
-  border-top: 7px solid #eee; /* Garis tipis abu-abu */
+  border-top: 3px solid #807a85; /* Garis tipis abu-abu */
   margin: 5px 0; /* Jarak atas dan bawah garis */
   height: 0; /* Pastikan tidak ada tinggi */
+}
+
+.modal-page {
+  /* Untuk memastikan konten halaman modal tidak tumpang tindih secara aneh */
+  width: 100%;
+  box-sizing: border-box;
+  /* padding sudah diurus oleh .modal-content-body */
+}
+
+/* Jika Anda ingin tombol kembali punya gaya khusus */
+#back-to-main-modal {
+    /* Gaya default download-button sudah bagus, mungkin hanya perlu sedikit margin */
+    margin-bottom: 15px;
+    margin-top: 5px; /* Sedikit jarak dari atas jika diperlukan */
 }
 
   </style>
@@ -414,12 +428,7 @@
   </div>
   <div class="buttons">
   <button onclick="openModal('download', [
-    { text: 'Download dari Mediafire', link: 'https://a.com' },
-    { text: 'Download Resmi', link: 'https://b.com', note: 'No 2 untuk mengunjungi situs asli' },
-    { text: 'Mirror Link', link: 'https://c.com' },
-    { separator: true }, // Tambahkan ini untuk garis pemisah
-    { text: 'Link Tambahan 1', link: 'https://g.com' },
-    { text: 'Link Tambahan 2', link: 'https://h.com' }
+    { text: 'Download dari Mediafire', link: 'https://a.com' }
   ])">Download</button>
   <button onclick="openModal('howto', [
     { text: 'Panduan YouTube 1', link: 'https://youtu.be/tutorial1' },
@@ -443,14 +452,14 @@
     <button class="share-button-icon" data-card-id="script-rr3"><img src="https://files.catbox.moe/40ynkg.png" alt="Share"></button>
   </div>
   <div class="buttons">
-  <button onclick="openModal('download', [
-    { text: 'Download dari Mediafire', link: 'https://a.com' },
-    { text: 'Download Resmi', link: 'https://b.com', note: 'No 2 untuk mengunjungi situs asli' },
-    { text: 'Mirror Link', link: 'https://c.com' },
-    { separator: true }, // Tambahkan ini untuk garis pemisah
-    { text: 'Link Tambahan 1', link: 'https://g.com' },
-    { text: 'Link Tambahan 2', link: 'https://h.com' }
-  ])">Download</button>
+ <button onclick="openModal('download', [
+  { text: 'Script Cars/Events Unlocker', // Ini tombol yang akan membuka sub-modal
+    subButtons: [ // Tambahkan properti subButtons ini
+      { text: 'Apk Admin Server', link: 'https://apkadmin.com/6pzpqwqwl2ud/rr3_car_unlocker.v12.6.8.6.3.bin.lua.html' },
+      { text: 'GameGuardian Server', link: 'https://gameguardian.net/forum/files/file/2394-real-racing-3-1268-carsevents-unlocker/', note: ':3' }
+    ]
+  }
+])">Download</button>
   <button onclick="openModal('howto', [
     { text: 'Panduan YouTube 1', link: 'https://youtu.be/tutorial1' },
     { text: 'Panduan Alternatif', link: 'https://youtu.be/tutorial2', note: 'Gunakan jika link utama error' }
@@ -462,46 +471,73 @@
 
   <footer>© 2025 вирга</footer>
 
- <div class="modal-overlay" id="popup">
+<div class="modal-overlay" id="popup">
     <div class="modal">
       <div class="modal-header">
-        <h2 id="modal-title"></h2> <span class="close-btn" onclick="closeModal()">X</span>
+        <h2 id="modal-title"></h2>
+        <span class="close-btn" onclick="closeModal()">X</span>
       </div>
       
       <div class="modal-content-body">
-        <div id="modal-buttons-container" class="modal-buttons">
-          </div>
-        <p id="modal-adblock-note" class="modal-footer-note" style="display: none;">
-          Jika link tidak bisa dibuka, pastikan kamu sudah menonaktifkan Adblock atau coba browser lain.
-        </p>
+        <div id="main-modal-content" class="modal-page">
+          <div id="modal-buttons-container" class="modal-buttons">
+            </div>
+          <p id="modal-adblock-note" class="modal-footer-note" style="display: none;">
+            Jika link tidak bisa dibuka, pastikan kamu sudah menonaktifkan Adblock atau coba browser lain.
+          </p>
+        </div>
+
+        <div id="sub-modal-content" class="modal-page" style="display: none;">
+          <button id="back-to-main-modal" class="download-button" style="margin-bottom: 15px; margin-top: 5px;" onclick="showMainModal()">← Kembali</button>
+          <div id="sub-modal-buttons-container" class="modal-buttons">
+            </div>
+        </div>
       </div>
     </div>
   </div>
 
   <script>
   
-    // --- FUNGSI-FUNGSI TOMBOL DOWNLOAD FLEXIBLE ---
+// --- FUNGSI-FUNGSI TOMBOL DOWNLOAD FLEXIBLE ---
 
-function openModal(mode, buttons = []) {
+// Definisikan data tombol secara global atau di tempat yang mudah diakses
+// Ini penting agar sub-modal bisa mengakses data tombol utama
+let currentModalButtonsData = [];
+
+function openModal(mode, buttonsData = []) {
   const popup = document.getElementById('popup');
   const modalTitle = document.getElementById('modal-title');
+  const mainModalContent = document.getElementById('main-modal-content');
+  const subModalContent = document.getElementById('sub-modal-content');
   const modalButtonsContainer = document.getElementById('modal-buttons-container');
   const modalAdblockNote = document.getElementById('modal-adblock-note');
 
-  let buttonsHtml = '';
+  // Simpan data tombol utama
+  currentModalButtonsData = buttonsData;
 
-  buttons.forEach(btn => {
+  let buttonsHtml = '';
+  buttonsData.forEach(btn => {
     if (btn.separator) {
-      // Jika objek ini adalah pemisah, tambahkan div pemisah
       buttonsHtml += '<div class="button-group-separator"></div>';
     } else {
-      // Jika bukan pemisah, tambahkan tombol seperti biasa
-      buttonsHtml += `
-        <div class="download-block">
-          <a href="${btn.link}" target="_blank" class="download-button">${btn.text}</a>
-          ${btn.note ? `<div class="download-note">${btn.note}</div>` : ''}
-        </div>
-      `;
+      // Ubah onclick tombol download yang akan membuka sub-modal
+      // Periksa apakah tombol memiliki properti `subButtons`
+      if (btn.subButtons && btn.subButtons.length > 0) {
+        buttonsHtml += `
+          <div class="download-block">
+            <button class="download-button" onclick="showSubModal('${btn.text}', ${JSON.stringify(btn.subButtons).replace(/"/g, '&quot;')})">${btn.text}</button>
+            ${btn.note ? `<div class="download-note">${btn.note}</div>` : ''}
+          </div>
+        `;
+      } else {
+        // Tombol download biasa (langsung ke link)
+        buttonsHtml += `
+          <div class="download-block">
+            <a href="${btn.link}" target="_blank" class="download-button">${btn.text}</a>
+            ${btn.note ? `<div class="download-note">${btn.note}</div>` : ''}
+          </div>
+        `;
+      }
     }
   });
 
@@ -514,18 +550,61 @@ function openModal(mode, buttons = []) {
     modalAdblockNote.style.display = 'none';
   }
 
+  // Pastikan modal utama yang terlihat saat pertama kali dibuka
+  mainModalContent.style.display = 'block';
+  subModalContent.style.display = 'none';
+
   popup.style.display = 'flex';
 }
 
-function closeModal() {
-  document.getElementById('popup').style.display = 'none';
+function showSubModal(parentButtonText, subButtonsData) {
+  const modalTitle = document.getElementById('modal-title');
+  const mainModalContent = document.getElementById('main-modal-content');
+  const subModalContent = document.getElementById('sub-modal-content');
+  const subModalButtonsContainer = document.getElementById('sub-modal-buttons-container');
+
+  let subButtonsHtml = '';
+  subButtonsData.forEach(btn => {
+    subButtonsHtml += `
+      <div class="download-block">
+        <a href="${btn.link}" target="_blank" class="download-button">${btn.text}</a>
+        ${btn.note ? `<div class="download-note">${btn.note}</div>` : ''}
+      </div>
+    `;
+  });
+
+  modalTitle.textContent = parentButtonText; // Judul sub-modal bisa disesuaikan
+  subModalButtonsContainer.innerHTML = subButtonsHtml;
+
+  mainModalContent.style.display = 'none';
+  subModalContent.style.display = 'block';
 }
 
-    // --- BATAS ---
+function showMainModal() {
+  const modalTitle = document.getElementById('modal-title');
+  const mainModalContent = document.getElementById('main-modal-content');
+  const subModalContent = document.getElementById('sub-modal-content');
+  const modalAdblockNote = document.getElementById('modal-adblock-note');
 
-    function closeModal() {
-        document.getElementById('popup').style.display = 'none';
-    }
+  // Pulihkan judul modal utama
+  modalTitle.textContent = 'Download Game'; // Atau bisa disimpan dalam variabel jika mode bukan 'download'
+
+  mainModalContent.style.display = 'block';
+  subModalContent.style.display = 'none';
+
+  // Pastikan catatan adblock ditampilkan kembali jika mode adalah download
+  // Asumsi selalu mode 'download' saat kembali dari sub-modal download
+  modalAdblockNote.style.display = 'block';
+}
+
+// Hanya satu fungsi closeModal yang diperlukan
+function closeModal() {
+    document.getElementById('popup').style.display = 'none';
+    // Opsional: Reset ke tampilan utama saat modal ditutup
+    showMainModal(); // Pastikan modal kembali ke tampilan awal jika dibuka lagi
+}
+
+// ... kode JavaScript lainnya ...
 
     function toggleDesc(btn) {
         const desc = btn.nextElementSibling;
