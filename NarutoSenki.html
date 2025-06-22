@@ -264,79 +264,143 @@
       -webkit-touch-callout: none;
     }
 
-    .modal {
-      background: white;
-      border-radius: 12px;
-      padding: 20px;
-      width: 80%;
-      max-width: 300px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-      text-align: center;
-      position: relative; /* Tambahkan ini untuk posisi tombol close */
-      /* Mencegah seleksi teks dan klik kanan pada modal */
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
-      -webkit-touch-callout: none;
-    }
+.modal {
+  background: white;
+  border-radius: 12px;
+  /* Hapus padding dari sini, pindah ke modal-body */
+  padding: 0;
+  width: 80%;
+  max-width: 300px;
+  /* Sesuaikan tinggi agar tidak terlalu panjang */
+  max-height: 80vh; /* Menggunakan vh agar responsif */
+  overflow-y: auto;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
 
-    .modal-buttons {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-top: 15px;
-    }
+.modal-header {
+  position: sticky;
+  top: 0;
+  background: white;
+  z-index: 1;
+  padding: 16px; /* Padding di sini untuk header */
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
-    .modal-buttons a {
-      text-decoration: none;
-      padding: 10px;
-      border: 2px solid black;
-      border-radius: 10px;
-      font-weight: bold;
-      color: black;
-      background: white;
-      transition: all .2s ease-in-out;
-      /* Mencegah seleksi teks dan klik kanan pada tombol modal */
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
-      -webkit-touch-callout: none;
-    }
+.modal-header h2 {
+  margin: 0;
+  font-size: 18px;
+}
 
-    .modal-buttons a:hover {
-      background: black;
-      color: white;
-    }
+/* Sesuaikan tombol close agar posisinya di kanan atas modal */
+.close-btn {
+  width: 30px;
+  height: 30px;
+  background: #ff5c5c;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s ease-in-out;
+  flex-shrink: 0;
+  /* Hapus position absolute jika sudah di dalam flexbox header */
+}
 
-    .close-btn {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      width: 30px;
-      height: 30px;
-      background: #ff5c5c; /* Warna latar belakang merah */
-      color: white;
-      border-radius: 50%; /* Membuatnya bulat sempurna */
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 18px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background 0.2s ease-in-out;
-      /* Mencegah seleksi teks dan klik kanan pada tombol tutup */
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
-      -webkit-touch-callout: none;
-    }
+.close-btn:hover {
+  background: #e04444;
+}
 
-    .close-btn:hover {
-      background: #e04444; /* Warna sedikit lebih gelap saat hover */
-    }
+/* Konten utama modal, beri padding di sini */
+.modal-content-body {
+  padding: 16px; /* Padding untuk konten di dalam modal */
+  flex-grow: 1; /* Agar mengambil sisa ruang */
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Jarak antar blok download */
+  /* Padding sudah dipindah ke modal-content-body */
+}
+
+.download-block {
+  margin-bottom: 0; /* Hapus margin-bottom di sini, gap sudah menangani */
+  text-align: left;
+}
+
+.download-button {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px;
+  border: 2px solid black;
+  border-radius: 10px;
+  font-weight: bold;
+  color: black;
+  background: white;
+  text-align: center;
+  text-decoration: none;
+  transition: all .2s ease-in-out;
+}
+
+.download-button:hover {
+  background: black;
+  color: white;
+}
+
+.download-note {
+  font-size: 13px;
+  color: #666;
+  padding-top: 4px;
+  padding-left: 6px; /* Konsisten dengan padding lainnya */
+  padding-right: 6px;
+  line-height: 1.4;
+}
+
+/* Style untuk footer modal (catatan Adblock) */
+.modal-footer-note {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #333;
+  padding: 0 16px 16px; /* Padding bawah dan samping */
+}
+
+.button-group-separator {
+  border-top: 3px solid #807a85; /* Garis tipis abu-abu */
+  margin: 5px 0; /* Jarak atas dan bawah garis */
+  height: 0; /* Pastikan tidak ada tinggi */
+}
+
+.modal-page {
+  /* Untuk memastikan konten halaman modal tidak tumpang tindih secara aneh */
+  width: 100%;
+  box-sizing: border-box;
+  /* padding sudah diurus oleh .modal-content-body */
+}
+
+/* Jika Anda ingin tombol kembali punya gaya khusus */
+#back-to-main-modal {
+    /* Gaya default download-button sudah bagus, mungkin hanya perlu sedikit margin */
+    margin-bottom: 15px;
+    margin-top: 5px; /* Sedikit jarak dari atas jika diperlukan */
+}
+
   </style>
 </head>
 <body oncontextmenu="return false;">
@@ -363,8 +427,13 @@
       </div>
     </div>
     <div class="buttons">
-      <button onclick="openModal('download', 'waifu1', 'Download Link1', 'Download Link2')">Download</button>
-      <button onclick="openModal('howto', 'waifu1', '', '')">Cara Download</button>
+   <button onclick="openModal('download', [
+  { text: 'NS: WaifuWar v1', link: 'https://sfl.gl/JUucxpu' }
+])">Download</button>
+  <button onclick="openModal('howto', [
+  { text: 'Guide YouTube', link: 'https://youtu.be/Af1Sj7MDhiM?si=EHKw02WB87uTumQI' },
+  { text: 'Guide Alternatif', link: 'https://youtu.be/tutorial2' }
+])">Cara Download</button>
     </div>
   </div>
 
@@ -381,8 +450,13 @@
       </div>
     </div>
     <div class="buttons">
-      <button onclick="openModal('download', 'original', 'Download Link1', 'Download Link2')">Download</button>
-      <button onclick="openModal('howto', 'original', '', '')">Cara Download</button>
+ <button onclick="openModal('download', [
+  { text: 'Ns Unprotect 1.17', link: 'https://link2unlock.com/d1e1c' }
+])">Download</button>
+  <button onclick="openModal('howto', [
+  { text: 'Guide YouTube', link: 'https://youtu.be/Af1Sj7MDhiM?si=EHKw02WB87uTumQI' },
+  { text: 'Guide Alternatif', link: 'https://youtu.be/tutorial2' }
+])">Cara Download</button>
     </div>
   </div>
 
@@ -399,95 +473,144 @@
       </div>
     </div>
     <div class="buttons">
-      <button onclick="openModal('download', 'v21', 'Download Link1', 'Download Link2')">Download</button>
-      <button onclick="openModal('howto', 'v21', '', '')">Cara Download</button>
+ <button onclick="openModal('download', [
+  { text: 'Download Via ApkAdmin', link: 'https://sfl.gl/pqugi' },
+  { text: 'Download Via GitHub', link: 'https://github.com/Naruto-Senki/files/releases/download/v2.1.6-fix/NSV2_2.1.6-fix_Android.apk', note: 'Download Via ApkAdmin For Support Me.And Download Via GitHub For Support RE' }
+])">Download</button>
+  <button onclick="openModal('howto', [
+  { text: 'Guide YouTube', link: 'https://youtu.be/Af1Sj7MDhiM?si=EHKw02WB87uTumQI' },
+  { text: 'Guide Alternatif', link: 'https://youtu.be/tutorial2' }
+])">Cara Download</button>
     </div>
   </div>
 
 
   <footer>© 2025 вирга</footer>
 
-  <div class="modal-overlay" id="popup">
+<div class="modal-overlay" id="popup">
     <div class="modal">
-      <span class="close-btn" onclick="closeModal()">X</span> <div id="modal-body"></div>
+      <div class="modal-header">
+        <h2 id="modal-title"></h2>
+        <span class="close-btn" onclick="closeModal()">X</span>
+      </div>
+      
+      <div class="modal-content-body">
+        <div id="main-modal-content" class="modal-page">
+          <div id="modal-buttons-container" class="modal-buttons">
+            </div>
+          <p id="modal-adblock-note" class="modal-footer-note" style="display: none;">
+            Jika link tidak bisa dibuka, pastikan kamu sudah menonaktifkan Adblock atau coba browser lain.
+          </p>
+        </div>
+
+        <div id="sub-modal-content" class="modal-page" style="display: none;">
+          <button id="back-to-main-modal" class="download-button" style="margin-bottom: 15px; margin-top: 5px;" onclick="showMainModal()">← Kembali</button>
+          <div id="sub-modal-buttons-container" class="modal-buttons">
+            </div>
+        </div>
+      </div>
     </div>
   </div>
 
   <script>
-    function openModal(mode, gameVersion, buttonText1 = 'Download Apk sekarang', buttonText2 = 'Download APK Lainnya') {
-      const popup = document.getElementById('popup');
-      const body = document.getElementById('modal-body');
-      let content = '';
-      let downloadLink1 = '';
-      let downloadLink2 = '';
-      let youtubeLink1 = '';
-      let youtubeLink2 = ''; // Link baru untuk panduan YouTube
+let currentModalButtonsData = [];
 
-      /* Untuk Stel Link */
-      switch (gameVersion) {
-        case 'waifu1':
-          downloadLink1 = 'https://sfl.gl/JUucxpu';
-          downloadLink2 = 'https://example.com/waifu1_another_download.apk';
-          youtubeLink1 = 'https://youtu.be/Af1Sj7MDhiM?si=EHKw02WB87uTumQI'; // Contoh link YouTube 1
-          youtubeLink2 = 'https://youtube.com/waifu1_tutorial2'; // Contoh link YouTube 2
-          break;
-        case 'original':
-          downloadLink1 = 'https://link2unlock.com/d1e1c';
-          downloadLink2 = 'https://example.com/original_another_download.apk';
-          youtubeLink1 = 'https://youtu.be/Af1Sj7MDhiM?si=EHKw02WB87uTumQI';
-          youtubeLink2 = 'https://youtube.com/original_tutorial2';
-          break;
-        case 'v21':
-          downloadLink1 = 'https://sfl.gl/pqugi';
-          downloadLink2 = 'https://github.com/Naruto-Senki/files/releases/download/v2.1.6-fix/NSV2_2.1.6-fix_Android.apk';
-          youtubeLink1 = 'https://youtu.be/Af1Sj7MDhiM?si=EHKw02WB87uTumQI';
-          youtubeLink2 = 'https://youtube.com/v21_tutorial2';
-          break;
-        case 'cina':
-          downloadLink1 = 'https://example.com/cina_download.apk';
-          downloadLink2 = 'https://example.com/cina_another_download.apk';
-          youtubeLink1 = 'https://youtu.be/Af1Sj7MDhiM?si=EHKw02WB87uTumQI';
-          youtubeLink2 = 'https://youtube.com/cina_tutorial2';
-          break;
-        case 'uchiha':
-          downloadLink1 = 'https://example.com/uchiha_download.apk';
-          downloadLink2 = 'https://example.com/uchiha_another_download.apk';
-          youtubeLink1 = 'https://youtu.be/Af1Sj7MDhiM?si=EHKw02WB87uTumQI';
-          youtubeLink2 = 'https://youtube.com/uchiha_tutorial2';
-          break;
-        default:
-          downloadLink1 = 'https://example.com/default_download.apk';
-          downloadLink2 = 'https://example.com/default_another_download.apk';
-          youtubeLink1 = 'https://youtu.be/Af1Sj7MDhiM?si=EHKw02WB87uTumQI';
-          youtubeLink2 = 'https://youtube.com/default_tutorial2';
-      }
+function openModal(mode, buttonsData = []) {
+  const popup = document.getElementById('popup');
+  const modalTitle = document.getElementById('modal-title');
+  const mainModalContent = document.getElementById('main-modal-content');
+  const subModalContent = document.getElementById('sub-modal-content');
+  const modalButtonsContainer = document.getElementById('modal-buttons-container');
+  const modalAdblockNote = document.getElementById('modal-adblock-note');
 
-      if (mode === 'download') {
-        content = `
-          <h2>Download Game</h2>
-          <div class="modal-buttons">
-            <a id="download-apk-sekarang-${gameVersion}" href="${downloadLink1}" download>${buttonText1}</a>
-            <a id="download-apk-lainnya-${gameVersion}" href="${downloadLink2}" download>${buttonText2}</a>
-            <p style="margin-top:10px; font-size:14px; color:#333;">Jika link tidak bisa dibuka, pastikan kamu sudah Menonaktifkan Adblock atau coba browser lain.</p>
+  currentModalButtonsData = buttonsData;
+
+  let buttonsHtml = '';
+  buttonsData.forEach(btn => {
+    if (btn.separator) {
+      buttonsHtml += '<div class="button-group-separator"></div>';
+    } else {
+    `subButtons`
+      if (btn.subButtons && btn.subButtons.length > 0) {
+        buttonsHtml += `
+          <div class="download-block">
+            <button class="download-button" onclick="showSubModal('${btn.text}', ${JSON.stringify(btn.subButtons).replace(/"/g, '&quot;')})">${btn.text}</button>
+            ${btn.note ? `<div class="download-note">${btn.note}</div>` : ''}
           </div>
         `;
-      } else if (mode === 'howto') {
-        content = `
-          <h2>Cara Download</h2>
-          <div class="modal-buttons">
-            <a href="${youtubeLink1}" target="_blank">Tonton Panduan YouTube1</a>
-            <a href="${youtubeLink2}" target="_blank">Tonton Panduan YouTube2</a>
+      } else {
+        // Tombol download biasa (langsung ke link)
+        buttonsHtml += `
+          <div class="download-block">
+            <a href="${btn.link}" target="_blank" class="download-button">${btn.text}</a>
+            ${btn.note ? `<div class="download-note">${btn.note}</div>` : ''}
           </div>
         `;
       }
-
-      body.innerHTML = content;
-      popup.style.display = 'flex';
     }
+  });
 
-    function closeModal() {
-      document.getElementById('popup').style.display = 'none';
-    }
+  modalTitle.textContent = mode === 'download' ? 'Download Game' : 'Cara Download';
+  modalButtonsContainer.innerHTML = buttonsHtml;
+
+  if (mode === 'download') {
+    modalAdblockNote.style.display = 'block';
+  } else {
+    modalAdblockNote.style.display = 'none';
+  }
+
+  mainModalContent.style.display = 'block';
+  subModalContent.style.display = 'none';
+
+  popup.style.display = 'flex';
+}
+
+function showSubModal(parentButtonText, subButtonsData) {
+  const modalTitle = document.getElementById('modal-title');
+  const mainModalContent = document.getElementById('main-modal-content');
+  const subModalContent = document.getElementById('sub-modal-content');
+  const subModalButtonsContainer = document.getElementById('sub-modal-buttons-container');
+
+  let subButtonsHtml = '';
+  subButtonsData.forEach(btn => {
+    subButtonsHtml += `
+      <div class="download-block">
+        <a href="${btn.link}" target="_blank" class="download-button">${btn.text}</a>
+        ${btn.note ? `<div class="download-note">${btn.note}</div>` : ''}
+      </div>
+    `;
+  });
+
+  modalTitle.textContent = parentButtonText; // Judul sub-modal bisa disesuaikan
+  subModalButtonsContainer.innerHTML = subButtonsHtml;
+
+  mainModalContent.style.display = 'none';
+  subModalContent.style.display = 'block';
+}
+
+function showMainModal() {
+  const modalTitle = document.getElementById('modal-title');
+  const mainModalContent = document.getElementById('main-modal-content');
+  const subModalContent = document.getElementById('sub-modal-content');
+  const modalAdblockNote = document.getElementById('modal-adblock-note');
+
+  // Pulihkan judul modal utama
+  modalTitle.textContent = 'Download Game'; // Atau bisa disimpan dalam variabel jika mode bukan 'download'
+
+  mainModalContent.style.display = 'block';
+  subModalContent.style.display = 'none';
+
+  // Pastikan catatan adblock ditampilkan kembali jika mode adalah download
+  // Asumsi selalu mode 'download' saat kembali dari sub-modal download
+  modalAdblockNote.style.display = 'block';
+}
+
+// Hanya satu fungsi closeModal yang diperlukan
+function closeModal() {
+    document.getElementById('popup').style.display = 'none';
+    // Opsional: Reset ke tampilan utama saat modal ditutup
+    showMainModal(); // Pastikan modal kembali ke tampilan awal jika dibuka lagi
+}
 
     function toggleDesc(btn) {
       // The description text is now the next sibling of the .desc-toggle button
@@ -616,6 +739,28 @@
       }
     });
   </script>
+
+<script>
+  // Fungsi untuk mengacak array
+  function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const parent = document.body;
+    const footer = document.querySelector('footer');
+    const allCards = Array.from(document.querySelectorAll('.card'));
+
+    shuffleArray(allCards); // Acak urutannya
+
+    allCards.forEach(card => {
+      parent.insertBefore(card, footer); // Sisipkan ulang sebelum footer
+    });
+  });
+</script>
 
 </body>
 </html>
