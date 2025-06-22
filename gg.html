@@ -802,5 +802,27 @@ function closeModal() {
     });
   </script>
 
+<script>
+  // Fungsi untuk mengacak array
+  function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const parent = document.body;
+    const footer = document.querySelector('footer');
+    const allCards = Array.from(document.querySelectorAll('.card'));
+
+    shuffleArray(allCards); // Acak urutannya
+
+    allCards.forEach(card => {
+      parent.insertBefore(card, footer); // Sisipkan ulang sebelum footer
+    });
+  });
+</script>
+
 </body>
 </html>
