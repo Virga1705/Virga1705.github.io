@@ -29,8 +29,8 @@
       position: sticky;
       top: 0;
       z-index: 999;
-      display: flex; /* Mengatur tampilan flexbox untuk menyelaraskan item secara horizontal */
-      align-items: center; /* Menyelaraskan item secara vertikal di tengah */
+      display: flex;
+      align-items: center;
       /* Tambahkan properti user-select untuk header juga */
       -webkit-user-select: none;
       -moz-user-select: none;
@@ -39,21 +39,20 @@
       -webkit-touch-callout: none;
     }
 
-    /* Gaya untuk tombol kembali (back button) */
     .back-button {
-      margin-right: 10px; /* Memberi jarak antara tombol dan judul */
-      padding: 0; /* Menghapus padding agar ikon tidak ada jarak di dalamnya */
-      border: none; /* Menghapus border */
+      margin-right: 10px;
+      padding: 0;
+      border: none;
       border-radius: 10px;
       cursor: pointer;
       transition: all .2s ease-in-out;
-      text-decoration: none; /* Menghilangkan garis bawah pada tautan */
-      display: flex; /* Mengatur tampilan flexbox untuk memusatkan ikon */
-      align-items: center; /* Memusatkan ikon secara vertikal */
-      justify-content: center; /* Memusatkan ikon secara horizontal */
-      width: 26px; /* Mengatur lebar tombol menjadi 48px */
-      height: 26px; /* Mengatur tinggi tombol menjadi 48px */
-      background: white; /* Menambahkan background putih agar ikon tetap terlihat */
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 26px;
+      height: 26px;
+      background: white;
       /* Mencegah seleksi teks dan klik kanan pada back button */
       -webkit-user-select: none;
       -moz-user-select: none;
@@ -63,19 +62,14 @@
     }
 
     .back-button:hover {
-      background: #e0e0e0; /* Mengubah background saat hover untuk efek visual */
+      background: #e0e0e0;
     }
 
     .back-button img {
-      display: block; /* Memastikan gambar mengambil seluruh ruang tautan */
-      width: 26px; /* Mengatur lebar gambar menjadi 48px */
-      height: 26px; /* Mengatur tinggi gambar menjadi 48px */
+      display: block;
+      width: 26px;
+      height: 26px;
       /* Mencegah draggable dan klik kanan pada gambar */
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
-      -webkit-touch-callout: none;
       pointer-events: none; /* Mencegah interaksi mouse/touch pada gambar (termasuk download) */
     }
 
@@ -89,8 +83,8 @@
       background: white;
       box-shadow: 0 2px 6px rgba(0,0,0,0.1);
       max-width: 360px;
-      opacity: 0; /* Initially hidden */
-      transform: scale(0.8); /* Start scaled down */
+      opacity: 0;
+      transform: scale(0.8);
       transition: opacity 0.5s ease-out, transform 0.5s ease-out;
       /* Mencegah seleksi teks dan klik kanan pada card */
       -webkit-user-select: none;
@@ -108,6 +102,7 @@
     /* CSS untuk highlight kartu */
     .card.highlight-card {
       border: 2px solid #007bff; /* Warna border highlight */
+      /* Mengganti box-shadow statis dengan animasi */
       animation: blink-highlight 1s infinite alternate; /* Animasi kedip biru */
     }
 
@@ -129,11 +124,6 @@
       display: block;
       cursor: pointer;
       /* Mencegah draggable dan klik kanan pada gambar */
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
-      -webkit-touch-callout: none;
       pointer-events: none; /* Mencegah interaksi mouse/touch pada gambar (termasuk download) */
     }
 
@@ -144,12 +134,13 @@
       text-align: left;
       border-top: 1px solid #eee;
       display: flex; /* Use flex to align title elements */
-      flex-direction: column; /* Stack main title row and description toggle */
+      flex-wrap: wrap; /* Allow wrapping of elements */
+      align-items: center; /* Vertically align items */
     }
 
     .title-row {
       display: flex;
-      justify-content: space-between; /* Pushes title text and share button to ends */
+      justify-content: space-between; /* Pushes title and share button to ends */
       align-items: center;
       width: 100%; /* Ensures this row takes full width */
     }
@@ -273,79 +264,129 @@
       -webkit-touch-callout: none;
     }
 
-    .modal {
-      background: white;
-      border-radius: 12px;
-      padding: 20px;
-      width: 80%;
-      max-width: 300px;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-      text-align: center;
-      position: relative; /* Tambahkan ini untuk posisi tombol close */
-      /* Mencegah seleksi teks dan klik kanan pada modal */
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
-      -webkit-touch-callout: none;
-    }
+.modal {
+  background: white;
+  border-radius: 12px;
+  /* Hapus padding dari sini, pindah ke modal-body */
+  padding: 0;
+  width: 80%;
+  max-width: 300px;
+  /* Sesuaikan tinggi agar tidak terlalu panjang */
+  max-height: 80vh; /* Menggunakan vh agar responsif */
+  overflow-y: auto;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
 
-    .modal-buttons {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-top: 15px;
-    }
+.modal-header {
+  position: sticky;
+  top: 0;
+  background: white;
+  z-index: 1;
+  padding: 16px; /* Padding di sini untuk header */
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
-    .modal-buttons a {
-      text-decoration: none;
-      padding: 10px;
-      border: 2px solid black;
-      border-radius: 10px;
-      font-weight: bold;
-      color: black;
-      background: white;
-      transition: all .2s ease-in-out;
-      /* Mencegah seleksi teks dan klik kanan pada tombol modal */
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
-      -webkit-touch-callout: none;
-    }
+.modal-header h2 {
+  margin: 0;
+  font-size: 18px;
+}
 
-    .modal-buttons a:hover {
-      background: black;
-      color: white;
-    }
+/* Sesuaikan tombol close agar posisinya di kanan atas modal */
+.close-btn {
+  width: 30px;
+  height: 30px;
+  background: #ff5c5c;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s ease-in-out;
+  flex-shrink: 0;
+  /* Hapus position absolute jika sudah di dalam flexbox header */
+}
 
-    .close-btn {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      width: 30px;
-      height: 30px;
-      background: #ff5c5c; /* Warna latar belakang merah */
-      color: white;
-      border-radius: 50%; /* Membuatnya bulat sempurna */
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 18px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background 0.2s ease-in-out;
-      /* Mencegah seleksi teks dan klik kanan pada tombol tutup */
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
-      -webkit-touch-callout: none;
-    }
+.close-btn:hover {
+  background: #e04444;
+}
 
-    .close-btn:hover {
-      background: #e04444; /* Warna sedikit lebih gelap saat hover */
-    }
+/* Konten utama modal, beri padding di sini */
+.modal-content-body {
+  padding: 16px; /* Padding untuk konten di dalam modal */
+  flex-grow: 1; /* Agar mengambil sisa ruang */
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Jarak antar blok download */
+  /* Padding sudah dipindah ke modal-content-body */
+}
+
+.download-block {
+  margin-bottom: 0; /* Hapus margin-bottom di sini, gap sudah menangani */
+  text-align: left;
+}
+
+.download-button {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px;
+  border: 2px solid black;
+  border-radius: 10px;
+  font-weight: bold;
+  color: black;
+  background: white;
+  text-align: center;
+  text-decoration: none;
+  transition: all .2s ease-in-out;
+}
+
+.download-button:hover {
+  background: black;
+  color: white;
+}
+
+.download-note {
+  font-size: 13px;
+  color: #666;
+  padding-top: 4px;
+  padding-left: 6px; /* Konsisten dengan padding lainnya */
+  padding-right: 6px;
+  line-height: 1.4;
+}
+
+/* Style untuk footer modal (catatan Adblock) */
+.modal-footer-note {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #333;
+  padding: 0 16px 16px; /* Padding bawah dan samping */
+}
+
+.button-group-separator {
+  border-top: 7px solid #eee; /* Garis tipis abu-abu */
+  margin: 5px 0; /* Jarak atas dan bawah garis */
+  height: 0; /* Pastikan tidak ada tinggi */
+}
+
   </style>
 </head>
 <body oncontextmenu="return false;">
@@ -371,10 +412,19 @@
         Versi yang menampilkan tema PixelLab yang elegant serta penambahan font dan stiker baru.
       </div>
     </div>
-    <div class="buttons">
-      <button onclick="openModal('download', 'pixellab-theme-ios', 'Download', 'Password')">Download</button>
-      <button onclick="openModal('howto', 'pixellab-theme-ios', '', '')">Cara Download</button>
-    </div>
+  <div class="buttons">
+<button onclick="openModal('download', [
+  { text: 'Like IOS :v',  subButtons: [ 
+      { text: 'App', link: 'https://apkadmin.com/3hfox6r0nmj2/PixelLab_signed.7z.html' },
+      { text: 'Password', link: 'https://sfl.gl/QBUP3FG' } // <-- Tambahkan ini
+    ] // <-- Dan ini
+  } // <-- Dan ini
+])">Download</button>
+  <button onclick="openModal('howto', [
+    { text: 'Panduan YouTube 1', link: 'https://youtu.be/Af1Sj7MDhiM?si=a3nkEjDqBjj5NY14' },
+    { text: 'Panduan Alternatif', link: 'https://youtu.be/tutorial2' }
+  ])">Cara Download</button>
+</div>
   </div>
 
   <div class="card" id="card-pixellab-mod-dark-theme-v1">
@@ -390,8 +440,17 @@
       </div>
     </div>
     <div class="buttons">
-      <button onclick="openModal('download', 'pixellab-mod-dark-theme-v1', 'Download', 'Password')">Download</button>
-      <button onclick="openModal('howto', 'pixellab-mod-dark-theme-v1', '', '')">Cara Download</button>
+  <button onclick="openModal('download', [
+  { text: 'Dark Theme V1',  subButtons: [ 
+      { text: 'Password', link: 'https://sfl.gl/t9EykRkc' },
+      { text: 'App', link: 'https://apkadmin.com/4xyd0vgan06m/PixelLab_Dark_Theme_V1_v6969.apk.html' } // <-- Tambahkan ini
+    ] // <-- Dan ini
+  } // <-- Dan ini
+])">Download</button>
+  <button onclick="openModal('howto', [
+    { text: 'Panduan YouTube 1', link: 'https://youtu.be/Af1Sj7MDhiM?si=a3nkEjDqBjj5NY14' },
+    { text: 'Panduan Alternatif', link: 'https://youtu.be/tutorial2' }
+  ])">Cara Download</button>
     </div>
   </div>
 
@@ -408,8 +467,17 @@
       </div>
     </div>
     <div class="buttons">
-      <button onclick="openModal('download', 'pixellab-theme-dark-white-green', 'Download', 'Password')">Download</button>
-      <button onclick="openModal('howto', 'pixellab-theme-dark-white-green', '', '')">Cara Download</button>
+      <button onclick="openModal('download', [
+  { text: 'Dark White Green',  subButtons: [ 
+      { text: 'Password', link: 'https://sfl.gl/3fuh' },
+      { text: 'App', link: 'https://apkadmin.com/yd6aqhp9kaxd/PixelLab_DarkWhiteGreen_6969.apk.html' } // <-- Tambahkan ini
+    ] // <-- Dan ini
+  } // <-- Dan ini
+])">Download</button>
+  <button onclick="openModal('howto', [
+    { text: 'Panduan YouTube 1', link: 'https://youtu.be/Af1Sj7MDhiM?si=a3nkEjDqBjj5NY14' },
+    { text: 'Panduan Alternatif', link: 'https://youtu.be/tutorial2' }
+  ])">Cara Download</button>
     </div>
   </div>
 
@@ -426,8 +494,17 @@
       </div>
     </div>
     <div class="buttons">
-      <button onclick="openModal('download', 'pixellab-theme-ios-v2', 'Download', 'Password')">Download</button>
-      <button onclick="openModal('howto', 'pixellab-theme-ios-v2', '', '')">Cara Download</button>
+            <button onclick="openModal('download', [
+  { text: 'Like IOS V2',  subButtons: [ 
+      { text: 'Password', link: 'https://sfl.gl/KW3eU6O3' },
+      { text: 'App', link: 'https://apkadmin.com/a48vo2eea3g1/PixelLab_Theme_Like_IOS_V2.apk.html' } // <-- Tambahkan ini
+    ] // <-- Dan ini
+  } // <-- Dan ini
+])">Download</button>
+  <button onclick="openModal('howto', [
+    { text: 'Panduan YouTube 1', link: 'https://youtu.be/Af1Sj7MDhiM?si=a3nkEjDqBjj5NY14' },
+    { text: 'Panduan Alternatif', link: 'https://youtu.be/tutorial2' }
+  ])">Cara Download</button>
     </div>
   </div>
 
@@ -444,8 +521,17 @@
       </div>
     </div>
     <div class="buttons">
-      <button onclick="openModal('download', 'pixellab-theme-white-black', 'Download', 'Password')">Download</button>
-      <button onclick="openModal('howto', 'pixellab-theme-white-black', '', '')">Cara Download</button>
+    <button onclick="openModal('download', [
+  { text: 'White Black',  subButtons: [ 
+      { text: 'App', link: 'https://sfl.gl/JKMAA3' },
+      { text: 'Password', link: 'https://youtu.be/Jz20F6qPUBY?si=Rw1lKZESxjVYeZqQ' } // <-- Tambahkan ini
+    ] // <-- Dan ini
+  } // <-- Dan ini
+])">Download</button>
+  <button onclick="openModal('howto', [
+    { text: 'Panduan YouTube 1', link: 'https://youtu.be/Af1Sj7MDhiM?si=a3nkEjDqBjj5NY14' },
+    { text: 'Panduan Alternatif', link: 'https://youtu.be/tutorial2' }
+  ])">Cara Download</button>
     </div>
   </div>
 
@@ -462,8 +548,17 @@
       </div>
     </div>
     <div class="buttons">
-      <button onclick="openModal('download', 'pixellab-theme-white-purple', 'Download', 'Password')">Download</button>
-      <button onclick="openModal('howto', 'pixellab-theme-white-purple', '', '')">Cara Download</button>
+      <button onclick="openModal('download', [
+  { text: 'White Purple',  subButtons: [ 
+      { text: 'App', link: 'https://sfl.gl/Dq61TI' },
+      { text: 'Password', link: 'https://youtu.be/G0fEIVinbrU?si=ZTt-PfiW_Q0Usj6R' } // <-- Tambahkan ini
+    ] // <-- Dan ini
+  } // <-- Dan ini
+])">Download</button>
+  <button onclick="openModal('howto', [
+    { text: 'Panduan YouTube 1', link: 'https://youtu.be/Af1Sj7MDhiM?si=a3nkEjDqBjj5NY14' },
+    { text: 'Panduan Alternatif', link: 'https://youtu.be/tutorial2' }
+  ])">Cara Download</button>
     </div>
   </div>
 
@@ -480,8 +575,17 @@
       </div>
     </div>
     <div class="buttons">
-      <button onclick="openModal('download', 'pixellab-theme-white-green', 'Download', 'Password')">Download</button>
-      <button onclick="openModal('howto', 'pixellab-theme-white-green', '', '')">Cara Download</button>
+      <button onclick="openModal('download', [
+  { text: 'White Green',  subButtons: [ 
+      { text: 'App', link: 'https://sfl.gl/H96U' },
+      { text: 'Password', link: 'https://youtu.be/G5U1em0TT8U?si=L0bLR6zfKwGU8yVC' } // <-- Tambahkan ini
+    ] // <-- Dan ini
+  } // <-- Dan ini
+])">Download</button>
+  <button onclick="openModal('howto', [
+    { text: 'Panduan YouTube 1', link: 'https://youtu.be/Af1Sj7MDhiM?si=a3nkEjDqBjj5NY14' },
+    { text: 'Panduan Alternatif', link: 'https://youtu.be/tutorial2' }
+  ])">Cara Download</button>
     </div>
   </div>
 
@@ -498,113 +602,130 @@
       </div>
     </div>
     <div class="buttons">
-      <button onclick="openModal('download', 'pixellab-theme-white-red', 'Download', 'Password')">Download</button>
-      <button onclick="openModal('howto', 'pixellab-theme-white-red', '', '')">Cara Download</button>
+      <button onclick="openModal('download', [
+  { text: 'White Red',  subButtons: [ 
+      { text: 'App', link: 'https://sfl.gl/Pr7r40' },
+      { text: 'Password', link: 'https://youtu.be/9ZiVhlT2RNw?si=DbaqcWuaZ5uKD_Cu' } // <-- Tambahkan ini
+    ] // <-- Dan ini
+  } // <-- Dan ini
+])">Download</button>
+  <button onclick="openModal('howto', [
+    { text: 'Panduan YouTube 1', link: 'https://youtu.be/Af1Sj7MDhiM?si=a3nkEjDqBjj5NY14' },
+    { text: 'Panduan Alternatif', link: 'https://youtu.be/tutorial2' }
+  ])">Cara Download</button>
     </div>
   </div>
 
 
   <footer>© 2025 вирга</footer>
 
-  <div class="modal-overlay" id="popup">
+ <div class="modal-overlay" id="popup">
     <div class="modal">
-      <span class="close-btn" onclick="closeModal()">X</span> <div id="modal-body"></div>
+      <div class="modal-header">
+        <h2 id="modal-title"></h2> <span class="close-btn" onclick="closeModal()">X</span>
+      </div>
+      
+      <div class="modal-content-body">
+        <div id="modal-buttons-container" class="modal-buttons">
+          </div>
+        <p id="modal-adblock-note" class="modal-footer-note" style="display: none;">
+          Jika link tidak bisa dibuka, pastikan kamu sudah menonaktifkan Adblock atau coba browser lain.
+        </p>
+      </div>
     </div>
   </div>
 
   <script>
-    function openModal(mode, gameVersion, buttonText1 = 'Download Apk sekarang', buttonText2 = 'Download APK Lainnya') {
-      const popup = document.getElementById('popup');
-      const body = document.getElementById('modal-body');
-      let content = '';
-      let downloadLink1 = '';
-      let downloadLink2 = '';
-      let youtubeLink1 = '';
-      let youtubeLink2 = ''; // Link baru untuk panduan YouTube
+let currentModalData = null; // Menyimpan data modal terakhir yang dibuka
 
-      /* Untuk Stel Link */
-      switch (gameVersion) {
-        case 'pixellab-theme-ios':
-          downloadLink1 = 'https://apkadmin.com/3hfox6r0nmj2/PixelLab_signed.7z.html';
-          downloadLink2 = 'https://sfl.gl/QBUP3FG';
-          youtubeLink1 = 'https://youtu.be/Af1Sj7MDhiM?si=EHKw02WB87uTumQI'; // Contoh link YouTube 1
-          youtubeLink2 = 'https://youtube.com/waifu1_tutorial2'; // Contoh link YouTube 2
-          break;
-        case 'pixellab-mod-dark-theme-v1':
-          downloadLink1 = 'https://apkadmin.com/4xyd0vgan06m/PixelLab_Dark_Theme_V1_v6969.apk.html';
-          downloadLink2 = 'https://sfl.gl/t9EykRkc';
-          youtubeLink1 = 'https://youtu.be/Af1Sj7MDhiM?si=EHKw02WB87uTumQI';
-          youtubeLink2 = 'https://youtube.com/original_tutorial2';
-          break;
-        case 'pixellab-theme-dark-white-green':
-          downloadLink1 = 'https://apkadmin.com/yd6aqhp9kaxd/PixelLab_DarkWhiteGreen_6969.apk.html';
-          downloadLink2 = 'https://sfl.gl/3fuh';
-          youtubeLink1 = 'https://youtu.be/Af1Sj7MDhiM?si=EHKw02WB87uTumQI';
-          youtubeLink2 = 'https://youtube.com/v21_tutorial2';
-          break;
-        case 'pixellab-theme-ios-v2':
-          downloadLink1 = 'https://apkadmin.com/a48vo2eea3g1/PixelLab_Theme_Like_IOS_V2.apk.html';
-          downloadLink2 = 'https://sfl.gl/KW3eU6O3';
-          youtubeLink1 = 'https://youtu.be/Af1Sj7MDhiM?si=EHKw02WB87uTumQI';
-          youtubeLink2 = 'https://youtube.com/cina_tutorial2';
-          break;
-        case 'pixellab-theme-white-black':
-          downloadLink1 = 'https://sfl.gl/JKMAA3';
-          downloadLink2 = 'https://youtu.be/Jz20F6qPUBY?si=Rw1lKZESxjVYeZqQ';
-          youtubeLink1 = 'https://youtu.be/Af1Sj7MDhiM?si=EHKw02WB87uTumQI';
-          youtubeLink2 = 'https://youtube.com/uchiha_tutorial2';
-          break;
-        case 'pixellab-theme-white-purple':
-          downloadLink1 = 'https://sfl.gl/Dq61TI';
-          downloadLink2 = 'https://youtu.be/G0fEIVinbrU?si=ZTt-PfiW_Q0Usj6R';
-          youtubeLink1 = 'https://youtu.be/Af1Sj7MDhiM?si=EHKw02WB87uTumQI';
-          youtubeLink2 = 'https://youtube.com/uchiha_tutorial2';
-          break;
-        case 'pixellab-theme-white-green':
-          downloadLink1 = 'https://sfl.gl/H96U';
-          downloadLink2 = 'https://youtu.be/G5U1em0TT8U?si=L0bLR6zfKwGU8yVC';
-          youtubeLink1 = 'https://youtu.be/Af1Sj7MDhiM?si=EHKw02WB87uTumQI';
-          youtubeLink2 = 'https://youtube.com/uchiha_tutorial2';
-          break;
-        case 'pixellab-theme-white-red':
-          downloadLink1 = 'https://sfl.gl/Pr7r40';
-          downloadLink2 = 'https://youtu.be/9ZiVhlT2RNw?si=DbaqcWuaZ5uKD_Cu';
-          youtubeLink1 = 'https://youtu.be/Af1Sj7MDhiM?si=EHKw02WB87uTumQI';
-          youtubeLink2 = 'https://youtube.com/uchiha_tutorial2';
-          break;
-        default:
-          downloadLink1 = 'https://example.com/default_download.apk';
-          downloadLink2 = 'https://example.com/default_another_download.apk';
-          youtubeLink1 = 'https://youtu.be/Af1Sj7MDhiM?si=EHKw02WB87uTumQI';
-          youtubeLink2 = 'https://youtube.com/default_tutorial2';
-      }
+function openModal(mode, buttonsData) {
+    const popup = document.getElementById('popup');
+    const modalTitle = document.getElementById('modal-title');
+    const modalButtonsContainer = document.getElementById('modal-buttons-container');
+    const modalAdblockNote = document.getElementById('modal-adblock-note');
 
-      if (mode === 'download') {
-        content = `
-          <h2>Download Game</h2>
-          <div class="modal-buttons">
-            <a id="download-apk-sekarang-${gameVersion}" href="${downloadLink1}" download>${buttonText1}</a>
-            <a id="download-apk-lainnya-${gameVersion}" href="${downloadLink2}" download>${buttonText2}</a>
-            <p style="margin-top:10px; font-size:14px; color:#333;">Jika link tidak bisa dibuka, pastikan kamu sudah Menonaktifkan Adblock atau coba browser lain.</p>
-          </div>
-        `;
-      } else if (mode === 'howto') {
-        content = `
-          <h2>Cara Download</h2>
-          <div class="modal-buttons">
-            <a href="${youtubeLink1}" target="_blank">Tonton Panduan YouTube1</a>
-            <a href="${youtubeLink2}" target="_blank">Tonton Panduan YouTube2</a>
-          </div>
-        `;
-      }
+    // Simpan data modal saat ini untuk kemungkinan "kembali" atau refresh
+    currentModalData = { mode: mode, buttons: buttonsData };
 
-      body.innerHTML = content;
-      popup.style.display = 'flex';
+    modalTitle.textContent = mode === 'download' ? 'Download' : 'Cara Download';
+    modalButtonsContainer.innerHTML = ''; // Kosongkan container sebelum mengisi
+
+    buttonsData.forEach(btn => {
+        if (btn.separator) {
+            // Jika objek adalah separator, tambahkan saja
+            modalButtonsContainer.innerHTML += '<div class="button-group-separator"></div>';
+        } else {
+            // Jika bukan separator, tambahkan download-block
+            let downloadBlockHtml = `
+                <div class="download-block">
+                    ${btn.subButtons && btn.subButtons.length > 0 ?
+                        `<button class="download-button" onclick="showSubModal('${btn.text}', ${JSON.stringify(btn.subButtons).replace(/"/g, '\'')})">${btn.text}</button>` :
+                        `<a href="${btn.link}" target="_blank" class="download-button">${btn.text}</a>`
+                    }
+                    ${btn.note ? `<div class="download-note">${btn.note}</div>` : ''}
+                </div>
+            `;
+            modalButtonsContainer.innerHTML += downloadBlockHtml;
+        }
+    });
+
+    if (mode === 'download') {
+        modalAdblockNote.style.display = 'block';
+    } else {
+        modalAdblockNote.style.display = 'none';
     }
 
-    function closeModal() {
-      document.getElementById('popup').style.display = 'none';
+    popup.style.display = 'flex';
+}
+
+// Fungsi ini akan dipanggil dari tombol di dalam modal untuk menampilkan sub-pilihan
+function showSubModal(parentButtonText, subButtonsData) {
+    const modalTitle = document.getElementById('modal-title');
+    const modalButtonsContainer = document.getElementById('modal-buttons-container');
+    const modalAdblockNote = document.getElementById('modal-adblock-note');
+
+    modalTitle.textContent = parentButtonText; // Ubah judul modal sesuai sub-pilihan
+    modalButtonsContainer.innerHTML = ''; // Kosongkan konten sebelumnya
+
+    // Tambahkan tombol kembali ke modal utama TANPA separator di bawahnya
+    modalButtonsContainer.innerHTML += `
+        <div class="download-block">
+            <button class="download-button" onclick="goBackToMainModal()">← Kembali</button>
+        </div>
+    `;
+    // Tidak ada `<div class="button-group-separator"></div>` di sini
+
+    subButtonsData.forEach(btn => {
+        // Tambahkan download-block
+        let downloadBlockHtml = `
+            <div class="download-block">
+                <a href="${btn.link}" target="_blank" class="download-button">${btn.text}</a>
+                ${btn.note ? `<div class="download-note">${btn.note}</div>` : ''}
+            </div>
+        `;
+        modalButtonsContainer.innerHTML += downloadBlockHtml;
+        // Tidak ada penambahan separator otomatis di sini.
+        // Jika Anda ingin separator di sub-modal juga, Anda perlu menambahkannya ke `subButtons` data.
+    });
+
+    // Catatan adblock tetap ditampilkan jika ini adalah bagian dari proses download
+    // Asumsi sub-modal ini selalu terkait dengan download
+    modalAdblockNote.style.display = 'block'; 
+}
+
+// Fungsi untuk kembali ke tampilan modal utama
+function goBackToMainModal() {
+    if (currentModalData) {
+        openModal(currentModalData.mode, currentModalData.buttons);
+    } else {
+        closeModal();
     }
+}
+
+function closeModal() {
+    document.getElementById('popup').style.display = 'none';
+    currentModalData = null; // Reset data saat modal ditutup
+}
 
     function toggleDesc(btn) {
       const desc = btn.nextElementSibling;
