@@ -29,9 +29,9 @@
       position: sticky;
       top: 0;
       z-index: 999;
-      display: flex; /* PERUBAHAN: Menambahkan flexbox */
+      display: flex;
       align-items: center;
-      justify-content: space-between; /* BARU: Untuk memisahkan item di header */
+      justify-content: space-between; /* Menambahkan ini untuk memisahkan item di header */
       /* Tambahkan properti user-select untuk header juga */
       -webkit-user-select: none;
       -moz-user-select: none;
@@ -41,7 +41,7 @@
     }
 
     /* Penyesuaian agar "Lainnya" dan tombol kembali tetap bersama */
-    .header-left { /* BARU: Wrapper untuk tombol kembali dan judul */
+    .header-left {
         display: flex;
         align-items: center;
     }
@@ -80,7 +80,7 @@
       pointer-events: none; /* Mencegah interaksi mouse/touch pada gambar (termasuk download) */
     }
 
-    /* BARU: Style untuk dropdown bahasa */
+    /* Style untuk dropdown bahasa */
     .lang-dropdown {
       position: relative;
     }
@@ -90,8 +90,8 @@
       border: none;
       font-size: 20px;
       cursor: pointer;
-      padding: 5px;
-      border-radius: 5px;
+      padding: 5px; /* Memberi sedikit padding agar mudah diklik */
+      border-radius: 5px; /* Sedikit border-radius */
       transition: background 0.2s ease-in-out;
     }
 
@@ -122,7 +122,6 @@
     .lang-options div:hover {
       background-color: #f0f0f0;
     }
-    /* AKHIR BARU: Style untuk dropdown bahasa */
 
     .card {
       margin: 30px auto;
@@ -457,10 +456,12 @@
 <body oncontextmenu="return false;">
 
   <header>
-    <div class="header-left"> <a href="Virga1705.github.io" class="back-button">
+    <div class="header-left">
+      <a href="Virga1705.github.io" class="back-button">
         <img src="https://files.catbox.moe/g9z1ny.png" alt="Kembali ke Beranda" draggable="false">
       </a>
-      <span data-i18n="othersHeaderTitle">Lainnya</span> </div>
+      <span data-i18n="othersHeaderTitle">Lainnya</span>
+    </div>
     <div class="lang-dropdown">
       <button onclick="toggleLangDropdown()" class="lang-icon">🌐</button>
       <div class="lang-options" id="lang-options">
@@ -474,8 +475,13 @@
   <div style="display: flex; align-items: flex-start; padding: 12px;">
     <img src="https://files.catbox.moe/imc8pi.png" alt="404" style="width: 60px; height: 60px; margin-right: 12px; border-radius: 10px;" draggable="false">
     <div style="flex-grow: 1;">
-      <div style="font-weight: bold; font-size: 16px;" data-i18n="apkEditorTitle">Apk Editor</div> <div class="desc-short" style="font-size: 14px; color: #444;" data-i18n="apkEditorShortDesc"> Apk Editor versi ini ialah yang di kembangkan oleh Zeratul, namun..<span class="read-more-toggle" onclick="toggleReadMore(this)">Read More</span> </div>
-      <div class="desc-full" style="font-size: 14px; color: #444; display: none;" data-i18n="apkEditorFullDesc"> Apk Editor versi ini ialah yang di kembangkan oleh Zeratul, namun tidak hanya Zeratul ada beberapa kontribusi lain yang bisa kamu cek sendiri dalam about di aplikasi nya.Kegunaan dari Apk Editor ini sangat banyak jika anda paham betul dunia pemerograman<span class="read-more-toggle" onclick="toggleReadMore(this)">Close</span> </div>
+      <div style="font-weight: bold; font-size: 16px;" data-i18n="apkEditorTitle">Apk Editor</div>
+      <div class="desc-short" style="font-size: 14px; color: #444;" data-i18n="apkEditorShortDesc">
+        Apk Editor versi ini ialah yang di kembangkan oleh Zeratul, namun..<span class="read-more-toggle" onclick="toggleReadMore(this)" data-i18n="readMoreBtn">Read More</span>
+      </div>
+      <div class="desc-full" style="font-size: 14px; color: #444; display: none;" data-i18n="apkEditorFullDesc">
+        Apk Editor versi ini ialah yang di kembangkan oleh Zeratul, namun tidak hanya Zeratul ada beberapa kontribusi lain yang bisa kamu cek sendiri dalam about di aplikasi nya.Kegunaan dari Apk Editor ini sangat banyak jika anda paham betul dunia pemerograman<span class="read-more-toggle" onclick="toggleReadMore(this)" data-i18n="closeBtn">Close</span>
+      </div>
     </div>
     <button class="share-button-icon" data-card-id="apk-editor"><img src="https://files.catbox.moe/40ynkg.png" alt="Share"></button>
   </div>
@@ -486,18 +492,25 @@
       { text: 'Version 4.5', link: 'https://apkadmin.com/w5de6vghs4dw/APK_Editor_4.5.apk.html', note: 'Developer Zeratul' }
     ]
   }
-])" data-i18n="downloadBtn">Download</button> <button onclick="openModal('howto', [
+])" data-i18n="downloadBtn">Download</button>
+  <button onclick="openModal('howto', [
     { text: 'Panduan YouTube 1', link: 'https://youtu.be/Af1Sj7MDhiM?si=a3nkEjDqBjj5NY14' },
     { text: 'Panduan Alternatif', link: 'https://youtu.be/tutorial2', note: 'Gunakan jika link utama error' }
-  ])" data-i18n="howToDownloadBtn">Cara Download</button> </div>
+  ])" data-i18n="howToDownloadBtn">Cara Download</button>
+</div>
 </div>
 
 <div class="card" id="card-script-rr3">
   <div style="display: flex; align-items: flex-start; padding: 12px;">
     <img src="https://files.catbox.moe/kozvmw.png" alt="404" style="width: 60px; height: 60px; margin-right: 12px; border-radius: 10px;" draggable="false">
     <div style="flex-grow: 1;">
-      <div style="font-weight: bold; font-size: 16px;" data-i18n="scriptRr3Title">Semua script RR3</div> <div class="desc-short" style="font-size: 14px; color: #444;" data-i18n="scriptRr3ShortDesc"> Kumpulan Script Real Racing 3..<span class="read-more-toggle" onclick="toggleReadMore(this)">Read More</span> </div>
-      <div class="desc-full" style="font-size: 14px; color: #444; display: none;" data-i18n="scriptRr3FullDesc"> Kumpulan script Real Racing 3 untuk digunakan di Game Guardian,Bisa digunakan dalam device no root maupun root.<span class="read-more-toggle" onclick="toggleReadMore(this)">Close</span> </div>
+      <div style="font-weight: bold; font-size: 16px;" data-i18n="scriptRr3Title">Semua script RR3</div>
+      <div class="desc-short" style="font-size: 14px; color: #444;" data-i18n="scriptRr3ShortDesc">
+        Kumpulan Script Real Racing 3..<span class="read-more-toggle" onclick="toggleReadMore(this)" data-i18n="readMoreBtn">Read More</span>
+      </div>
+      <div class="desc-full" style="font-size: 14px; color: #444; display: none;" data-i18n="scriptRr3FullDesc">
+        Kumpulan script Real Racing 3 untuk digunakan di Game Guardian,Bisa digunakan dalam device no root maupun root.<span class="read-more-toggle" onclick="toggleReadMore(this)" data-i18n="closeBtn">Close</span>
+      </div>
     </div>
     <button class="share-button-icon" data-card-id="script-rr3"><img src="https://files.catbox.moe/40ynkg.png" alt="Share"></button>
   </div>
@@ -509,14 +522,18 @@
       { text: 'GameGuardian Server', link: 'https://gameguardian.net/forum/files/file/2394-real-racing-3-1268-carsevents-unlocker/', note: ':3' }
     ]
   }
-])" data-i18n="downloadBtn">Download</button> <button onclick="openModal('howto', [
+])" data-i18n="downloadBtn">Download</button>
+  <button onclick="openModal('howto', [
     { text: 'Panduan YouTube 1', link: 'https://youtu.be/Af1Sj7MDhiM?si=a3nkEjDqBjj5NY14' },
     { text: 'Panduan Alternatif', link: 'https://youtu.be/tutorial2', note: 'Gunakan jika link utama error' }
-  ])" data-i18n="howToDownloadBtn">Cara Download</button> </div>
+  ])" data-i18n="howToDownloadBtn">Cara Download</button>
+</div>
 </div>
 
 
-  <footer data-i18n="footerText">© 2025 вирга</footer> <div class="modal-overlay" id="popup">
+  <footer data-i18n="footerText">© 2025 вирга</footer>
+
+<div class="modal-overlay" id="popup">
     <div class="modal">
       <div class="modal-header">
         <h2 id="modal-title"></h2>
@@ -527,33 +544,31 @@
         <div id="main-modal-content" class="modal-page">
           <div id="modal-buttons-container" class="modal-buttons">
             </div>
-          <p id="modal-adblock-note" class="modal-footer-note" style="display: none;" data-i18n="adblockNote"> Jika link tidak bisa dibuka, pastikan kamu sudah menonaktifkan Adblock atau coba browser lain.
+          <p id="modal-adblock-note" class="modal-footer-note" style="display: none;" data-i18n="adblockNote">
+            Jika link tidak bisa dibuka, pastikan kamu sudah menonaktifkan Adblock atau coba browser lain.
           </p>
         </div>
 
         <div id="sub-modal-content" class="modal-page" style="display: none;">
-          <button id="back-to-main-modal" class="download-button" style="margin-bottom: 15px; margin-top: 5px;" onclick="showMainModal()" data-i18n="backBtn">← Kembali</button> <div id="sub-modal-buttons-container" class="modal-buttons">
+          <button id="back-to-main-modal" class="download-button" style="margin-bottom: 15px; margin-top: 5px;" onclick="showMainModal()" data-i18n="backBtn">← Kembali</button>
+          <div id="sub-modal-buttons-container" class="modal-buttons">
             </div>
         </div>
       </div>
     </div>
   </div>
 
-  <script src="./lang/lainnya.js"></script>
+  <script src="./lang/naruto.js"></script>
 
   <script>
-
-// Definisikan data tombol secara global atau di tempat yang mudah diakses
-// Ini penting agar sub-modal bisa mengakses data tombol utama
 let currentModalButtonsData = [];
-let currentLang = 'id'; // Default language, pastikan ini ada
+// currentLang dideklarasikan di naruto.js, jadi bisa diakses di sini.
 
-// PERUBAHAN: Fungsi setLanguage disesuaikan untuk elemen di lainnya.html
+// Fungsi setLanguage yang memicu terjemahan semua elemen data-i18n
 function setLanguage(lang) {
   currentLang = lang;
-  localStorage.setItem('lang', lang); // Save language preference
+  localStorage.setItem('lang', lang);
 
-  // Translate elements with data-i18n attribute
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const key = el.getAttribute('data-i18n');
     if (translations[lang] && translations[lang][key]) {
@@ -561,27 +576,10 @@ function setLanguage(lang) {
     }
   });
 
-  // PERUBAHAN: Perbarui teks tombol Read More/Close di setiap kartu
-  document.querySelectorAll('.card').forEach(card => {
-    const shortDescSpan = card.querySelector('.desc-short .read-more-toggle');
-    const fullDescSpan = card.querySelector('.desc-full .read-more-toggle');
-    const shortDescDiv = card.querySelector('.desc-short');
-
-    if (shortDescSpan && fullDescSpan) {
-      if (shortDescDiv.style.display !== 'none') { // Jika short desc terlihat
-        shortDescSpan.textContent = translations[lang]['readMoreBtn'];
-        fullDescSpan.textContent = translations[lang]['closeBtn']; // Pastikan ini juga di-set
-      } else { // Jika full desc terlihat
-        shortDescSpan.textContent = translations[lang]['readMoreBtn']; // Pastikan ini juga di-set
-        fullDescSpan.textContent = translations[lang]['closeBtn'];
-      }
-    }
-  });
-
-  // Update modal titles (logika dari NarutoSenki.html)
+  // Pastikan judul modal dan teks terkait juga diterjemahkan jika modal terbuka
   const modalTitleElement = document.getElementById('modal-title');
   if (modalTitleElement) {
-      const currentModalMode = modalTitleElement.getAttribute('data-current-mode'); // Dapatkan mode yang disimpan
+      const currentModalMode = modalTitleElement.getAttribute('data-current-mode');
       if (currentModalMode === 'download') {
           modalTitleElement.textContent = translations[lang]['modalDownloadTitle'];
       } else if (currentModalMode === 'howto') {
@@ -589,7 +587,6 @@ function setLanguage(lang) {
       }
   }
 
-  // Juga terjemahkan teks modal spesifik jika modal sedang terbuka
   const popup = document.getElementById('popup');
   if (popup.style.display === 'flex') {
       const adblockNoteElement = document.getElementById('modal-adblock-note');
@@ -599,7 +596,7 @@ function setLanguage(lang) {
   }
 }
 
-// PERUBAHAN: Fungsi openModal disesuaikan untuk menyimpan mode modal
+// Fungsi Modal
 function openModal(mode, buttonsData = []) {
   const popup = document.getElementById('popup');
   const modalTitle = document.getElementById('modal-title');
@@ -635,7 +632,7 @@ function openModal(mode, buttonsData = []) {
   });
 
   modalTitle.textContent = mode === 'download' ? translations[currentLang]['modalDownloadTitle'] : translations[currentLang]['modalHowToTitle'];
-  modalTitle.setAttribute('data-current-mode', mode); // BARU: Simpan mode saat ini
+  modalTitle.setAttribute('data-current-mode', mode); // Store the current mode
 
   modalButtonsContainer.innerHTML = buttonsHtml;
 
@@ -645,7 +642,6 @@ function openModal(mode, buttonsData = []) {
     modalAdblockNote.style.display = 'none';
   }
 
-  // Pastikan modal utama yang terlihat saat pertama kali dibuka
   mainModalContent.style.display = 'block';
   subModalContent.style.display = 'none';
 
@@ -668,8 +664,8 @@ function showSubModal(parentButtonText, subButtonsData) {
     `;
   });
 
-  modalTitle.textContent = parentButtonText; // Judul sub-modal bisa disesuaikan
-  modalTitle.removeAttribute('data-current-mode'); // BARU: Hapus mode untuk sub-modal
+  modalTitle.textContent = parentButtonText;
+  modalTitle.removeAttribute('data-current-mode'); // Clear mode for sub-modal
   subModalButtonsContainer.innerHTML = subButtonsHtml;
 
   mainModalContent.style.display = 'none';
@@ -682,58 +678,47 @@ function showMainModal() {
   const subModalContent = document.getElementById('sub-modal-content');
   const modalAdblockNote = document.getElementById('modal-adblock-note');
 
-  // Pulihkan judul modal utama
-  modalTitle.textContent = translations[currentLang]['modalDownloadTitle']; // Sesuaikan dengan bahasa saat ini
-  modalTitle.setAttribute('data-current-mode', 'download'); // BARU: Setel kembali mode
+  modalTitle.textContent = translations[currentLang]['modalDownloadTitle'];
+  modalTitle.setAttribute('data-current-mode', 'download');
 
   mainModalContent.style.display = 'block';
   subModalContent.style.display = 'none';
 
-  // Pastikan catatan adblock ditampilkan kembali jika mode adalah download
   modalAdblockNote.style.display = 'block';
 }
 
 function closeModal() {
     document.getElementById('popup').style.display = 'none';
-    showMainModal(); // Pastikan modal kembali ke tampilan awal jika dibuka lagi
+    showMainModal();
 }
 
-// PERUBAHAN: Fungsi toggleDesc tidak diperlukan di sini karena menggunakan toggleReadMore
-// Hapus atau abaikan fungsi ini jika tidak ada .desc-toggle di HTML ini.
-// Karena card di 'lainnya.html' menggunakan desc-short/desc-full dan read-more-toggle
-// function toggleDesc(btn) { ... }
-
-
-// PERUBAHAN: Fungsi toggleReadMore disesuaikan untuk terjemahan
+// FUNGSI UNTUK READ MORE/CLOSE DI HALAMAN INI
 function toggleReadMore(el) {
     const card = el.closest('.card');
     if (!card) return;
 
     const shortDesc = card.querySelector('.desc-short');
     const fullDesc = card.querySelector('.desc-full');
-    const readMoreSpans = card.querySelectorAll('.read-more-toggle'); // Ambil semua toggle spans
 
-    if (shortDesc && fullDesc && readMoreSpans.length > 0) {
-        const isShortVisible = shortDesc.style.display !== 'none'; // Cek apakah short desc sedang tampil
+    if (shortDesc && fullDesc) {
+        const isShortVisible = shortDesc.style.display !== 'none';
 
         shortDesc.style.display = isShortVisible ? 'none' : 'block';
         fullDesc.style.display = isShortVisible ? 'block' : 'none';
 
-        // Perbarui teks di SEMUA read-more-toggle spans di dalam card ini
-        readMoreSpans.forEach(span => {
-            span.textContent = isShortVisible ? translations[currentLang]['closeBtn'] : translations[currentLang]['readMoreBtn'];
-        });
+        // Teks tombol "Read More" / "Close" akan secara otomatis diperbarui
+        // oleh fungsi `setLanguage` karena mereka memiliki `data-i18n` atribut.
+        // Tidak perlu mengubah textContent di sini.
     }
 }
 
-
-// BARU: Fungsi untuk toggle dropdown bahasa
+// Fungsi untuk toggle dropdown bahasa
 function toggleLangDropdown() {
   const menu = document.getElementById('lang-options');
   menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
 }
 
-// BARU: Menutup dropdown bahasa jika diklik di luar area dropdown
+// Menutup dropdown bahasa jika diklik di luar area dropdown
 window.addEventListener('click', function(e) {
   const menu = document.getElementById('lang-options');
   const button = document.querySelector('.lang-icon');
@@ -742,38 +727,32 @@ window.addEventListener('click', function(e) {
   }
 });
 
+function checkZoom() {
+    const cards = document.querySelectorAll('.card');
+    cards.forEach(card => {
+        const cardTop = card.offsetTop;
+        const windowBottom = window.scrollY + window.innerHeight;
+        const windowTop = window.scrollY;
+        const cardHeight = card.offsetHeight;
+        const isVisible = (cardTop < windowBottom) && (cardTop + cardHeight > windowTop);
 
-    function checkZoom() {
-        const cards = document.querySelectorAll('.card');
-        cards.forEach(card => {
-            const cardTop = card.offsetTop;
-            const windowBottom = window.scrollY + window.innerHeight;
-            const windowTop = window.scrollY;
-            const cardHeight = card.offsetHeight;
-            const isVisible = (cardTop < windowBottom) && (cardTop + cardHeight > windowTop);
+        if (isVisible) {
+            card.classList.add('zoom-in');
+        } else {
+            card.classList.remove('zoom-in');
+        }
+    });
+}
 
-            if (isVisible) {
-                card.classList.add('zoom-in');
-            } else {
-                card.classList.remove('zoom-in');
-            }
-        });
-    }
+window.addEventListener('scroll', checkZoom);
+window.addEventListener('resize', checkZoom);
+window.addEventListener('load', checkZoom);
 
-    // Event listeners untuk animasi zoom saat scroll
-    window.addEventListener('scroll', checkZoom);
-    window.addEventListener('resize', checkZoom);
-    window.addEventListener('load', checkZoom);
-
-    // --- FUNGSI UNTUK FITUR SHARE DAN ANIMASI HIGHLIGHT ---
-    document.addEventListener('DOMContentLoaded', () => {
-        // PERUBAHAN: Memuat bahasa yang tersimpan saat DOMContentLoaded
-        const savedLang = localStorage.getItem('lang') || 'id';
-        setLanguage(savedLang); // Ini akan memicu terjemahan awal semua teks
-
-        const shareButtons = document.querySelectorAll('.share-button-icon');
-
-        shareButtons.forEach(button => {
+// --- FUNGSI UNTUK FITUR SHARE DAN ANIMASI HIGHLIGHT ---
+function initializeShareButtons() {
+    const shareButtons = document.querySelectorAll('.share-button-icon');
+    shareButtons.forEach(button => {
+        if (!button.dataset.listenerAdded) {
             button.addEventListener('click', () => {
                 const cardId = button.dataset.cardId;
                 const baseUrl = window.location.origin + window.location.pathname;
@@ -782,7 +761,7 @@ window.addEventListener('click', function(e) {
                 if (navigator.share) {
                     navigator.share({
                         title: document.title,
-                        text: `Lihat ini di ${document.title}!`, // PERUBAHAN: Sesuaikan teks share
+                        text: `Lihat ini di ${document.title}!`,
                         url: shareUrl
                     }).then(() => {
                         console.log('Berhasil dibagikan');
@@ -794,71 +773,84 @@ window.addEventListener('click', function(e) {
                     copyLinkToClipboard(shareUrl);
                 }
             });
-        });
-
-        function copyLinkToClipboard(link) {
-            const tempInput = document.createElement('input');
-            document.body.appendChild(tempInput);
-            tempInput.value = link;
-            tempInput.select();
-            document.execCommand('copy');
-            document.body.removeChild(tempInput);
-            alert('Link berhasil disalin ke clipboard: ' + link);
-        }
-
-        if (window.location.hash) {
-            const targetHash = window.location.hash.substring(1);
-            const targetElement = document.getElementById(targetHash);
-
-            if (targetElement) {
-                targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                targetElement.classList.add('highlight-card');
-                setTimeout(() => {
-                    targetElement.classList.remove('highlight-card');
-                }, 3000); // Hapus highlight setelah 3 detik
-            }
+            button.dataset.listenerAdded = 'true';
         }
     });
-  </script>
+}
 
-  <script src="https://l2dwidget.js.org/lib/L2Dwidget.min.js"></script>
-  <script>
-    // PERUBAHAN: Fungsi getRandomMessage menggunakan terjemahan dari naruto.js
-    function getRandomMessage() {
-      const messages = [
-        translations[currentLang]['live2dMessage1'],
-        translations[currentLang]['live2dMessage2'],
-        translations[currentLang]['live2dMessage3'],
-        translations[currentLang]['live2dMessage4'],
-      ];
-      const randomIndex = Math.floor(Math.random() * messages.length);
-      return messages[randomIndex];
+function copyLinkToClipboard(link) {
+    const tempInput = document.createElement('input');
+    document.body.appendChild(tempInput);
+    tempInput.value = link;
+    tempInput.select();
+    document.execCommand('copy');
+    document.body.removeChild(tempInput);
+    alert('Link berhasil disalin ke clipboard: ' + link);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Load saved language or default to 'id'
+    const savedLang = localStorage.getItem('lang') || 'id';
+    setLanguage(savedLang); // Ini akan memicu terjemahan awal semua teks
+
+    initializeShareButtons(); // Inisialisasi share buttons
+
+    if (window.location.hash) {
+        const targetHash = window.location.hash.substring(1);
+        const targetElement = document.getElementById(targetHash);
+
+        if (targetElement) {
+            targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            targetElement.classList.add('highlight-card');
+            setTimeout(() => {
+                targetElement.classList.remove('highlight-card');
+            }, 3000);
+        }
     }
+});
 
-    L2Dwidget.init({
-      model: {
-        jsonPath: "https://raw.githubusercontent.com/KanzakiisYU/live2d-model/main/kurumi/model.json"
-      },
-      display: {
-        position: "right",
-        width: 200,
-        height: 550,
-        hOffset: 20,
-        vOffset: -200
-      },
-      mobile: {
-        show: true,
-        scale: 1
-      },
-      dialog: {
-        enable: true,
-        script: {
-          'every idle 10s': getRandomMessage(),
-          'tap body': translations[currentLang]['live2dMessageTapBody'], // PERUBAHAN: Gunakan terjemahan
-          'tap face': getRandomMessage()
-        }
-      }
-    });
+// Live2D widget
+// Pastikan variabel 'translations' dan 'currentLang' dapat diakses dari sini
+// Karena kita memisahkan naruto.js dan lainnya.js, jika translations dan currentLang
+// hanya ada di naruto.js, maka lainnya.js TIDAK BISA mengaksesnya secara langsung.
+// Solusinya: Deklarasikan 'translations' dan 'currentLang' di global (naruto.js)
+// dan pastikan naruto.js dimuat SEBELUM lainnya.js.
+
+function getRandomMessage() {
+  const messages = [
+    translations[currentLang]['live2dMessage1'],
+    translations[currentLang]['live2dMessage2'],
+    translations[currentLang]['live2dMessage3'],
+    translations[currentLang]['live2dMessage4'],
+  ];
+  const randomIndex = Math.floor(Math.random() * messages.length);
+  return messages[randomIndex];
+}
+
+L2Dwidget.init({
+  model: {
+    jsonPath: "https://raw.githubusercontent.com/KanzakiisYU/live2d-model/main/kurumi/model.json"
+  },
+  display: {
+    position: "right",
+    width: 200,
+    height: 550,
+    hOffset: 20,
+    vOffset: -200
+  },
+  mobile: {
+    show: true,
+    scale: 1
+  },
+  dialog: {
+    enable: true,
+    script: {
+      'every idle 10s': getRandomMessage(),
+      'tap body': translations[currentLang]['live2dMessageTapBody'],
+      'tap face': getRandomMessage()
+    }
+  }
+});
   </script>
 
 </body>
