@@ -51,7 +51,7 @@
       flex-direction: column;
       justify-content: space-between;
       z-index: 1001;
-      margin-left: auto; /* Dorong ke kanan navbar */
+      /* margin-left: auto; <-- DIHAPUS, karena akan dikelola oleh div induk */
     }
 
     .hamburger-icon span {
@@ -73,6 +73,77 @@
     .hamburger-icon.open span:nth-child(3) {
       transform: translateY(-8.5px) rotate(-45deg);
     }
+
+    /* DITAMBAHKAN: Gaya untuk tombol ikon terjemahan */
+    .translate-icon-button {
+        background: none; /* Biarkan transparan agar gambar ikon menampilkan latar belakangnya sendiri */
+        border: none; /* Hilangkan border */
+        cursor: pointer;
+        padding: 0; /* Hilangkan padding */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 25px; /* Sesuaikan ukuran ikon */
+        height: 25px; /* Sesuaikan ukuran ikon */
+        transition: transform 0.2s ease-in-out;
+        margin-right: 10px; /* DITAMBAHKAN: Spasi antara tombol translate dan hamburger */
+        /* Mencegah seleksi teks dan klik kanan */
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        -webkit-touch-callout: none;
+    }
+
+    .translate-icon-button:hover {
+        transform: scale(1.1);
+    }
+
+    .translate-icon-button img {
+        width: 100%; /* Agar gambar mengisi area tombol */
+        height: 100%; /* Agar gambar mengisi area tombol */
+        display: block;
+        pointer-events: none; /* Mencegah gambar diseret atau menu konteks */
+    }
+
+    /* DITAMBAHKAN: Container untuk widget Google Translate - tersembunyi secara default */
+    #translate-widget-container {
+        position: absolute; /* Posisikan relatif terhadap elemen induk yang memiliki position non-static (body atau nav) */
+        top: 60px; /* Sesuaikan berdasarkan tinggi navbar */
+        right: 16px; /* Sejajarkan ke kanan */
+        background: white;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        padding: 10px;
+        display: none; /* Tersembunyi secara default */
+        z-index: 1000; /* Di atas konten lain, di bawah modal */
+        min-width: 150px; /* Lebar minimum untuk dropdown */
+    }
+
+    /* DITAMBAHKAN: Styling dasar untuk kotak pilihan Google Translate di dalam container */
+    #translate-widget-container .goog-te-gadget-simple {
+        border: none !important;
+        background-color: transparent !important;
+        font-family: sans-serif !important;
+        font-size: 14px !important;
+    }
+
+    /* DITAMBAHKAN: Sembunyikan banner/branding Google Translate */
+    .goog-logo-link {
+        display: none !important;
+    }
+    .goog-te-gadget {
+        color: transparent !important;
+    }
+    .goog-te-gadget-simple {
+        background-color: transparent !important;
+        border: none !important;
+    }
+    .goog-te-gadget-simple .goog-te-menu-value {
+        color: #333 !important; /* Sesuaikan warna teks jika diperlukan */
+    }
+
 
     /* Sidebar Menu */
     .sidebar {
@@ -637,12 +708,20 @@
 <body oncontextmenu="return false;">
   <nav>
     <h1>ㅤвирга</h1>
-    <div class="hamburger-icon" onclick="toggleSidebar()">
-      <span></span>
-      <span></span>
-      <span></span>
+    <div style="display: flex; align-items: center; margin-left: auto;"> <button class="translate-icon-button" onclick="toggleTranslateWidget()">
+            <img src="https://files.catbox.moe/7ivjkl.png" alt="Translate" draggable="false">
+        </button>
+        <div class="hamburger-icon" onclick="toggleSidebar()">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
     </div>
   </nav>
+
+  <div id="translate-widget-container">
+    <div id="google_translate_element"></div>
+  </div>
 
   <div id="mySidebar" class="sidebar">
     <a href="javascript:void(0)" class="closebtn" onclick="closeSidebar()">×</a>
@@ -938,14 +1017,19 @@
       const hamburgerIcon = document.querySelector(".hamburger-icon");
       const modalPopup = document.getElementById('popup');
       const shareModal = document.getElementById('shareModal');
+      const translateWidgetContainer = document.getElementById('translate-widget-container'); // DITAMBAHKAN
 
 
-      if (sidebar.classList.contains("open") && !sidebar.contains(event.target) && !hamburgerIcon.contains(event.target) && !modalPopup.contains(event.target) && !shareModal.contains(event.target)) {
+      if (sidebar.classList.contains("open") && !sidebar.contains(event.target) && !hamburgerIcon.contains(event.target) && !modalPopup.contains(event.target) && !shareModal.contains(event.target) && !translateWidgetContainer.contains(event.target) && !event.target.closest('.translate-icon-button')) { // DITAMBAHKAN kondisi
         closeSidebar();
       }
       // Close share modal if clicked outside
       if (shareModal.style.display === 'flex' && !shareModal.querySelector('.modal-content').contains(event.target) && !event.target.closest('.share-button-container')) {
           closeShareModal();
+      }
+      // DITAMBAHKAN: Tutup widget terjemahan jika diklik di luar widget/tombolnya
+      if (translateWidgetContainer.style.display === 'block' && !translateWidgetContainer.contains(event.target) && !event.target.closest('.translate-icon-button')) {
+        toggleTranslateWidget(); // Panggil fungsi untuk menutupnya
       }
     });
 
@@ -1319,6 +1403,23 @@
     // });
 
   </script>
+
+  <script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({pageLanguage: 'id', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+    }
+
+    // Fungsi untuk mengaktifkan/menonaktifkan visibilitas container widget terjemahan
+    function toggleTranslateWidget() {
+        const widgetContainer = document.getElementById('translate-widget-container');
+        if (widgetContainer.style.display === 'none' || widgetContainer.style.display === '') {
+            widgetContainer.style.display = 'block';
+        } else {
+            widgetContainer.style.display = 'none';
+        }
+    }
+  </script>
+  <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
   <script src="https://l2dwidget.js.org/lib/L2Dwidget.min.js"></script>
   <script type="text/javascript">
