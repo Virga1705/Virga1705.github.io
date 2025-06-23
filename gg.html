@@ -31,12 +31,18 @@
       z-index: 999;
       display: flex;
       align-items: center;
+      justify-content: space-between; /* DITAMBAHKAN: Untuk menempatkan elemen di kedua sisi */
       /* Tambahkan properti user-select untuk header juga */
       -webkit-user-select: none;
       -moz-user-select: none;
       -ms-user-select: none;
       user-select: none;
       -webkit-touch-callout: none;
+    }
+
+    .header-left { /* DITAMBAHKAN: Untuk mengelompokkan tombol kembali dan judul */
+      display: flex;
+      align-items: center;
     }
 
     .back-button {
@@ -72,6 +78,78 @@
       /* Mencegah draggable dan klik kanan pada gambar */
       pointer-events: none; /* Mencegah interaksi mouse/touch pada gambar (termasuk download) */
     }
+
+    /* DITAMBAHKAN: Gaya untuk tombol ikon terjemahan */
+    .translate-icon-button {
+        background: none; /* Biarkan transparan agar gambar ikon menampilkan latar belakangnya sendiri */
+        border: none; /* Hilangkan border */
+        cursor: pointer;
+        padding: 0; /* Hilangkan padding */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 25px; /* Sesuaikan ukuran ikon */
+        height: 25px; /* Sesuaikan ukuran ikon */
+        transition: transform 0.2s ease-in-out;
+        margin-left: 10px; /* Spasi dari teks 'Game Guardian' */
+        /* Mencegah seleksi teks dan klik kanan */
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        -webkit-touch-callout: none;
+    }
+
+    .translate-icon-button:hover {
+        transform: scale(1.1);
+    }
+
+    .translate-icon-button img {
+        width: 100%; /* Agar gambar mengisi area tombol */
+        height: 100%; /* Agar gambar mengisi area tombol */
+        display: block;
+        pointer-events: none; /* Mencegah gambar diseret atau menu konteks */
+    }
+
+    /* DITAMBAHKAN: Container untuk widget Google Translate - tersembunyi secara default */
+    #translate-widget-container {
+        position: absolute; /* Posisikan relatif terhadap header */
+        top: 60px; /* Sesuaikan berdasarkan tinggi header */
+        right: 16px; /* Sejajarkan ke kanan header */
+        background: white;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        padding: 10px;
+        display: none; /* Tersembunyi secara default */
+        z-index: 1000; /* Di atas konten lain */
+        /* Pastikan dropdown itu sendiri berada di dalam container ini */
+        min-width: 150px; /* Lebar minimum untuk dropdown */
+    }
+
+    /* DITAMBAHKAN: Styling dasar untuk kotak pilihan Google Translate di dalam container */
+    #translate-widget-container .goog-te-gadget-simple {
+        border: none !important;
+        background-color: transparent !important;
+        font-family: sans-serif !important;
+        font-size: 14px !important;
+    }
+
+    /* DITAMBAHKAN: Sembunyikan banner/branding Google Translate */
+    .goog-logo-link {
+        display: none !important;
+    }
+    .goog-te-gadget {
+        color: transparent !important;
+    }
+    .goog-te-gadget-simple {
+        background-color: transparent !important;
+        border: none !important;
+    }
+    .goog-te-gadget-simple .goog-te-menu-value {
+        color: #333 !important; /* Sesuaikan warna teks jika diperlukan */
+    }
+
 
     .card {
       margin: 30px auto;
@@ -393,11 +471,20 @@
 <body oncontextmenu="return false;">
 
   <header>
-    <a href="Virga1705.github.io" class="back-button">
-      <img src="https://files.catbox.moe/g9z1ny.png" alt="Kembali ke Beranda">
-    </a>
-    Game Guardian
+    <div class="header-left"> <a href="Virga1705.github.io" class="back-button">
+          <img src="https://files.catbox.moe/g9z1ny.png" alt="Kembali ke Beranda">
+        </a>
+        Game Guardian
+    </div>
+    <button class="translate-icon-button" onclick="toggleTranslateWidget()">
+        <img src="https://files.catbox.moe/7ivjkl.png" alt="Translate" draggable="false">
+    </button>
   </header>
+
+  <div id="translate-widget-container">
+    <div id="google_translate_element"></div>
+  </div>
+
 <div class="card" id="card-gg-new-theme-icon">
   <a href="https://youtu.be/StYtvhXTls8" target="_blank">
     <img src="https://files.catbox.moe/bew02e.jpg" alt="Review Gameplay">
@@ -489,7 +576,6 @@
   </div>
 </div>
 
-<!-- CARD: GG THEME HUTAO -->
 <div class="card" id="card-gg-theme-hutao">
   <a href="https://youtu.be/7bKQke2nRyc"><img src="https://files.catbox.moe/1uusb7.jpg" alt="NS Uchiha"></a>
   <div class="title">
@@ -508,7 +594,6 @@
   </div>
 </div>
 
-<!-- CARD: GG THEME NAHIDA -->
 <div class="card" id="card-gg-theme-nahida">
   <a href="https://youtu.be/U0Cdmm2i620"><img src="https://files.catbox.moe/3yi7j9.jpg" alt="NS Uchiha"></a>
   <div class="title">
@@ -762,6 +847,23 @@ function closeModal() {
     // Akhir dari JavaScript Share
     // ************************************************
   </script>
+
+  <script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({pageLanguage: 'id', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+    }
+
+    // Fungsi untuk mengaktifkan/menonaktifkan visibilitas container widget terjemahan
+    function toggleTranslateWidget() {
+        const widgetContainer = document.getElementById('translate-widget-container');
+        if (widgetContainer.style.display === 'none' || widgetContainer.style.display === '') {
+            widgetContainer.style.display = 'block';
+        } else {
+            widgetContainer.style.display = 'none';
+        }
+    }
+  </script>
+  <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
   <script src="https://l2dwidget.js.org/lib/L2Dwidget.min.js"></script>
   <script>
