@@ -108,8 +108,8 @@
 
     /* DITAMBAHKAN: Container untuk widget Google Translate - tersembunyi secara default */
     #translate-widget-container {
-        position: absolute; /* Posisikan relatif terhadap elemen induk yang memiliki position non-static (body atau nav) */
-        top: 60px; /* Sesuaikan berdasarkan tinggi navbar */
+        position: fixed; /* Posisikan relatif terhadap elemen induk yang memiliki position non-static (body atau nav) */
+        top: 75px; /* Sesuaikan berdasarkan tinggi navbar */
         right: 16px; /* Sejajarkan ke kanan */
         background: white;
         border: 1px solid #ddd;
@@ -703,6 +703,24 @@
         from { transform: scale(0.8); opacity: 0; }
         to { transform: scale(1); opacity: 1; }
     }
+    
+    .info-message {
+    position: fixed;
+    top: 120px; /* Sesuaikan ini untuk posisi vertikal */
+    right: 16px; /* Sesuaikan ini untuk posisi horizontal */
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    padding: 10px;
+    font-size: 14px;
+    color: #333;
+    max-width: 250px; /* Sesuaikan lebar maksimum */
+    z-index: 999; /* Pastikan di atas elemen lain jika diperlukan */
+    text-align: center;
+    /* Tambahan untuk menyembunyikannya secara default dan menampilkannya dengan JavaScript */
+    display: none;
+}
 </style>
 </head>
 <body oncontextmenu="return false;">
@@ -722,6 +740,9 @@
   <div id="translate-widget-container">
     <div id="google_translate_element"></div>
   </div>
+  <div class="info-message">
+    If you want a better translate, you should use the browser's default translate
+</div>
 
   <div id="mySidebar" class="sidebar">
     <a href="javascript:void(0)" class="closebtn" onclick="closeSidebar()">×</a>
@@ -1410,14 +1431,17 @@
     }
 
     // Fungsi untuk mengaktifkan/menonaktifkan visibilitas container widget terjemahan
-    function toggleTranslateWidget() {
-        const widgetContainer = document.getElementById('translate-widget-container');
-        if (widgetContainer.style.display === 'none' || widgetContainer.style.display === '') {
-            widgetContainer.style.display = 'block';
-        } else {
-            widgetContainer.style.display = 'none';
-        }
+function toggleTranslateWidget() {
+    const widgetContainer = document.getElementById('translate-widget-container');
+    const infoMessage = document.querySelector('.info-message'); // Dapatkan elemen pesan
+    if (widgetContainer.style.display === 'none' || widgetContainer.style.display === '') {
+        widgetContainer.style.display = 'block';
+        infoMessage.style.display = 'block'; // Tampilkan pesan
+    } else {
+        widgetContainer.style.display = 'none';
+        infoMessage.style.display = 'none'; // Sembunyikan pesan
     }
+}
   </script>
   <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
