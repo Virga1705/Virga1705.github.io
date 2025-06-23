@@ -236,6 +236,7 @@
       box-sizing: border-box;
 
       display: flex;
+      flex-direction: row-reverse; /* UBAH INI: Pastikan semua ikon di kanan secara default */
       align-items: flex-start;
       position: relative; /* Untuk positioning tombol share */
 
@@ -259,19 +260,22 @@
         outline: none;
     }
 
-    .virga-card .card-logo {
+    .virga-card .card-logo { /* UBAH INI: Atur margin untuk logo di kanan */
       width: 60px;
       height: 60px;
       flex-shrink: 0;
       object-fit: contain;
       pointer-events: none; /* Menjaga agar gambar tidak dapat diklik terpisah dari link card */
+      margin-left: 15px; /* Margin di kiri ikon, memisahkannya dari teks */
+      margin-right: 0; /* Pastikan tidak ada margin kanan jika sebelumnya ada */
     }
 
-    .virga-card .card-content-wrapper {
+    .virga-card .card-content-wrapper { /* UBAH INI: Atur order dan margin untuk konten */
       display: flex;
       flex-direction: column;
       flex-grow: 1;
-      margin: 0 15px;
+      order: 1; /* Konten sebelum logo dalam urutan visual */
+      margin: 0 15px 0 0; /* Margin kanan untuk konten, memisahkannya dari logo */
     }
 
     .virga-card .card-title {
@@ -292,7 +296,8 @@
       transition: color 0.3s ease;
     }
 
-    /* --- Gaya untuk Logo di Kiri (Card 1 dan 3) --- */
+    /* HAPUS ATAU ABAIKAN BLOK INI KARENA flex-direction: row-reverse SUDAH DEFAULT */
+    /*
     .align-left-logo .card-logo {
       margin-right: 15px;
     }
@@ -300,8 +305,10 @@
     .align-left-logo .card-content-wrapper {
       order: 1;
     }
+    */
 
-    /* --- Gaya untuk Logo di Kanan (Card 2) --- */
+    /* HAPUS ATAU ABAIKAN BLOK INI KARENA flex-direction: row-reverse SUDAH DEFAULT */
+    /*
     .align-right-logo {
       flex-direction: row-reverse;
     }
@@ -315,6 +322,7 @@
       margin-right: 15px;
       margin-left: 0;
     }
+    */
 
     /* Gaya untuk "Read More" */
     .read-more-text {
@@ -673,7 +681,7 @@
 
   <div class="container">
 
-    <a href="https://Virga1705.github.io/NarutoSenki.html" class="virga-card align-left-logo" id="card-naruto-senki" data-share-id="naruto-senki">
+    <a href="https://Virga1705.github.io/NarutoSenki.html" class="virga-card" id="card-naruto-senki" data-share-id="naruto-senki">
       <img src="https://files.catbox.moe/ngsl57.jpg" alt="Naruto Senki Logo" class="card-logo" draggable="false">
       <div class="card-content-wrapper">
         <p class="card-title">Naruto Senki</p>
@@ -688,7 +696,7 @@
         <span class="share-tooltip">Copied!</span>
       </div>
     </a>
-    <a href="https://Virga1705.github.io/pixellab.html" class="virga-card align-right-logo" id="card-pixellab" data-share-id="pixellab">
+    <a href="https://Virga1705.github.io/pixellab.html" class="virga-card" id="card-pixellab" data-share-id="pixellab">
       <img src="https://files.catbox.moe/97vkic.png" alt="PixelLab Logo" class="card-logo" draggable="false">
       <div class="card-content-wrapper">
         <p class="card-title">PixelLab</p>
@@ -703,7 +711,7 @@
         <span class="share-tooltip">Copied!</span>
       </div>
     </a>
-    <a href="https://Virga1705.github.io/gg.html" class="virga-card align-left-logo" id="card-game-guardian" data-share-id="game-guardian">
+    <a href="https://Virga1705.github.io/gg.html" class="virga-card" id="card-game-guardian" data-share-id="game-guardian">
       <img src="https://files.catbox.moe/xqmdrq.png" alt="Game Guardian Logo" class="card-logo" draggable="false">
       <div class="card-content-wrapper">
         <p class="card-title">Game Guardian</p>
@@ -718,7 +726,7 @@
         <span class="share-tooltip">Copied!</span>
       </div>
     </a>
-    <a href="https://Virga1705.github.io/gta-sa.html" class="virga-card align-right-logo" id="card-gta-sa" data-share-id="gta-sa">
+    <a href="https://Virga1705.github.io/gta-sa.html" class="virga-card" id="card-gta-sa" data-share-id="gta-sa">
       <img src="https://files.catbox.moe/yvixfh.png" alt="GTA SA Logo" class="card-logo" draggable="false">
       <div class="card-content-wrapper">
         <p class="card-title">GTA: SA</p>
@@ -733,7 +741,7 @@
         <span class="share-tooltip">Copied!</span>
       </div>
     </a>
-    <a href="https://Virga1705.github.io/gta-vc.html" class="virga-card align-left-logo" id="card-gta-vc" data-share-id="gta-vc">
+    <a href="https://Virga1705.github.io/gta-vc.html" class="virga-card" id="card-gta-vc" data-share-id="gta-vc">
       <img src="https://files.catbox.moe/1dw6yw.png" alt="GTA VC Logo" class="card-logo" draggable="false">
       <div class="card-content-wrapper">
         <p class="card-title">GTA: VC</p>
@@ -748,7 +756,7 @@
         <span class="share-tooltip">Copied!</span>
       </div>
     </a>
-    <a href="https://Virga1705.github.io/gta-lcs.html" class="virga-card align-right-logo" id="card-gta-lcs" data-share-id="gta-lcs">
+    <a href="https://Virga1705.github.io/gta-lcs.html" class="virga-card" id="card-gta-lcs" data-share-id="gta-lcs">
       <img src="https://files.catbox.moe/gapykt.png" alt="GTA LCS Logo" class="card-logo" draggable="false">
       <div class="card-content-wrapper">
         <p class="card-title">GTA: LCS</p>
@@ -763,7 +771,7 @@
         <span class="share-tooltip">Copied!</span>
       </div>
     </a>
-    <a href="https://Virga1705.github.io/gta-3.html" class="virga-card align-left-logo" id="card-gta-3" data-share-id="gta-3">
+    <a href="https://Virga1705.github.io/gta-3.html" class="virga-card" id="card-gta-3" data-share-id="gta-3">
       <img src="https://files.catbox.moe/t0zzf7.png" alt="GTA 3 Logo" class="card-logo" draggable="false">
       <div class="card-content-wrapper">
         <p class="card-title">GTA: III</p>
@@ -778,7 +786,7 @@
         <span class="share-tooltip">Copied!</span>
       </div>
     </a>
-    <a href="https://Virga1705.github.io/bully.html" class="virga-card align-right-logo" id="card-bully" data-share-id="bully">
+    <a href="https://Virga1705.github.io/bully.html" class="virga-card" id="card-bully" data-share-id="bully">
       <img src="https://files.catbox.moe/ddggvz.png" alt="BULLY Logo" class="card-logo" draggable="false">
       <div class="card-content-wrapper">
         <p class="card-title">BULLY</p>
@@ -793,7 +801,7 @@
         <span class="share-tooltip">Copied!</span>
       </div>
     </a>
-    <a href="https://Virga1705.github.io/minecraft.html" class="virga-card align-left-logo" id="card-minecraft" data-share-id="minecraft">
+    <a href="https://Virga1705.github.io/minecraft.html" class="virga-card" id="card-minecraft" data-share-id="minecraft">
       <img src="https://files.catbox.moe/xjqkv4.png" alt="Minecraft Logo" class="card-logo" draggable="false">
       <div class="card-content-wrapper">
         <p class="card-title">Minecraft</p>
@@ -808,12 +816,12 @@
         <span class="share-tooltip">Copied!</span>
       </div>
     </a>
-    <a href="https://Virga1705.github.io/lainnya.html" class="virga-card align-right-logo" id="card-lainnya" data-share-id="lainnya">
+    <a href="https://Virga1705.github.io/lainnya.html" class="virga-card" id="card-lainnya" data-share-id="lainnya">
       <img src="https://files.catbox.moe/yvixfh.png" alt="Lainnya Logo" class="card-logo" draggable="false">
       <div class="card-content-wrapper">
         <p class="card-title">Lainnya…</p>
-        <p class="card-description collapsed" data-full-text="Bully adalah game aksi-petualangan yang dikembangkan oleh Rockstar Vancouver dan diterbitkan oleh Rockstar Games.">
-          Bully adalah game aksi-petualangan<span class="more-text"> yang dikembangkan oleh Rockstar Vancouver dan diterbitkan oleh Rockstar Games.</span>
+        <p class="card-description collapsed" data-full-text="Disini berisi konten apa saja, seperti script game guardian, tools, app virtual dan lain lain, yang mungkin akan berguna untuk mu">
+          Disini berisi konten apa saja, seperti script game guardian, tools, <span class="more-text">app virtual dan lain lain, yang mungkin akan berguna untuk mu</span>
           <span class="read-more-ellipsis">...</span>
           <span class="read-more-toggle">Read More</span>
         </p>
@@ -1229,6 +1237,87 @@
 
     window.addEventListener('load', scrollToCardFromHash);
     window.addEventListener('hashchange', scrollToCardFromHash); // Listen for changes in the URL hash
+
+    // Fungsi untuk mengacak array (Fisher-Yates (Knuth) shuffle)
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]]; // Swap elements
+        }
+    }
+
+    // Fungsi untuk mengacak dan menampilkan card
+    function randomizeCards() {
+        const container = document.querySelector('.container');
+        if (!container) return;
+
+        const cards = Array.from(container.querySelectorAll('.virga-card')); // Dapatkan semua card
+        shuffleArray(cards); // Acak urutan card
+
+        // Hapus semua card yang ada di container
+        while (container.firstChild) {
+            container.removeChild(container.firstChild);
+        }
+
+        // Tambahkan kembali card dalam urutan acak
+        cards.forEach(card => {
+            container.appendChild(card);
+        });
+
+        // Panggil kembali checkZoom() setelah card diacak untuk memastikan animasi
+        checkZoom();
+    }
+
+    // Panggil fungsi randomizeCards saat halaman dimuat
+    window.addEventListener('load', function() {
+        randomizeCards();
+        checkZoom(); // Pastikan zoom-in effect bekerja setelah pengacakan
+        scrollToCardFromHash(); // Tetap panggil ini jika ada hash di URL
+    });
+
+
+    // --- KODE BARU UNTUK MENGUBAH ICON CARD LAINNYA ---
+    const otherCardIcons = [
+        "https://files.catbox.moe/6ojy0l.png", // 1
+        "https://files.catbox.moe/kozvmw.png", // 2
+        "https://files.catbox.moe/imc8pi.png",   // 3
+        "https://files.catbox.moe/rlxs7n.png" // 4
+        // Tambahkan URL ikon lainnya sesuai keinginan Anda
+    ];
+    let currentOtherIconIndex = 0;
+    let otherCardIconInterval;
+
+    function changeOtherCardIcon() {
+        const otherCard = document.getElementById('card-lainnya');
+        if (otherCard) {
+            const iconElement = otherCard.querySelector('.card-logo');
+            if (iconElement) {
+                currentOtherIconIndex = (currentOtherIconIndex + 1) % otherCardIcons.length;
+                iconElement.src = otherCardIcons[currentOtherIconIndex];
+            }
+        }
+    }
+
+    // Mulai mengubah ikon saat halaman dimuat
+    window.addEventListener('load', function() {
+        // Panggil fungsi pengacakan card dan fungsi terkait lainnya
+        randomizeCards();
+        checkZoom();
+        scrollToCardFromHash();
+
+        // Mulai interval untuk mengubah ikon card 'Lainnya'
+        otherCardIconInterval = setInterval(changeOtherCardIcon, 1100); // Time
+    });
+
+    // Opsional: Hentikan interval jika ingin menghemat sumber daya ketika tab tidak aktif
+    // document.addEventListener('visibilitychange', function() {
+    //     if (document.hidden) {
+    //         if (otherCardIconInterval) clearInterval(otherCardIconInterval);
+    //     } else {
+    //         otherCardIconInterval = setInterval(changeOtherCardIcon, 3000);
+    //     }
+    // });
+
   </script>
 
   <script src="https://l2dwidget.js.org/lib/L2Dwidget.min.js"></script>
