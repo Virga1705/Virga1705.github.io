@@ -594,6 +594,8 @@
 // Definisikan data tombol secara global atau di tempat yang mudah diakses
 // Ini penting agar sub-modal bisa mengakses data tombol utama
 let currentModalButtonsData = [];
+// Variabel untuk menyimpan mode modal utama (download/howto)
+let currentMainModalMode = '';
 
 function openModal(mode, buttonsData = []) {
   const popup = document.getElementById('popup');
@@ -603,25 +605,24 @@ function openModal(mode, buttonsData = []) {
   const modalButtonsContainer = document.getElementById('modal-buttons-container');
   const modalAdblockNote = document.getElementById('modal-adblock-note');
 
-  // Simpan data tombol utama
+  // Simpan data tombol utama dan mode
   currentModalButtonsData = buttonsData;
+  currentMainModalMode = mode; // Simpan mode utama
 
   let buttonsHtml = '';
-  buttonsData.forEach(btn => {
+  buttonsData.forEach((btn, index) => { // Tambahkan 'index' di sini
     if (btn.separator) {
       buttonsHtml += '<div class="button-group-separator"></div>';
     } else {
-      // Ubah onclick tombol download yang akan membuka sub-modal
-      // Periksa apakah tombol memiliki properti `subButtons`
       if (btn.subButtons && btn.subButtons.length > 0) {
+        // KIRIM INDEX KE FUNGSI BARU showSubModalFromIndex
         buttonsHtml += `
           <div class="download-block">
-            <button class="download-button" onclick="showSubModal('${btn.text}', ${JSON.stringify(btn.subButtons).replace(/"/g, '"')})">${btn.text}</button>
+            <button class="download-button" onclick="showSubModalFromIndex('${btn.text}', ${index})">${btn.text}</button>
             ${btn.note ? `<div class="download-note">${btn.note}</div>` : ''}
           </div>
         `;
       } else {
-        // Tombol download biasa (langsung ke link)
         buttonsHtml += `
           <div class="download-block">
             <a href="${btn.link}" target="_blank" class="download-button">${btn.text}</a>
@@ -648,28 +649,37 @@ function openModal(mode, buttonsData = []) {
   popup.style.display = 'flex';
 }
 
-function showSubModal(parentButtonText, subButtonsData) {
+// Fungsi baru untuk menampilkan sub-modal dengan mengambil data dari indeks
+function showSubModalFromIndex(parentButtonText, parentIndex) {
+  // Ambil data sub-tombol dari currentModalButtonsData menggunakan parentIndex
+  const subButtonsData = currentModalButtonsData[parentIndex].subButtons;
+
   const modalTitle = document.getElementById('modal-title');
   const mainModalContent = document.getElementById('main-modal-content');
   const subModalContent = document.getElementById('sub-modal-content');
   const subModalButtonsContainer = document.getElementById('sub-modal-buttons-container');
 
   let subButtonsHtml = '';
-  subButtonsData.forEach(btn => {
-    subButtonsHtml += `
-      <div class="download-block">
-        <a href="${btn.link}" target="_blank" class="download-button">${btn.text}</a>
-        ${btn.note ? `<div class="download-note">${btn.note}</div>` : ''}
-      </div>
-    `;
-  });
+  if (subButtonsData && subButtonsData.length > 0) { // Pastikan subButtonsData ada dan tidak kosong
+    subButtonsData.forEach(btn => {
+      subButtonsHtml += `
+        <div class="download-block">
+          <a href="${btn.link}" target="_blank" class="download-button">${btn.text}</a>
+          ${btn.note ? `<div class="download-note">${btn.note}</div>` : ''}
+        </div>
+      `;
+    });
+  } else {
+      subButtonsHtml = '<p>Tidak ada opsi download tambahan.</p>'; // Pesan jika tidak ada sub-tombol
+  }
 
-  modalTitle.textContent = parentButtonText; // Judul sub-modal bisa disesuaikan
+  modalTitle.textContent = parentButtonText; // Judul sub-modal menggunakan teks tombol parent
   subModalButtonsContainer.innerHTML = subButtonsHtml;
 
   mainModalContent.style.display = 'none';
   subModalContent.style.display = 'block';
 }
+
 
 function showMainModal() {
   const modalTitle = document.getElementById('modal-title');
@@ -677,15 +687,15 @@ function showMainModal() {
   const subModalContent = document.getElementById('sub-modal-content');
   const modalAdblockNote = document.getElementById('modal-adblock-note');
 
-  // Pulihkan judul modal utama
-  modalTitle.textContent = 'Download Game'; // Atau bisa disimpan dalam variabel jika mode bukan 'download'
+  // Pulihkan judul modal utama berdasarkan currentMainModalMode
+  modalTitle.textContent = currentMainModalMode === 'download' ? 'Download Game' : 'Cara Download';
 
+  // Pastikan konten modal utama ditampilkan kembali
   mainModalContent.style.display = 'block';
   subModalContent.style.display = 'none';
 
   // Pastikan catatan adblock ditampilkan kembali jika mode adalah download
-  // Asumsi selalu mode 'download' saat kembali dari sub-modal download
-  modalAdblockNote.style.display = 'block';
+  modalAdblockNote.style.display = (currentMainModalMode === 'download') ? 'block' : 'none';
 }
 
 // Hanya satu fungsi closeModal yang diperlukan
