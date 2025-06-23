@@ -31,12 +31,18 @@
       z-index: 999;
       display: flex;
       align-items: center;
+      justify-content: space-between; /* DITAMBAHKAN: Untuk menempatkan elemen di kedua sisi */
       /* Tambahkan properti user-select untuk header juga */
       -webkit-user-select: none;
       -moz-user-select: none;
       -ms-user-select: none;
       user-select: none;
       -webkit-touch-callout: none;
+    }
+
+    .header-left { /* DITAMBAHKAN: Untuk mengelompokkan tombol kembali dan judul */
+      display: flex;
+      align-items: center;
     }
 
     .back-button {
@@ -71,6 +77,77 @@
       height: 26px;
       /* Mencegah draggable dan klik kanan pada gambar */
       pointer-events: none; /* Mencegah interaksi mouse/touch pada gambar (termasuk download) */
+    }
+
+    /* DITAMBAHKAN: Gaya untuk tombol ikon terjemahan */
+    .translate-icon-button {
+        background: none; /* Biarkan transparan agar gambar ikon menampilkan latar belakangnya sendiri */
+        border: none; /* Hilangkan border */
+        cursor: pointer;
+        padding: 0; /* Hilangkan padding */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 30px; /* Sesuaikan ukuran ikon */
+        height: 30px; /* Sesuaikan ukuran ikon */
+        transition: transform 0.2s ease-in-out;
+        margin-left: 10px; /* Spasi dari teks 'PixelLab' */
+        /* Mencegah seleksi teks dan klik kanan */
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        -webkit-touch-callout: none;
+    }
+
+    .translate-icon-button:hover {
+        transform: scale(1.1);
+    }
+
+    .translate-icon-button img {
+        width: 100%; /* Agar gambar mengisi area tombol */
+        height: 100%; /* Agar gambar mengisi area tombol */
+        display: block;
+        pointer-events: none; /* Mencegah gambar diseret atau menu konteks */
+    }
+
+    /* DITAMBAHKAN: Container untuk widget Google Translate - tersembunyi secara default */
+    #translate-widget-container {
+        position: absolute; /* Posisikan relatif terhadap header */
+        top: 60px; /* Sesuaikan berdasarkan tinggi header */
+        right: 16px; /* Sejajarkan ke kanan header */
+        background: white;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        padding: 10px;
+        display: none; /* Tersembunyi secara default */
+        z-index: 1000; /* Di atas konten lain */
+        /* Pastikan dropdown itu sendiri berada di dalam container ini */
+        min-width: 150px; /* Lebar minimum untuk dropdown */
+    }
+
+    /* DITAMBAHKAN: Styling dasar untuk kotak pilihan Google Translate di dalam container */
+    #translate-widget-container .goog-te-gadget-simple {
+        border: none !important;
+        background-color: transparent !important;
+        font-family: sans-serif !important;
+        font-size: 14px !important;
+    }
+
+    /* DITAMBAHKAN: Sembunyikan banner/branding Google Translate */
+    .goog-logo-link {
+        display: none !important;
+    }
+    .goog-te-gadget {
+        color: transparent !important;
+    }
+    .goog-te-gadget-simple {
+        background-color: transparent !important;
+        border: none !important;
+    }
+    .goog-te-gadget-simple .goog-te-menu-value {
+        color: #333 !important; /* Sesuaikan warna teks jika diperlukan */
     }
 
     .card {
@@ -392,11 +469,19 @@
 <body oncontextmenu="return false;">
 
   <header>
-    <a href="Virga1705.github.io" class="back-button">
-      <img src="https://files.catbox.moe/g9z1ny.png" alt="Kembali ke Beranda">
-    </a>
-    PixelLab
+    <div class="header-left"> <a href="Virga1705.github.io" class="back-button">
+          <img src="https://files.catbox.moe/g9z1ny.png" alt="Kembali ke Beranda">
+        </a>
+        PixelLab
+    </div>
+    <button class="translate-icon-button" onclick="toggleTranslateWidget()">
+        <img src="path/to/IMG_20250623_102615.jpg" alt="Translate" draggable="false">
+    </button>
   </header>
+
+  <div id="translate-widget-container">
+    <div id="google_translate_element"></div>
+  </div>
 
   <div class="card" id="card-pixellab-theme-ios">
     <a href="https://youtu.be/oWRwrdK-www" target="_blank">
@@ -414,11 +499,11 @@
     </div>
   <div class="buttons">
 <button onclick="openModal('download', [
-  { text: 'Like IOS :v',  subButtons: [ 
+  { text: 'Like IOS :v',  subButtons: [
       { text: 'App', link: 'https://apkadmin.com/3hfox6r0nmj2/PixelLab_signed.7z.html' },
-      { text: 'Password', link: 'https://sfl.gl/QBUP3FG' } // <-- Tambahkan ini
-    ] // <-- Dan ini
-  } // <-- Dan ini
+      { text: 'Password', link: 'https://sfl.gl/QBUP3FG' }
+    ]
+  }
 ])">Download</button>
   <button onclick="openModal('howto', [
     { text: 'Panduan YouTube', link: 'https://youtu.be/Af1Sj7MDhiM?si=a3nkEjDqBjj5NY14' },
@@ -441,11 +526,11 @@
     </div>
     <div class="buttons">
   <button onclick="openModal('download', [
-  { text: 'Dark Theme V1',  subButtons: [ 
+  { text: 'Dark Theme V1',  subButtons: [
       { text: 'Password', link: 'https://sfl.gl/t9EykRkc' },
-      { text: 'App', link: 'https://apkadmin.com/4xyd0vgan06m/PixelLab_Dark_Theme_V1_v6969.apk.html' } // <-- Tambahkan ini
-    ] // <-- Dan ini
-  } // <-- Dan ini
+      { text: 'App', link: 'https://apkadmin.com/4xyd0vgan06m/PixelLab_Dark_Theme_V1_v6969.apk.html' }
+    ]
+  }
 ])">Download</button>
   <button onclick="openModal('howto', [
     { text: 'Panduan YouTube', link: 'https://youtu.be/Af1Sj7MDhiM?si=a3nkEjDqBjj5NY14' },
@@ -468,11 +553,11 @@
     </div>
     <div class="buttons">
       <button onclick="openModal('download', [
-  { text: 'Dark White Green',  subButtons: [ 
+  { text: 'Dark White Green',  subButtons: [
       { text: 'Password', link: 'https://sfl.gl/3fuh' },
-      { text: 'App', link: 'https://apkadmin.com/yd6aqhp9kaxd/PixelLab_DarkWhiteGreen_6969.apk.html' } // <-- Tambahkan ini
-    ] // <-- Dan ini
-  } // <-- Dan ini
+      { text: 'App', link: 'https://apkadmin.com/yd6aqhp9kaxd/PixelLab_DarkWhiteGreen_6969.apk.html' }
+    ]
+  }
 ])">Download</button>
   <button onclick="openModal('howto', [
     { text: 'Panduan YouTube', link: 'https://youtu.be/Af1Sj7MDhiM?si=a3nkEjDqBjj5NY14' },
@@ -495,11 +580,11 @@
     </div>
     <div class="buttons">
             <button onclick="openModal('download', [
-  { text: 'Like IOS V2',  subButtons: [ 
+  { text: 'Like IOS V2',  subButtons: [
       { text: 'Password', link: 'https://sfl.gl/KW3eU6O3' },
-      { text: 'App', link: 'https://apkadmin.com/a48vo2eea3g1/PixelLab_Theme_Like_IOS_V2.apk.html' } // <-- Tambahkan ini
-    ] // <-- Dan ini
-  } // <-- Dan ini
+      { text: 'App', link: 'https://apkadmin.com/a48vo2eea3g1/PixelLab_Theme_Like_IOS_V2.apk.html' }
+    ]
+  }
 ])">Download</button>
   <button onclick="openModal('howto', [
     { text: 'Panduan YouTube', link: 'https://youtu.be/Af1Sj7MDhiM?si=a3nkEjDqBjj5NY14' },
@@ -522,11 +607,11 @@
     </div>
     <div class="buttons">
     <button onclick="openModal('download', [
-  { text: 'White Black',  subButtons: [ 
+  { text: 'White Black',  subButtons: [
       { text: 'App', link: 'https://sfl.gl/JKMAA3' },
-      { text: 'Password', link: 'https://youtu.be/Jz20F6qPUBY?si=Rw1lKZESxjVYeZqQ' } // <-- Tambahkan ini
-    ] // <-- Dan ini
-  } // <-- Dan ini
+      { text: 'Password', link: 'https://youtu.be/Jz20F6qPUBY?si=Rw1lKZESxjVYeZqQ' }
+    ]
+  }
 ])">Download</button>
   <button onclick="openModal('howto', [
     { text: 'Panduan YouTube', link: 'https://youtu.be/Af1Sj7MDhiM?si=a3nkEjDqBjj5NY14' },
@@ -549,11 +634,11 @@
     </div>
     <div class="buttons">
       <button onclick="openModal('download', [
-  { text: 'White Purple',  subButtons: [ 
+  { text: 'White Purple',  subButtons: [
       { text: 'App', link: 'https://sfl.gl/Dq61TI' },
-      { text: 'Password', link: 'https://youtu.be/G0fEIVinbrU?si=ZTt-PfiW_Q0Usj6R' } // <-- Tambahkan ini
-    ] // <-- Dan ini
-  } // <-- Dan ini
+      { text: 'Password', link: 'https://youtu.be/G0fEIVinbrU?si=ZTt-PfiW_Q0Usj6R' }
+    ]
+  }
 ])">Download</button>
   <button onclick="openModal('howto', [
     { text: 'Panduan YouTube', link: 'https://youtu.be/Af1Sj7MDhiM?si=a3nkEjDqBjj5NY14' },
@@ -576,11 +661,11 @@
     </div>
     <div class="buttons">
       <button onclick="openModal('download', [
-  { text: 'White Green',  subButtons: [ 
+  { text: 'White Green',  subButtons: [
       { text: 'App', link: 'https://sfl.gl/H96U' },
-      { text: 'Password', link: 'https://youtu.be/G5U1em0TT8U?si=L0bLR6zfKwGU8yVC' } // <-- Tambahkan ini
-    ] // <-- Dan ini
-  } // <-- Dan ini
+      { text: 'Password', link: 'https://youtu.be/G5U1em0TT8U?si=L0bLR6zfKwGU8yVC' }
+    ]
+  }
 ])">Download</button>
   <button onclick="openModal('howto', [
     { text: 'Panduan YouTube', link: 'https://youtu.be/Af1Sj7MDhiM?si=a3nkEjDqBjj5NY14' },
@@ -603,11 +688,11 @@
     </div>
     <div class="buttons">
       <button onclick="openModal('download', [
-  { text: 'White Red',  subButtons: [ 
+  { text: 'White Red',  subButtons: [
       { text: 'App', link: 'https://sfl.gl/Pr7r40' },
-      { text: 'Password', link: 'https://youtu.be/9ZiVhlT2RNw?si=DbaqcWuaZ5uKD_Cu' } // <-- Tambahkan ini
-    ] // <-- Dan ini
-  } // <-- Dan ini
+      { text: 'Password', link: 'https://youtu.be/9ZiVhlT2RNw?si=DbaqcWuaZ5uKD_Cu' }
+    ]
+  }
 ])">Download</button>
   <button onclick="openModal('howto', [
     { text: 'Panduan YouTube', link: 'https://youtu.be/Af1Sj7MDhiM?si=a3nkEjDqBjj5NY14' },
@@ -710,7 +795,7 @@ function showSubModal(parentButtonText, subButtonsData) {
 
     // Catatan adblock tetap ditampilkan jika ini adalah bagian dari proses download
     // Asumsi sub-modal ini selalu terkait dengan download
-    modalAdblockNote.style.display = 'block'; 
+    modalAdblockNote.style.display = 'block';
 }
 
 // Fungsi untuk kembali ke tampilan modal utama
@@ -815,6 +900,23 @@ function closeModal() {
     // Akhir dari JavaScript Share
     // ************************************************
   </script>
+
+  <script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({pageLanguage: 'id', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+    }
+
+    // Fungsi untuk mengaktifkan/menonaktifkan visibilitas container widget terjemahan
+    function toggleTranslateWidget() {
+        const widgetContainer = document.getElementById('translate-widget-container');
+        if (widgetContainer.style.display === 'none' || widgetContainer.style.display === '') {
+            widgetContainer.style.display = 'block';
+        } else {
+            widgetContainer.style.display = 'none';
+        }
+    }
+  </script>
+  <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
   <script src="https://l2dwidget.js.org/lib/L2Dwidget.min.js"></script>
   <script>
