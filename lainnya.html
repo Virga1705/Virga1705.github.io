@@ -451,6 +451,17 @@
     margin-top: 5px; /* Sedikit jarak dari atas jika diperlukan */
 }
 
+.read-more-toggle {
+      margin-left: 5px; /* Memberi sedikit jarak dari teks deskripsi */
+      color: #007BFF; /* Warna biru */
+      cursor: pointer;
+      font-weight: bold; /* Agar lebih menonjol */
+    }
+
+    .read-more-toggle:hover {
+        text-decoration: underline; /* Tambahkan underline saat hover untuk indikasi klik */
+    }
+    
   </style>
 </head>
 <body oncontextmenu="return false;">
@@ -575,6 +586,24 @@ function setLanguage(lang) {
       el.textContent = translations[lang][key];
     }
   });
+
+  // Perbarui teks "Read More" dan "Close" di deskripsi pendek dan penuh
+  document.querySelectorAll('.desc-short').forEach(el => {
+      const readMoreToggle = el.querySelector('.read-more-toggle');
+      if (readMoreToggle) {
+          el.childNodes[0].nodeValue = translations[lang]['apkEditorShortDesc'] || translations[lang]['scriptRr3ShortDesc']; // Ambil teks deskripsi utama
+          readMoreToggle.textContent = translations[lang]['readMoreBtn'];
+      }
+  });
+
+  document.querySelectorAll('.desc-full').forEach(el => {
+      const closeToggle = el.querySelector('.read-more-toggle');
+      if (closeToggle) {
+          el.childNodes[0].nodeValue = translations[lang]['apkEditorFullDesc'] || translations[lang]['scriptRr3FullDesc']; // Ambil teks deskripsi utama
+          closeToggle.textContent = translations[lang]['closeBtn'];
+      }
+  });
+
 
   // Pastikan judul modal dan teks terkait juga diterjemahkan jika modal terbuka
   const modalTitleElement = document.getElementById('modal-title');
