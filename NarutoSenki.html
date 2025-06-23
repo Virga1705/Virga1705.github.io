@@ -31,7 +31,7 @@
       z-index: 999;
       display: flex;
       align-items: center;
-      justify-content: space-between; /* Menambahkan ini untuk memisahkan item di header */
+      justify-content: space-between; /* DITAMBAHKAN: Untuk menempatkan elemen di kedua sisi */
       /* Tambahkan properti user-select untuk header juga */
       -webkit-user-select: none;
       -moz-user-select: none;
@@ -40,10 +40,9 @@
       -webkit-touch-callout: none;
     }
 
-    /* Penyesuaian agar "Naruto Senki" dan tombol kembali tetap bersama */
-    .header-left {
-        display: flex;
-        align-items: center;
+    .header-left { /* DITAMBAHKAN: Untuk mengelompokkan tombol kembali dan judul */
+      display: flex;
+      align-items: center;
     }
 
     .back-button {
@@ -80,48 +79,77 @@
       pointer-events: none; /* Mencegah interaksi mouse/touch pada gambar (termasuk download) */
     }
 
-    /* Style untuk dropdown bahasa */
-    .lang-dropdown {
-      position: relative;
+    /* DITAMBAHKAN: Gaya untuk tombol ikon terjemahan */
+    .translate-icon-button {
+        background: none; /* Biarkan transparan agar gambar ikon menampilkan latar belakangnya sendiri */
+        border: none; /* Hilangkan border */
+        cursor: pointer;
+        padding: 0; /* Hilangkan padding */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 25px; /* Sesuaikan ukuran ikon */
+        height: 25px; /* Sesuaikan ukuran ikon */
+        transition: transform 0.2s ease-in-out;
+        margin-left: 10px; /* Spasi dari teks 'Naruto Senki' */
+        /* Mencegah seleksi teks dan klik kanan */
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        -webkit-touch-callout: none;
     }
 
-    .lang-icon {
-      background: none;
-      border: none;
-      font-size: 20px;
-      cursor: pointer;
-      padding: 5px; /* Memberi sedikit padding agar mudah diklik */
-      border-radius: 5px; /* Sedikit border-radius */
-      transition: background 0.2s ease-in-out;
+    .translate-icon-button:hover {
+        transform: scale(1.1);
     }
 
-    .lang-icon:hover {
-        background: #f0f0f0;
+    .translate-icon-button img {
+        width: 100%; /* Agar gambar mengisi area tombol */
+        height: 100%; /* Agar gambar mengisi area tombol */
+        display: block;
+        pointer-events: none; /* Mencegah gambar diseret atau menu konteks */
     }
 
-    .lang-options {
-      display: none;
-      position: absolute;
-      right: 0;
-      background-color: #fff;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      overflow: hidden;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-      z-index: 1000;
-      min-width: 150px; /* Lebar minimum untuk dropdown */
+    /* DITAMBAHKAN: Container untuk widget Google Translate - tersembunyi secara default */
+    #translate-widget-container {
+        position: absolute; /* Posisikan relatif terhadap header */
+        top: 60px; /* Sesuaikan berdasarkan tinggi header */
+        right: 16px; /* Sejajarkan ke kanan header */
+        background: white;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        padding: 10px;
+        display: none; /* Tersembunyi secara default */
+        z-index: 1000; /* Di atas konten lain */
+        /* Pastikan dropdown itu sendiri berada di dalam container ini */
+        min-width: 150px; /* Lebar minimum untuk dropdown */
     }
 
-    .lang-options div {
-      padding: 10px 15px; /* Padding lebih besar */
-      cursor: pointer;
-      white-space: nowrap;
-      font-size: 16px; /* Ukuran font lebih mudah dibaca */
+    /* DITAMBAHKAN: Styling dasar untuk kotak pilihan Google Translate di dalam container */
+    #translate-widget-container .goog-te-gadget-simple {
+        border: none !important;
+        background-color: transparent !important;
+        font-family: sans-serif !important;
+        font-size: 14px !important;
     }
 
-    .lang-options div:hover {
-      background-color: #f0f0f0;
+    /* DITAMBAHKAN: Sembunyikan banner/branding Google Translate */
+    .goog-logo-link {
+        display: none !important;
     }
+    .goog-te-gadget {
+        color: transparent !important;
+    }
+    .goog-te-gadget-simple {
+        background-color: transparent !important;
+        border: none !important;
+    }
+    .goog-te-gadget-simple .goog-te-menu-value {
+        color: #333 !important; /* Sesuaikan warna teks jika diperlukan */
+    }
+
 
     .card {
       margin: 30px auto;
@@ -456,20 +484,19 @@
 <body oncontextmenu="return false;">
 
   <header>
-    <div class="header-left">
-      <a href="Virga1705.github.io" class="back-button">
-        <img src="https://files.catbox.moe/g9z1ny.png" alt="Kembali ke Beranda" draggable="false">
-      </a>
-      <span data-i18n="headerTitle">Naruto Senki</span>
+    <div class="header-left"> <a href="Virga1705.github.io" class="back-button">
+          <img src="https://files.catbox.moe/g9z1ny.png" alt="Kembali ke Beranda" draggable="false">
+        </a>
+        Naruto Senki
     </div>
-    <div class="lang-dropdown">
-      <button onclick="toggleLangDropdown()" class="lang-icon">🌐</button>
-      <div class="lang-options" id="lang-options">
-        <div onclick="setLanguage('id')">🇮🇩 Bahasa Indonesia</div>
-        <div onclick="setLanguage('en')">🇺🇸 English</div>
-      </div>
-    </div>
+    <button class="translate-icon-button" onclick="toggleTranslateWidget()">
+        <img src="https://files.catbox.moe/7ivjkl.png" alt="Translate" draggable="false">
+    </button>
   </header>
+
+  <div id="translate-widget-container">
+    <div id="google_translate_element"></div>
+  </div>
 
   <div class="card" id="card-waifu-war-v1">
     <a href="https://youtu.be/1NVlvJIrFPY?si=Cv-ta_itqLGUVg2D" target="_blank">
@@ -477,21 +504,22 @@
     </a>
     <div class="title">
       <div class="title-row">
-        <span class="title-text" data-i18n="game1Title">NS: Waifu War V1</span>
+        <span class="title-text">NS: Waifu War V1</span>
         <button class="share-button-icon" data-card-id="waifu-war-v1"><img src="https://files.catbox.moe/40ynkg.png" alt="Share"></button>
       </div>
-      <button class="desc-toggle" onclick="toggleDesc(this)">Deskripsi ▼</button> <div class="desc-text" style="display:none; margin-top:8px; font-weight:normal; font-size:14px; color:#333;" data-i18n="game1Desc">
+      <button class="desc-toggle" onclick="toggleDesc(this)">Deskripsi ▼</button>
+      <div class="desc-text" style="display:none; margin-top:8px; font-weight:normal; font-size:14px; color:#333;">
         Versi yang menampilkan karakter waifu dari Naruto. Cocok bagi fans karakter cewek dan mod anime.
       </div>
     </div>
     <div class="buttons">
    <button onclick="openModal('download', [
   { text: 'NS: WaifuWar v1', link: 'https://sfl.gl/JUucxpu' }
-])" data-i18n="downloadBtn">Download</button>
+])">Download</button>
   <button onclick="openModal('howto', [
   { text: 'Guide YouTube', link: 'https://youtu.be/Af1Sj7MDhiM?si=EHKw02WB87uTumQI' },
   { text: 'Guide Alternatif', link: 'https://youtu.be/tutorial2' }
-])" data-i18n="howToDownloadBtn">Cara Download</button>
+])">Cara Download</button>
     </div>
   </div>
 
@@ -499,21 +527,22 @@
     <a href="https://youtu.be/mRTvlyhyzuk"><img src="https://files.catbox.moe/deyydz.jpg" alt="NS Original" draggable="false"></a>
     <div class="title">
       <div class="title-row">
-        <span class="title-text" data-i18n="game2Title">Narsen Unprotect 1.17 Full Screen</span>
+        <span class="title-text">Narsen Unprotect 1.17 Full Screen</span>
         <button class="share-button-icon" data-card-id="narsen-unprotect-117"><img src="https://files.catbox.moe/40ynkg.png" alt="Share"></button>
       </div>
-      <button class="desc-toggle" onclick="toggleDesc(this)">Deskripsi ▼</button> <div class="desc-text" style="display:none; margin-top:8px; font-weight:normal; font-size:14px; color:#333;" data-i18n="game2Desc">
+      <button class="desc-toggle" onclick="toggleDesc(this)">Deskripsi ▼</button>
+      <div class="desc-text" style="display:none; margin-top:8px; font-weight:normal; font-size:14px; color:#333;">
         Narsen Unprotect 1.17 adalah versi dasar dari Naruto Senki tanpa modifikasi Lain. Cocok untuk project narsen kalian.
       </div>
     </div>
     <div class="buttons">
  <button onclick="openModal('download', [
   { text: 'Ns Unprotect 1.17', link: 'https://link2unlock.com/d1e1c' }
-])" data-i18n="downloadBtn">Download</button>
+])">Download</button>
   <button onclick="openModal('howto', [
   { text: 'Guide YouTube', link: 'https://youtu.be/Af1Sj7MDhiM?si=EHKw02WB87uTumQI' },
   { text: 'Guide Alternatif', link: 'https://youtu.be/tutorial2' }
-])" data-i18n="howToDownloadBtn">Cara Download</button>
+])">Cara Download</button>
     </div>
   </div>
 
@@ -521,10 +550,11 @@
     <a href="https://youtu.be/NCH1Ohn5okM"><img src="https://files.catbox.moe/zjidv3.jpg" alt="NS V2.1" draggable="false"></a>
     <div class="title">
       <div class="title-row">
-        <span class="title-text" data-i18n="game3Title">NARUTO SENKI 2.1.6</span>
+        <span class="title-text">NARUTO SENKI 2.1.6</span>
         <button class="share-button-icon" data-card-id="naruto-senki-216"><img src="https://files.catbox.moe/40ynkg.png" alt="Share"></button>
       </div>
-      <button class="desc-toggle" onclick="toggleDesc(this)">Deskripsi ▼</button> <div class="desc-text" style="display:none; margin-top:8px; font-weight:normal; font-size:14px; color:#333;" data-i18n="game3Desc">
+      <button class="desc-toggle" onclick="toggleDesc(this)">Deskripsi ▼</button>
+      <div class="desc-text" style="display:none; margin-top:8px; font-weight:normal; font-size:14px; color:#333;">
         Naruto Senki 2.1.6 adalah Narsen yang di Kembangkan Oleh RE Memberikan Update Dengan Mode Baru dan Balancing Gameplay.
       </div>
     </div>
@@ -532,16 +562,16 @@
  <button onclick="openModal('download', [
   { text: 'Download Via ApkAdmin', link: 'https://sfl.gl/pqugi' },
   { text: 'Download Via GitHub', link: 'https://github.com/Naruto-Senki/files/releases/download/v2.1.6-fix/NSV2_2.1.6-fix_Android.apk', note: 'Download Via ApkAdmin For Support Me.And Download Via GitHub For Support RE' }
-])" data-i18n="downloadBtn">Download</button>
+])">Download</button>
   <button onclick="openModal('howto', [
   { text: 'Guide YouTube', link: 'https://youtu.be/Af1Sj7MDhiM?si=EHKw02WB87uTumQI' },
   { text: 'Guide Alternatif', link: 'https://youtu.be/tutorial2' }
-])" data-i18n="howToDownloadBtn">Cara Download</button>
+])">Cara Download</button>
     </div>
   </div>
 
 
-  <footer data-i18n="footerText">© 2025 вирга</footer>
+  <footer>© 2025 вирга</footer>
 
 <div class="modal-overlay" id="popup">
     <div class="modal">
@@ -554,13 +584,13 @@
         <div id="main-modal-content" class="modal-page">
           <div id="modal-buttons-container" class="modal-buttons">
             </div>
-          <p id="modal-adblock-note" class="modal-footer-note" style="display: none;" data-i18n="adblockNote">
+          <p id="modal-adblock-note" class="modal-footer-note" style="display: none;">
             Jika link tidak bisa dibuka, pastikan kamu sudah menonaktifkan Adblock atau coba browser lain.
           </p>
         </div>
 
         <div id="sub-modal-content" class="modal-page" style="display: none;">
-          <button id="back-to-main-modal" class="download-button" style="margin-bottom: 15px; margin-top: 5px;" onclick="showMainModal()" data-i18n="backBtn">← Kembali</button>
+          <button id="back-to-main-modal" class="download-button" style="margin-bottom: 15px; margin-top: 5px;" onclick="showMainModal()">← Kembali</button>
           <div id="sub-modal-buttons-container" class="modal-buttons">
             </div>
         </div>
@@ -568,43 +598,8 @@
     </div>
   </div>
 
-  <script src="./lang/naruto.js"></script> 
-
   <script>
 let currentModalButtonsData = [];
-let currentLang = 'id'; // Default language
-
-function setLanguage(lang) {
-  currentLang = lang;
-  localStorage.setItem('lang', lang); // Save language preference
-
-  // Translate elements with data-i18n attribute
-  document.querySelectorAll('[data-i18n]').forEach(el => {
-    const key = el.getAttribute('data-i18n');
-    if (translations[lang] && translations[lang][key]) {
-      el.textContent = translations[lang][key];
-    }
-  });
-
-  // Translate buttons with class .desc-toggle (Deskripsi/Tutup)
-  // This needs to be handled separately because its text depends on its visibility
-  document.querySelectorAll('.desc-toggle').forEach(btn => {
-    const desc = btn.nextElementSibling;
-    const isVisible = desc.style.display === 'block';
-    btn.textContent = isVisible
-      ? translations[lang]['descBtnHide']
-      : translations[lang]['descBtnShow'];
-  });
-
-  // Update modal titles
-  const modalTitleElement = document.getElementById('modal-title');
-  if (modalTitleElement) {
-      // Determine current modal mode based on its existing text
-      // This part is a bit tricky if the modal is not open, but it works when it's actively used.
-      const currentModalMode = (modalTitleElement.textContent === translations['id']['modalDownloadTitle'] || modalTitleElement.textContent === translations['en']['modalDownloadTitle']) ? 'download' : 'howto';
-      modalTitleElement.textContent = currentModalMode === 'download' ? translations[lang]['modalDownloadTitle'] : translations[lang]['modalHowToTitle'];
-  }
-}
 
 function openModal(mode, buttonsData = []) {
   const popup = document.getElementById('popup');
@@ -621,11 +616,11 @@ function openModal(mode, buttonsData = []) {
     if (btn.separator) {
       buttonsHtml += '<div class="button-group-separator"></div>';
     } else {
+    // Periksa apakah tombol memiliki properti `subButtons`
       if (btn.subButtons && btn.subButtons.length > 0) {
-        // Corrected JSON.stringify to handle single quotes for attribute values correctly
         buttonsHtml += `
           <div class="download-block">
-            <button class="download-button" onclick="showSubModal('${btn.text.replace(/'/g, "\\'")}', ${JSON.stringify(btn.subButtons).replace(/'/g, "\\'").replace(/"/g, "'")})">${btn.text}</button>
+            <button class="download-button" onclick="showSubModal('${btn.text}', ${JSON.stringify(btn.subButtons).replace(/"/g, '"')})">${btn.text}</button>
             ${btn.note ? `<div class="download-note">${btn.note}</div>` : ''}
           </div>
         `;
@@ -641,7 +636,7 @@ function openModal(mode, buttonsData = []) {
     }
   });
 
-  modalTitle.textContent = mode === 'download' ? translations[currentLang]['modalDownloadTitle'] : translations[currentLang]['modalHowToTitle'];
+  modalTitle.textContent = mode === 'download' ? 'Download Game' : 'Cara Download';
   modalButtonsContainer.innerHTML = buttonsHtml;
 
   if (mode === 'download') {
@@ -672,8 +667,7 @@ function showSubModal(parentButtonText, subButtonsData) {
     `;
   });
 
-  // Since parentButtonText might be in the original language, we don't translate it here directly
-  modalTitle.textContent = parentButtonText; 
+  modalTitle.textContent = parentButtonText; // Judul sub-modal bisa disesuaikan
   subModalButtonsContainer.innerHTML = subButtonsHtml;
 
   mainModalContent.style.display = 'none';
@@ -686,13 +680,14 @@ function showMainModal() {
   const subModalContent = document.getElementById('sub-modal-content');
   const modalAdblockNote = document.getElementById('modal-adblock-note');
 
-  // Restore main modal title based on current language
-  modalTitle.textContent = translations[currentLang]['modalDownloadTitle']; // Assuming it was a 'download' modal
+  // Pulihkan judul modal utama
+  modalTitle.textContent = 'Download Game'; // Atau bisa disimpan dalam variabel jika mode bukan 'download'
 
   mainModalContent.style.display = 'block';
   subModalContent.style.display = 'none';
 
-  // Ensure adblock note is displayed if returning to main download modal
+  // Pastikan catatan adblock ditampilkan kembali jika mode adalah download
+  // Asumsi selalu mode 'download' saat kembali dari sub-modal download
   modalAdblockNote.style.display = 'block';
 }
 
@@ -703,34 +698,13 @@ function closeModal() {
     showMainModal(); // Pastikan modal kembali ke tampilan awal jika dibuka lagi
 }
 
-    // *** PERBAIKAN PENTING DI SINI ***
     function toggleDesc(btn) {
+      // The description text is now the next sibling of the .desc-toggle button
       const desc = btn.nextElementSibling;
       const isVisible = desc.style.display === 'block';
-
-      // Mengubah display CSS properti
       desc.style.display = isVisible ? 'none' : 'block';
-
-      // Mengubah textContent tombol berdasarkan status visibilitas
-      btn.textContent = isVisible
-        ? translations[currentLang]['descBtnShow']
-        : translations[currentLang]['descBtnHide'];
+      btn.textContent = isVisible ? 'Deskripsi ▼' : 'Tutup ▲';
     }
-    // *** AKHIR PERBAIKAN ***
-
-    function toggleLangDropdown() {
-      const menu = document.getElementById('lang-options');
-      menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
-    }
-
-    // Close language dropdown if clicked outside
-    window.addEventListener('click', function(e) {
-      const menu = document.getElementById('lang-options');
-      const button = document.querySelector('.lang-icon');
-      if (menu && button && !button.contains(e.target) && !menu.contains(e.target)) {
-        menu.style.display = 'none';
-      }
-    });
 
     function checkZoom() {
       const cards = document.querySelectorAll('.card');
@@ -757,10 +731,6 @@ function closeModal() {
     // Bagian JavaScript untuk fitur Share dan animasi
     // ************************************************
     document.addEventListener('DOMContentLoaded', () => {
-        // Load saved language or default to 'id'
-        const savedLang = localStorage.getItem('lang') || 'id';
-        setLanguage(savedLang);
-
         const shareButtons = document.querySelectorAll('.share-button-icon');
 
         shareButtons.forEach(button => {
@@ -817,14 +787,31 @@ function closeModal() {
     // ************************************************
   </script>
 
+  <script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({pageLanguage: 'id', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+    }
+
+    // Fungsi untuk mengaktifkan/menonaktifkan visibilitas container widget terjemahan
+    function toggleTranslateWidget() {
+        const widgetContainer = document.getElementById('translate-widget-container');
+        if (widgetContainer.style.display === 'none' || widgetContainer.style.display === '') {
+            widgetContainer.style.display = 'block';
+        } else {
+            widgetContainer.style.display = 'none';
+        }
+    }
+  </script>
+  <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
   <script src="https://l2dwidget.js.org/lib/L2Dwidget.min.js"></script>
   <script>
     function getRandomMessage() {
       const messages = [
-        translations[currentLang]['live2dMessage1'],
-        translations[currentLang]['live2dMessage2'],
-        translations[currentLang]['live2dMessage3'],
-        translations[currentLang]['live2dMessage4'],
+        'Tekan Tombol Cara Downloadnya Ya Jika Kamu Bingung',
+        'Kalau Ada Masalah Link Yang Eror Silahkan Beri Tahu Tuan Ku Ya. Dan Sabar Menunggu Linknya Di Fix ;)',
+        'Jangan Lupa Belangganan Channel Tuan Ku Ya :3',
+        'Jangan Lupa Klik Gambarnya Untuk Melihat Gameplay nya~',
       ];
       const randomIndex = Math.floor(Math.random() * messages.length);
       return messages[randomIndex];
@@ -849,7 +836,7 @@ function closeModal() {
         enable: true,
         script: {
           'every idle 10s': getRandomMessage(),
-          'tap body': translations[currentLang]['live2dMessageTapBody'],
+          'tap body': 'Hentai!',
           'tap face': getRandomMessage()
         }
       }
