@@ -591,6 +591,38 @@
     </div>
   </div>
 
+<div class="card" id="card-narsen-simple-mod">
+  <div style="display: flex; align-items: flex-start; padding: 12px;">
+    <img src="https://files.catbox.moe/5fmtiq.png" alt="404" style="width: 60px; height: 60px; margin-right: 12px; border-radius: 10px;" draggable="false">
+    <div style="flex-grow: 1;">
+      <div style="font-weight: bold; font-size: 16px;">Naruto Senki Simple Mod</div> <div class="desc-content">
+        <span class="desc-short" style="font-size: 14px; color: #444;">
+          Ini Naruto Senki Simple Mood yang di mod oleh virga fs, ini cocok untuk kalian yang mau...
+          <span class="read-more-toggle" onclick="toggleReadMore(this)" style="color:#007BFF; cursor:pointer;" data-action="read-more">Read More</span>
+        </span>
+        <span class="desc-full" style="font-size: 14px; color: #444; display: none;">
+          Ini Naruto Senki Simple Mod yang di mod oleh virga fs, ini cocok untuk kalian yang mau di mod ulang (mentahan untuk project narsen) karena disini tidak banyak mod alias masih terlihat seperti original, disini saya hanya menstabilkan dan mengkompress nya.Narsen ini berbasis dari kode narsen Zakume dan ultimate ninja by Aldo Wijaya.
+          <span class="read-more-toggle" onclick="toggleReadMore(this)" style="color:#007BFF; cursor:pointer;" data-action="close">Close</span>
+        </span>
+      </div>
+    </div>
+    <button class="share-button-icon" data-card-id="narsen-simple-mod"><img src="https://files.catbox.moe/40ynkg.png" alt="Share"></button>
+  </div>
+  <div class="buttons">
+    <button onclick="openModal('download', [
+      { text: 'Semua Versi',
+        subButtons: [
+          { text: 'Versi 2.00', link: 'https://sfl.gl/e19U', note: 'Mohon Maaf Untuk Mendownloadnya ada iklan sedikit,karena untuk supaya saya bisa online untuk membeli internetan' }
+        ]
+      }
+    ])">Download</button>
+    <button onclick="openModal('howto', [
+      { text: 'Panduan YouTube', link: 'https://youtu.be/Af1Sj7MDhiM?si=a3nkEjDqBjj5NY14' },
+      { text: 'Panduan Alternatif', link: 'https://youtu.be/tutorial2', note: 'Gunakan jika link utama error' }
+    ])">Cara Download</button>
+  </div>
+</div>
+
 
   <footer>© 2025 вирга</footer>
 
@@ -630,18 +662,19 @@ function openModal(mode, buttonsData = []) {
   const modalButtonsContainer = document.getElementById('modal-buttons-container');
   const modalAdblockNote = document.getElementById('modal-adblock-note');
 
-  currentModalButtonsData = buttonsData;
+  currentModalButtonsData = buttonsData; // Simpan data tombol penuh
 
   let buttonsHtml = '';
-  buttonsData.forEach(btn => {
+  buttonsData.forEach((btn, index) => { // Tambahkan 'index' sebagai parameter
     if (btn.separator) {
       buttonsHtml += '<div class="button-group-separator"></div>';
     } else {
     // Periksa apakah tombol memiliki properti `subButtons`
       if (btn.subButtons && btn.subButtons.length > 0) {
+        // Teruskan 'index' dari tombol utama ke showSubModal
         buttonsHtml += `
           <div class="download-block">
-            <button class="download-button" onclick="showSubModal('${btn.text}', ${JSON.stringify(btn.subButtons).replace(/"/g, '"')})">${btn.text}</button>
+            <button class="download-button" onclick="showSubModal(${index})">${btn.text}</button>
             ${btn.note ? `<div class="download-note">${btn.note}</div>` : ''}
           </div>
         `;
@@ -672,11 +705,16 @@ function openModal(mode, buttonsData = []) {
   popup.style.display = 'flex';
 }
 
-function showSubModal(parentButtonText, subButtonsData) {
+function showSubModal(parentButtonIndex) { // Ubah parameter menjadi 'parentButtonIndex'
   const modalTitle = document.getElementById('modal-title');
   const mainModalContent = document.getElementById('main-modal-content');
   const subModalContent = document.getElementById('sub-modal-content');
   const subModalButtonsContainer = document.getElementById('sub-modal-buttons-container');
+
+  // Ambil data tombol utama menggunakan indeks
+  const parentButton = currentModalButtonsData[parentButtonIndex];
+  const subButtonsData = parentButton.subButtons; // Dapatkan array sub-tombol
+  const parentButtonText = parentButton.text;    // Dapatkan teks untuk judul modal
 
   let subButtonsHtml = '';
   subButtonsData.forEach(btn => {
@@ -688,7 +726,7 @@ function showSubModal(parentButtonText, subButtonsData) {
     `;
   });
 
-  modalTitle.textContent = parentButtonText; // Judul sub-modal bisa disesuaikan
+  modalTitle.textContent = parentButtonText; // Judul sub-modal disesuaikan dengan teks tombol utama
   subModalButtonsContainer.innerHTML = subButtonsHtml;
 
   mainModalContent.style.display = 'none';
@@ -726,6 +764,23 @@ function closeModal() {
       desc.style.display = isVisible ? 'none' : 'block';
       btn.textContent = isVisible ? 'Deskripsi ▼' : 'Tutup ▲';
     }
+
+    // Fungsi baru untuk Read More pada "Naruto Senki Simple Mod"
+function toggleReadMore(button) {
+  const descContent = button.closest('.desc-content'); // Dapatkan kontainer desc-content
+  const shortDesc = descContent.querySelector('.desc-short');
+  const fullDesc = descContent.querySelector('.desc-full');
+  const action = button.dataset.action; // Ambil nilai data-action
+
+  if (action === 'read-more') {
+    shortDesc.style.display = 'none';
+    fullDesc.style.display = 'inline'; // Gunakan 'inline' atau 'inline-block' agar tombol 'Close' tetap sejajar
+  } else if (action === 'close') {
+    shortDesc.style.display = 'inline';
+    fullDesc.style.display = 'none';
+  }
+}
+
 
     function checkZoom() {
       const cards = document.querySelectorAll('.card');
