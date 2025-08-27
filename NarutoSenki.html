@@ -569,14 +569,14 @@
     </div>
   </div>
   
-    <div class="card" id="card-waifu-war-v11">
+    <div class="card" id="card-one-piece">
     <a href="https://youtu.be/NI9kEtC8MY4?si=NhX700oRxNJLuQhN" target="_blank">
       <img src="https://files.catbox.moe/bc9og6.png" alt="Review Gameplay" draggable="false">
     </a>
     <div class="title">
       <div class="title-row">
         <span class="title-text">NS: Waifu War V1.1</span>
-        <button class="share-button-icon" data-card-id="waifu-war-v11"><img src="https://files.catbox.moe/40ynkg.png" alt="Share"></button>
+        <button class="share-button-icon" data-card-id="one-piece"><img src="https://files.catbox.moe/40ynkg.png" alt="Share"></button>
       </div>
       <button class="desc-toggle" onclick="toggleDesc(this)">Deskripsi ▼</button>
       <div class="desc-text" style="display:none; margin-top:8px; font-weight:normal; font-size:14px; color:#333;">
@@ -593,6 +593,64 @@
 ])">Cara Download</button>
     </div>
   </div>
+
+
+    <div class="card" id="card-one-piece">
+    <a href="https://youtu.be/8ZsoT3CTwCY?si=TCejU5C__vhBjKNQ" target="_blank">
+      <img src="https://files.catbox.moe/qa5yup.jpg" alt="Review Gameplay" draggable="false">
+    </a>
+    <div class="title">
+      <div class="title-row">
+        <span class="title-text">NS: ワンピース PixelWar V1.0</span>
+        <button class="share-button-icon" data-card-id="one-piece"><img src="https://files.catbox.moe/40ynkg.png" alt="Share"></button>
+      </div>
+      <button class="desc-toggle" onclick="toggleDesc(this)">Deskripsi ▼</button>
+      <div class="desc-text" style="display:none; margin-top:8px; font-weight:normal; font-size:14px; color:#333;">
+        Mod Bertemakan Bajak Laut Dari Anime One Piece.
+      </div>
+    </div>
+    <div class="buttons">
+   <button onclick="openModal('download', [
+  { text: 'NS: ワンピース PixelWar v1.0', link: 'https://sfl.gl/161m' }
+])">Download</button>
+  <button onclick="openModal('howto', [
+  { text: 'Guide YouTube', link: 'https://youtu.be/Af1Sj7MDhiM?si=EHKw02WB87uTumQI' },
+  { text: 'Guide Alternatif', link: 'https://youtu.be/tutorial2' }
+])">Cara Download</button>
+    </div>
+  </div>
+
+
+<div class="card" id="card-bahan">
+  <div style="display: flex; align-items: flex-start; padding: 12px;">
+    <img src="https://files.catbox.moe/70own4.png" alt="404" style="width: 60px; height: 60px; margin-right: 12px; border-radius: 10px;" draggable="false">
+    <div style="flex-grow: 1;">
+      <div style="font-weight: bold; font-size: 16px;">Methode - Methode Narsen</div>
+      <div class="desc-short" style="font-size: 14px; color: #444;">
+        Kumpulan Bahan..<span class="read-more-toggle" onclick="toggleReadMore(this)" style="color:#007BFF; cursor:pointer;">Read More</span>
+      </div>
+      <div class="desc-full" style="font-size: 14px; color: #444; display: none;">
+        Kumpulan Bahan bahan untuk membuat narsen menjadi bagus dan sesuai fungsi.<span class="read-more-toggle" onclick="toggleReadMore(this)" style="color:#007BFF; cursor:pointer;">Close</span>
+      </div>
+    </div>
+    <button class="share-button-icon" data-card-id="bahan"><img src="https://files.catbox.moe/40ynkg.png" alt="Share"></button>
+  </div>
+  <div class="buttons">
+ <button onclick="openModal('download', [
+  { text: 'Methode Animasi',
+    subButtons: [
+      { text: 'Apk Admin Server', link: 'https://apkadmin.com/mkde171knas7/Methode_Select_Animasi.zip.html' },
+      { text: 'Password', link: 'https://youtu.be/GwZy5AB36Ts?si=ZWAne6kBLsvWHLOf', note: ':3' }
+    ]
+  }
+])">Download</button>
+  <button onclick="openModal('howto', [
+    { text: 'Panduan YouTube', link: 'https://youtu.be/Af1Sj7MDhiM?si=a3nkEjDqBjj5NY14' },
+    { text: 'Panduan Alternatif', link: 'https://youtu.be/tutorial2', note: 'Gunakan jika link utama error' }
+  ])">Cara Download</button>
+</div>
+</div>
+
 
   <div class="card" id="card-narsen-unprotect-117">
     <a href="https://youtu.be/mRTvlyhyzuk"><img src="https://files.catbox.moe/deyydz.jpg" alt="NS Original" draggable="false"></a>
@@ -1021,6 +1079,23 @@ function toggleReadMore(button) {
       parent.insertBefore(card, footer); // Sisipkan ulang sebelum footer
     });
   });
+</script>
+
+<script>
+
+function toggleReadMore(element) {
+  const parentCard = element.closest('.card');
+  const shortDesc = parentCard.querySelector('.desc-short');
+  const fullDesc = parentCard.querySelector('.desc-full');
+
+  if (shortDesc.style.display === 'none') {
+    shortDesc.style.display = 'block';
+    fullDesc.style.display = 'none';
+  } else {
+    shortDesc.style.display = 'none';
+    fullDesc.style.display = 'block';
+  }
+}
 </script>
 
 </body>
