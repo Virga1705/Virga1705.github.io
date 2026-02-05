@@ -777,27 +777,37 @@ function toggleReadMore(el) {
     const ytWrapper = fullDesc.querySelector('.youtube-wrapper');
 
     if (shortDesc.style.display !== 'none') {
-        // Buka Deskripsi & Putar Video
+        // Buka Deskripsi
         shortDesc.style.display = 'none';
         fullDesc.style.display = 'block';
         
         if (ytWrapper) {
             const videoId = ytWrapper.getAttribute('data-youtube-id');
+            // Muat iframe TANPA autoplay
             if (videoId && !ytWrapper.querySelector('iframe')) {
-                ytWrapper.innerHTML += `<iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1&mute=0" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
+                ytWrapper.innerHTML += `<iframe src="https://www.youtube.com/embed/${videoId}" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+                
+                // Sembunyikan overlay link agar tombol play YouTube bisa ditekan
+                const overlay = ytWrapper.querySelector('.youtube-link-overlay');
+                if (overlay) overlay.style.display = 'none';
             }
         }
     } else {
-        // Tutup Deskripsi & Hapus Video (agar suara berhenti)
+        // Tutup Deskripsi & Hapus Video
         shortDesc.style.display = 'block';
         fullDesc.style.display = 'none';
         
         if (ytWrapper) {
             const iframe = ytWrapper.querySelector('iframe');
             if (iframe) iframe.remove();
+            
+            // Tampilkan kembali overlay untuk penggunaan berikutnya
+            const overlay = ytWrapper.querySelector('.youtube-link-overlay');
+            if (overlay) overlay.style.display = 'block';
         }
     }
 }
+
 
 
     function checkZoom() {
