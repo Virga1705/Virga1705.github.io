@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Minecraft</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f8f8f8;
+      /* Mencegah seleksi teks */
+      -webkit-user-select: none; /* Safari */
+      -moz-user-select: none;    /* Firefox */
+      -ms-user-select: none;     /* Internet Explorer/Edge */
+      user-select: none;         /* Standard */
+      /* Mencegah menu konteks (klik kanan) secara global */
+      -webkit-touch-callout: none; /* Untuk iOS, mencegah menu pop-up saat long-press */
+    }
+
+    header {
+      background: white;
+      padding: 16px;
+      font-size: 22px;
+      font-weight: bold;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      justify-content: space-between; /* Added to push elements to ends */
+      /* Tambahkan properti user-select untuk header juga */
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
+    }
+
+    .header-left { /* New class for left-aligned items */
+      display: flex;
+      align-items: center;
+    }
+
+    .back-button {
+      margin-right: 10px;
+      padding: 0;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all .2s ease-in-out;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 26px;
+      height: 26px;
+      background: white;
+      /* Mencegah seleksi teks dan klik kanan pada back button */
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
+    }
+
+    .back-button:hover {
+      background: #e0e0e0;
+    }
+
+    .back-button img {
+      display: block;
+      width: 26px;
+      height: 26px;
+      /* Mencegah draggable dan klik kanan pada gambar */
+      pointer-events: none; /* Mencegah interaksi mouse/touch pada gambar (termasuk download) */
+    }
+
+    /* Style for the translate icon button */
+    .translate-icon-button {
+        background: none; /* Biarkan transparan agar gambar ikon menampilkan latar belakangnya sendiri */
+        border: none; /* Hilangkan border */
+        cursor: pointer;
+        padding: 0; /* Hilangkan padding */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 25px; /* Sesuaikan lebar sesuai ukuran gambar ikon Anda */
+        height: 25px; /* Sesuaikan tinggi sesuai ukuran gambar ikon Anda */
+        transition: transform 0.2s ease-in-out;
+        margin-left: 10px; /* Spasi dari teks 'Lainnya' */
+        /* Mencegah seleksi teks dan klik kanan */
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        -webkit-touch-callout: none;
+    }
+
+    .translate-icon-button:hover {
+        transform: scale(1.1);
+    }
+
+    .translate-icon-button img {
+        width: 100%; /* Agar gambar mengisi area tombol */
+        height: 100%; /* Agar gambar mengisi area tombol */
+        display: block;
+        pointer-events: none; /* Mencegah gambar diseret atau menu konteks */
+    }
+
+    /* Container for the Google Translate widget */
+    #translate-widget-container {
+        position: fixed; /* Position relative to the header */
+        top: 70px; /* Adjust based on header height */
+        right: 16px; /* Align to the right of the header */
+        background: white;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        padding: 10px;
+        display: none; /* Hidden by default */
+        z-index: 1000; /* Above other content */
+        /* Ensure the dropdown itself is within this container */
+        min-width: 150px; /* Minimum width for the dropdown */
+    }
+
+    /* Basic styling for the Google Translate select box within the container */
+    #translate-widget-container .goog-te-gadget-simple {
+        border: none !important;
+        background-color: transparent !important;
+        font-family: sans-serif !important;
+        font-size: 14px !important;
+    }
+
+    /* Hide the Google Translate banner/branding */
+    .goog-logo-link {
+        display: none !important;
+    }
+    .goog-te-gadget {
+        color: transparent !important;
+    }
+    .goog-te-gadget-simple {
+        background-color: transparent !important;
+        border: none !important;
+    }
+    .goog-te-gadget-simple .goog-te-menu-value {
+        color: #333 !important; /* Adjust text color if needed */
+    }
+
+
+    .card {
+      margin: 30px auto;
+      margin-left: 20px;
+      margin-right: 20px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      overflow: hidden;
+      background: white;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      max-width: 360px;
+      opacity: 0;
+      transform: scale(0.8);
+      transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+      /* Mencegah seleksi teks dan klik kanan pada card */
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
+    }
+
+    .card.zoom-in {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* CSS untuk highlight kartu */
+    .card.highlight-card {
+      border: 2px solid #007bff; /* Warna border highlight */
+      /* Mengganti box-shadow statis dengan animasi */
+      animation: blink-highlight 1s infinite alternate; /* Animasi kedip biru */
+    }
+
+    /* Keyframes untuk animasi kedip biru */
+    @keyframes blink-highlight {
+      0% {
+        box-shadow: 0 0 0px rgba(0, 123, 255, 0); /* Awal: transparan */
+      }
+      50% {
+        box-shadow: 0 0 10px rgba(0, 123, 255, 0.7); /* Tengah: biru cerah */
+      }
+      100% {
+        box-shadow: 0 0 0px rgba(0, 123, 255, 0); /* Akhir: transparan kembali */
+      }
+    }
+
+    .card a img {
+      width: 100%;
+      display: block;
+      cursor: pointer;
+      /* Mencegah draggable dan klik kanan pada gambar */
+      pointer-events: none; /* Mencegah interaksi mouse/touch pada gambar (termasuk download) */
+    }
+
+    .title {
+      padding: 12px;
+      font-size: 16px;
+      font-weight: bold;
+      text-align: left;
+      border-top: 1px solid #eee;
+      display: flex; /* Use flex to align title elements */
+      flex-wrap: wrap; /* Allow wrapping of elements */
+      align-items: center; /* Vertically align items */
+    }
+
+    .title-row {
+      display: flex;
+      justify-content: space-between; /* Pushes title and share button to ends */
+      align-items: center;
+      width: 100%; /* Ensures this row takes full width */
+    }
+
+    .title-text {
+      flex-grow: 1; /* Allows title text to take up available space */
+      margin-right: 8px; /* Space between title and share button */
+    }
+
+    .desc-toggle {
+      margin-top: 8px; /* Space from the elements above */
+      background: none;
+      border: none;
+      color: #007BFF;
+      cursor: pointer;
+      font-size: 14px;
+      padding: 0;
+      text-align: left;
+      width: 100%; /* Forces this button to a new line */
+    }
+
+    .desc-text {
+      display: none;
+      margin-top: 8px;
+      font-weight: normal;
+      font-size: 14px;
+      color: #333;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: space-between;
+      padding: 12px;
+      gap: 10px;
+    }
+
+    .buttons button {
+      flex: 1;
+      text-align: center;
+      padding: 10px;
+      border: 2px solid black;
+      border-radius: 10px;
+      font-weight: bold;
+      color: black;
+      background: white;
+      cursor: pointer;
+      transition: all .2s ease-in-out;
+      /* Mencegah seleksi teks dan klik kanan pada tombol */
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
+    }
+
+    .buttons button:hover {
+      background: black;
+      color: white;
+    }
+
+    /* Style for the share icon button */
+    .share-button-icon {
+        background: none; /* Remove background */
+        border: none; /* Remove border */
+        cursor: pointer;
+        padding: 0; /* Remove padding to make it compact */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 30px; /* Set a fixed width for the button */
+        height: 30px; /* Set a fixed height for the button */
+        transition: transform 0.2s ease-in-out; /* Add transition for hover effect */
+        /* Mencegah seleksi teks dan klik kanan pada tombol */
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        -webkit-touch-callout: none;
+    }
+
+    .share-button-icon:hover {
+        transform: scale(1.1); /* Slightly enlarge on hover */
+    }
+
+    .share-button-icon img {
+        width: 24px; /* Adjust size as needed */
+        height: 24px; /* Adjust size as needed */
+        pointer-events: none; /* Prevent image dragging/context menu */
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 50px;
+      padding: 10px;
+      color: #555;
+      font-size: 14px;
+      /* Mencegah seleksi teks pada footer */
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
+    }
+
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+      /* Mencegah seleksi teks dan klik kanan pada modal overlay */
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
+    }
+
+.modal {
+  background: white;
+  border-radius: 12px;
+  /* Hapus padding dari sini, pindah ke modal-body */
+  padding: 0;
+  width: 80%;
+  max-width: 300px;
+  /* Sesuaikan tinggi agar tidak terlalu panjang */
+  max-height: 80vh; /* Menggunakan vh agar responsif */
+  overflow-y: auto;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
+.modal-header {
+  position: sticky;
+  top: 0;
+  background: white;
+  z-index: 1;
+  padding: 16px; /* Padding di sini untuk header */
+  border-bottom: 1px solid #ddd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-size: 18px;
+}
+
+/* Sesuaikan tombol close agar posisinya di kanan atas modal */
+.close-btn {
+  width: 30px;
+  height: 30px;
+  background: #ff5c5c;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s ease-in-out;
+  flex-shrink: 0;
+  /* Hapus position absolute jika sudah di dalam flexbox header */
+}
+
+.close-btn:hover {
+  background: #e04444;
+}
+
+/* Konten utama modal, beri padding di sini */
+.modal-content-body {
+  padding: 16px; /* Padding untuk konten di dalam modal */
+  flex-grow: 1; /* Agar mengambil sisa ruang */
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Jarak antar blok download */
+  /* Padding sudah dipindah ke modal-content-body */
+}
+
+.download-block {
+  margin-bottom: 0; /* Hapus margin-bottom di sini, gap sudah menangani */
+  text-align: left;
+}
+
+.download-button {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px;
+  border: 2px solid black;
+  border-radius: 10px;
+  font-weight: bold;
+  color: black;
+  background: white;
+  text-align: center;
+  text-decoration: none;
+  transition: all .2s ease-in-out;
+}
+
+.download-button:hover {
+  background: black;
+  color: white;
+}
+
+.download-note {
+  font-size: 13px;
+  color: #666;
+  padding-top: 4px;
+  padding-left: 6px; /* Konsisten dengan padding lainnya */
+  padding-right: 6px;
+  line-height: 1.4;
+}
+
+/* Style untuk footer modal (catatan Adblock) */
+.modal-footer-note {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #333;
+  padding: 0 16px 16px; /* Padding bawah dan samping */
+}
+
+.button-group-separator {
+  border-top: 3px solid #807a85; /* Garis tipis abu-abu */
+  margin: 5px 0; /* Jarak atas dan bawah garis */
+  height: 0; /* Pastikan tidak ada tinggi */
+}
+
+.modal-page {
+  /* Untuk memastikan konten halaman modal tidak tumpang tindih secara aneh */
+  width: 100%;
+  box-sizing: border-box;
+  /* padding sudah diurus oleh .modal-content-body */
+}
+
+/* Jika Anda ingin tombol kembali punya gaya khusus */
+#back-to-main-modal {
+    /* Gaya default download-button sudah bagus, mungkin hanya perlu sedikit margin */
+    margin-bottom: 15px;
+    margin-top: 5px; /* Sedikit jarak dari atas jika diperlukan */
+}
+
+.info-message {
+    position: absolute;
+    top: 120px; /* Sesuaikan ini untuk posisi vertikal */
+    right: 16px; /* Sesuaikan ini untuk posisi horizontal */
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    padding: 10px;
+    font-size: 14px;
+    color: #333;
+    max-width: 250px; /* Sesuaikan lebar maksimum */
+    z-index: 999; /* Pastikan di atas elemen lain jika diperlukan */
+    text-align: center;
+    /* Tambahan untuk menyembunyikannya secara default dan menampilkannya dengan JavaScript */
+    display: none;
+}
+
+.youtube-wrapper {
+  width: 100%;
+  margin: 10px 0;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #000;
+  aspect-ratio: 16 / 9;
+}
+
+.youtube-wrapper iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.slider-youtube {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.slider-youtube img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.download-btn {
+  display: block;
+  width: 100%;
+  background: #2196f3;
+  color: white;
+  padding: 12px;
+  margin: 6px 0;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 10px;
+  font-weight: bold;
+  transition: 0.2s;
+}
+
+.download-btn:hover {
+  background: #1976d2;
+}
+
+.buttons {
+  display: none;
+}
+
+  </style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css">
+</head>
+<body oncontextmenu="return false;">
+
+  <header>
+    <div class="header-left">
+        <a href="Virga1705.github.io" class="back-button">
+          <img src="https://files.catbox.moe/g9z1ny.png" alt="Kembali ke Beranda" draggable="false">
+        </a>
+        Minecraft
+    </div>
+    <button class="translate-icon-button" onclick="toggleTranslateWidget()">
+        <img src="https://files.catbox.moe/7ivjkl.png" alt="Translate" draggable="false">
+    </button>
+  </header>
+
+  <div id="translate-widget-container">
+    <div id="google_translate_element"></div>
+  </div>
+  <div class="info-message">
+    If you want a better translate, you should use the browser's default translate.
+</div>
+
+
+
+<div class="card" id="card-mcpe-1_21_132_1-4d-skin">
+  <div style="display: flex; align-items: flex-start; padding: 12px;">
+    <img src="https://files.catbox.moe/u6qa5x.png" alt="404" style="width: 60px; height: 60px; margin-right: 12px; border-radius: 10px;" draggable="false">
+    <div style="flex-grow: 1;">
+      <div style="font-weight: bold; font-size: 16px;">Minecraft 800 4D SKIN</div>
+      <div class="desc-short" style="font-size: 14px; color: #444;">
+        Minecraft 1.21.132.1 ini membawa keunggulan utama pada fitur 800 4D Skin yang sepenuhnya Visible, artinya...<span class="read-more-toggle" onclick="toggleReadMore(this)" style="color:#007BFF; cursor:pointer;">Read More</span>
+      </div>
+      <div class="desc-full" style="font-size: 14px; color: #444; display: none;">
+        Minecraft 1.21.132.1 ini membawa keunggulan utama pada fitur 800 4D Skin yang sepenuhnya Visible, artinya skin kamu akan terlihat oleh pemain lain saat bermain di server maupun world biasa. Tidak hanya itu, versi ini sudah mendukung Login Xbox/Microsoft Account, sehingga kamu tetap bisa mengakses fitur komunitas dan menyimpan progress game dengan aman. Nikmati visual 4D yang detail tanpa takut kehilangan akses login!
+<!-- Image Slide-->        
+<!-- YouTube Auto Load -->
+<div class="youtube-wrapper" data-youtube-id="vgmonthxQsw"></div>
+<span class="read-more-toggle" onclick="toggleReadMore(this)" style="color:#007BFF; cursor:pointer;">Close</span>
+      </div>
+    </div>
+    <button class="share-button-icon" data-card-id="mcpe-1_21_132_1-4d-skin"><img src="https://files.catbox.moe/40ynkg.png" alt="Share"></button>
+  </div>
+<!-- Download Link-->  
+  <div class="buttons">
+<button onclick="openModal('download', [
+  { text: '800 4D Skin',  subButtons: [
+      { text: 'Apk', link: 'https://apkadmin.com/fl33p8szaj2r/MCPE-1.21.132_4D_Skin.zip.html' },
+      { text: 'Password', link: 'https://youtu.be/vgmonthxQsw' }
+    ]
+  }
+])">Download</button>
+  <button onclick="openModal('howto', [
+    { text: 'Panduan YouTube', link: 'https://youtu.be/Af1Sj7MDhiM?si=a3nkEjDqBjj5NY14' },
+    { text: 'Panduan Alternatif', link: 'https://youtu.be/tutorial2', note: 'Gunakan jika link utama error' }
+  ])">Cara Download</button>
+</div>
+</div>
+
+
+
+  <footer>© 2025 вирга</footer>
+
+<div class="modal-overlay" id="popup">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 id="modal-title"></h2>
+        <span class="close-btn" onclick="closeModal()">X</span>
+      </div>
+
+      <div class="modal-content-body">
+        <div id="main-modal-content" class="modal-page">
+          <div id="modal-buttons-container" class="modal-buttons">
+            </div>
+          <p id="modal-adblock-note" class="modal-footer-note" style="display: none;">
+            Jika link tidak bisa dibuka, pastikan kamu sudah menonaktifkan Adblock atau coba browser lain.
+          </p>
+        </div>
+
+        <div id="sub-modal-content" class="modal-page" style="display: none;">
+          <button id="back-to-main-modal" class="download-button" style="margin-bottom: 15px; margin-top: 5px;" onclick="showMainModal()">← Kembali</button>
+          <div id="sub-modal-buttons-container" class="modal-buttons">
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+
+// --- FUNGSI-FUNGSI TOMBOL DOWNLOAD FLEXIBLE ---
+
+// Definisikan data tombol secara global atau di tempat yang mudah diakses
+// Ini penting agar sub-modal bisa mengakses data tombol utama
+let currentModalButtonsData = [];
+// Variabel untuk menyimpan mode modal utama (download/howto)
+let currentMainModalMode = '';
+
+function openModal(mode, buttonsData = []) {
+  const popup = document.getElementById('popup');
+  const modalTitle = document.getElementById('modal-title');
+  const mainModalContent = document.getElementById('main-modal-content');
+  const subModalContent = document.getElementById('sub-modal-content');
+  const modalButtonsContainer = document.getElementById('modal-buttons-container');
+  const modalAdblockNote = document.getElementById('modal-adblock-note');
+
+  // Simpan data tombol utama dan mode
+  currentModalButtonsData = buttonsData;
+  currentMainModalMode = mode; // Simpan mode utama
+
+  let buttonsHtml = '';
+  buttonsData.forEach((btn, index) => { // Tambahkan 'index' di sini
+    if (btn.separator) {
+      buttonsHtml += '<div class="button-group-separator"></div>';
+    } else {
+      if (btn.subButtons && btn.subButtons.length > 0) {
+        // KIRIM INDEX KE FUNGSI BARU showSubModalFromIndex
+        buttonsHtml += `
+          <div class="download-block">
+            <button class="download-button" onclick="showSubModalFromIndex('${btn.text}', ${index})">${btn.text}</button>
+            ${btn.note ? `<div class="download-note">${btn.note}</div>` : ''}
+          </div>
+        `;
+      } else {
+        buttonsHtml += `
+          <div class="download-block">
+            <a href="${btn.link}" target="_blank" class="download-button">${btn.text}</a>
+            ${btn.note ? `<div class="download-note">${btn.note}</div>` : ''}
+          </div>
+        `;
+      }
+    }
+  });
+
+  modalTitle.textContent = mode === 'download' ? 'Download Game' : 'Cara Download';
+  modalButtonsContainer.innerHTML = buttonsHtml;
+
+  if (mode === 'download') {
+    modalAdblockNote.style.display = 'block';
+  } else {
+    modalAdblockNote.style.display = 'none';
+  }
+
+  // Pastikan modal utama yang terlihat saat pertama kali dibuka
+  mainModalContent.style.display = 'block';
+  subModalContent.style.display = 'none';
+
+  popup.style.display = 'flex';
+}
+
+// Fungsi baru untuk menampilkan sub-modal dengan mengambil data dari indeks
+function showSubModalFromIndex(parentButtonText, parentIndex) {
+  // Ambil data sub-tombol dari currentModalButtonsData menggunakan parentIndex
+  const subButtonsData = currentModalButtonsData[parentIndex].subButtons;
+
+  const modalTitle = document.getElementById('modal-title');
+  const mainModalContent = document.getElementById('main-modal-content');
+  const subModalContent = document.getElementById('sub-modal-content');
+  const subModalButtonsContainer = document.getElementById('sub-modal-buttons-container');
+
+  let subButtonsHtml = '';
+  if (subButtonsData && subButtonsData.length > 0) { // Pastikan subButtonsData ada dan tidak kosong
+    subButtonsData.forEach(btn => {
+      subButtonsHtml += `
+        <div class="download-block">
+          <a href="${btn.link}" target="_blank" class="download-button">${btn.text}</a>
+          ${btn.note ? `<div class="download-note">${btn.note}</div>` : ''}
+        </div>
+      `;
+    });
+  } else {
+      subButtonsHtml = '<p>Tidak ada opsi download tambahan.</p>'; // Pesan jika tidak ada sub-tombol
+  }
+
+  modalTitle.textContent = parentButtonText; // Judul sub-modal menggunakan teks tombol parent
+  subModalButtonsContainer.innerHTML = subButtonsHtml;
+
+  mainModalContent.style.display = 'none';
+  subModalContent.style.display = 'block';
+}
+
+
+function showMainModal() {
+  const modalTitle = document.getElementById('modal-title');
+  const mainModalContent = document.getElementById('main-modal-content');
+  const subModalContent = document.getElementById('sub-modal-content');
+  const modalAdblockNote = document.getElementById('modal-adblock-note');
+
+  // Pulihkan judul modal utama berdasarkan currentMainModalMode
+  modalTitle.textContent = currentMainModalMode === 'download' ? 'Download Game' : 'Cara Download';
+
+  // Pastikan konten modal utama ditampilkan kembali
+  mainModalContent.style.display = 'block';
+  subModalContent.style.display = 'none';
+
+  // Pastikan catatan adblock ditampilkan kembali jika mode adalah download
+  modalAdblockNote.style.display = (currentMainModalMode === 'download') ? 'block' : 'none';
+}
+
+// Hanya satu fungsi closeModal yang diperlukan
+function closeModal() {
+    document.getElementById('popup').style.display = 'none';
+    // Opsional: Reset ke tampilan utama saat modal ditutup
+    showMainModal(); // Pastikan modal kembali ke tampilan awal jika dibuka lagi
+}
+
+// ... kode JavaScript lainnya ...
+
+    function toggleDesc(btn) {
+        const desc = btn.nextElementSibling;
+        const isVisible = desc.style.display === 'block';
+        desc.style.display = isVisible ? 'none' : 'block';
+        btn.textContent = isVisible ? 'Deskripsi ▼' : 'Tutup ▲';
+    }
+
+    function checkZoom() {
+        const cards = document.querySelectorAll('.card');
+        cards.forEach(card => {
+            const cardTop = card.offsetTop;
+            const windowBottom = window.scrollY + window.innerHeight;
+            const windowTop = window.scrollY;
+            const cardHeight = card.offsetHeight;
+            const isVisible = (cardTop < windowBottom) && (cardTop + cardHeight > windowTop);
+
+            if (isVisible) {
+                card.classList.add('zoom-in');
+            } else {
+                card.classList.remove('zoom-in');
+            }
+        });
+    }
+
+    // Event listeners untuk animasi zoom saat scroll
+    window.addEventListener('scroll', checkZoom);
+    window.addEventListener('resize', checkZoom);
+    window.addEventListener('load', checkZoom);
+
+    // --- FUNGSI UNTUK FITUR SHARE DAN ANIMASI HIGHLIGHT ---
+    document.addEventListener('DOMContentLoaded', () => {
+        const shareButtons = document.querySelectorAll('.share-button-icon');
+
+        shareButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const cardId = button.dataset.cardId;
+                const baseUrl = window.location.origin + window.location.pathname;
+                const shareUrl = `${baseUrl}#card-${cardId}`;
+
+                if (navigator.share) {
+                    navigator.share({
+                        title: document.title,
+                        text: `Lihat mod game keren ini di ${document.title}!`,
+                        url: shareUrl
+                    }).then(() => {
+                        console.log('Berhasil dibagikan');
+                    }).catch((error) => {
+                        console.error('Gagal berbagi:', error);
+                        copyLinkToClipboard(shareUrl);
+                    });
+                } else {
+                    copyLinkToClipboard(shareUrl);
+                }
+            });
+        });
+
+        function copyLinkToClipboard(link) {
+            const tempInput = document.createElement('input');
+            document.body.appendChild(tempInput);
+            tempInput.value = link;
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+            alert('Link berhasil disalin ke clipboard: ' + link);
+        }
+
+        if (window.location.hash) {
+            const targetHash = window.location.hash.substring(1);
+            const targetElement = document.getElementById(targetHash);
+
+            if (targetElement) {
+                targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                targetElement.classList.add('highlight-card');
+                setTimeout(() => {
+                    targetElement.classList.remove('highlight-card');
+                }, 3000); // Hapus highlight setelah 3 detik
+            }
+        }
+    });
+
+  </script>
+
+  <script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({pageLanguage: 'id', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+    }
+
+    // Function to toggle the visibility of the translate widget container
+    function toggleTranslateWidget() {
+    const widgetContainer = document.getElementById('translate-widget-container');
+    const infoMessage = document.querySelector('.info-message'); // Dapatkan elemen pesan
+    if (widgetContainer.style.display === 'none' || widgetContainer.style.display === '') {
+        widgetContainer.style.display = 'block';
+        infoMessage.style.display = 'block'; // Tampilkan pesan
+    } else {
+        widgetContainer.style.display = 'none';
+        infoMessage.style.display = 'none'; // Sembunyikan pesan
+    }
+}
+  </script>
+  <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+  <script src="https://l2dwidget.js.org/lib/L2Dwidget.min.js"></script>
+  <script>
+    function getRandomMessage() {
+      const messages = [
+        'Tekan Tombol Cara Downloadnya Ya Jika Kamu Bingung',
+        'Kalau Ada Masalah Link Yang Eror Silahkan Beri Tahu Tuan Ku Ya. Dan Sabar Menunggu Linknya Di Fix ;)',
+        'Jangan Lupa Belangganan Channel Tuan Ku Ya :3',
+        'Jangan Lupa Klik Gambarnya Untuk Melihat Gameplay nya~',
+      ];
+      const randomIndex = Math.floor(Math.random() * messages.length);
+      return messages[randomIndex];
+    }
+
+    L2Dwidget.init({
+      model: {
+        jsonPath: "https://raw.githubusercontent.com/KanzakiisYU/live2d-model/main/kurumi/model.json"
+      },
+      display: {
+        position: "right",
+        width: 200,
+        height: 550,
+        hOffset: 20,
+        vOffset: -200
+      },
+      mobile: {
+        show: true,
+        scale: 1
+      },
+      dialog: {
+        enable: true,
+        script: {
+          'every idle 10s': getRandomMessage(),
+          'tap body': 'Hentai!',
+          'tap face': getRandomMessage()
+        }
+      }
+    });
+  </script>
+  
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
+
+<script>
+function toggleReadMore(el) {
+  const card = el.closest('.card');
+  const shortDesc = card.querySelector('.desc-short');
+  const fullDesc = card.querySelector('.desc-full');
+  const buttons = card.querySelector('.buttons');
+  const ytWrapper = card.querySelector('.youtube-wrapper');
+
+  if (shortDesc.style.display !== 'none') {
+
+    // Open
+    shortDesc.style.display = 'none';
+    fullDesc.style.display = 'block';
+    if(buttons) buttons.style.display = 'flex';
+
+    // Init slider
+    const swiperEl = card.querySelector('.mySwiper');
+    if (swiperEl && !swiperEl.classList.contains('swiper-initialized')) {
+      new Swiper(swiperEl, {
+        slidesPerView: "auto",
+        spaceBetween: 10,
+        centeredSlides: true,
+        pagination: {
+          el: card.querySelector('.swiper-pagination'),
+          clickable: true
+        }
+      });
+    }
+
+    // Load YouTube
+    if (ytWrapper && !ytWrapper.querySelector('iframe')) {
+      const videoId = ytWrapper.dataset.youtubeId;
+      ytWrapper.innerHTML =
+        `<iframe src="https://www.youtube.com/embed/${videoId}"
+          allowfullscreen></iframe>`;
+    }
+
+    // Init Fancybox
+    Fancybox.bind("[data-fancybox]", {});
+  } else {
+
+    // Close
+    shortDesc.style.display = 'block';
+    fullDesc.style.display = 'none';
+    if(buttons) buttons.style.display = 'none';
+  }
+}
+</script>
+
+</body>
+</html>
