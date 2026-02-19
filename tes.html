@@ -547,6 +547,29 @@
   display: none;
 }
 
+.swiper-slide {
+  width: 100%;
+  aspect-ratio: 16/9;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.swiper-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Supaya iframe juga pas */
+.youtube-slide iframe {
+  width: 100%;
+  height: 100%;
+}
+
   </style>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css">
@@ -584,25 +607,23 @@
       </div>
       <div class="desc-full" style="font-size: 14px; color: #444; display: none;">
         Minecraft 1.21.132.1 ini membawa keunggulan utama pada fitur 800 4D Skin yang sepenuhnya Visible, artinya skin kamu akan terlihat oleh pemain lain saat bermain di server maupun world biasa. Tidak hanya itu, versi ini sudah mendukung Login Xbox/Microsoft Account, sehingga kamu tetap bisa mengakses fitur komunitas dan menyimpan progress game dengan aman. Nikmati visual 4D yang detail tanpa takut kehilangan akses login!
-<!-- Image Slide-->        
 <div class="swiper mySwiper slider-youtube">
   <div class="swiper-wrapper">
 
-    <!-- Slide 1: Gambar -->
+    <!-- Slide gambar -->
     <div class="swiper-slide">
       <a data-fancybox="preview" href="https://files.catbox.moe/imc8pi.png">
         <img src="https://files.catbox.moe/imc8pi.png">
       </a>
     </div>
 
-    <!-- Slide 2: Gambar -->
     <div class="swiper-slide">
       <a data-fancybox="preview" href="https://files.catbox.moe/kozvmw.png">
         <img src="https://files.catbox.moe/kozvmw.png">
       </a>
     </div>
 
-    <!-- Slide 3: Video Youtube -->
+    <!-- Slide YouTube (thumbnail) -->
     <div class="swiper-slide youtube-slide" data-youtube-id="vgmonthxQsw">
       <img src="https://img.youtube.com/vi/vgmonthxQsw/hqdefault.jpg">
     </div>
@@ -974,14 +995,21 @@ function toggleReadMore(el) {
 }
 </script>
 <script>
+<script>
 document.querySelectorAll('.youtube-slide').forEach(slide => {
   slide.addEventListener('click', function () {
     const id = this.dataset.youtubeId;
+
     this.innerHTML = `
-      <iframe src="https://www.youtube.com/embed/${id}" allowfullscreen></iframe>
+      <iframe 
+        src="https://www.youtube.com/embed/${id}?autoplay=1"
+        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen>
+      </iframe>
     `;
   });
 });
+</script>
 </script>
 
 </body>
