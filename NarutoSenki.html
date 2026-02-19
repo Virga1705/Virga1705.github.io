@@ -31,7 +31,7 @@
       z-index: 999;
       display: flex;
       align-items: center;
-      justify-content: space-between; /* DITAMBAHKAN: Untuk menempatkan elemen di kedua sisi */
+      justify-content: space-between; /* Added to push elements to ends */
       /* Tambahkan properti user-select untuk header juga */
       -webkit-user-select: none;
       -moz-user-select: none;
@@ -40,7 +40,7 @@
       -webkit-touch-callout: none;
     }
 
-    .header-left { /* DITAMBAHKAN: Untuk mengelompokkan tombol kembali dan judul */
+    .header-left { /* New class for left-aligned items */
       display: flex;
       align-items: center;
     }
@@ -79,7 +79,7 @@
       pointer-events: none; /* Mencegah interaksi mouse/touch pada gambar (termasuk download) */
     }
 
-    /* DITAMBAHKAN: Gaya untuk tombol ikon terjemahan */
+    /* Style for the translate icon button */
     .translate-icon-button {
         background: none; /* Biarkan transparan agar gambar ikon menampilkan latar belakangnya sendiri */
         border: none; /* Hilangkan border */
@@ -88,10 +88,10 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        width: 25px; /* Sesuaikan ukuran ikon */
-        height: 25px; /* Sesuaikan ukuran ikon */
+        width: 25px; /* Sesuaikan lebar sesuai ukuran gambar ikon Anda */
+        height: 25px; /* Sesuaikan tinggi sesuai ukuran gambar ikon Anda */
         transition: transform 0.2s ease-in-out;
-        margin-left: 10px; /* Spasi dari teks 'Naruto Senki' */
+        margin-left: 10px; /* Spasi dari teks 'Lainnya' */
         /* Mencegah seleksi teks dan klik kanan */
         -webkit-user-select: none;
         -moz-user-select: none;
@@ -111,23 +111,23 @@
         pointer-events: none; /* Mencegah gambar diseret atau menu konteks */
     }
 
-    /* DITAMBAHKAN: Container untuk widget Google Translate - tersembunyi secara default */
+    /* Container for the Google Translate widget */
     #translate-widget-container {
-        position: fixed; /* Posisikan relatif terhadap header */
-        top: 70px; /* Sesuaikan berdasarkan tinggi header */
-        right: 16px; /* Sejajarkan ke kanan header */
+        position: fixed; /* Position relative to the header */
+        top: 70px; /* Adjust based on header height */
+        right: 16px; /* Align to the right of the header */
         background: white;
         border: 1px solid #ddd;
         border-radius: 8px;
         box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         padding: 10px;
-        display: none; /* Tersembunyi secara default */
-        z-index: 1000; /* Di atas konten lain */
-        /* Pastikan dropdown itu sendiri berada di dalam container ini */
-        min-width: 150px; /* Lebar minimum untuk dropdown */
+        display: none; /* Hidden by default */
+        z-index: 1000; /* Above other content */
+        /* Ensure the dropdown itself is within this container */
+        min-width: 150px; /* Minimum width for the dropdown */
     }
 
-    /* DITAMBAHKAN: Styling dasar untuk kotak pilihan Google Translate di dalam container */
+    /* Basic styling for the Google Translate select box within the container */
     #translate-widget-container .goog-te-gadget-simple {
         border: none !important;
         background-color: transparent !important;
@@ -135,7 +135,7 @@
         font-size: 14px !important;
     }
 
-    /* DITAMBAHKAN: Sembunyikan banner/branding Google Translate */
+    /* Hide the Google Translate banner/branding */
     .goog-logo-link {
         display: none !important;
     }
@@ -147,7 +147,7 @@
         border: none !important;
     }
     .goog-te-gadget-simple .goog-te-menu-value {
-        color: #333 !important; /* Sesuaikan warna teks jika diperlukan */
+        color: #333 !important; /* Adjust text color if needed */
     }
 
 
@@ -480,8 +480,8 @@
 }
 
 .info-message {
-    position: fixed;
-    top: 115px; /* Sesuaikan ini untuk posisi vertikal */
+    position: absolute;
+    top: 120px; /* Sesuaikan ini untuk posisi vertikal */
     right: 16px; /* Sesuaikan ini untuk posisi horizontal */
     background: white;
     border: 1px solid #ddd;
@@ -497,12 +497,65 @@
     display: none;
 }
 
+.youtube-wrapper {
+  width: 100%;
+  margin: 10px 0;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #000;
+  aspect-ratio: 16 / 9;
+}
+
+.youtube-wrapper iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.slider-youtube {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.slider-youtube img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.download-btn {
+  display: block;
+  width: 100%;
+  background: #2196f3;
+  color: white;
+  padding: 12px;
+  margin: 6px 0;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 10px;
+  font-weight: bold;
+  transition: 0.2s;
+}
+
+.download-btn:hover {
+  background: #1976d2;
+}
+
+.buttons {
+  display: none;
+}
+
   </style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css">
 </head>
 <body oncontextmenu="return false;">
 
   <header>
-    <div class="header-left"> <a href="Virga1705.github.io" class="back-button">
+    <div class="header-left">
+        <a href="Virga1705.github.io" class="back-button">
           <img src="https://files.catbox.moe/g9z1ny.png" alt="Kembali ke Beranda" draggable="false">
         </a>
         Naruto Senki
@@ -516,109 +569,133 @@
     <div id="google_translate_element"></div>
   </div>
   <div class="info-message">
-    If you want a better translate, you should use the browser's default translate
+    If you want a better translate, you should use the browser's default translate.
 </div>
 
-  <div class="card" id="card-waifu-war-v1">
-    <a href="https://youtu.be/1NVlvJIrFPY?si=Cv-ta_itqLGUVg2D" target="_blank">
-      <img src="https://files.catbox.moe/ml9alc.jpg" alt="Review Gameplay" draggable="false">
-    </a>
-    <div class="title">
-      <div class="title-row">
-        <span class="title-text">NS: Waifu War V1</span>
-        <button class="share-button-icon" data-card-id="waifu-war-v1"><img src="https://files.catbox.moe/40ynkg.png" alt="Share"></button>
+
+
+<div class="card" id="card-waifu-war-v1">
+  <div style="display: flex; align-items: flex-start; padding: 12px;">
+    <img src="https://files.catbox.moe/leypx1.png" alt="404" style="width: 60px; height: 60px; margin-right: 12px; border-radius: 10px;" draggable="false">
+    <div style="flex-grow: 1;">
+      <div style="font-weight: bold; font-size: 16px;">NS: Waifu War V1</div>
+      <div class="desc-short" style="font-size: 14px; color: #444;">
+        Versi yang menampilkan karakter waifu dari Naruto. Cocok bagi fans karakter cewek dan mod anime.<span class="read-more-toggle" onclick="toggleReadMore(this)" style="color:#007BFF; cursor:pointer;">Read More</span>
       </div>
-      <button class="desc-toggle" onclick="toggleDesc(this)">Deskripsi ▼</button>
-      <div class="desc-text" style="display:none; margin-top:8px; font-weight:normal; font-size:14px; color:#333;">
+      <div class="desc-full" style="font-size: 14px; color: #444; display: none;">
         Versi yang menampilkan karakter waifu dari Naruto. Cocok bagi fans karakter cewek dan mod anime.
+<!-- Image Slide-->        
+<!-- YouTube Auto Load -->
+<div class="youtube-wrapper" data-youtube-id="1NVlvJIrFPY?si=Cv-ta_itqLGUVg2D"></div>
+<span class="read-more-toggle" onclick="toggleReadMore(this)" style="color:#007BFF; cursor:pointer;">Close</span>
       </div>
     </div>
-    <div class="buttons">
+    <button class="share-button-icon" data-card-id="waifu-war-v1"><img src="https://files.catbox.moe/40ynkg.png" alt="Share"></button>
+  </div>
+<!-- Download Link-->  
+  <div class="buttons">
    <button onclick="openModal('download', [
   { text: 'NS: WaifuWar v1', link: 'https://sfl.gl/JUucxpu' }
 ])">Download</button>
   <button onclick="openModal('howto', [
-  { text: 'Guide YouTube', link: 'https://youtu.be/Af1Sj7MDhiM?si=EHKw02WB87uTumQI' },
-  { text: 'Guide Alternatif', link: 'https://youtu.be/tutorial2' }
-])">Cara Download</button>
-    </div>
-  </div>
-  
-    <div class="card" id="card-waifu-war-beta2">
-    <a href="https://youtu.be/qRlTtcT_dxA?si=QgerdIlHlGRSKkrf" target="_blank">
-      <img src="https://files.catbox.moe/dfpn9j.jpg" alt="Review Gameplay" draggable="false">
-    </a>
-    <div class="title">
-      <div class="title-row">
-        <span class="title-text">NS: Waifu War Beta 2.0</span>
-        <button class="share-button-icon" data-card-id="waifu-war-beta2"><img src="https://files.catbox.moe/40ynkg.png" alt="Share"></button>
+    { text: 'Panduan YouTube', link: 'https://youtu.be/Af1Sj7MDhiM?si=a3nkEjDqBjj5NY14' },
+    { text: 'Panduan Alternatif', link: 'https://youtu.be/tutorial2', note: 'Gunakan jika link utama error' }
+  ])">Cara Download</button>
+</div>
+</div>
+
+
+<div class="card" id="card-waifu-war-beta2">
+  <div style="display: flex; align-items: flex-start; padding: 12px;">
+    <img src="https://files.catbox.moe/leypx1.png" alt="404" style="width: 60px; height: 60px; margin-right: 12px; border-radius: 10px;" draggable="false">
+    <div style="flex-grow: 1;">
+      <div style="font-weight: bold; font-size: 16px;">NS: Waifu War Beta 2.0</div>
+      <div class="desc-short" style="font-size: 14px; color: #444;">
+        Versi yang menampilkan karakter waifu dari Naruto. Cocok bagi fans karakter cewek dan mod anime....<span class="read-more-toggle" onclick="toggleReadMore(this)" style="color:#007BFF; cursor:pointer;">Read More</span>
       </div>
-      <button class="desc-toggle" onclick="toggleDesc(this)">Deskripsi ▼</button>
-      <div class="desc-text" style="display:none; margin-top:8px; font-weight:normal; font-size:14px; color:#333;">
+      <div class="desc-full" style="font-size: 14px; color: #444; display: none;">
         Versi yang menampilkan karakter waifu dari Naruto. Cocok bagi fans karakter cewek dan mod anime.
+<!-- Image Slide-->        
+<!-- YouTube Auto Load -->
+<div class="youtube-wrapper" data-youtube-id="qRlTtcT_dxA?si=QgerdIlHlGRSKkrf"></div>
+<span class="read-more-toggle" onclick="toggleReadMore(this)" style="color:#007BFF; cursor:pointer;">Close</span>
       </div>
     </div>
-    <div class="buttons">
+    <button class="share-button-icon" data-card-id="waifu-war-beta2"><img src="https://files.catbox.moe/40ynkg.png" alt="Share"></button>
+  </div>
+<!-- Download Link-->  
+  <div class="buttons">
    <button onclick="openModal('download', [
   { text: 'NS: WaifuWar Beta2.0', link: 'https://sfl.gl/MHUivAoW' }
 ])">Download</button>
   <button onclick="openModal('howto', [
-  { text: 'Guide YouTube', link: 'https://youtu.be/Af1Sj7MDhiM?si=EHKw02WB87uTumQI' },
-  { text: 'Guide Alternatif', link: 'https://youtu.be/tutorial2' }
-])">Cara Download</button>
-    </div>
-  </div>
-  
-    <div class="card" id="card-waifu-war-v11">
-    <a href="https://youtu.be/NI9kEtC8MY4?si=NhX700oRxNJLuQhN" target="_blank">
-      <img src="https://files.catbox.moe/bc9og6.png" alt="Review Gameplay" draggable="false">
-    </a>
-    <div class="title">
-      <div class="title-row">
-        <span class="title-text">NS: Waifu War V1.1</span>
-        <button class="share-button-icon" data-card-id="waifu-war-v11"><img src="https://files.catbox.moe/40ynkg.png" alt="Share"></button>
+    { text: 'Panduan YouTube', link: 'https://youtu.be/Af1Sj7MDhiM?si=a3nkEjDqBjj5NY14' },
+    { text: 'Panduan Alternatif', link: 'https://youtu.be/tutorial2', note: 'Gunakan jika link utama error' }
+  ])">Cara Download</button>
+</div>
+</div>
+
+
+<div class="card" id="card-waifu-war-v11">
+  <div style="display: flex; align-items: flex-start; padding: 12px;">
+    <img src="https://files.catbox.moe/leypx1.png" alt="404" style="width: 60px; height: 60px; margin-right: 12px; border-radius: 10px;" draggable="false">
+    <div style="flex-grow: 1;">
+      <div style="font-weight: bold; font-size: 16px;">NS: Waifu War V1.1</div>
+      <div class="desc-short" style="font-size: 14px; color: #444;">
+        Versi yang sudah di update sedikit yaitu memperlihatkan ui yang baru stage atau map yang baru...<span class="read-more-toggle" onclick="toggleReadMore(this)" style="color:#007BFF; cursor:pointer;">Read More</span>
       </div>
-      <button class="desc-toggle" onclick="toggleDesc(this)">Deskripsi ▼</button>
-      <div class="desc-text" style="display:none; margin-top:8px; font-weight:normal; font-size:14px; color:#333;">
+      <div class="desc-full" style="font-size: 14px; color: #444; display: none;">
         Versi yang sudah di update sedikit yaitu memperlihatkan ui yang baru stage atau map yang baru juga dan menampilkan karakter waifu dari berbagai anime. Cocok bagi fans karakter cewek dan mod anime.
+<!-- Image Slide-->        
+<!-- YouTube Auto Load -->
+<div class="youtube-wrapper" data-youtube-id="NI9kEtC8MY4?si=NhX700oRxNJLuQhN"></div>
+<span class="read-more-toggle" onclick="toggleReadMore(this)" style="color:#007BFF; cursor:pointer;">Close</span>
       </div>
     </div>
-    <div class="buttons">
-   <button onclick="openModal('download', [
+    <button class="share-button-icon" data-card-id="waifu-war-v11"><img src="https://files.catbox.moe/40ynkg.png" alt="Share"></button>
+  </div>
+<!-- Download Link-->  
+  <div class="buttons">
+  <button onclick="openModal('download', [
   { text: 'NS: WaifuWar v1.1', link: 'https://sfl.gl/6mnC' }
 ])">Download</button>
   <button onclick="openModal('howto', [
-  { text: 'Guide YouTube', link: 'https://youtu.be/Af1Sj7MDhiM?si=EHKw02WB87uTumQI' },
-  { text: 'Guide Alternatif', link: 'https://youtu.be/tutorial2' }
-])">Cara Download</button>
-    </div>
-  </div>
+    { text: 'Panduan YouTube', link: 'https://youtu.be/Af1Sj7MDhiM?si=a3nkEjDqBjj5NY14' },
+    { text: 'Panduan Alternatif', link: 'https://youtu.be/tutorial2', note: 'Gunakan jika link utama error' }
+  ])">Cara Download</button>
+</div>
+</div>
 
 
-    <div class="card" id="card-one-piece">
-    <a href="https://youtu.be/8ZsoT3CTwCY?si=TCejU5C__vhBjKNQ" target="_blank">
-      <img src="https://files.catbox.moe/qa5yup.jpg" alt="Review Gameplay" draggable="false">
-    </a>
-    <div class="title">
-      <div class="title-row">
-        <span class="title-text">NS: ワンピース PixelWar V1.0</span>
-        <button class="share-button-icon" data-card-id="one-piece"><img src="https://files.catbox.moe/40ynkg.png" alt="Share"></button>
+<div class="card" id="card-one-piece">
+  <div style="display: flex; align-items: flex-start; padding: 12px;">
+    <img src="https://files.catbox.moe/leypx1.png" alt="404" style="width: 60px; height: 60px; margin-right: 12px; border-radius: 10px;" draggable="false">
+    <div style="flex-grow: 1;">
+      <div style="font-weight: bold; font-size: 16px;">NS: ワンピース PixelWar V1.0</div>
+      <div class="desc-short" style="font-size: 14px; color: #444;">
+        Mod Bertemakan Bajak Laut Dari Anime One Piece.....<span class="read-more-toggle" onclick="toggleReadMore(this)" style="color:#007BFF; cursor:pointer;">Read More</span>
       </div>
-      <button class="desc-toggle" onclick="toggleDesc(this)">Deskripsi ▼</button>
-      <div class="desc-text" style="display:none; margin-top:8px; font-weight:normal; font-size:14px; color:#333;">
+      <div class="desc-full" style="font-size: 14px; color: #444; display: none;">
         Mod Bertemakan Bajak Laut Dari Anime One Piece.
+<!-- Image Slide-->        
+<!-- YouTube Auto Load -->
+<div class="youtube-wrapper" data-youtube-id="8ZsoT3CTwCY?si=TCejU5C__vhBjKNQ"></div>
+<span class="read-more-toggle" onclick="toggleReadMore(this)" style="color:#007BFF; cursor:pointer;">Close</span>
       </div>
     </div>
-    <div class="buttons">
+    <button class="share-button-icon" data-card-id="one-piece"><img src="https://files.catbox.moe/40ynkg.png" alt="Share"></button>
+  </div>
+<!-- Download Link-->  
+  <div class="buttons">
    <button onclick="openModal('download', [
   { text: 'NS: ワンピース PixelWar v1.0', link: 'https://sfl.gl/Nhhh0d0L' }
 ])">Download</button>
   <button onclick="openModal('howto', [
-  { text: 'Guide YouTube', link: 'https://youtu.be/Af1Sj7MDhiM?si=EHKw02WB87uTumQI' },
-  { text: 'Guide Alternatif', link: 'https://youtu.be/tutorial2' }
-])">Cara Download</button>
-    </div>
-  </div>
+    { text: 'Panduan YouTube', link: 'https://youtu.be/Af1Sj7MDhiM?si=a3nkEjDqBjj5NY14' },
+    { text: 'Panduan Alternatif', link: 'https://youtu.be/tutorial2', note: 'Gunakan jika link utama error' }
+  ])">Cara Download</button>
+</div>
+</div>
 
 
 <div class="card" id="card-bahan">
@@ -627,14 +704,19 @@
     <div style="flex-grow: 1;">
       <div style="font-weight: bold; font-size: 16px;">Methode - Methode Narsen</div>
       <div class="desc-short" style="font-size: 14px; color: #444;">
-        Kumpulan Bahan..<span class="read-more-toggle" onclick="toggleReadMore(this)" style="color:#007BFF; cursor:pointer;">Read More</span>
+        Kumpulan Bahan bahan untuk membuat...<span class="read-more-toggle" onclick="toggleReadMore(this)" style="color:#007BFF; cursor:pointer;">Read More</span>
       </div>
       <div class="desc-full" style="font-size: 14px; color: #444; display: none;">
-        Kumpulan Bahan bahan untuk membuat narsen menjadi bagus dan sesuai fungsi.<span class="read-more-toggle" onclick="toggleReadMore(this)" style="color:#007BFF; cursor:pointer;">Close</span>
+        Kumpulan Bahan bahan untuk membuat narsen menjadi bagus dan sesuai fungsi.
+<!-- Image Slide-->        
+<!-- YouTube Auto Load -->
+
+<span class="read-more-toggle" onclick="toggleReadMore(this)" style="color:#007BFF; cursor:pointer;">Close</span>
       </div>
     </div>
     <button class="share-button-icon" data-card-id="bahan"><img src="https://files.catbox.moe/40ynkg.png" alt="Share"></button>
   </div>
+<!-- Download Link-->  
   <div class="buttons">
  <button onclick="openModal('download', [
   { text: 'Methode Animasi',
@@ -652,43 +734,57 @@
 </div>
 
 
-  <div class="card" id="card-narsen-unprotect-117">
-    <a href="https://youtu.be/mRTvlyhyzuk"><img src="https://files.catbox.moe/deyydz.jpg" alt="NS Original" draggable="false"></a>
-    <div class="title">
-      <div class="title-row">
-        <span class="title-text">Narsen Unprotect 1.17 Full Screen</span>
-        <button class="share-button-icon" data-card-id="narsen-unprotect-117"><img src="https://files.catbox.moe/40ynkg.png" alt="Share"></button>
+<div class="card" id="card-narsen-unprotect-117">
+  <div style="display: flex; align-items: flex-start; padding: 12px;">
+    <img src="https://files.catbox.moe/leypx1.png" alt="404" style="width: 60px; height: 60px; margin-right: 12px; border-radius: 10px;" draggable="false">
+    <div style="flex-grow: 1;">
+      <div style="font-weight: bold; font-size: 16px;">Narsen Unprotect 1.17 Full Screen</div>
+      <div class="desc-short" style="font-size: 14px; color: #444;">
+        Narsen Unprotect 1.17 adalah versi dasar dari Naruto Senki tanpa modifikasi Lain. Cocok untuk project narsen kalian....<span class="read-more-toggle" onclick="toggleReadMore(this)" style="color:#007BFF; cursor:pointer;">Read More</span>
       </div>
-      <button class="desc-toggle" onclick="toggleDesc(this)">Deskripsi ▼</button>
-      <div class="desc-text" style="display:none; margin-top:8px; font-weight:normal; font-size:14px; color:#333;">
+      <div class="desc-full" style="font-size: 14px; color: #444; display: none;">
         Narsen Unprotect 1.17 adalah versi dasar dari Naruto Senki tanpa modifikasi Lain. Cocok untuk project narsen kalian.
+<!-- Image Slide-->        
+<!-- YouTube Auto Load -->
+<div class="youtube-wrapper" data-youtube-id="mRTvlyhyzuk"></div>
+<span class="read-more-toggle" onclick="toggleReadMore(this)" style="color:#007BFF; cursor:pointer;">Close</span>
       </div>
     </div>
-    <div class="buttons">
+    <button class="share-button-icon" data-card-id="narsen-unprotect-117"><img src="https://files.catbox.moe/40ynkg.png" alt="Share"></button>
+  </div>
+<!-- Download Link-->  
+  <div class="buttons">
  <button onclick="openModal('download', [
   { text: 'Ns Unprotect 1.17', link: 'https://link2unlock.com/d1e1c' }
 ])">Download</button>
   <button onclick="openModal('howto', [
-  { text: 'Guide YouTube', link: 'https://youtu.be/Af1Sj7MDhiM?si=EHKw02WB87uTumQI' },
-  { text: 'Guide Alternatif', link: 'https://youtu.be/tutorial2' }
-])">Cara Download</button>
-    </div>
-  </div>
+    { text: 'Panduan YouTube', link: 'https://youtu.be/Af1Sj7MDhiM?si=a3nkEjDqBjj5NY14' },
+    { text: 'Panduan Alternatif', link: 'https://youtu.be/tutorial2', note: 'Gunakan jika link utama error' }
+  ])">Cara Download</button>
+</div>
+</div>
 
-  <div class="card" id="card-narsen-unprotect-117Remake">
-    <a href="https://youtu.be/GPPboLHig6k?si=fBQ-08jgfOyDmXmF"><img src="https://files.catbox.moe/w9epda.jpg" alt="NS Original" draggable="false"></a>
-    <div class="title">
-      <div class="title-row">
-        <span class="title-text">Narsen Unprotect 1.17 Remake</span>
-        <button class="share-button-icon" data-card-id="narsen-unprotect-117Remake"><img src="https://files.catbox.moe/40ynkg.png" alt="Share"></button>
+<div class="card" id="card-narsen-unprotect-117Remake">
+  <div style="display: flex; align-items: flex-start; padding: 12px;">
+    <img src="https://files.catbox.moe/leypx1.png" alt="404" style="width: 60px; height: 60px; margin-right: 12px; border-radius: 10px;" draggable="false">
+    <div style="flex-grow: 1;">
+      <div style="font-weight: bold; font-size: 16px;">Narsen Unprotect 1.17 Remake</div>
+      <div class="desc-short" style="font-size: 14px; color: #444;">
+        Narsen 1.17 Yang di Remake Oleh Saya @VVIRGAFS...<span class="read-more-toggle" onclick="toggleReadMore(this)" style="color:#007BFF; cursor:pointer;">Read More</span>
       </div>
-      <button class="desc-toggle" onclick="toggleDesc(this)">Deskripsi ▼</button>
-      <div class="desc-text" style="display:none; margin-top:8px; font-weight:normal; font-size:14px; color:#333;">
+      <div class="desc-full" style="font-size: 14px; color: #444; display: none;">
         Narsen 1.17 Yang di Remake Oleh Saya @VVIRGAFS
+<!-- Image Slide-->        
+<!-- YouTube Auto Load -->
+<div class="youtube-wrapper" data-youtube-id="GPPboLHig6k?si=fBQ-08jgfOyDmXmF"></div>
+<span class="read-more-toggle" onclick="toggleReadMore(this)" style="color:#007BFF; cursor:pointer;">Close</span>
       </div>
     </div>
-    <div class="buttons">
-    <button onclick="openModal('download', [
+    <button class="share-button-icon" data-card-id="narsen-unprotect-117Remake"><img src="https://files.catbox.moe/40ynkg.png" alt="Share"></button>
+  </div>
+<!-- Download Link-->  
+  <div class="buttons">
+   <button onclick="openModal('download', [
       { text: 'NS 1.17 Remake',
         subButtons: [
           { text: 'Unprotect 100%', link: 'https://sfl.gl/V3fYow' },
@@ -696,54 +792,65 @@
         ]
       }
     ])">Download</button>
-    <button onclick="openModal('howto', [
-      { text: 'Panduan YouTube', link: 'https://youtu.be/Af1Sj7MDhiM?si=a3nkEjDqBjj5NY14' },
-      { text: 'Panduan Alternatif', link: 'https://youtu.be/tutorial2', note: 'Gunakan jika link utama error' }
-    ])">Cara Download</button>
-    </div>
-  </div>
+  <button onclick="openModal('howto', [
+    { text: 'Panduan YouTube', link: 'https://youtu.be/Af1Sj7MDhiM?si=a3nkEjDqBjj5NY14' },
+    { text: 'Panduan Alternatif', link: 'https://youtu.be/tutorial2', note: 'Gunakan jika link utama error' }
+  ])">Cara Download</button>
+</div>
+</div>
 
-  <div class="card" id="card-naruto-senki-216">
-    <a href="https://youtu.be/NCH1Ohn5okM"><img src="https://files.catbox.moe/zjidv3.jpg" alt="NS V2.1" draggable="false"></a>
-    <div class="title">
-      <div class="title-row">
-        <span class="title-text">NARUTO SENKI 2.1.6</span>
-        <button class="share-button-icon" data-card-id="naruto-senki-216"><img src="https://files.catbox.moe/40ynkg.png" alt="Share"></button>
+
+<div class="card" id="card-naruto-senki-216">
+  <div style="display: flex; align-items: flex-start; padding: 12px;">
+    <img src="https://files.catbox.moe/leypx1.png" alt="404" style="width: 60px; height: 60px; margin-right: 12px; border-radius: 10px;" draggable="false">
+    <div style="flex-grow: 1;">
+      <div style="font-weight: bold; font-size: 16px;">NARUTO SENKI 2.1.6</div>
+      <div class="desc-short" style="font-size: 14px; color: #444;">
+        Naruto Senki 2.1.6 adalah Narsen yang di Kembangkan Oleh...<span class="read-more-toggle" onclick="toggleReadMore(this)" style="color:#007BFF; cursor:pointer;">Read More</span>
       </div>
-      <button class="desc-toggle" onclick="toggleDesc(this)">Deskripsi ▼</button>
-      <div class="desc-text" style="display:none; margin-top:8px; font-weight:normal; font-size:14px; color:#333;">
+      <div class="desc-full" style="font-size: 14px; color: #444; display: none;">
         Naruto Senki 2.1.6 adalah Narsen yang di Kembangkan Oleh RE Memberikan Update Dengan Mode Baru dan Balancing Gameplay.
+<!-- Image Slide-->        
+<!-- YouTube Auto Load -->
+<div class="youtube-wrapper" data-youtube-id="NCH1Ohn5okM"></div>
+<span class="read-more-toggle" onclick="toggleReadMore(this)" style="color:#007BFF; cursor:pointer;">Close</span>
       </div>
     </div>
-    <div class="buttons">
+    <button class="share-button-icon" data-card-id="naruto-senki-216"><img src="https://files.catbox.moe/40ynkg.png" alt="Share"></button>
+  </div>
+<!-- Download Link-->  
+  <div class="buttons">
  <button onclick="openModal('download', [
   { text: 'Download Via ApkAdmin', link: 'https://sfl.gl/pqugi' },
   { text: 'Download Via GitHub', link: 'https://github.com/Naruto-Senki/files/releases/download/v2.1.6-fix/NSV2_2.1.6-fix_Android.apk', note: 'Download Via ApkAdmin For Support Me.And Download Via GitHub For Support RE' }
 ])">Download</button>
   <button onclick="openModal('howto', [
-  { text: 'Guide YouTube', link: 'https://youtu.be/Af1Sj7MDhiM?si=EHKw02WB87uTumQI' },
-  { text: 'Guide Alternatif', link: 'https://youtu.be/tutorial2' }
-])">Cara Download</button>
-    </div>
-  </div>
+    { text: 'Panduan YouTube', link: 'https://youtu.be/Af1Sj7MDhiM?si=a3nkEjDqBjj5NY14' },
+    { text: 'Panduan Alternatif', link: 'https://youtu.be/tutorial2', note: 'Gunakan jika link utama error' }
+  ])">Cara Download</button>
+</div>
+</div>
+
 
 <div class="card" id="card-narsen-simple-mod">
   <div style="display: flex; align-items: flex-start; padding: 12px;">
     <img src="https://files.catbox.moe/5fmtiq.png" alt="404" style="width: 60px; height: 60px; margin-right: 12px; border-radius: 10px;" draggable="false">
     <div style="flex-grow: 1;">
-      <div style="font-weight: bold; font-size: 16px;">Naruto Senki Simple Mod</div> <div class="desc-content">
-        <span class="desc-short" style="font-size: 14px; color: #444;">
-          Ini Naruto Senki Simple Mod yang di mod oleh virga fs, ini cocok untuk kalian yang mau...
-          <span class="read-more-toggle" onclick="toggleReadMore(this)" style="color:#007BFF; cursor:pointer;" data-action="read-more">Read More</span>
-        </span>
-        <span class="desc-full" style="font-size: 14px; color: #444; display: none;">
-          Ini Naruto Senki Simple Mod yang di mod oleh virga fs, ini cocok untuk kalian yang mau di mod ulang (mentahan untuk project narsen) karena disini tidak banyak mod alias masih terlihat seperti original, disini saya hanya menstabilkan dan mengkompress nya.Narsen ini berbasis dari kode narsen Zakume dan ultimate ninja by Aldo Wijaya.
-          <span class="read-more-toggle" onclick="toggleReadMore(this)" style="color:#007BFF; cursor:pointer;" data-action="close">Close</span>
-        </span>
+      <div style="font-weight: bold; font-size: 16px;">Naruto Senki Simple Mod</div>
+      <div class="desc-short" style="font-size: 14px; color: #444;">
+        Ini Naruto Senki Simple Mod yang di mod oleh virga fs, ini cocok untuk kalian yang....<span class="read-more-toggle" onclick="toggleReadMore(this)" style="color:#007BFF; cursor:pointer;">Read More</span>
+      </div>
+      <div class="desc-full" style="font-size: 14px; color: #444; display: none;">
+        Ini Naruto Senki Simple Mod yang di mod oleh virga fs, ini cocok untuk kalian yang mau di mod ulang (mentahan untuk project narsen) karena disini tidak banyak mod alias masih terlihat seperti original, disini saya hanya menstabilkan dan mengkompress nya.Narsen ini berbasis dari kode narsen Zakume dan ultimate ninja by Aldo Wijaya.
+<!-- Image Slide-->        
+<!-- YouTube Auto Load -->
+
+<span class="read-more-toggle" onclick="toggleReadMore(this)" style="color:#007BFF; cursor:pointer;">Close</span>
       </div>
     </div>
     <button class="share-button-icon" data-card-id="narsen-simple-mod"><img src="https://files.catbox.moe/40ynkg.png" alt="Share"></button>
   </div>
+<!-- Download Link-->  
   <div class="buttons">
     <button onclick="openModal('download', [
       { text: 'Semua Versi',
@@ -753,11 +860,11 @@
         ]
       }
     ])">Download</button>
-    <button onclick="openModal('howto', [
-      { text: 'Panduan YouTube', link: 'https://youtu.be/Af1Sj7MDhiM?si=a3nkEjDqBjj5NY14' },
-      { text: 'Panduan Alternatif', link: 'https://youtu.be/tutorial2', note: 'Gunakan jika link utama error' }
-    ])">Cara Download</button>
-  </div>
+  <button onclick="openModal('howto', [
+    { text: 'Panduan YouTube', link: 'https://youtu.be/Af1Sj7MDhiM?si=a3nkEjDqBjj5NY14' },
+    { text: 'Panduan Alternatif', link: 'https://youtu.be/tutorial2', note: 'Gunakan jika link utama error' }
+  ])">Cara Download</button>
+</div>
 </div>
 
 
@@ -769,7 +876,7 @@
         <h2 id="modal-title"></h2>
         <span class="close-btn" onclick="closeModal()">X</span>
       </div>
-      
+
       <div class="modal-content-body">
         <div id="main-modal-content" class="modal-page">
           <div id="modal-buttons-container" class="modal-buttons">
@@ -789,7 +896,14 @@
   </div>
 
   <script>
+
+// --- FUNGSI-FUNGSI TOMBOL DOWNLOAD FLEXIBLE ---
+
+// Definisikan data tombol secara global atau di tempat yang mudah diakses
+// Ini penting agar sub-modal bisa mengakses data tombol utama
 let currentModalButtonsData = [];
+// Variabel untuk menyimpan mode modal utama (download/howto)
+let currentMainModalMode = '';
 
 function openModal(mode, buttonsData = []) {
   const popup = document.getElementById('popup');
@@ -799,24 +913,24 @@ function openModal(mode, buttonsData = []) {
   const modalButtonsContainer = document.getElementById('modal-buttons-container');
   const modalAdblockNote = document.getElementById('modal-adblock-note');
 
-  currentModalButtonsData = buttonsData; // Simpan data tombol penuh
+  // Simpan data tombol utama dan mode
+  currentModalButtonsData = buttonsData;
+  currentMainModalMode = mode; // Simpan mode utama
 
   let buttonsHtml = '';
-  buttonsData.forEach((btn, index) => { // Tambahkan 'index' sebagai parameter
+  buttonsData.forEach((btn, index) => { // Tambahkan 'index' di sini
     if (btn.separator) {
       buttonsHtml += '<div class="button-group-separator"></div>';
     } else {
-    // Periksa apakah tombol memiliki properti `subButtons`
       if (btn.subButtons && btn.subButtons.length > 0) {
-        // Teruskan 'index' dari tombol utama ke showSubModal
+        // KIRIM INDEX KE FUNGSI BARU showSubModalFromIndex
         buttonsHtml += `
           <div class="download-block">
-            <button class="download-button" onclick="showSubModal(${index})">${btn.text}</button>
+            <button class="download-button" onclick="showSubModalFromIndex('${btn.text}', ${index})">${btn.text}</button>
             ${btn.note ? `<div class="download-note">${btn.note}</div>` : ''}
           </div>
         `;
       } else {
-        // Tombol download biasa (langsung ke link)
         buttonsHtml += `
           <div class="download-block">
             <a href="${btn.link}" target="_blank" class="download-button">${btn.text}</a>
@@ -836,39 +950,44 @@ function openModal(mode, buttonsData = []) {
     modalAdblockNote.style.display = 'none';
   }
 
+  // Pastikan modal utama yang terlihat saat pertama kali dibuka
   mainModalContent.style.display = 'block';
   subModalContent.style.display = 'none';
 
   popup.style.display = 'flex';
 }
 
-function showSubModal(parentButtonIndex) { // Ubah parameter menjadi 'parentButtonIndex'
+// Fungsi baru untuk menampilkan sub-modal dengan mengambil data dari indeks
+function showSubModalFromIndex(parentButtonText, parentIndex) {
+  // Ambil data sub-tombol dari currentModalButtonsData menggunakan parentIndex
+  const subButtonsData = currentModalButtonsData[parentIndex].subButtons;
+
   const modalTitle = document.getElementById('modal-title');
   const mainModalContent = document.getElementById('main-modal-content');
   const subModalContent = document.getElementById('sub-modal-content');
   const subModalButtonsContainer = document.getElementById('sub-modal-buttons-container');
 
-  // Ambil data tombol utama menggunakan indeks
-  const parentButton = currentModalButtonsData[parentButtonIndex];
-  const subButtonsData = parentButton.subButtons; // Dapatkan array sub-tombol
-  const parentButtonText = parentButton.text;    // Dapatkan teks untuk judul modal
-
   let subButtonsHtml = '';
-  subButtonsData.forEach(btn => {
-    subButtonsHtml += `
-      <div class="download-block">
-        <a href="${btn.link}" target="_blank" class="download-button">${btn.text}</a>
-        ${btn.note ? `<div class="download-note">${btn.note}</div>` : ''}
-      </div>
-    `;
-  });
+  if (subButtonsData && subButtonsData.length > 0) { // Pastikan subButtonsData ada dan tidak kosong
+    subButtonsData.forEach(btn => {
+      subButtonsHtml += `
+        <div class="download-block">
+          <a href="${btn.link}" target="_blank" class="download-button">${btn.text}</a>
+          ${btn.note ? `<div class="download-note">${btn.note}</div>` : ''}
+        </div>
+      `;
+    });
+  } else {
+      subButtonsHtml = '<p>Tidak ada opsi download tambahan.</p>'; // Pesan jika tidak ada sub-tombol
+  }
 
-  modalTitle.textContent = parentButtonText; // Judul sub-modal disesuaikan dengan teks tombol utama
+  modalTitle.textContent = parentButtonText; // Judul sub-modal menggunakan teks tombol parent
   subModalButtonsContainer.innerHTML = subButtonsHtml;
 
   mainModalContent.style.display = 'none';
   subModalContent.style.display = 'block';
 }
+
 
 function showMainModal() {
   const modalTitle = document.getElementById('modal-title');
@@ -876,15 +995,15 @@ function showMainModal() {
   const subModalContent = document.getElementById('sub-modal-content');
   const modalAdblockNote = document.getElementById('modal-adblock-note');
 
-  // Pulihkan judul modal utama
-  modalTitle.textContent = 'Download Game'; // Atau bisa disimpan dalam variabel jika mode bukan 'download'
+  // Pulihkan judul modal utama berdasarkan currentMainModalMode
+  modalTitle.textContent = currentMainModalMode === 'download' ? 'Download Game' : 'Cara Download';
 
+  // Pastikan konten modal utama ditampilkan kembali
   mainModalContent.style.display = 'block';
   subModalContent.style.display = 'none';
 
   // Pastikan catatan adblock ditampilkan kembali jika mode adalah download
-  // Asumsi selalu mode 'download' saat kembali dari sub-modal download
-  modalAdblockNote.style.display = 'block';
+  modalAdblockNote.style.display = (currentMainModalMode === 'download') ? 'block' : 'none';
 }
 
 // Hanya satu fungsi closeModal yang diperlukan
@@ -894,55 +1013,38 @@ function closeModal() {
     showMainModal(); // Pastikan modal kembali ke tampilan awal jika dibuka lagi
 }
 
+// ... kode JavaScript lainnya ...
+
     function toggleDesc(btn) {
-      // The description text is now the next sibling of the .desc-toggle button
-      const desc = btn.nextElementSibling;
-      const isVisible = desc.style.display === 'block';
-      desc.style.display = isVisible ? 'none' : 'block';
-      btn.textContent = isVisible ? 'Deskripsi ▼' : 'Tutup ▲';
+        const desc = btn.nextElementSibling;
+        const isVisible = desc.style.display === 'block';
+        desc.style.display = isVisible ? 'none' : 'block';
+        btn.textContent = isVisible ? 'Deskripsi ▼' : 'Tutup ▲';
     }
-
-    // Fungsi baru untuk Read More pada "Naruto Senki Simple Mod"
-function toggleReadMore(button) {
-  const descContent = button.closest('.desc-content'); // Dapatkan kontainer desc-content
-  const shortDesc = descContent.querySelector('.desc-short');
-  const fullDesc = descContent.querySelector('.desc-full');
-  const action = button.dataset.action; // Ambil nilai data-action
-
-  if (action === 'read-more') {
-    shortDesc.style.display = 'none';
-    fullDesc.style.display = 'inline'; // Gunakan 'inline' atau 'inline-block' agar tombol 'Close' tetap sejajar
-  } else if (action === 'close') {
-    shortDesc.style.display = 'inline';
-    fullDesc.style.display = 'none';
-  }
-}
-
 
     function checkZoom() {
-      const cards = document.querySelectorAll('.card');
-      cards.forEach(card => {
-        const cardTop = card.offsetTop;
-        const windowBottom = window.scrollY + window.innerHeight;
-        const windowTop = window.scrollY;
-        const cardHeight = card.offsetHeight;
-        const isVisible = (cardTop < windowBottom) && (cardTop + cardHeight > windowTop);
+        const cards = document.querySelectorAll('.card');
+        cards.forEach(card => {
+            const cardTop = card.offsetTop;
+            const windowBottom = window.scrollY + window.innerHeight;
+            const windowTop = window.scrollY;
+            const cardHeight = card.offsetHeight;
+            const isVisible = (cardTop < windowBottom) && (cardTop + cardHeight > windowTop);
 
-        if (isVisible) {
-          card.classList.add('zoom-in');
-        } else {
-          card.classList.remove('zoom-in');
-        }
-      });
+            if (isVisible) {
+                card.classList.add('zoom-in');
+            } else {
+                card.classList.remove('zoom-in');
+            }
+        });
     }
 
+    // Event listeners untuk animasi zoom saat scroll
     window.addEventListener('scroll', checkZoom);
     window.addEventListener('resize', checkZoom);
     window.addEventListener('load', checkZoom);
 
-    // ************************************************
-    // Bagian JavaScript untuk fitur Share dan animasi
-    // ************************************************
+    // --- FUNGSI UNTUK FITUR SHARE DAN ANIMASI HIGHLIGHT ---
     document.addEventListener('DOMContentLoaded', () => {
         const shareButtons = document.querySelectorAll('.share-button-icon');
 
@@ -985,19 +1087,14 @@ function toggleReadMore(button) {
 
             if (targetElement) {
                 targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                // Tambahkan kelas highlight-card untuk mengaktifkan animasi
                 targetElement.classList.add('highlight-card');
-                // Hapus kelas setelah animasi selesai (sesuaikan durasi)
-                // Durasi animasi 1s, jadi kita bisa mengatur timeout untuk 3s agar berkedip 3 kali
                 setTimeout(() => {
                     targetElement.classList.remove('highlight-card');
                 }, 3000); // Hapus highlight setelah 3 detik
             }
         }
     });
-    // ************************************************
-    // Akhir dari JavaScript
-    // ************************************************
+
   </script>
 
   <script type="text/javascript">
@@ -1005,8 +1102,8 @@ function toggleReadMore(button) {
       new google.translate.TranslateElement({pageLanguage: 'id', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
     }
 
-    // Fungsi untuk mengaktifkan/menonaktifkan visibilitas container widget terjemahan
- function toggleTranslateWidget() {
+    // Function to toggle the visibility of the translate widget container
+    function toggleTranslateWidget() {
     const widgetContainer = document.getElementById('translate-widget-container');
     const infoMessage = document.querySelector('.info-message'); // Dapatkan elemen pesan
     if (widgetContainer.style.display === 'none' || widgetContainer.style.display === '') {
@@ -1058,42 +1155,55 @@ function toggleReadMore(button) {
       }
     });
   </script>
+  
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
 
 <script>
-  // Fungsi untuk mengacak array
-  function shuffleArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]];
-    }
-  }
+function toggleReadMore(el) {
+  const card = el.closest('.card');
+  const shortDesc = card.querySelector('.desc-short');
+  const fullDesc = card.querySelector('.desc-full');
+  const buttons = card.querySelector('.buttons');
+  const ytWrapper = card.querySelector('.youtube-wrapper');
 
-  document.addEventListener('DOMContentLoaded', () => {
-    const parent = document.body;
-    const footer = document.querySelector('footer');
-    const allCards = Array.from(document.querySelectorAll('.card'));
+  if (shortDesc.style.display !== 'none') {
 
-    shuffleArray(allCards); // Acak urutannya
-
-    allCards.forEach(card => {
-      parent.insertBefore(card, footer); // Sisipkan ulang sebelum footer
-    });
-  });
-</script>
-
-<script>
-
-function toggleReadMore(element) {
-  const parentCard = element.closest('.card');
-  const shortDesc = parentCard.querySelector('.desc-short');
-  const fullDesc = parentCard.querySelector('.desc-full');
-
-  if (shortDesc.style.display === 'none') {
-    shortDesc.style.display = 'block';
-    fullDesc.style.display = 'none';
-  } else {
+    // Open
     shortDesc.style.display = 'none';
     fullDesc.style.display = 'block';
+    if(buttons) buttons.style.display = 'flex';
+
+    // Init slider
+    const swiperEl = card.querySelector('.mySwiper');
+    if (swiperEl && !swiperEl.classList.contains('swiper-initialized')) {
+      new Swiper(swiperEl, {
+        slidesPerView: "auto",
+        spaceBetween: 10,
+        centeredSlides: true,
+        pagination: {
+          el: card.querySelector('.swiper-pagination'),
+          clickable: true
+        }
+      });
+    }
+
+    // Load YouTube
+    if (ytWrapper && !ytWrapper.querySelector('iframe')) {
+      const videoId = ytWrapper.dataset.youtubeId;
+      ytWrapper.innerHTML =
+        `<iframe src="https://www.youtube.com/embed/${videoId}"
+          allowfullscreen></iframe>`;
+    }
+
+    // Init Fancybox
+    Fancybox.bind("[data-fancybox]", {});
+  } else {
+
+    // Close
+    shortDesc.style.display = 'block';
+    fullDesc.style.display = 'none';
+    if(buttons) buttons.style.display = 'none';
   }
 }
 </script>
