@@ -97,9 +97,22 @@
             text-transform: uppercase;
         }
 
-        .leaderboard-table tr:nth-child(1) td:first-child { color: #f59e0b; font-weight: bold; } /* Juara 1 Gold */
-        .leaderboard-table tr:nth-child(2) td:first-child { color: #cbd5e1; font-weight: bold; } /* Juara 2 Silver */
-        .leaderboard-table tr:nth-child(3) td:first-child { color: #b45309; font-weight: bold; } /* Juara 3 Bronze */
+        .leaderboard-table tr:nth-child(1) td:first-child { color: #f59e0b; font-weight: bold; } 
+        .leaderboard-table tr:nth-child(2) td:first-child { color: #cbd5e1; font-weight: bold; } 
+        .leaderboard-table tr:nth-child(3) td:first-child { color: #b45309; font-weight: bold; } 
+
+        /* Tag Label Prototype */
+        .prototype-tag {
+            text-align: center;
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            color: #475569;
+            text-transform: uppercase;
+            margin-top: 15px;
+            padding-top: 5px;
+            border-top: 1px dashed #334155;
+        }
 
         /* Arena Pertempuran / Status HP */
         .arena {
@@ -114,9 +127,10 @@
             padding: 15px;
             border-radius: 10px;
             background: #334155;
-            transition: all 0.3s ease;
+            transition: border-color 0.3s, box-shadow 0.3s;
             border: 3px solid transparent;
             position: relative;
+            transform-origin: center;
         }
 
         .player-card.active {
@@ -127,16 +141,44 @@
         .p1-card { border-bottom: 5px solid var(--p1-color); }
         .p2-card { border-bottom: 5px solid var(--p2-color); }
 
-        /* Animasi Shake saat terkena hit */
-        .shake {
-            animation: shake 0.4s ease-in-out;
+        /* ================= ANIMASI BARU (ATTACK & HIT) ================= */
+        
+        /* Player 1 Maju Menyerang (Mundur sedikit lalu terjang ke kanan) */
+        .attack-p1 {
+            animation: dash-forward-right 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        @keyframes dash-forward-right {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-15px); } /* Mundur ancang-ancang */
+            50% { transform: translateX(40px) scale(1.05); } /* Terjang maju */
+            100% { transform: translateX(0); }
         }
 
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            20%, 60% { transform: translateX(-10px); }
-            40%, 80% { transform: translateX(10px); }
+        /* Player 2 Maju Menyerang (Mundur sedikit lalu terjang ke kiri) */
+        .attack-p2 {
+            animation: dash-forward-left 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
+        @keyframes dash-forward-left {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(15px); } /* Mundur ancang-ancang */
+            50% { transform: translateX(-40px) scale(1.05); } /* Terjang maju */
+            100% { transform: translateX(0); }
+        }
+
+        /* Efek Terkena Hit (Berputar sedikit lalu bergetar hebat) */
+        .spin-hit {
+            animation: spin-and-shake 0.5s ease-in-out;
+        }
+        @keyframes spin-and-shake {
+            0% { transform: rotate(0deg) translateX(0); }
+            20% { transform: rotate(-8deg) translateX(-5px); } /* Terpelanting muter dikit */
+            40% { transform: rotate(8deg) translateX(5px); }
+            60% { transform: rotate(-4deg) translateX(-8px); } /* Fase bergetar */
+            80% { transform: rotate(4deg) translateX(8px); }
+            90% { transform: rotate(0deg) translateX(-3px); }
+            100% { transform: rotate(0deg) translateX(0); }
+        }
+        /* =============================================================== */
 
         .player-name {
             font-size: 1.2rem;
@@ -344,12 +386,11 @@
 <body>
 
     <header>
-        <h1>Battle Calculus</h1>
-        <p>Turn-Based PvP Mathematics Arena</p>
+        <h1>Battle Of Calculus</h1>
+        <p>Turn-Based PvP Calculus Arena</p>
     </header>
 
     <div class="main-layout">
-        <!-- Game Arena -->
         <div class="game-container">
             <div class="arena">
                 <div class="player-card p1-card active" id="p1-card">
@@ -390,26 +431,25 @@
             </div>
         </div>
 
-        <!-- Leaderboard Samping -->
         <div class="leaderboard-container">
             <div class="leaderboard-title">🏆 Hall of Fame</div>
             <table class="leaderboard-table">
                 <thead>
                     <tr>
                         <th>Pos</th>
-                        <th>Nama Kesatria</th>
+                        <th>Bang Jago</th>
                         <th style="text-align: center;">Wins</th>
                     </tr>
                 </thead>
                 <tbody id="leaderboard-body">
-                    <!-- Data diisi via JavaScript -->
-                </tbody>
+                    </tbody>
             </table>
             <button onclick="resetLeaderboardToFake()" style="margin-top: 15px; background-color: #475569; width: 100%; font-size: 0.9rem; padding: 8px;">Reset ke Default Prototype</button>
+            
+            <div class="prototype-tag">PROTOTYPE</div>
         </div>
     </div>
 
-    <!-- Modal Pemenang Custom dengan Input Nama -->
     <div class="overlay" id="winner-overlay">
         <div class="winner-modal">
             <div class="winner-title" id="winner-name">Player 1 Menang!</div>
@@ -423,9 +463,7 @@
     </div>
 
     <script>
-        // Bank Soal Gabungan: Turunan (d/dx) dan Integral (∫)
         const questionBank = [
-            // --- SOAL TURUNAN ---
             { q: "d/dx (3x²)", a: "6x" },
             { q: "d/dx (5x³)", a: "15x^2" },
             { q: "d/dx (x⁴)", a: "4x^3" },
@@ -435,8 +473,6 @@
             { q: "d/dx (4x² + 3x)", a: "8x+3" },
             { q: "d/dx (-2x³)", a: "-6x^2" },
             { q: "d/dx (x² - 5)", a: "2x" },
-            
-            // --- SOAL INTEGRAL (Jawab tanpa +C) ---
             { q: "∫ (2x) dx", a: "x^2" },
             { q: "∫ (3x²) dx", a: "x^3" },
             { q: "∫ (4) dx", a: "4x" },
@@ -448,7 +484,6 @@
             { q: "∫ (2x + 3) dx", a: "x^2+3x" }
         ];
 
-        // List Anggota Fake Leaderboard default untuk keperluan demo prototype
         const defaultFakeLeaderboard = [
             { name: "Faris (King Kalkulus)", wins: 25 },
             { name: "Zaky", wins: 18 },
@@ -497,17 +532,26 @@
             logContainer.scrollTop = logContainer.scrollHeight;
         }
 
-        function triggerClashAnimation(targetPlayer) {
+        // FUNGSI ANIMASI YANG DIPERBARUI
+        function triggerBattleAnimations(attacker, defender) {
+            // 1. Jalankan animasi pedang tabrakan di tengah
             swordOverlay.style.display = 'flex';
             swordOverlay.classList.add('clash');
 
-            const targetCard = document.getElementById(`p${targetPlayer}-card`);
-            targetCard.classList.add('shake');
+            // 2. Ambil elemen DOM Card Kartu
+            const attackerCard = document.getElementById(`p${attacker}-card`);
+            const defenderCard = document.getElementById(`p${defender}-card`);
 
+            // 3. Pasang class animasi baru
+            attackerCard.classList.add(`attack-p${attacker}`);
+            defenderCard.classList.add('spin-hit');
+
+            // 4. Bersihkan class setelah 500ms agar bisa di-trigger ulang di turn berikutnya
             setTimeout(() => {
                 swordOverlay.classList.remove('clash');
                 swordOverlay.style.display = 'none';
-                targetCard.classList.remove('shake');
+                attackerCard.classList.remove(`attack-p${attacker}`);
+                defenderCard.classList.remove('spin-hit');
             }, 500);
         }
 
@@ -525,12 +569,12 @@
                     p2HP -= damage;
                     if (p2HP < 0) p2HP = 0;
                     addLog(`[⚔️] Player 1 BENAR! Menyerang Player 2 sebesar ${damage} DMG.`);
-                    triggerClashAnimation(2);
+                    triggerBattleAnimations(1, 2); // P1 Serang, P2 Kena Hit
                 } else {
                     p1HP -= damage;
                     if (p1HP < 0) p1HP = 0;
                     addLog(`[⚔️] Player 2 BENAR! Menyerang Player 1 sebesar ${damage} DMG.`);
-                    triggerClashAnimation(1);
+                    triggerBattleAnimations(2, 1); // P2 Serang, P1 Kena Hit
                 }
             } else {
                 addLog(`[❌] Player ${currentTurn} SALAH! Serangan gagal.`);
@@ -567,12 +611,10 @@
             document.getElementById('winner-input-name').focus();
         }
 
-        // --- CORE LEADERBOARD FUNCTIONS WITH FAKE INITIAL DATA ---
         function displayLeaderboard() {
             const leaderboardBody = document.getElementById('leaderboard-body');
             leaderboardBody.innerHTML = "";
             
-            // Ambil dari localStorage, jika kosong otomatis set pakai defaultFakeLeaderboard
             let leaderboardData = localStorage.getItem('battleCalculusLeaderboard');
             if (!leaderboardData) {
                 localStorage.setItem('battleCalculusLeaderboard', JSON.stringify(defaultFakeLeaderboard));
@@ -581,10 +623,8 @@
                 leaderboardData = JSON.parse(leaderboardData);
             }
             
-            // Urutkan berdasarkan kemenangan terbanyak secara descending
             leaderboardData.sort((a, b) => b.wins - a.wins);
             
-            // Tampilkan list peringkat ke tabel HTML
             for (let i = 0; i < leaderboardData.length; i++) {
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
@@ -601,8 +641,6 @@
             const finalName = inputName !== "" ? inputName : "Anonim Kesatria";
             
             let leaderboardData = JSON.parse(localStorage.getItem('battleCalculusLeaderboard')) || defaultFakeLeaderboard;
-            
-            // Jika nama yang dimasukkan sudah ada, akumulasikan kemenangannya
             const playerIndex = leaderboardData.findIndex(player => player.name.toLowerCase() === finalName.toLowerCase());
             
             if (playerIndex > -1) {
@@ -612,7 +650,6 @@
             }
             
             localStorage.setItem('battleCalculusLeaderboard', JSON.stringify(leaderboardData));
-            
             displayLeaderboard();
             resetGame();
         }
@@ -634,7 +671,6 @@
             generateQuestion();
         }
 
-        // Jalankan fungsi inisialisasi
         generateQuestion();
         updateUI();
         displayLeaderboard();
