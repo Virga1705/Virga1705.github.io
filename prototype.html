@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Battle Calculus (PvP Mode)</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --p1-color: #ef4444;
+            --p2-color: #3b82f6;
+            --accent-color: #10b981;
+            --text-color: #f8fafc;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            background: linear-gradient(to right, var(--p1-color), var(--p2-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .main-layout {
+            display: flex;
+            gap: 20px;
+            width: 100%;
+            max-width: 1100px;
+            align-items: flex-start;
+        }
+
+        .game-container {
+            flex: 2;
+            background: #1e293b;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* LEADERBOARD STYLING */
+        .leaderboard-container {
+            flex: 1;
+            background: #1e293b;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
+
+        .leaderboard-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 0;
+            margin-bottom: 15px;
+            color: #f59e0b;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 2px solid #334155;
+            padding-bottom: 10px;
+        }
+
+        .leaderboard-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        .leaderboard-table th, .leaderboard-table td {
+            padding: 10px;
+            border-bottom: 1px solid #334155;
+        }
+
+        .leaderboard-table th {
+            color: #94a3b8;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+
+        .leaderboard-table tr:nth-child(1) td:first-child { color: #f59e0b; font-weight: bold; } /* Juara 1 Gold */
+        .leaderboard-table tr:nth-child(2) td:first-child { color: #cbd5e1; font-weight: bold; } /* Juara 2 Silver */
+        .leaderboard-table tr:nth-child(3) td:first-child { color: #b45309; font-weight: bold; } /* Juara 3 Bronze */
+
+        /* Arena Pertempuran / Status HP */
+        .arena {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            gap: 20px;
+        }
+
+        .player-card {
+            flex: 1;
+            padding: 15px;
+            border-radius: 10px;
+            background: #334155;
+            transition: all 0.3s ease;
+            border: 3px solid transparent;
+            position: relative;
+        }
+
+        .player-card.active {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 15px var(--accent-color);
+        }
+
+        .p1-card { border-bottom: 5px solid var(--p1-color); }
+        .p2-card { border-bottom: 5px solid var(--p2-color); }
+
+        /* Animasi Shake saat terkena hit */
+        .shake {
+            animation: shake 0.4s ease-in-out;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-10px); }
+            40%, 80% { transform: translateX(10px); }
+        }
+
+        .player-name {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .hp-bar-container {
+            background: #475569;
+            height: 20px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .hp-bar {
+            height: 100%;
+            width: 100%;
+            transition: width 0.4s ease;
+        }
+
+        .p1-hp { background-color: var(--p1-color); }
+        .p2-hp { background-color: var(--p2-color); }
+
+        /* Area Pertanyaan */
+        .battle-ground {
+            text-align: center;
+            background: #0f172a;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .turn-indicator {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            color: #94a3b8;
+        }
+
+        .question {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        /* ANIMASI PEDANG BERTABRAKAN (SWORD CLASH) */
+        .sword-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 5;
+        }
+
+        .sword {
+            font-size: 5rem;
+            position: absolute;
+            opacity: 0;
+        }
+
+        .sword-left {
+            left: 10%;
+            transform: rotate(15deg);
+        }
+
+        .sword-right {
+            right: 10%;
+            transform: rotate(-15deg);
+        }
+
+        .clash .sword-left {
+            animation: slash-left 0.5s ease-out forwards;
+        }
+
+        .clash .sword-right {
+            animation: slash-right 0.5s ease-out forwards;
+        }
+
+        @keyframes slash-left {
+            0% { left: 10%; opacity: 0; transform: rotate(15deg) scale(0.8); }
+            50% { left: 42%; opacity: 1; transform: rotate(45deg) scale(1.2); }
+            100% { left: 45%; opacity: 0; transform: rotate(65deg) scale(1); }
+        }
+
+        @keyframes slash-right {
+            0% { right: 10%; opacity: 0; transform: rotate(-15deg) scale(0.8); }
+            50% { right: 42%; opacity: 1; transform: rotate(-45deg) scale(1.2); }
+            100% { right: 45%; opacity: 0; transform: rotate(-65deg) scale(1); }
+        }
+
+        .spark-effect {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 0 30px 15px #f59e0b, 0 0 50px 30px #ef4444;
+            opacity: 0;
+        }
+
+        .clash .spark-effect {
+            animation: flash 0.5s ease-out;
+        }
+
+        @keyframes flash {
+            0% { opacity: 0; transform: scale(0.5); }
+            40% { opacity: 1; transform: scale(1.5); }
+            100% { opacity: 0; transform: scale(0); }
+        }
+
+        /* Kontrol Input & Tombol */
+        .input-area {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        input[type="text"] {
+            padding: 12px;
+            border-radius: 8px;
+            border: 2px solid #475569;
+            background: #1e293b;
+            color: white;
+            font-size: 1.2rem;
+            text-align: center;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: var(--accent-color);
+        }
+
+        button {
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            background-color: var(--accent-color);
+            color: white;
+            transition: background 0.2s;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        .log {
+            margin-top: 20px;
+            padding: 10px;
+            background: #334155;
+            border-radius: 8px;
+            max-height: 100px;
+            overflow-y: auto;
+            font-size: 0.9rem;
+            color: #cbd5e1;
+            text-align: left;
+        }
+
+        /* Pop up Menang */
+        .overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(15, 23, 42, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            display: none;
+        }
+
+        .winner-modal {
+            background: #1e293b;
+            padding: 40px;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 0 30px rgba(255,255,255,0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+
+        .winner-title {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--accent-color);
+        }
+
+        /* Responsif untuk layar kecil */
+        @media (max-width: 768px) {
+            .main-layout {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Battle Calculus</h1>
+        <p>Turn-Based PvP Mathematics Arena</p>
+    </header>
+
+    <div class="main-layout">
+        <!-- Game Arena -->
+        <div class="game-container">
+            <div class="arena">
+                <div class="player-card p1-card active" id="p1-card">
+                    <div class="player-name" style="color: var(--p1-color);">Player 1 (Cavalier)</div>
+                    <div class="hp-bar-container">
+                        <div class="hp-bar p1-hp" id="p1-hp"></div>
+                    </div>
+                    <p>HP: <span id="p1-hp-text">100</span>/100</p>
+                </div>
+                
+                <div class="player-card p2-card" id="p2-card">
+                    <div class="player-name" style="color: var(--p2-color);">Player 2 (Templar)</div>
+                    <div class="hp-bar-container">
+                        <div class="hp-bar p2-hp" id="p2-hp"></div>
+                    </div>
+                    <p>HP: <span id="p2-hp-text">100</span>/100</p>
+                </div>
+            </div>
+
+            <div class="battle-ground" id="battle-ground">
+                <div class="sword-overlay" id="sword-overlay">
+                    <div class="sword sword-left">⚔️</div>
+                    <div class="sword sword-right">⚔️</div>
+                    <div class="spark-effect"></div>
+                </div>
+
+                <div class="turn-indicator" id="turn-text">Giliran: Player 1 (Serang!)</div>
+                <div class="question" id="question-text">d/dx (3x²) = ?</div>
+                
+                <div class="input-area">
+                    <input type="text" id="answer-input" placeholder="Masukkan jawabanmu..." autocomplete="off">
+                    <button onclick="submitAnswer()">SERANG!</button>
+                </div>
+            </div>
+
+            <div class="log" id="battle-log">
+                <div>[Sistem] Game dimulai! Jawab tanpa menuliskan "+ C" pada soal integral (contoh jawaban: 2x, x^3, 4x^2).</div>
+            </div>
+        </div>
+
+        <!-- Leaderboard Samping -->
+        <div class="leaderboard-container">
+            <div class="leaderboard-title">🏆 Hall of Fame</div>
+            <table class="leaderboard-table">
+                <thead>
+                    <tr>
+                        <th>Pos</th>
+                        <th>Nama Kesatria</th>
+                        <th style="text-align: center;">Wins</th>
+                    </tr>
+                </thead>
+                <tbody id="leaderboard-body">
+                    <!-- Data diisi via JavaScript -->
+                </tbody>
+            </table>
+            <button onclick="resetLeaderboardToFake()" style="margin-top: 15px; background-color: #475569; width: 100%; font-size: 0.9rem; padding: 8px;">Reset ke Default Prototype</button>
+        </div>
+    </div>
+
+    <!-- Modal Pemenang Custom dengan Input Nama -->
+    <div class="overlay" id="winner-overlay">
+        <div class="winner-modal">
+            <div class="winner-title" id="winner-name">Player 1 Menang!</div>
+            <p>Kamu telah mendominasi arena kalkulus.</p>
+            <div style="margin: 20px 0; text-align: left;">
+                <label for="winner-input-name" style="font-size: 0.9rem; color: #94a3b8; display: block; margin-bottom: 8px;">Masukkan namamu untuk Leaderboard:</label>
+                <input type="text" id="winner-input-name" placeholder="Nama Kesatria..." style="width: 100%; box-sizing: border-box;">
+            </div>
+            <button onclick="saveToLeaderboard()" style="padding: 10px 30px; width: 100%;">Simpan & Main Lagi</button>
+        </div>
+    </div>
+
+    <script>
+        // Bank Soal Gabungan: Turunan (d/dx) dan Integral (∫)
+        const questionBank = [
+            // --- SOAL TURUNAN ---
+            { q: "d/dx (3x²)", a: "6x" },
+            { q: "d/dx (5x³)", a: "15x^2" },
+            { q: "d/dx (x⁴)", a: "4x^3" },
+            { q: "d/dx (7x)", a: "7" },
+            { q: "d/dx (10)", a: "0" },
+            { q: "d/dx (2x⁵)", a: "10x^4" },
+            { q: "d/dx (4x² + 3x)", a: "8x+3" },
+            { q: "d/dx (-2x³)", a: "-6x^2" },
+            { q: "d/dx (x² - 5)", a: "2x" },
+            
+            // --- SOAL INTEGRAL (Jawab tanpa +C) ---
+            { q: "∫ (2x) dx", a: "x^2" },
+            { q: "∫ (3x²) dx", a: "x^3" },
+            { q: "∫ (4) dx", a: "4x" },
+            { q: "∫ (6x⁵) dx", a: "x^6" },
+            { q: "∫ (4x³) dx", a: "x^4" },
+            { q: "∫ (8x) dx", a: "4x^2" },
+            { q: "∫ (3) dx", a: "3x" },
+            { q: "∫ (12x²) dx", a: "4x^3" },
+            { q: "∫ (2x + 3) dx", a: "x^2+3x" }
+        ];
+
+        // List Anggota Fake Leaderboard default untuk keperluan demo prototype
+        const defaultFakeLeaderboard = [
+            { name: "Faris (King Kalkulus)", wins: 25 },
+            { name: "Zaky", wins: 18 },
+            { name: "Febro", wins: 14 },
+            { name: "Nova", wins: 11 },
+            { name: "Monaresy", wins: 9 }
+        ];
+
+        let p1HP = 100;
+        let p2HP = 100;
+        let currentTurn = 1; 
+        let currentQuestion = {};
+
+        const logContainer = document.getElementById('battle-log');
+        const swordOverlay = document.getElementById('sword-overlay');
+
+        function generateQuestion() {
+            const randomIndex = Math.floor(Math.random() * questionBank.length);
+            currentQuestion = questionBank[randomIndex];
+            document.getElementById('question-text').innerText = `${currentQuestion.q} = ?`;
+        }
+
+        function updateUI() {
+            document.getElementById('p1-hp').style.width = p1HP + '%';
+            document.getElementById('p1-hp-text').innerText = p1HP;
+            document.getElementById('p2-hp').style.width = p2HP + '%';
+            document.getElementById('p2-hp-text').innerText = p2HP;
+
+            if (currentTurn === 1) {
+                document.getElementById('p1-card').classList.add('active');
+                document.getElementById('p2-card').classList.remove('active');
+                document.getElementById('turn-text').innerText = "Giliran: Player 1 (Menyerang)";
+                document.getElementById('turn-text').style.color = "var(--p1-color)";
+            } else {
+                document.getElementById('p2-card').classList.add('active');
+                document.getElementById('p1-card').classList.remove('active');
+                document.getElementById('turn-text').innerText = "Giliran: Player 2 (Menyerang)";
+                document.getElementById('turn-text').style.color = "var(--p2-color)";
+            }
+        }
+
+        function addLog(message) {
+            const newLog = document.createElement('div');
+            newLog.innerText = message;
+            logContainer.appendChild(newLog);
+            logContainer.scrollTop = logContainer.scrollHeight;
+        }
+
+        function triggerClashAnimation(targetPlayer) {
+            swordOverlay.style.display = 'flex';
+            swordOverlay.classList.add('clash');
+
+            const targetCard = document.getElementById(`p${targetPlayer}-card`);
+            targetCard.classList.add('shake');
+
+            setTimeout(() => {
+                swordOverlay.classList.remove('clash');
+                swordOverlay.style.display = 'none';
+                targetCard.classList.remove('shake');
+            }, 500);
+        }
+
+        function submitAnswer() {
+            const inputEl = document.getElementById('answer-input');
+            const userAnswer = inputEl.value.trim().replace(/\s+/g, '').toLowerCase();
+            const correctAnswer = currentQuestion.a.toLowerCase();
+
+            if (userAnswer === "") return;
+
+            const damage = 20; 
+
+            if (userAnswer === correctAnswer) {
+                if (currentTurn === 1) {
+                    p2HP -= damage;
+                    if (p2HP < 0) p2HP = 0;
+                    addLog(`[⚔️] Player 1 BENAR! Menyerang Player 2 sebesar ${damage} DMG.`);
+                    triggerClashAnimation(2);
+                } else {
+                    p1HP -= damage;
+                    if (p1HP < 0) p1HP = 0;
+                    addLog(`[⚔️] Player 2 BENAR! Menyerang Player 1 sebesar ${damage} DMG.`);
+                    triggerClashAnimation(1);
+                }
+            } else {
+                addLog(`[❌] Player ${currentTurn} SALAH! Serangan gagal.`);
+            }
+
+            inputEl.value = "";
+
+            if (p1HP <= 0) {
+                setTimeout(() => endGame("Player 2 (Templar)"), 400);
+                return;
+            } else if (p2HP <= 0) {
+                setTimeout(() => endGame("Player 1 (Cavalier)"), 400);
+                return;
+            }
+
+            currentTurn = currentTurn === 1 ? 2 : 1;
+            
+            setTimeout(() => {
+                updateUI();
+                generateQuestion();
+            }, 400);
+        }
+
+        document.getElementById('answer-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                submitAnswer();
+            }
+        });
+
+        function endGame(winner) {
+            document.getElementById('winner-name').innerText = `${winner} Menang!`;
+            document.getElementById('winner-input-name').value = winner.split(' ')[0] + " " + winner.split(' ')[1]; 
+            document.getElementById('winner-overlay').style.display = 'flex';
+            document.getElementById('winner-input-name').focus();
+        }
+
+        // --- CORE LEADERBOARD FUNCTIONS WITH FAKE INITIAL DATA ---
+        function displayLeaderboard() {
+            const leaderboardBody = document.getElementById('leaderboard-body');
+            leaderboardBody.innerHTML = "";
+            
+            // Ambil dari localStorage, jika kosong otomatis set pakai defaultFakeLeaderboard
+            let leaderboardData = localStorage.getItem('battleCalculusLeaderboard');
+            if (!leaderboardData) {
+                localStorage.setItem('battleCalculusLeaderboard', JSON.stringify(defaultFakeLeaderboard));
+                leaderboardData = defaultFakeLeaderboard;
+            } else {
+                leaderboardData = JSON.parse(leaderboardData);
+            }
+            
+            // Urutkan berdasarkan kemenangan terbanyak secara descending
+            leaderboardData.sort((a, b) => b.wins - a.wins);
+            
+            // Tampilkan list peringkat ke tabel HTML
+            for (let i = 0; i < leaderboardData.length; i++) {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${i + 1}</td>
+                    <td>${leaderboardData[i].name}</td>
+                    <td style="text-align: center; font-weight: bold;">${leaderboardData[i].wins}</td>
+                `;
+                leaderboardBody.appendChild(tr);
+            }
+        }
+
+        function saveToLeaderboard() {
+            const inputName = document.getElementById('winner-input-name').value.trim();
+            const finalName = inputName !== "" ? inputName : "Anonim Kesatria";
+            
+            let leaderboardData = JSON.parse(localStorage.getItem('battleCalculusLeaderboard')) || defaultFakeLeaderboard;
+            
+            // Jika nama yang dimasukkan sudah ada, akumulasikan kemenangannya
+            const playerIndex = leaderboardData.findIndex(player => player.name.toLowerCase() === finalName.toLowerCase());
+            
+            if (playerIndex > -1) {
+                leaderboardData[playerIndex].wins += 1;
+            } else {
+                leaderboardData.push({ name: finalName, wins: 1 });
+            }
+            
+            localStorage.setItem('battleCalculusLeaderboard', JSON.stringify(leaderboardData));
+            
+            displayLeaderboard();
+            resetGame();
+        }
+
+        function resetLeaderboardToFake() {
+            if (confirm("Reset ulang leaderboard ke data default prototype?")) {
+                localStorage.setItem('battleCalculusLeaderboard', JSON.stringify(defaultFakeLeaderboard));
+                displayLeaderboard();
+            }
+        }
+
+        function resetGame() {
+            p1HP = 100;
+            p2HP = 100;
+            currentTurn = 1;
+            document.getElementById('winner-overlay').style.display = 'none';
+            logContainer.innerHTML = "<div>[Sistem] Game di-reset! Pertempuran baru dimulai.</div>";
+            updateUI();
+            generateQuestion();
+        }
+
+        // Jalankan fungsi inisialisasi
+        generateQuestion();
+        updateUI();
+        displayLeaderboard();
+    </script>
+</body>
+</html>
